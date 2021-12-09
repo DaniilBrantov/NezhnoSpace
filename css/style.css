@@ -1,0 +1,27 @@
+/*
+Theme Name: IEE NNGU
+Autor: brantov
+*/
+:root {
+    --white: #ffffff;
+    --black:#000;
+    --pink:#D026CC;
+    --purple:#473A92;
+    --turquoise:#26A7D0;
+}
+body {
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    scroll-behavior: smooth;
+  }
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+  @font-face {
+    font-family: "SF Pro Display"; /* Гарнитура шрифта */
+    src: url(fonts/pompadur.eot); /* Для IE5-8 */
+    src: local(pompadur), url(fonts/pompadur.ttf); /* Для остальных браузеров */
+   }

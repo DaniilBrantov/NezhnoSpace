@@ -1,0 +1,87 @@
+.blog{
+    margin: 40px 0 40px 0;
+    display: flex;
+    justify-content: center;
+}
+.blog_item{
+    height: 400px;
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 0 0 5px;
+    margin-right: 20px;
+}
+.blog_item h4{
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif, sans-serif;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+}
+.blog_item h3{
+    text-align: center;
+}
+.blog_item img{ 
+    height: 211px;
+    width: 250px;
+}
+.blog_item p{
+    margin-bottom: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.blog_item a{
+    position: relative;
+    padding-left: 80px;
+    text-decoration: underline;
+    color: var(--turquoise);
+    font-size: 13px;
+    text-align: center;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+hr {
+    margin: 0;
+}
+.hr2{
+    position: relative;
+    bottom: 5px;
+}
+.go-over {
+    text-decoration: underline;
+    margin-bottom: 50px;
+    text-align: center;
+    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif, sans-serif;
+}
+.go-over a{
+    color: #6e6e6e;
+    font-weight: bold;
+}
+.go-over a:hover{
+    color: black;
+    transition: 0.8s;
+}
+
+@media screen and (max-width: 1000px) {
+    .blog {
+        display: grid;
+        grid-template-columns: 250px 250px;
+        grid-auto-rows: 400px 400px;
+        grid-column-gap: 50px;
+        grid-row-gap: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 550px;
+        padding: 50px 0 50px 0;
+    }
+    .blog_item a{
+        padding-left: 100px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .blog {
+        grid-template-columns: 250px;
+        width: 250px;
+    }
+}

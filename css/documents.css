@@ -1,0 +1,46 @@
+.contract h2{
+margin-top: 100px;
+text-align: center;
+padding: 10px;
+}
+.contract h3{
+    text-align: center;
+    padding: 10px;
+    }
+.data-n-city{
+    text-align: center;
+}
+.right_contract{
+    margin-top: 150px;
+    text-align: right;
+}
+.contract p{
+    color: #454545;
+}
+.contract a{
+    color: #1b1b1b;
+}
+.contract a:hover{
+    color: #000000;
+}
+.contract-end{
+    margin-bottom: 100px;
+}
+
+@media screen and (max-width: 1100px) {
+    .contract p{
+        margin-right: 30px;
+        margin-left: 30px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .contract p {
+        font-size: 13px;
+    }
+    .contract h2 {
+        font-size: 20px;
+    }
+    .contract h3 {
+        font-size: 16px;
+    }
+}

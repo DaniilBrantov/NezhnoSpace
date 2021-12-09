@@ -1,0 +1,32 @@
+
+.banner h1{
+    background: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 220px;
+    padding-top: 80px;
+    margin: 0;
+
+}
+.text-404{
+    text-align: center;
+    font-size: 48px;
+    padding-bottom: 80px;
+}
+.button-404{
+    position: relative;
+    text-decoration: underline;
+    color: #26A7D0;
+    font-size: 28px;
+}
+
+@media screen and (max-width: 900px) {
+    .text-404{
+        font-size: 28px;
+        padding: 20px;
+    }
+    .banner h1{
+        font-size: 120px;
+    }
+}
