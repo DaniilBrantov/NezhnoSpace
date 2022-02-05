@@ -37,6 +37,9 @@
         $_SESSION["user"]=[
             "id"=>$user["id"],
             "name"=>$user["name"],
+            "surname"=>$user["surname"],
+            "sex"=>$user["sex"],
+            "age"=>$user["age"],
             "mail"=>$user["mail"],
         ];
 

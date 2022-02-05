@@ -10,7 +10,69 @@
     <div class="container">
         <h1>Этапы</h1>
 
-<?php $variables= mysqli_query($mysqli,"SELECT * FROM `main_stages` ");
+
+
+        <div class="curriculum_item">
+            <div class="curriculum_number">
+                <h2>1.</h2>
+                <hr>
+            </div>
+            <div class="curriculum_less">
+                <div class="main_less">
+                    <div class="main_less_img">
+                        <a href="first_stage">
+                            <img src="" />
+                        </a>
+                    </div>
+                    <div class="curriculum_content">
+                        <div class="curriculum_text">
+                            <h3>Название</h3>
+                        <p>Описание</p>
+                        </div>
+                        <div class="curriculum_btn">
+                            <a href="first_stage">
+                                <button>
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="individ_less">
+                    <div class="individ_less_img">
+                        <a href="">
+                            <img src="" alt="">
+                        </a>
+                    </div>
+                    <div class="curriculum_content">
+                        <div class="curriculum_text">
+                            <h3>Индивидуальный Контент 1 </h3>
+                        </div>
+                        <div class="curriculum_btn">
+                            <a href="">
+                                <button>
+                                    <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account_btn curriculum_link">
+            <a href="lesson">
+                <button>
+                        <p> Дополнительные материалы </p>
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/account_btn_arrow.svg" alt="">
+                </button>
+            </a>  
+        </div>
+        </div>
+                
+
+
+
+
+<?php $variables= mysqli_query($mysqli,"SELECT * FROM `main_stages`");
         while($var=mysqli_fetch_assoc($variables)){
             $image=base64_encode($var['image']);
             echo '
@@ -81,6 +143,65 @@
 
 
 
+
+
+
+
+
+<div class="curriculum_item_mobile">
+            <div class="curriculum_number_mobile">
+                <p>1.</p>
+                <hr>
+            </div>
+            <div class="slider">
+    
+    <div class="slide" style="background: url(data:image/jpeg;charset=utf-8;base64,'. $image .'); background-size:100%;">
+                            <div class="slide_content">
+                                <div class="slider_text">
+                                    <h4 class="slider_title">Ciao,bella</h4>
+                                    <p>Описание</p>
+                                </div>
+                                <div class="curriculum_btn curriculum_btn_mobile">
+                                    <a href="first_stage">
+                                        <button>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide_content">
+                                <div class="slider_text">
+                                    <h4 class="slider_title">Индивид. Ciao,bella</h4>
+                                </div>
+                                <div class="curriculum_btn curriculum_btn_mobile">
+                                    <a href="#">
+                                        <button>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide_content">
+                                <div class="slider_text">
+                                    <h4 class="slider_title">Дополнительные материалы</h4>
+                                </div>
+                                <div class="curriculum_btn curriculum_btn_mobile">
+                                    <a href="lesson">
+                                        <button>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                
+            </div>
+        </div> 
 
 
 <?php $variables= mysqli_query($mysqli,"SELECT * FROM `main_stages` ");

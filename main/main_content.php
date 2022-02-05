@@ -32,52 +32,6 @@
                 </a>
             </div>
 
-            <script type="text/javascript" src="vanilla-tilt.js"></script>
-            <script type="text/javascript">
-                VanillaTilt.init(document.querySelector(".category-1"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-2"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-3"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-4"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-5"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-6"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".catalog__more"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                </script>
-
             <div class="catalog__item category-3">
                 <a href="cours-ei">
                     <div class="catalog__item-title"></div>

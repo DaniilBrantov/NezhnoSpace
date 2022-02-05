@@ -40,60 +40,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 
 
-<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/vanilla-tilt.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/libs/slick/slick.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/personal_area.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/slider.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/three.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/vanta.net.min.js"></script> 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/main.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script type="text/javascript">
-                VanillaTilt.init(document.querySelector(".category-1"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-2"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-3"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-4"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-5"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".category-6"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                VanillaTilt.init(document.querySelector(".catalog__more"), {
-                    max: 15,
-                    speed: 400,
-                    glare:true,
-                    "max-glare":0.2
-                });
-                
-</script>
 <script>$('.js-menu-toggle').on('click', function() {
     $(this).toggleClass('is-active');
     $('.header__menu').toggleClass('is-open');

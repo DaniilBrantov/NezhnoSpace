@@ -61,7 +61,10 @@
                 <label class="pers_label">Пароль</label>
             </div>
             <button class="auth_btn" id="auth_btn" type="submit">Войти</button>
-            <p class="pers_link">Нет аккаунта? - <a href="/registration">зарегистрируйтесь</a>!</p>
+            <div class="auth_links">
+                <a class="pers_link" href="/registration">Регистрация</a>
+                <a class="pers_link" href="/reset_password">Забыли пароль?</a>
+            </div>
             <p class="auth_msg none">Lorem ipsum dolor sit amet.</p>
         </form>
     </div>

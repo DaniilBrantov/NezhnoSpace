@@ -3,7 +3,11 @@
 
     if($_SESSION["admin"]){
         require_once "connect.php";
+
+
+    
 ?>
+
 
 
 <div class="wrapper_admin">
@@ -55,6 +59,14 @@
                                 <span class="image_btn">Добавить</span>
                             </label>
                         </div>
+                        <div class="add_image">
+                            <p>Аудио</p>
+                            <input class="add_var_item_input" id="audio" type="file" name="audio">
+                            <label id="add_audio_label" for="audio">
+                                <span class="audio_btn">Добавить</span>
+                            </label>
+                        </div>
+                        <p class="check_mp"></p>
                         <div class="admin_btn_group">
                             <button type="submit">Добавить</button>
                         </div>

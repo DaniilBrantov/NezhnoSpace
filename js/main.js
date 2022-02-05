@@ -1,20 +1,3 @@
-VANTA.NET({
-  el: "#topslider",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0x1f6484,
-  backgroundColor: 0x0,
-  points: 8.00,
-  maxDistance: 24.00,
-  spacing: 16.00
-});
-
-
 
   function delete_characters(str, length) {
   
@@ -123,7 +106,7 @@ $('.stage_number input').on('input change paste', function() {
 $('.stage_number').each(function() {
   var numb = $(this),
     controls = numb.find('.number_controls div'),
-    input = numb.find('input'), // инпут    
+    input = numb.find('input'),     
     interval,
     timeout;
   controls.each(function() {
@@ -166,15 +149,15 @@ $('.stage_number').each(function() {
 
   function changeValue(val, type) {
     if (type == 'minus') {
-      if(val <= 1){
-        val= 1;
+      if(val <= 2){
+        val= 2;
       }
       else{
         val = val - 1;
       };
     } else if (type == 'plus') {
-      if(val >99){
-        val = 100;
+      if(val==0){
+        val = val + 2;
       }
       else{
         val = val + 1;
@@ -241,6 +224,30 @@ $(document).ready(function() {
     $(".image_btn").html(f_name.join(", "));
     $("#add_image_label").css('background','rgba(0, 255, 40, 0.19)');
   });
+});
+
+
+$(document).ready(function() {
+
+  $("#audio").change(function() {
+
+    var f_name = [];
+
+    for(var i = 0; i < $(this).get(0).files.length; ++i) {
+
+      f_name.push($(this).get(0).files[i].name);
+    }
+    if(f_name[0].split('').splice(-3).join('')==="mp3"){
+      $(".audio_btn").html(f_name.join(", "));
+      $("#add_audio_label").css('background','rgba(0, 255, 40, 0.19)');
+      $(".check_mp").html("");
+    }
+    else{
+      $(".check_mp").html("Сообщение должно быть в формате 'mp3'").css('color','rgb(216, 41, 57)');
+    }
+
+    
+  });
 
 });
 
@@ -275,3 +282,103 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+// RESET PASSWORD
+
+$(document).ready(function(){
+  "use strict";
+  //регулярное выражение для проверки email
+  var pattern = /^[a-z0-9][a-z0-9\._-]*[a-z0-9]*@([a-z0-9]+([a-z0-9-]*[a-z0-9]+)*\.)+[a-z]+/i;
+  var mail = $('input[name=email]');
+   
+  mail.blur(function(){
+      if(mail.val() != ''){
+          if(mail.val().search(pattern) == 0){
+              $('#valid_email_message').text('');
+              $('input[type=submit]').attr('disabled', false);
+          }else{
+              $('#valid_email_message').text('Не правильный Email');
+              $('input[type=submit]').attr('disabled', true);
+          }
+      }else{
+          $('#valid_email_message').text('Введите Ваш email');
+      }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+// Выбор определённого option через select value
+$(document).ready(function() {
+  $('.change_sex').each(function(index, id) {
+    var theValue = $(this).attr('value');
+    var theID = $(this).attr('id');
+    $('.change_sex#' + theID + ' option[value=' + theValue + ']').attr('selected', true);
+  });
+});
+
+
+
+
+
+
+
+
+// Choice Image
+$(function () {
+  $('.change_img_btn').click(function () {
+    $('.choice_img').addClass('choice_img_active');
+    $('.change_container').addClass('change_blur');
+  });
+  // $('.change_container').click(function () {
+  //   $('.choice_img').removeClass('choice_img_active');
+  //   $('.change_container').removeClass('change_blur');
+  // });
+});
+
+
+$('.choice_img_item > :checkbox').on('change', function() {
+  var checkbox = $(this);
+  var name = checkbox.prop('name');
+  if (checkbox.is(':checked')) {
+    $(':checkbox[name="' + name + '"]').not($(this)).prop({
+      'checked': false,
+      'required': false
+    });
+    
+  }
+});
+
+
+//CHANGE SRC
+$(function () {
+  $('.color_skin_item_black').click(function () {
+    $('.choice_img_item > label > img').each(function(){
+      const imgSrc =$(this).attr('src');
+      const last_imgSrc= imgSrc.slice(-6);
+      if(last_imgSrc !== "_2.png"){
+        $(this).attr('src', $(this).attr('src').replace(/\.png/, '_2.png'));
+      }
+    })
+  });
+  $('.color_skin_item_white').click(function () {
+    $('.choice_img_item > label > img').each(function(){
+      const imgSrc =$(this).attr('src');
+      const last_imgSrc= imgSrc.slice(-6);
+      if(last_imgSrc == "_2.png"){
+        $(this).attr('src', $(this).attr('src').replace(/\_2.png/, '.png'));
+      }
+    })
+  });
+});

@@ -147,19 +147,16 @@
 .auth_btn:hover{
     background-color: rgb(0, 0, 0);
 }
+.auth_links{
+    display: flex;
+    justify-content: center;
+}
 .pers_link{
     color: #9b9b9b;
     font-size: 14px;
     margin: 0;
-    padding: 10px;
-}
-.pers_link a{
-    color: #b6b6b6;
-    font-weight: bold;
-    transition: 0.5s;
-}
-.pers_link a:hover{
-    color: white;
+    padding: 30px;
+    text-decoration: none;
 }
 .auth_msg{
     color: rgb(180, 39, 39);
@@ -256,20 +253,20 @@
     width: 250px;
     margin-top: 20px;
 }
-.profile button{
-    width: 300px;
-    height: 50px;
-    font-size: 16px;
+.profile a{
+    color: #ededed;
+    background: #232323;
+    text-decoration: none;
     border-radius: 15px;
-    border: none;
-    background: #222;
-    color: white;
-    margin-top: 50px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    transition: 0.7s;
+    position: relative;
+    display: block;
+    width: 300px;
+    text-align: center;
+    margin: 30px auto;
+    padding: 10px 0;
+    transition: 0.5s;
 }
-.profile button:hover{
+.profile a:hover{
     background-color: rgb(211, 211, 211);
     color: black;
 }
@@ -1257,8 +1254,681 @@
 
 
 
+/* CHANGE PAGE */
+.change_container{
+    background: #C8C8C8;
+    padding: 200px 0;
+}
+.change{
+    width: 480px;
+    height: 100%;
+    background: #92929245;
+    box-shadow: 10px 10px 10px #0505052e,inset 10px 10px 10px #ffffff4a;
+    margin: auto;
+    padding: 65px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+}
+.change_info{
+    display: flex;
+    background: #232323;
+    color: #e0e0e0;
+    border-radius: 20px;
+    padding: 30px 50px;
+}
+.change_img{
+    background: #C4C4C4;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+.add_change_img{
+    background: #e2e2e2;
+    width: 25px;
+    border-radius: 50%;
+    height: 25px;
+    position: relative;
+    top: 50px;
+    left: 75px;
+}
+.personal_data{
+    margin: 15px 0 15px 30px;
+    width: 100px;
+}
+.change_info_name{
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+.change_info_item{
+    color: #898989;
+    margin-top: 10px;
+}
+.change_data{
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 300px 150px;
+    grid-template-rows: 60px;
+    grid-gap: 20px;
+}
+.change_data_item{
+    position: relative;
+    color: rgb(128, 128, 128);
+    font-size: 12px;
+    width: 100%;
+}
+.change_data_item input{
+    background: #B8C9CE;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    width: 95%;
+    padding-left: 10px;
+    margin-top: 8px;
+}
+.change_sex{
+    background: #B8C9CE;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.change_data_item input[type='number'] {
+    -moz-appearance: textfield;
+}
+.change_data_item input::-webkit-outer-spin-button,
+.change_data_item input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.change_save{
+    background: #232323;
+    color: #e3e3e3;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    margin-top: 50px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 18px;
+}
+.choice_img{
+    display: none;
+    position: fixed;
+    background: #e9e9e9;
+    padding: 4%;
+    margin: 130px 30%;
+    width: 32%;
+    z-index: 2;
+    height: 60%;
+    border-radius: 40px;
+}
+.choice_img_active{
+    display: block;
+}
+.change_img_btn{
+    width: 20px;
+    height: 20px;
+    background: #e1e1e1;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    top: 70px;
+    left: 70px;
+}
+.change_img_btn img{
+    width: 20px;
+}
+.change_blur{
+    background: #000000cf;
+    filter: blur(3px);
+}
+.choice_img h2{
+    font-size: 36px;
+}
+.choice_img_grid{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-bottom: 20px;
+}
+.choice_img_flex{
+    display: flex;
+}
+.choice_img_item input{
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.choice_img_btn {
+    text-align: center;
+}
+.choice_img_btn button{
+    background: #232323;
+    color: whitesmoke;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    height: 40px;
+    width: 80%;
+    border-radius: 10px;
+}
+.choice_img_avatar{
+    cursor: pointer;
+    width: 100%;
+}
+.choice_img_item input:checked + label img {
+    background: gainsboro;
+    border-radius: 100px;
+}
+.color_skin_item{
+    width: 50px;
+    height: 50px;
+    background: #ffdac2;
+    border-radius: 15px;
+    margin: 10px;
+}
+.color_skin_item_black{
+    background: #6b3c23;
+}
+.your_color_skin{
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+.color_skin{
+    margin-left: 20px;
+    display: flex;
+}
 
 
+
+/* FIRST STAGE */
+.wrapper_stage_video{
+    background: #141414;
+    padding: 80px 0 50px 0;
+    text-align: center;
+}
+.wrapper_stage_video h1{
+    font-size: 52px;
+    color: #EDEDED;
+    animation-duration: 1s;
+    animation-name: sash;
+}
+.wrapper_stage_video h2{
+    font-size: 48px;
+    color: whitesmoke;
+}
+.wrapper_stage_video hr{
+    width: 300px;
+    margin: auto;
+    color: white;
+}
+.stage_youtube{
+    margin: 70px 0;
+}
+.stage_youtube iframe{
+    border-radius: 30px;
+    animation-duration: 3s;
+    animation-name: VideoFirstStage;
+}
+.wrapper_recognized_yourself{
+    background-color: #E4E4E4;
+    padding: 50px 100px;
+}
+.wrapper_recognized_yourself h2{
+    font-size: 48px;
+}
+.recognized_yourself{
+    display: flex;
+}
+.recognized_yourself_img{
+    padding-top: 200px;
+    height: 500px;
+}
+.recognized_yourself_img img{
+    animation-name: Splash;
+    animation-duration: 4.5s;
+    animation-iteration-count: infinite;
+}
+.recognized_yourself_checkbox_item{
+    margin: 70px 0;
+}
+.recognized_yourself_input[type="checkbox"] {
+    display: none;
+}
+.recognized_yourself_checkbox_item label{
+    padding: 40px 30px;
+    background: #EEEE;
+    border-radius: 15px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+.recognized_yourself_input[type=checkbox] + label span {
+    font-size: 24pt;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 0.25em;
+    margin: 4px 8px 8px 8px;
+    padding: 2px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+    background-color: #D0D0D0;
+}
+.recognized_yourself_input[type=checkbox]:checked + label span {
+    background-image:url("/wp-content/themes/my-theme/images/check_mark.png");
+    background-repeat: no-repeat;
+    background-color: var(--purple);
+    background-size: 20px;
+    background-position: center;
+    transition: .5s;
+}
+.recognized_yourself_input[type=checkbox]:checked + label{
+    background-color: white;
+}
+.wrapper_what_get{
+    background: linear-gradient(to right,#dedede,#c7c7c7);
+    padding: 50px 0;
+    height: 600px;
+}
+.first_stage_container{
+    width: 1282px;
+    margin: auto;
+}
+.first_stage_container h2{
+    font-size: 48px;
+}
+.what_get{
+    opacity: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.free_access{
+    height: 700px;
+}
+.free_access_cnt{
+    position: fixed;
+    left: 0;
+    opacity: 0;
+    top: 200px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 36px;
+    color: #8f8f8f;
+    transition: .5s;
+    right:0;
+    display: none;
+}
+.free_access_cnt span{
+    color: white;
+}
+.wrapper_your_sebor{
+    background: #202020;
+    padding-top: 200px;
+    color: #e5e5e5;
+
+}
+.your_sebor{
+    height: 1000px;
+    left: 0;
+    top: 200px;
+    text-align: center;
+    right: 0;
+    transition: 1s;
+    position: sticky;
+    opacity: 0;
+    display: none;
+}
+.your_sebor_items{
+    display: flex;
+    justify-content: space-between;
+    width: 1030px;
+}
+.your_sebor_item{
+    background: #151515;
+    padding: 50px;
+    border-radius: 30px;
+    width: 400px;
+    color: whitesmoke;
+}
+.your_sebor_item hr{
+    width: 250px;
+    margin: 30px 0;
+}
+.your_sebor_price{
+    text-align: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+.your_sebor_price span{
+    font-weight: lighter;
+    font-size: 16px;
+}
+.your_sebor_btn{
+    text-align: center;
+    margin-top: 40px;
+}
+.your_sebor_btn button{
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(to right,var(--purple),var(--pink),#D83A3A);
+    border-radius: 100px;
+    padding: 15px 130px;
+    font-weight: bold;
+    box-shadow: 0 0 20px var(--pink);
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.your_sebor_txt{
+    font-size: 18px;
+    height: 250px;
+}
+.your_sebor_txt span{
+    font-weight: bold;
+}
+.your_sebor_item h3{
+    font-size: 24px;
+}
+.field_of_movement{
+    position: relative;
+    height: 2000px;
+}
+.your_sebor_title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 36px;
+    color: #e5e5e5;
+}
+.your_sebor_cnt{
+    background: #69696954;
+    border-radius: 40px;
+    text-align: left;
+    padding: 40px;
+    width: 1030px;
+    margin: auto;
+    margin-top: 70px;
+
+}
+.end_your_sebor{
+    height: 1200px;
+}
+.begining_your_sebor, .show_your_sebor{
+    height: 50px;
+}
+.is_visible{
+    opacity: 1;
+    display:block;
+    animation-name: IsVisible;
+    animation-duration: 1s;
+}
+.practice_audio{
+    text-align: left;
+    margin: 0;
+}
+.practice_audio::before {
+    content: "";
+    position: absolute;
+    left: 300px;
+    top: -40px;
+    width: 100px;
+    height: 100px;
+    background: url('../images/first_stage_headphone.png');
+    background-size: 100px 100px;
+}
+.practice_cnt h3{
+    font-size: 36px;
+    color: #585858;
+    margin-top: 100px;
+}
+.practice_cnt span{
+    color: #232323;
+}
+.wrapper_practice{
+    background: whitesmoke;
+    padding: 50px 0;
+    height: 100%;
+}
+.practice_txt ul{
+    list-style-type: none;
+    padding: 0;
+}
+.practice_txt li{
+    display: flex;
+    align-items: center;
+}
+.practice_txt p{
+    font-weight: bold;
+    color: #585858;
+    font-size: 24px;
+}
+.practice_txt span{
+    color: #232323;
+}
+.practice_txt img{
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(to right,#dadada,#b3b3b3);
+    border-radius: 100px;
+    padding: 10px;
+    margin-right: 20px;
+    box-shadow: 5px 5px 10px #9e9e9e;
+
+}
+.practice_flex{
+    display: flex;
+    justify-content: space-between;
+}
+.practice_img img{
+    animation-name: Splash;
+    animation-duration: 4.5s;
+    animation-iteration-count: infinite;
+}
+.practice_img{
+    height: 600px;
+}
+.wrapper_psychology_resistane{
+    background: #212121;
+    color: #8B8B8B;
+    font-weight: bold;
+    font-size: 24px;
+    padding: 50px 0;
+}
+.psychology_resistane{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.psychology_resistane_cnt{
+    width: 650px;
+}
+.psychology_resistane_cnt span{
+    color:whitesmoke;
+}
+.psychology_resistane_cnt a{
+    color: #b6b6b6;
+    transition: .5s;
+}
+.psychology_resistane_cnt a:hover{
+    color: whitesmoke;
+}
+.wrapper_give_u{
+    padding: 50px 0;
+    background: linear-gradient(to right,var(--purple),var(--pink),#D83A3A);
+    color: whitesmoke;
+}
+.give_u{
+    width: 100%;
+    font-size: 36px;
+    text-align: center;
+    margin: 100px auto;
+}
+.wrapper_audio_meditation{
+    background: #e9e9e9;
+}
+.audio_meditation{
+    margin-left: 300px;
+}
+.audio_meditation_txt{
+    margin: 60px 0;
+    color: #5d5d5d;
+    width: 650px;
+}
+.audio_meditation_img{
+    position: relative;
+    top: -150px;
+}
+.section_audio_meditation{
+    margin: 80px auto 0;
+}
+.audio_meditation_cnt{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.audio_meditation_cnt a{
+    background: #d5d5d5;
+    height: 40px;
+    margin-left: 100px;
+    border-radius: 10px;
+    width: 40px;
+}
+.audio_meditation_cnt img{
+    padding: 9px;
+}
+.wrapper_we_are_ready{
+    background: #212121;
+    color: #bcbcbc;
+    font-weight: bold;
+    font-size: 24px;
+}
+.we_are_ready{
+    width: 790px;
+}
+.we_are_ready_txt span{
+    color:#e9e9e9;
+}
+.we_are_ready_btn p{
+    margin: 0;
+}
+.we_are_ready_btn a{
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+    font-size: 18px;
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(to right,var(--purple),var(--pink),#D83A3A);
+    border-radius: 50px;
+    padding: 15px 50px;
+    box-shadow: 0px 0px 50px #D026CCA3;
+}
+.we_are_ready_flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.payment{
+    background: #212121;
+    color: whitesmoke;
+    text-align: center;
+    padding: 100px 20px 200px;
+    height: 75vh;
+}
+.payment_title p{
+    color: #747474;
+    margin: 0;
+    font-size: 13px;
+}
+.payment_title a{
+    color: #acacac;
+}
+.payment_title h4{
+    font-weight: bold;
+    font-size: 24px;
+    color: #9b9b9b;
+    margin: 10px;
+}
+.payment_title h3{
+    font-size: 32px;
+    margin: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes IsVisible{
+    0%{
+        opacity: 0;
+        display:none;
+    }100%{
+        opacity: 1;
+        display:block;
+    }
+}
+@keyframes Splash{
+    0%{
+        padding-top: 0px;
+    }
+    50%{
+        padding-top: 30px;
+    }
+    100%{
+        padding-top: 0px;
+    }
+}
+
+@keyframes VideoFirstStage{
+    0%,50%{
+        margin-top: 100px;
+    }
+    51%{
+        margin-top: 100px;
+    }
+    100%{
+        margin-top: 0;
+    }
+}
+
+@keyframes sash{
+    0%,30%{
+        margin-right: 0px;
+    }
+    31%,50%{
+        margin-right: 20px;
+    }
+    51%,70%{
+        margin-right: 0px;
+    }
+    71%,100%{
+        margin-right: 10px;
+    }
+}
 
 @keyframes showDiv {
     0%, 99% {
@@ -1296,6 +1966,47 @@
     }
     .individ_statistics {
         width: 100%;
+    }
+    .first_stage_container {
+        width: 90%;
+    }
+    .wrapper_recognized_yourself{
+        padding: 50px;
+    }
+    .your_sebor_cnt{
+        width: 500px;
+    }
+    .your_sebor_items {
+        display: block;
+        width: 100%;
+    }
+    .your_sebor_item{
+        margin-top: 20px;
+    }
+    .your_sebor{
+        height: 100%;
+        margin-bottom: 100px;
+    }
+    .psychology_resistane {
+        margin: auto;
+    }
+    .psychology_resistane_cnt {
+        width: 100%;
+    }
+    .audio_meditation{
+        margin: 500px auto 50px;
+        width: 500px;
+    }
+    .audio_meditation_img {
+        float: right;
+    }
+    .section_audio_meditation {
+        margin: 0;
+        width: 100%;
+    }
+    iframe{
+        width: 800px;
+        height: 500px;
     }
 
 }
@@ -1381,6 +2092,49 @@
     .main_stages_item h2 {
         margin-right: 50px;
     }
+    iframe{
+        width: 700px;
+        height: 400px;
+    }
+    .recognized_yourself_checkbox_item{
+        margin: 20px 0;
+    }
+    .recognized_yourself_checkbox_item label{
+        display: block;
+    }
+    .what_get{
+        display: block;
+        text-align: center;
+    }
+    .practice{
+        text-align: center;
+    }
+    .practice_audio{
+        margin: 50px auto;
+    }
+    .psychology_resistane {
+        display: block;
+    }
+    .psychology_resistane_cnt {
+        width: 80%;
+        margin: auto;
+    }
+    .audio_meditation_txt{
+        width: 100%;
+        margin: 20px 0;
+    }
+    .we_are_ready_txt{
+        width: 80%;
+        margin-bottom: 50px;
+    }
+    .we_are_ready {
+        width: 100%;
+        margin: 100px auto;
+    }
+    .practice_flex {
+        justify-content: center;
+    }
+
 }
 
 
@@ -1446,6 +2200,79 @@
         font-size: 18px;
         margin-top: auto;
     }
+    .wrapper_stage_video h1, .first_stage_container h2, .wrapper_stage_video h2,.wrapper_recognized_yourself h2{
+        font-size: 36px;
+    }
+    .give_u,.your_sebor_item h3{
+        font-size: 20px;
+    }
+    .your_sebor_txt {
+        font-size: 16px;
+        color: #c8c8c8;
+    }
+    .your_sebor_item{
+        width: 300px;
+        margin: 20px auto;
+    }
+    .your_sebor_cnt {
+        width: 90%;
+        padding: 30px;
+    }
+    .your_sebor_btn button{
+        padding: 15px 100px;
+    }
+    .wrapper_stage_video hr{
+        width: 100px;
+    }
+    .practice_cnt h3,.free_access_cnt, .your_sebor_title{
+        font-size: 24px;
+    }
+    .audio_meditation_cnt{
+        display: grid;
+        margin: auto;
+        width: 80%;
+    }
+    .audio_meditation_cnt a{
+        margin-left: 40px;
+    }
+    .audio_meditation{
+        width: 90%;
+    }
+    .audio_meditation_txt{
+        margin: 50px 40px;
+        width: 90%;
+    }
+    .practice_audio {
+        margin: 50px auto 20px;
+    }
+    iframe{
+        width: 450px;
+        height: 250px;
+    }
+    .what_get_img img, .practice_img img ,.psychology_resistane_img img,.we_are_ready_img img{
+        width: 100%;
+    }
+    .practice_txt li{
+        width: 80%;
+        margin: auto;
+        text-align: left;
+    }
+    .practice_txt p{
+        font-size: 18px;
+    }
+    .audio_meditation_img{
+        top: -100px;
+    }
+    .psychology_resistane_cnt{
+        width: 90%;
+    }
+    .wrapper_psychology_resistane{
+        font-size: 18px;
+    }
+    .audio_meditation_txt {
+        margin: 50px 10px;
+    }
+
 }
 
 
@@ -1683,5 +2510,54 @@
 }
 .individ_statistics {
     margin-bottom: 60px;
+}
+iframe {
+    width: 80%;
+    height: 200px;
+}
+.audio_meditation_img img{
+    width: 100%;
+}
+.recognized_yourself_img img{
+    width: 80%;
+}
+.wrapper_recognized_yourself {
+    padding: 10px;
+}
+.your_sebor_cnt {
+    width: 100%;
+    padding: 0;
+    background: none;
+}
+.your_sebor_item {
+    width: 260px;
+    padding: 30px;
+}
+.your_sebor_btn button{
+    padding: 15px 90px;
+}
+.your_sebor_txt {
+    font-size: 14px;
+}
+.wrapper_stage_video h1, .first_stage_container h2, .wrapper_stage_video h2,.wrapper_recognized_yourself h2{
+    font-size: 32px;
+}
+.practice_audio::before{
+    display: none;
+}
+.practice_img {
+    height: 350px;
+}
+.audio_meditation{
+    margin: 50px auto;
+}
+.audio_meditation_cnt{
+    position: relative;
+    left: -15px;
+    width: 100%;
+}
+.free_access_cnt{
+    width: 340px;
+    margin: auto;
 }
 }

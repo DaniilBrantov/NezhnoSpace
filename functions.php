@@ -13,7 +13,9 @@ if (function_exists('add_theme_support')){
 }
 
 //Меню
-register_nav_menu( 'mainmenu' , 'Главноooе меню' );
+register_nav_menu( 'mainmenu' , 'Главное меню' );
+
+
 
 
 ?>

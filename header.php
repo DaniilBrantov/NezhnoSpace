@@ -3,9 +3,6 @@
     @ob_start();
     session_start();
 
-/*     if ($_SESSION['admin']) {
-        header('Location: my_account');
-    } */
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -39,9 +36,13 @@
     <link href="<?php echo get_template_directory_uri(); ?>/css/documents.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/single.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/personal_area.css" rel="stylesheet">
+    
 
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/libs/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/libs/slick/slick-theme.css"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+
 
 
     <?php wp_head(); ?>

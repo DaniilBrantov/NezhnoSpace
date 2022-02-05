@@ -17,7 +17,7 @@
     $id= $_POST["id"];
 
     if ($id != "") {
-        mysqli_query($mysqli, "UPDATE `main_stages` SET `less_number` = '$less_number', `title` = '$title', `description` = '$description',`purpose` = '$purpose', `result` = 'result', `theory_txt` = '$content', `audio_txt` = '$audio_txt'  WHERE `main_stages`.`id` = $id ");
+        mysqli_query($mysqli, "UPDATE `main_stages` SET `less_number` = '$less_number', `title` = '$title', `description` = '$description',`purpose` = '$purpose', `result` = '$result', `theory_txt` = '$content', `audio_txt` = '$audio_txt'  WHERE `main_stages`.`id` = $id ");
     header('Location: /admin');
     }
 

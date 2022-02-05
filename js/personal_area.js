@@ -65,15 +65,13 @@ $('.reg_btn').click(function(e){
         var mail= $('input[name="mail"]').val();
         var pass= $('input[name="pass"]').val();
         var nname= $('input[name="nname"]').val();
-        var surname= $('input[name="surname"]').val();
 
         var formData= new FormData();
         formData.append('mail',mail);
         formData.append('pass',pass);
         formData.append('nname',nname);
-        formData.append('surname',surname);
     
-        // //обьект ajax со св-ми ,как было у формы. 
+        // обьект ajax со св-ми ,как было у формы. 
         $.ajax({
             url: 'https://eatintelligent.ru/check/',
             type: 'POST',
@@ -130,6 +128,90 @@ function tgTxt(){
             widthBtn.style= "width:70%;";timeVar = 1;
         }
 }
+
+
+
+
+
+// Плавное появление блока при скролле
+
+$(window).scroll(function() {
+    var sTop = $(this).scrollTop();
+  
+    $('.what_get').each(function(i, el) { 
+      var pTop = $(el).offset().top;
+      var height = $(el).height(); 
+  
+      var top = pTop - sTop + height; 
+      if (top > 0) { 
+        $(el).css({
+          opacity: function() {
+            var elementHeight = $(el).height();
+            return 1 - top / 300 + height / 250;
+          }
+        });
+      }
+    });
+});
+
+
+
+
+
+window.onscroll = function() {
+    let free_access_cnt = document.querySelector(".free_access_cnt");
+
+    if(free_access_cnt){
+        
+        let free_access = window.document.querySelector(".free_access").offsetTop;
+        let begining_your_sebor = window.document.querySelector(".begining_your_sebor").offsetTop;
+        let show_your_sebor = window.document.querySelector(".show_your_sebor").offsetTop;
+        let your_sebor_title = document.querySelector(".your_sebor_title");
+        let your_sebor_cnt = document.querySelector(".your_sebor_cnt");
+        let your_sebor = document.querySelector(".your_sebor");
+        let scrolled = window.pageYOffset;
+        let free_scrolled= scrolled+400;
+
+        if(free_scrolled >= free_access && free_scrolled < begining_your_sebor) {
+            free_access_cnt.classList.add('is_visible');
+        } else {
+            free_access_cnt.classList.remove('is_visible');
+        };
+        if(scrolled-500 > free_access){
+            function ShowYourSebor(){
+                your_sebor.classList.add('is_visible');
+                // function ShowSeborCnt() {
+                //     your_sebor_cnt.classList.add('is_visible');
+                // }
+                // setTimeout(ShowSeborCnt,200);
+            }
+            setTimeout(ShowYourSebor, 100);
+        } else {
+            your_sebor.classList.remove('is_visible');
+            //your_sebor_cnt.classList.remove('is_visible');
+        }
+    }
+};
+
+
+
+//MOBILE FirstStage
+if( window.innerWidth <= 1500 ){
+    $(".audio_meditation_img").prependTo(".section_audio_meditation");
+    $(".recognized_yourself_img").css('padding', '0').prependTo(".recognized_yourself");
+    $(".recognized_yourself").css('display', 'block');
+} else {
+    $(".audio_meditation_img").appendTo(".wrapper_audio_meditation");
+    $(".recognized_yourself_img").css('padding-top', '200px').appendTo(".recognized_yourself");
+} 
+if( window.innerWidth <= 1050 ){
+    $(".practice_img").prependTo(".practice_cnt");
+    $(".we_are_ready_img").prependTo(".we_are_ready");
+} else {
+
+}
+
+
 
 
 

@@ -5,7 +5,8 @@
     }
     require_once "connect.php";
     $less_num =$_GET["id"];
-    $main_stages=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `main_stages` WHERE `less_number` = '$less_num' "));
+    $main_stages=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `main_stages` WHERE `less_number` = '$less_num' ORDER BY id LIMIT 1 "));
+        $image=base64_encode($main_stages['image']);
 ?>  
 <div class="les">
         <div class="les_banner">
@@ -13,8 +14,7 @@
                 <h1><?php  echo $main_stages["title"];  ?></h1>
             </div>
             <hr>
-            <div class="les_banner_img">
-                    <img src="" alt="">
+            <div class="les_banner_img" style="background: url(data:image/jpeg;charset=utf-8;base64,<?php echo  $image; ?>); background-size:100%;">
             </div>
         </div>
     <div class="container">
@@ -62,12 +62,11 @@
             <hr>
             <div class="audio_cont">
                 <audio id="audio" controls preload="none">
-                    <source src="<?php echo get_template_directory_uri(); ?>/audio/coldplay-paradise.mp3" type="audio/mpeg">
-                    <source src="<?php echo get_template_directory_uri(); ?>/audio/coldplay-paradise.mp3" type="audio/ogg">
+                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $main_stages['audio']; ?>" type="audio/mpeg">
+                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $main_stages['audio']; ?>" type="audio/ogg">
                     Ваш Браузер не поддерживает данный формат audio.
                 </audio>
-                <div> 
-                </div>
+            </div>
                 <!-- <div class="audio_play audio_active">
                     <ion-icon class="audio_play_icon" name="play-outline"></ion-icon>
                 </div> -->
@@ -76,7 +75,7 @@
 
             </div>
         </div>
-    <div class="container">
+    <div class="container les">
         <div class="les_hw">
             <h2>Домашнее задание</h2>
             <hr>

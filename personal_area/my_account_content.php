@@ -9,8 +9,8 @@
     <div class="profile_n_statistics">
         <div class="profile">
             <div class="profile_user">
-                <p class="profile_user_name"><?=$_SESSION['user']['name']?></p>
-                <p class="profile_user_year">Возраст: ...</p>
+                <p class="profile_user_name"><?=$_SESSION['user']['surname']?> <?=$_SESSION['user']['name']?></p>
+                <p class="profile_user_year">Возраст: <?=$_SESSION['user']['age']?></p>
             </div>
             <div class="profile_mobile">
                 <div class="profile_img">
@@ -21,10 +21,7 @@
                     <p class="profile_user_year">Возраст: ...</p>
                 </div>
             </div>
-                <button>
-                    Редактировать
-                </button> <br>
-                <a class="account_exit" href="exit">Выйти</a>
+                <a href="change">Редактировать</a> 
         </div>
         <div class="statistics">
             <h2>Статистика</h2>
