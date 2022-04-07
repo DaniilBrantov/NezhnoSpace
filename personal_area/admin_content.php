@@ -52,6 +52,14 @@
                             <input class="add_var_item_input" type="text" name="audio_txt" required>
                             <label class="add_var_item_label">Аудио описание</label>
                         </div>
+                        <div class="add_var_item">
+                            <input class="add_var_item_input" type="text" name="second_audio_txt" required>
+                            <label class="add_var_item_label">Второе аудио описание</label>
+                        </div>
+                        <div class="add_var_item">
+                            <input class="add_var_item_input" type="text" name="video" required>
+                            <label class="add_var_item_label">Ссылка на видео</label>
+                        </div>
                         <div class="add_image">
                             <p>Изображение</p>
                             <input class="add_var_item_input" id="image" type="file" name="image">
@@ -63,7 +71,14 @@
                             <p>Аудио</p>
                             <input class="add_var_item_input" id="audio" type="file" name="audio">
                             <label id="add_audio_label" for="audio">
-                                <span class="audio_btn">Добавить</span>
+                                <span id="audio_btn" class="audio_btn">Добавить</span>
+                            </label>
+                        </div>
+                        <div class="add_image">
+                            <p>Ещё Аудио</p>
+                            <input class="add_var_item_input" id="second_audio" type="file" name="second_audio">
+                            <label id="second_audio_label" for="second_audio">
+                                <span id="second_audio_btn" class="audio_btn">Добавить</span>
                             </label>
                         </div>
                         <p class="check_mp"></p>

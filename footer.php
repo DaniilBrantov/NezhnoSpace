@@ -54,6 +54,10 @@
 }); 
 </script>
 <script>
+    if(document.querySelector('.main_less_link')){
+        OpenPayLess(order);
+    };
+
 const anchors=document.querySelectorAll('a[href*="#"]')
 for(let anchor of anchors){
 anchor.addEventListener("click",function(e){

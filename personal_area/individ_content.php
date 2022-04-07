@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!$_SESSION['user']) {
+    if (!$_SESSION['user'] && $_SESSION['user']['payment']!==2) {
         header('Location: auth');
     }
     require_once 'connect.php';
@@ -9,6 +9,9 @@
     $indiv_cnt_users=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `users_individ_content` WHERE `less_number` = '$less_num' AND `id_users` = '$session_id' "));
     $id_indiv_cnt=$indiv_cnt_users["id_individ_content"];
     $individual_content=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `individ_content` WHERE `id` = '$id_indiv_cnt' "));
+    if($individual_content["title"] ==""){
+        header('Location: uchebnaya-programma');
+    }
 ?>  
 <div class="les">
         <div class="les_banner">

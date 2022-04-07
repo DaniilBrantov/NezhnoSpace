@@ -25,8 +25,7 @@ position: relative;
     color: #848484;
 }
 .cours-text{
-    padding-left: 100px;
-    padding-top: 60px;
+    padding: 60px 100px;
     color: white;
 }
 .cours-text p{
@@ -61,14 +60,29 @@ position: relative;
     top: 50px;
     cursor: pointer;
 }
+.subscr-btn{
+    background-color: #171717;
+    border: solid rgb(221, 221, 221) 1px;
+    border-radius: 50px;
+    width: 200px;
+    height: 50px;
+    color: rgb(223, 223, 223);
+    position: relative;
+    top: 50px;
+    cursor: pointer;
+}
+.subscr-btn:hover{
+  color: #ffffff;
+  border: #ffffff solid 1px;
+  background-color: #0e0e0e;
+}
 .course-btn:hover {
     color: #535353;
     border: #535353 solid 1px;
 }
 .wrapper-base h2{
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 50px;
+    margin: 0 20px 50px;
     color:white;
 }
 .base{
@@ -92,8 +106,7 @@ box-shadow: black 0 0 20px 10px;
 color: white;
 }
 .base-item_content{
-    padding-top: 50px;
-    padding-left: 50px;
+    padding: 40px;
 }
 .base-item p {
     padding: 0 20px 0 0;
@@ -130,26 +143,18 @@ color: white;
 }
 .cours-forwho_item:hover{
     box-shadow: #473A92 0 0 20px 5px;
-    transition: box-shadow 0.7s ease-in;
+    transition: box-shadow 0.5s ease-in;
 }
 .cours-forwho_item:hover .you{
     display: none;
 }
 .cours-forwho_item:hover .cours-forwho_text{
     display: block;
-    animation: showDiv 1.5s forwards;
+    animation: showDiv .3s forwards;
 
 }
 @keyframes showDiv {
-    0%,10%{opacity: 0;}
-    11%,20%{opacity: 0;}
-    21%,30%{opacity: .1;}
-    31%,40%{opacity: .2;}
-    41%,50%{opacity: .3;}
-    51%,60%{opacity: .5;}
-    61%,70%{opacity: .6;}
-    71%,80%{opacity: .8;}
-    81%,99%{opacity: .9;}
+    0%{opacity: 0;}
     100%{opacity: 1;}
 }
 
@@ -600,6 +605,7 @@ padding: 50px;
     }
     .base-item {
         width: 450px;
+        height: 100%;
     }
     .cours-forwho {
         width: 700px;
@@ -684,6 +690,10 @@ padding: 50px;
     .rates-btn {
         margin: 18px 60px;
     }
+    .base-item img{
+      width: 100%;
+      height: 100%;
+    }
     
 }
 @media screen and (max-width: 1000px) {
@@ -696,13 +706,12 @@ padding: 50px;
     }
     .cours-content {
         width: 380px;
-        height: 200px;
+        height: 250px;
         right: 200px;
         top: 10px;
     }
     .cours-text {
-        padding-left: 30px;
-        padding-top: 10px;
+        padding: 10px 30px;
     }
     .cours-video {
         width: 500px;
@@ -713,15 +722,6 @@ padding: 50px;
     .base {
         grid-template-columns: 450px;
         width: 450px;
-    }
-    .base-item:nth-child(2) {
-        display: none;
-    }
-    .base-item:nth-child(3) {
-        display: none;
-    }
-    .base-item:nth-child(6) {
-        display: none;
     }
     .wrapper-reviews img {
         width: 60%;
@@ -871,8 +871,16 @@ div.sim-slider-arrow-right {
   .cours-forwho_text{
     display: block;
 }
-
-
+  .cours-forwho_item:hover .cours-forwho_text{
+    display: block;
+    animation: none;
+  }
+  .you{
+    font-weight: bold;
+  }
+  .cours-forwho_item:hover .you{
+    display: block;
+  }
 }
 @media screen and (max-width: 700px) {
     .wrapper-cours img {
@@ -888,7 +896,7 @@ div.sim-slider-arrow-right {
 .cours-content {
     right: 0;
     width: 320px;
-    height: 220px;
+    height: 100%;
 }
 .cours-forwho {
   width: 320px;
@@ -1057,9 +1065,6 @@ span.sim-dot {
 .base-item {
   width: 320px;
   height: 100%;
-}
-.base-item_content {
-  padding-top: 0;
 }
 div.sim-slider-arrow-left {
   left: 5%;

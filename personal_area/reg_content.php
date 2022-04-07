@@ -66,8 +66,12 @@
                     <a class="password_control"></a>
                     <label class="pers_label">Пароль</label>
                 </div>
-                <button  class="reg_btn" type="submit">Зарегистрироваться</button>
-                <p class="pers_link">У вас уже есть аккаунт? - <a href="/auth">авторизируйтесь</a>!</p>
+                <div class="reg_checkbox">
+                    <input value="reg_checkbox" type="checkbox" class="reg_checkbox_item" id="reg_checkbox">
+                    <label for="reg_checkbox"><a class="reg_check_link" href="contract">Соглашаюсь с условиями публичной оферты</a></label>
+                </div>
+                <button class="reg_btn" type="submit" >Зарегистрироваться</button>
+                <p class="pers_link">У вас уже есть аккаунт? - <a class="pers_link" href="/auth">авторизируйтесь</a></p>
                 <p class="auth_msg none">Lorem ipsum dolor sit amet.</p>
 
             </form>

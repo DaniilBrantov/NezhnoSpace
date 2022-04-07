@@ -24,7 +24,7 @@
             </div>
             <form class="form" action="" method="post">
                     <input type="hidden" name="project_name" value="Eat Intelligent">
-                    <input type="hidden" name="admin_email" value="daniil.brantov04@mail.ru">      eatelligency@gmail.com
+                    <input type="hidden" name="admin_email" value="support@eatintelligent.ru">      eatelligency@gmail.com
                     <input type="hidden" name="form_subject" value="Обратная связь">
 
                     <input class="form__item forms__name" type="text" name="Имя" placeholder="Ваше имя" maxlength=""/>

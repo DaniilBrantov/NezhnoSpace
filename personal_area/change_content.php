@@ -57,29 +57,29 @@
 
     <!-- <p class="close_choice_img">x</p> -->
     <h2>Выберите Свой Аватар</h2>
-    <form action="https://eatintelligent.ru/m" method='post' enctype="multipart/form-data" id="choice_img_grid">
+    <form action="https://eatintelligent.ru/change_check" method='post' id="choice_img_grid">
         <div class="choice_img_flex">
             <div class="choice_img_grid">
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-1" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-1" />
                     <label for="ImgCheckbox-1">
                     <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img5.png" alt="" />
                     </label>
                 </div>
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-2" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-2" />
                     <label for="ImgCheckbox-2">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img6.png" alt="" />
                     </label>
                 </div>
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-3" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-3" />
                     <label for="ImgCheckbox-3">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img7.png" alt="" />
                     </label>
                 </div>
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-4" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-4" />
                     <label for="ImgCheckbox-4">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img8.png" alt="" />
                     </label>
@@ -89,25 +89,25 @@
 
             <div class="choice_img_grid">
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-5" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-5" />
                     <label for="ImgCheckbox-5">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img2.png" alt="" />
                     </label>
                 </div>
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-6" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-6" />
                     <label for="ImgCheckbox-6">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img1.png" alt="" />
                     </label>
                 </div>
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-7" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-7" />
                     <label for="ImgCheckbox-7">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img3.png" alt="" />
                     </label>
                 </div>
                 <div class="choice_img_item">
-                    <input name="check_img" type="checkbox" id="ImgCheckbox-8" />
+                    <input class="check_img" name="check_img" type="radio" id="ImgCheckbox-8" checked/>
                     <label for="ImgCheckbox-8">
                         <img id="choiceImg" class="choice_img_avatar" src="<?php echo get_template_directory_uri(); ?>/images/change_img4.png" alt="" />
                     </label>
@@ -124,7 +124,7 @@
         </div>
         
         <div class="choice_img_btn">
-            <button>Сохранить</button>
+            <input id="avatar_btn" onclick="AvatarUrl()" type="submit" name="avatar_btn" value="Сохранить">
         </div>
         
     </form>
@@ -193,7 +193,7 @@
                             </div>
                             <div class="change_data_item">
                                 <label >Возраст</label>
-                                <input name="change_age" type="number" min="1" max="99" <?=$_SESSION['user']['age']?>>
+                                <input name="change_age" type="number" min="1" max="99" value="<?=$_SESSION['user']['age']?>">
                                 <p class="change_error"></p>
                             </div>
                             <!-- <div class="change_data_item">

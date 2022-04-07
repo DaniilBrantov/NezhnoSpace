@@ -1,10 +1,10 @@
 <?php
     session_start();
     require_once 'wp-content/themes/my-theme/personal_area/connect.php';
+    require_once 'pay_content.php';
     if (!$_SESSION['user']) {
         header('Location: auth');
     }
-    require_once 'pay_content.php';
 ?>
 <div class="wrapper_payment">
     <div class="payment">
@@ -26,8 +26,8 @@
                 console.log('error');
             }
         });
+        
         checkout.render('payment-form');
-
         </script>
     </div>
 </div>

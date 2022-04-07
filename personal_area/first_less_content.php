@@ -17,11 +17,11 @@
 <div class="wrapper_stage_video">
     <div class="stage_video">
         <h1>
-            Ciao, bella!
+            Добро пожаловать на Курс по <br> Психологии Питания и Пищевого Поведения!
         </h1>
         <hr>
         <div class="stage_youtube">
-        <iframe src="https://www.youtube.com/embed/ssH6KgZPdf4" title="Ciao, bella!" width="900" height="600" frameborder="0" allowfullscreen></iframe>
+        <iframe width="900" height="600" src="https://www.youtube.com/embed/Z59ZZtgLmAQ" title="Ciao, bella!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 </div>
@@ -153,7 +153,7 @@
         </h2>
         <hr>
         <div class="stage_youtube">
-        <iframe width="900" height="600" src="https://www.youtube.com/embed/ssH6KgZPdf4" title="Ciao, bella!" frameborder="0" allowfullscreen></iframe>
+            <iframe width="900" height="600" title="Ciao, bella!" frameborder="0" src="https://www.youtube.com/embed/7EhKIrri4lw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 </div>
@@ -282,7 +282,7 @@
                     </p>
                 </div>
                 <div class="we_are_ready_btn">
-                    <a href=""> <p> Пройти </p>
+                    <a href="#questionnaire"> <p> Пройти </p>
                         <img src="<?php echo get_template_directory_uri(); ?>/images/account_btn_arrow.svg" alt="">
                     </a>
                 </div>
@@ -293,3 +293,20 @@
         </div>
     </div>
 </div>
+<div id="questionnaire" class="wrapper_questionnaire">
+    <div class="first_stage_container">
+            <div class="questionnaire">
+                <h2>Голландский опросник</h2>
+                <p class="questionnaire_done">Сделано: 0 / 33</p>
+            <div class="questionTree">
+                <div class="question"></div>
+                <p class="questionnaire_rules none">Никогда (1), Редко (2), Иногда (3), Часто (4) и Очень Часто (5). </p>
+                <div class="questionnaire_buttons"></div>
+            </div>
+            </div>
+    </div>
+</div>
+<form class="none" action="https://eatintelligent.ru/auth-check" method='post' >
+    <input type="hidden" name="answer" id="answer_input">
+    <button class="answer_input_btn" type="submit"></button>
+</form>

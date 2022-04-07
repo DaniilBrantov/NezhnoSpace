@@ -58,47 +58,6 @@ function forYouTxt_3()
 
 
 
-var our_mail ='1';
-$(document).on('click', '#what_questn_technical', function(){
-  $(this).css({
-    'background':'#212121',
-    'color':'#e2e2e2'
-  });
-  $('#what_questn_program').css({
-    'background':'#e2e2e2',
-    'color':'#212121'
-  });
-  our_mail='1';
-
-});
-
-$(document).on('click', '#what_questn_program', function(){
-  $(this).css({
-    'background':'#212121',
-    'color':'#e2e2e2'
-  });
-  $('#what_questn_technical').css({
-    'background':'#e2e2e2',
-    'color':'#212121'
-  });
-  our_mail='2';
-});
-
-$(document).on('click', '.help_btn', function(){
-  our_mail='1';
-  $.ajax({
-    url: 'https://eatintelligent.ru/help_check/',
-    type: 'POST',
-    data: 'our_mail',
-    success: function(data){
-      console.log('Loading...');
-  },
-    error: function(jqxhr, status, errorMsg) {
-      console.log(status, errorMsg);
-  }
-  })
-});
-
 $('.stage_number input').on('input change paste', function() {
   $(this).val(this.value.replace(/[^0-9\-]/, '')); // запрещаем ввод любых символов, кроме цифр и знака минуса
 });
@@ -175,12 +134,6 @@ $('.stage_number').each(function() {
 
 
 
-
-
-
-
-
-
 // Look Password
 $('body').on('mousedown', '.password_control', function(){
 	if ($('#pass').attr('type') == 'password'){
@@ -228,27 +181,39 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-
   $("#audio").change(function() {
-
     var f_name = [];
-
     for(var i = 0; i < $(this).get(0).files.length; ++i) {
-
       f_name.push($(this).get(0).files[i].name);
     }
     if(f_name[0].split('').splice(-3).join('')==="mp3"){
-      $(".audio_btn").html(f_name.join(", "));
+      $("#audio_btn").html(f_name.join(", "));
       $("#add_audio_label").css('background','rgba(0, 255, 40, 0.19)');
       $(".check_mp").html("");
     }
     else{
       $(".check_mp").html("Сообщение должно быть в формате 'mp3'").css('color','rgb(216, 41, 57)');
     }
-
-    
   });
+  
+});
 
+
+$(document).ready(function() {
+  $("#second_audio").change(function() {
+    var s_name = [];
+    for(var i = 0; i < $(this).get(0).files.length; ++i) {
+      s_name.push($(this).get(0).files[i].name);
+    }
+    if(s_name[0].split('').splice(-3).join('')==="mp3"){
+      $(".second_audio_btn").html('s_name');
+      $("#second_audio_label").css('background','rgba(0, 255, 40, 0.19)');
+      $(".check_mp").html("");
+    }
+    else{
+      $(".check_mp").html("Сообщение должно быть в формате 'mp3'").css('color','rgb(216, 41, 57)');
+    }
+  });
 });
 
 
@@ -257,28 +222,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-// AUDIO
-
-// $('body').on('mouseup', '.audio_play', function(){
-// 	if ($(".audio_play").hasClass("play")){
-//     $(this).removeClass('play');
-//     $("#audio").trigger('pause');
-//     $('.audio_play_icon').attr('name', 'play-outline');
-// 	} else {
-// 		$(this).addClass('play');
-//     $("#audio").trigger('play');
-//     $('.audio_play_icon').attr('name', 'pause-outline');
-// 	}
-//   return false;
-// });
-
-// function toggleMuteAudio(){
-//   $("#audio").prop("muted",!$("#audio").prop("muted"));
-// }
 
 
 
@@ -382,3 +325,25 @@ $(function () {
     })
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

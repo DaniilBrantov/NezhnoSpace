@@ -41,6 +41,7 @@
             "sex"=>$user["sex"],
             "age"=>$user["age"],
             "mail"=>$user["mail"],
+            "payment"=>$user["payment"],
         ];
 
         $response= [
@@ -49,9 +50,6 @@
         echo json_encode($response);
 
     }else{
-        // $_SESSION['err_pass']='Не верный логин или пароль';
-        // header('Location: /auth');
-
         $response= [
             "status" => false,
             "message" => 'Не верный логин или пароль'
@@ -59,27 +57,18 @@
 
         echo json_encode($response);
     }
-
-
-
-
-// ob_start();
-
-// $user=$result->fetch_assoc();
-//     if (count($user)== 0) {
-//         echo "пользов не найден!";
-//         exit();
-//     }
-//     print_r($user);
-//     exit(); 
-
-//         $user=$result->fetch_assoc();
-//     if(count($user)==0){
-//         echo "Пользов не найден";
-//         exit();
-//     }
-//     setcookie('user',$user['mail'],time()+3600*48,"/");
-//     $mysqli->close();
+    if($_POST["main"]){
+        $_SESSION["stages"]=[
+        "main"=> $_POST["main"],
+        "individual"=> $_POST["individual"],
+        ];
+    }
+    if($_POST["answer"]){
+        $user_id=$_SESSION["user"]["id"];
+        $route_value= $_POST["answer"];
+        mysqli_query($mysqli,"UPDATE `users` SET `route_value`='$route_value' WHERE `users`.`id` = '$user_id'");
+        header('Location: first-stage-individual');
+    }
 
 ?>
 

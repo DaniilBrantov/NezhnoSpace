@@ -15,6 +15,17 @@ $change_age=$_POST["change_age"];
 $change_sex=$_POST["change_sex"];
 $id=$_SESSION['user']['id'];
 $change_save=$_POST['change_save'];
+$avatar_btn=$_POST["avatar_btn"];
+
+if($_POST['param']) {
+	$param = json_decode($_POST['param']);
+	$row = get_text($param->id);
+	echo json_encode($row);
+	exit();
+}
+
+
+
 
 
 if(isset($change_save)){
@@ -34,6 +45,12 @@ if(isset($change_save)){
     $_SESSION['user']['age']= $change_age;
     $_SESSION['user']['sex']= $change_sex;
     header('Location: /my_account');
+}
+else if(isset($avatar_btn)){
+
+        echo $_POST['post_data'];
+
+
 }
 
 

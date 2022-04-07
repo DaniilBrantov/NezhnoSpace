@@ -1,3 +1,61 @@
+<?php
+
+session_start();
+require_once 'connect.php';
+    if (!$_SESSION['user']) {
+        header('Location: auth');
+    }
+
+if(isset($_POST["help_btn"])){
+
+  $mess= @trim(stripslashes($_POST["help_mess"]));
+  $user_name=@trim(stripslashes($_SESSION["user"]["mail"]));
+
+
+  if( isset( $_POST['what_questn'] ) ){
+      switch( $_POST['what_questn'] ){
+          case '1':
+              $mail=@trim(stripslashes('eatintelligent@yandex.ru'));
+          break;
+          case '2':
+              $mail=@trim(stripslashes('support@eatintelligent.ru'));
+          break;
+      }
+  }
+
+
+
+  $name       =$user_name ;
+  $from       = "eatintelligent@yandex.ru";
+  $subject    ="EatIntelligent Help";
+  $message    ="EatIntelligent \n У {$user_name} возникла загвостка, проблемка, вопрос...   \n \n------------------ \n \nСообщение: {$mess}";
+  $to         = $mail;
+
+  $headers = "MIME-Version: 1.0";
+  $headers .= "Content-type: text/plain; charset=UTF-8";
+  $headers .= "From: {$name} <{$from}>";
+  $headers .= "Reply-To: <{$from}>";
+  $headers .= "Subject: {$subject}";
+  $headers .= "X-Mailer: PHP/".phpversion();
+
+  $success=mail($to, $subject, $message,$headers);
+
+  if (!$success) {
+      $errorMessage = error_get_last()['message'];
+  }
+  else{
+      echo '<div class="help_success">
+              <div class="help_success_cnt">
+                <img src="'. get_template_directory_uri() .'/images/check.svg" alt="">
+                <p>Сообщение успешно отправлено</p>
+              </div>
+            </div>';
+  }
+}
+
+?>
+
+
 <div class="wrapper_help">
     <div class="help_banner">
         <h1>Помощь</h1>
@@ -58,16 +116,19 @@
     </section>
     <div class="what_questn">
         <h2>Какой вопрос вас интересует?</h2>
-        <div class="what_questn_title">
-            <div id="what_questn_technical" class="what_questn_title_item">
-                <h3>Технический</h3>
-            </div>
-            <div id="what_questn_program" class="what_questn_title_item">
-                <h3>По программе</h3>
-            </div>
-        </div>
+        <form action="help" method="post" class="what_questn_form" >
+          <div class="what_questn_title">
+            <input id="what_questn_technical" type="radio" name="what_questn" value="1" checked>
+            <label for="what_questn_technical" class="what_questn_title_item">
+              <h3>Технический</h3>
+            </label>
+            <input id="what_questn_program" type="radio" name="what_questn" value="2">
+            <label for="what_questn_program" class="what_questn_title_item">
+              <h3>По программе</h3>
+            </label>
+          </div>
 
-        <form action="help_check" method="post" class="what_questn_form" >
+        
             <div class="what_questn_content">
                 <div class="what_questn_txt">
                     <input name="help_mess" type="text" class="what_questn_input" required>
@@ -76,9 +137,12 @@
                         <p>Ваш вопрос...</p> </label>
                 </div>
                 <div class="curriculum_btn_mobile help_btn">
-                    <button>
+                  <input name="help_btn" id="help_btn" type="submit">
+                  <label for="help_btn">
+                    <div class="help_button">
                         <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
-                    </button>
+                    </div>
+                  </label>
                 </div>
             </div>
         </form>
@@ -88,11 +152,11 @@
         <div class="support_items">
             <div class="support_item">
                 <h4>Техническая поддержка:</h4>
-                <a href="daniil.brantov04@mail.ru">daniil.brantov04@mail.ru</a>
+                <a href="tech@eatintelligent.ru">tech@eatintelligent.ru</a>
             </div>
             <div class="support_item">
                 <h4>Поддержка по программе:</h4>
-                <a href="eatelligency@gmail.com">eatelligency@gmail.com</a>
+                <a href="support@eatintelligent.ru">support@eatintelligent.ru</a>
             </div>
         </div>
     </div>

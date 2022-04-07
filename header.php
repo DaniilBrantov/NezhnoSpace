@@ -18,9 +18,10 @@
     <link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <meta name="yandex-verification" content="d821d01bf0467793" />
 
     <link href="<?php echo get_template_directory_uri(); ?>/css/hamburgers.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/style.css">
     <link href="<?php echo get_template_directory_uri(); ?>/css/header.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/main_content.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/blog.css" rel="stylesheet">

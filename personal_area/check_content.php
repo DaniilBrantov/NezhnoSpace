@@ -4,10 +4,11 @@
 require_once 'connect.php';
 
     $nname=$_POST['nname'];
-    $surname=$_POST['surname'];
-    $mail=$_POST['mail'];
+    //$surname=$_POST['surname'];
+    $mail=strtolower($_POST['mail']);;
     $pass=$_POST['pass'];
     $pass_conf=$_POST['pass_conf'];
+    $checkbox=$_POST['reg_checkbox'];
 
     $check_user=mysqli_query($mysqli, "SELECT * FROM `users` WHERE `mail` = '$mail'");
     
@@ -25,25 +26,35 @@ require_once 'connect.php';
 
     $error_fields=[];
 
-    if($pass=== ""){
+    if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,25}$/', $pass)) {
+        $error_fields[]= "pass";
+        $msg= "Пароль должен содержать не менее восьми знаков, включать буквы и цифры";
+      }
+
+    if(!$pass){
       $error_fields[]= "pass";
       $msg= "Введите пароль";
-  }
+    }
+    
 
-    if ($mail === "" && !filter_var($mail,FILTER_VALIDATE_EMAIL)){
+    // if ($mail === "" && !filter_var((string) $mail, FILTER_VALIDATE_EMAIL)){
+    //     $error_fields[]= "mail";
+    //     $msg= "E-mail указан не корректно!";
+    // }
+
+    if (isset($mail)) {
+      $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
+      if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
         $error_fields[]= "mail";
         $msg= "E-mail указан не корректно!";
-    }
-
-    if(strlen($surname) < 2){
-        $error_fields[]= "surname";
-        $msg= "Укажите свою фамилию!";
+      }
     }
 
     if (strlen($nname) < 2){
       $error_fields[]= "nname";
       $msg= "Укажите своё имя!";
   }
+
 
 
   if(!empty($error_fields)){
@@ -72,21 +83,26 @@ require_once 'connect.php';
 
 
 
-      $user_name=@trim(stripslashes($_SESSION["user"]["mail"]));
+      $user_name=@trim(stripslashes($mail));
 
-    $name       =$user_name ;
-    $from       = "EatIntelligent";
-    $subject    ="EatIntelligent";
-    $message = "{$user_name}\nЗдравствуйте!\n Вы успешно зарегистрировались на сайте: https://eatintelligent.ru/";
-    $to= "daniil.brantov04@mail.ru" ;
+      $name       =$user_name ;
+      $from       = "EatIntelligent";
+      $subject    ="Регистрация на EatIntelligent";
+      $message    ="Вы Успешно Зарегистрировались на нашем сайте EatIntelligent.";
+      $to         = $user_name;
+    
+      $headers = "MIME-Version: 1.0";
+      $headers .= "Content-type: text/plain; charset=UTF-8";
+      $headers .= "From: {$name} <{$from}>";
+      $headers .= "Reply-To: <{$from}>";
+      $headers .= "Subject: {$subject}";
+      $headers .= "X-Mailer: PHP/".phpversion();
+    
+      $success=mail($to, $subject, $message,$headers);
+    
 
-    $headers = "MIME-Version: 1.0";
-    $headers .= "Content-type: application/javascript;charset=utf-8";
-    $headers .= "From: {$name} <{$from}>";
-    $headers .= "Subject: {$subject}";
-    $headers .= "X-Mailer: PHP/".phpversion();
 
-    mail($to, $subject, $message,$headers);
+    
 
 
       $response=[

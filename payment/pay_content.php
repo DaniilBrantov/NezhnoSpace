@@ -11,14 +11,16 @@
     $order = $_POST["order"];
     $sum = $_POST["sum"];
     $email = $_SESSION['user']['mail'];
+    
 
-    if(!empty($order) && !empty($email)) {
         $description = 'Заказ № '.$order.' E-mail: '.$email;
-        $client = new Client();
+        $client = new \YooKassa\Client();
+        //$client->setAuth('868432', 'live_2N08jIIa9MIMz37wjt0uUBCJyhs-knXVLd5gW2Mh0qk');
         $client->setAuth('869895', 'test_Q7KD27W77DlrRMm2yjcWW08DE8iXYHqSUTiP1-DaZMM');
         $idempotenceKey = uniqid('', true);
         if($order==1){
-            $payment = $client->createPayment(
+            $payment = $client->createPayment
+            (
                 array(
                     'amount' => array(
                         'value' => '300',
@@ -31,16 +33,17 @@
                     'save_payment_method'=> true,
                     'description' => $description,
                     'merchant_customer_id'=> $email,
-                ),
-                $idempotenceKey
+                ), $idempotenceKey
             );
+
+
             $pay_cnt='Оформить подписку на месяц';
             
         }else{
             $payment = $client->createPayment(
                 array(
                     'amount' => array(
-                        'value' => '7000',
+                        'value' => '1',
                         'currency' => 'RUB',
                     ),
                     'confirmation' => array(
@@ -53,9 +56,8 @@
                 $idempotenceKey
             );
             $pay_cnt='Дальше проходить курс';
+            
         };
-        print_r($payment["payment_method"]);
-        } else {
-            header('Location: my_account');
-        }
-            ?>
+        $_SESSION["pay_id"]=$payment["id"];
+
+        ?>
