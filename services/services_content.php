@@ -6,7 +6,7 @@
             </h2>
             <p class="price">Формат: онлайн, видеозвонок в Zoom или Skype <br>
 Длительность: 50 минут <br>
-Стоимость: 3000 рублей</p>
+Стоимость: 10000 рублей</p>
 <div class="tab">
       <input id="tab-one"  type="checkbox" name="tabs">
       <label for="tab-one" class="tab1">Запросы, с которыми я работаю
@@ -62,7 +62,7 @@
             </h2>
             <p class="price">Формат: офлайн, Нижний Новгород, Москва, Санкт-Петербург <br>
             Длительность: 70-90 минут <br>
-            Стоимость: 5000 рублей</p>
+            Стоимость: 15000 рублей</p>
             <div class="tab">
       <input id="tab-three" type="checkbox" name="tabs">
       <label for="tab-three" class="tab3">Запросы, которые можно решить с помощью ТОП
@@ -85,11 +85,11 @@
     <div class="container">
         <div class="service-content">
         <h2 class="consultation-name">
-                Курсы
+                Курс
             </h2>
-            <p class="price">Формат: онлайн, материалы приходят на электронную почту <br>
+            <p class="price">Формат: онлайн на нашем сайте <br>
 Длительность: 6 недель <br>
-Стоимость: от 5000 рублей</p>
+Стоимость: от 7000 рублей</p>
 <div class="tab">
       <input id="tab-four"  type="checkbox" name="tabs">
       <label for="tab-four" class="tab4">БАЗА ГАРМОНИЧНЫХ ОТНОШЕНИЙ С ЕДОЙ, СОБОЙ И МИРОМ
@@ -111,7 +111,7 @@
         <p>Курс приведет к пониманию себя и своего тела через нейросети.</p>
       </div>
     </div>
-            <a href="cours-ei"><button class="button-blue service-button1">Записаться</button></a> <br>
+            <a href="first_stage"><button class="button-blue service-button1">Записаться</button></a> <br>
             <a class="icon-contacts" href="contacts">Контакты</a>
         </div>
     </div>

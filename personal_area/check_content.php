@@ -83,36 +83,75 @@ require_once 'connect.php';
 
 
 
-      $user_name=@trim(stripslashes($mail));
 
-      $name       =$user_name ;
-      $from       = "EatIntelligent";
-      $subject    ="Регистрация на EatIntelligent";
-      $message    ="Вы Успешно Зарегистрировались на нашем сайте EatIntelligent.";
-      $to         = $user_name;
-    
-      $headers = "MIME-Version: 1.0";
-      $headers .= "Content-type: text/plain; charset=UTF-8";
-      $headers .= "From: {$name} <{$from}>";
-      $headers .= "Reply-To: <{$from}>";
-      $headers .= "Subject: {$subject}";
-      $headers .= "X-Mailer: PHP/".phpversion();
-    
-      $success=mail($to, $subject, $message,$headers);
-    
+      $email = new \PHPMailer\PHPMailer\PHPMailer();
+      $email->CharSet = 'utf-8';
+      $email->isSMTP();
+      $email->Host = 'smtp.yandex.ru';
+      $email->SMTPAuth = true;                              
+      $email->Username = 'support@eatintelligent.ru'; 
+      $email->Password = 'Eat123Intelligent123';
+      $email->SMTPSecure = 'ssl';
+      $email->Port = 465; 
+
+      $email->setFrom('support@eatintelligent.ru');
+      $email->addAddress($mail);    
+      $email->isHTML(true);                                 
+
+      $email->Subject = 'Eat Intelligent';
+      $email->Body    =  '
+      
+          <div style="
+          background: #1C1C1C;
+          color: whitesmoke;
+          padding: 30px;
+          margin: 30px;
+          border-radius: 20px;
+          margin: 30px auto;
+          max-width: 500px;"
+          >
+              
+              <h2>
+                  Ты успешно зарегистрировалась на сайте Eat Intelligent.
+              </h2>  
+              <p>Тебе уже доступен первый этап нашего курса по психологии питания и пищевого поведения : </p>
+              <div style="margin: 50px 20px;">
+                  <a href="https://eatintelligent.ru/first_stage" style="
+                      color: whitesmoke;
+                      text-decoration: navajowhite;
+                      padding: 15px 30px;
+                      border: 2px solid whitesmoke;
+                      border-radius: 50px;
+                  ">Первый Этап</a>
+              </div>
+                  
+          </div>
+      ';
+      $email->AltBody = '';
+      if(!$email->send()) {
+        echo 'Error';
+    } else {
+                $response=[
+            "status"=> true,
+            "message"=> "Регистрация прошла успешно!",
+          ];
+
+          echo json_encode($response);
+
+          //$mysqli->close();
+
+    }
 
 
-    
 
 
-      $response=[
-        "status"=> true,
-        "message"=> "Регистрация прошла успешно!",
-      ];
 
-      echo json_encode($response);
 
-      //$mysqli->close();
+
+
+
+
+
 
     } else {
       $response=[

@@ -17,15 +17,15 @@
                 echo '
                     <div class="curriculum_item sub_stage_item">
                             <div class="main_less">
-                                <div class="main_less_img">
+                                <div style="" class="main_less_img">
                                     <a class="main_less_link" href="subscription_lesson?id=' . $var["id"] .'">
-                                        <img src="data:image/jpeg;charset=utf-8;base64,'. $image .'" alt="'. $var["title"].'" />
+                                        <img src="" alt="" />
                                     </a>
                                 </div>
                                 <div class="curriculum_content">
                                     <div class="curriculum_text">
                                         <h3>'. $var["title"].'</h3>
-                                    <p>'. $var["description"].'</p>
+                                    <p></p>
                                     </div>
                                     <div class="curriculum_btn">
                                         <a href="lesson?subscription:id=' . $var["id"] .'">
@@ -48,16 +48,15 @@
 
                 <div class="curriculum_item_mobile">
                     <div class="curriculum_number_mobile">
-                        <p>'.$var["less_number"].'.</p>
+                        <p>'.$var["less_number"].'</p>
                         <hr>
                     </div>
                     <div class="slider">
-
-                <div class="slide" style="background: url(data:image/jpeg;charset=utf-8;base64,'. $image .'); background-size:100%;">
+                <div class="slide" style="background-size:100%;">
                                     <div class="slide_content">
                                         <div class="slider_text">
                                             <h4 class="slider_title">'.$var["title"].'</h4>
-                                            <p>'.$var["description"].'</p>
+                                            <p></p>
                                         </div>
                                         <div  class="curriculum_btn main_stage_link curriculum_btn_mobile">
                                             <a href="lesson?id=' . $var["less_number"] .'">
@@ -109,7 +108,7 @@
                     <div class="curriculum_content">
                         <div class="curriculum_text">
                             <h3>Добро пожаловать на Курс по Психологии Питания и Пищевого Поведения! </h3>
-                        <p>Описание</p>
+                        <p></p>
                         </div>
                         <div class="curriculum_btn">
                             <a href="first_stage">
@@ -128,7 +127,7 @@
                     </div>
                     <div class="curriculum_content">
                         <div class="curriculum_text">
-                            <h3>Индивидуальный Контент 1 </h3>
+                            <h3>Твой первый шаг Индивидуального маршрута. </h3>
                         </div>
                         <div class="curriculum_btn">
                             <a href="first-stage-individual">
@@ -168,7 +167,7 @@
                 <div class="main_less">
                     <div class="main_less_img">
                         <a class="main_less_link" href="lesson?id=' . $var["less_number"] .'">
-                            <img src="data:image/jpeg;charset=utf-8;base64,'. $image .'" alt="'. $var["title"].'" />
+                            <img src="data:image/jpeg;charset=utf-8;base64,'. $image .'" alt="" />
                         </a>
                     </div>
                     <div class="curriculum_content">
@@ -243,7 +242,7 @@
                                 <div class="slider_text">
                                     <h4 class="slider_title">Добро пожаловать на Курс по
 Психологии Питания и Пищевого Поведения! </h4>
-                                    <p>Описание</p>
+                                    <p></p>
                                 </div>
                                 <div class="curriculum_btn first_stage_btn_mobile">
                                     <a href="first_stage">
@@ -257,10 +256,10 @@
                         <div class="slide">
                             <div class="slide_content">
                                 <div class="slider_text">
-                                    <h4 class="slider_title">Индивид. Ciao,bella</h4>
+                                    <h4 class="slider_title">Твой первый шаг Индивидуального маршрута.</h4>
                                 </div>
                                 <div class="curriculum_btn first_stage_btn_mobile">
-                                    <a href="#">
+                                    <a href="first-stage-individual">
                                         <button>
                                         <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
                                         </button>
@@ -299,8 +298,9 @@
                 <hr>
             </div>
             <div class="slider">
+<!-- background: url(data:image/jpeg;charset=utf-8;base64,'. $image .'); -->
     
-    <div class="slide" style="background: url(data:image/jpeg;charset=utf-8;base64,'. $image .'); background-size:100%;">
+    <div class="slide" style="background-size:100%;">
                             <div class="slide_content">
                                 <div class="slider_text">
                                     <h4 class="slider_title">'.$var["title"].'</h4>
@@ -349,7 +349,6 @@
         </div> '        ; };  ?>
     </div>
 </div>
-
 <?php }  ?>
 
 

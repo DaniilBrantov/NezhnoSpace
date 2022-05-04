@@ -14,17 +14,12 @@ $count_price=0;
             <img src="<?php echo get_template_directory_uri(); ?>/images/cours-ei.png" alt="">
         </div>
         <div class="cours-content">
-            <p class="cours-start">старт 
-                <?php $the_query = new WP_Query('p=192'); ?>
-                    <?php while  ($the_query->have_posts() ) : $the_query->the_post(); ?>
-                        <?php the_title(); ?>   
-                    <?php endwhile; ?>
-                    <?php wp_reset_postdata();?>
+            <p class="cours-start">старт 22 апреля 2022 года
             </p>
             <div class="cours-text">
-                <h1>Курс ei</h1>
+                <h1>Курс </h1>
                 <p>
-                    Человеку нужен человек и этот человек - он  сам. Курс приведет к пониманию себя и  своего тела через нейросети.
+                Курс по психологии питания и пещевого поведения
                 </p>
             </div>
         </div>
@@ -75,7 +70,7 @@ $count_price=0;
         </div>
         <h2 class="cours-advertisement">Курс – это путевка в жизнь свободную от постоянной тревоги по поводу и без. </h2>
         <div class="wrapper_cours-btn">
-            <a href="auth"><button class="course-btn" >Записаться</button></a>
+            <a href="first_stage"><button class="course-btn" >Записаться</button></a>
         </div>
     </div>
 </div>
@@ -221,7 +216,7 @@ $count_price=0;
                 <span class='n7'>7</span>
             </div>
 
-            <div class="program-item">
+            <!-- <div class="program-item">
                 
                 <h3> Ресурсы</h3>
                 <h4>Ты получишь:</h4>
@@ -239,7 +234,7 @@ $count_price=0;
                     <p>Ты научишься поддерживать себя в  любой ситуации, когда тебе это  необходимо.</p>
                 </div>
                 <span class='n8'>8</span>
-            </div>
+            </div> -->
 
             <div class="program-item">
                 
@@ -247,15 +242,17 @@ $count_price=0;
                 <h4>Ты узнаешь:</h4>
                 <p>О концепции интуитивного <br> движения. Как удовлетворять <br> физиологическую потребность в <br> движении, даже когда только <br> лишь мысли о фитнесе и спорте <br> вызывают отторжения.</p>
                 <h4>Бонус!</h4>
-                <p>-Расстяжка <br>
-                -Занятие <br>-Тренировка</p>
+                <p>Онлайн занятие с телесно-ориентированным психотерапевтом и специалистом по психосоматике.</p>
                 <div class="program-result">
                     <h4>Результат:</h4>
                     <p>Научишься удовлетворять свою потребность в физической <br> активности комфортно и в кайф, без насилия над собой.</p>
                 </div>
-                <span class='n9'>9</span>
+                <span class='n9'>8</span>
             </div>
     </div>
+    <div class="wrapper_cours-btn">
+            <a href="first_stage"><button class="course-btn" >Записаться</button></a>
+        </div>
 </div>
 </div>
 <!-- <div class="wrapper-rates">

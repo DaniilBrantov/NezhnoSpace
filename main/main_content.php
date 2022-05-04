@@ -1,6 +1,9 @@
 
 <div class="topslider" id="topslider" >
     <div class="container top-content">
+
+
+    
         <h1>Eat Intelligent</h1>
         <h2>Умный проект для понимания себя <br>и своего тела через психологию и нейросети</h2>
     </div>
@@ -51,7 +54,7 @@
             </a>
             </div>
             <div class="catalog__item category-6">
-                <a href="services">
+                <a href="subscription">
                     <div class="secondary_block-2">Кризисы <br> Травмы <br> Отношения <br> Саморазвитие
                     </div>
                 </a>

@@ -114,7 +114,7 @@
         </div>
     
         <?php 
-        $users=mysqli_query($mysqli,"SELECT * FROM `users`");
+        $users=mysqli_query($mysqli,"SELECT * FROM `users` WHERE `payment` = '2'");
         while($person=mysqli_fetch_assoc($users)){
             echo '<div class="individ_cnt_item">
                     <p>' . $person["name"] . '</p>

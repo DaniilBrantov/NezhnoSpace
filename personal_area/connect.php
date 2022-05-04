@@ -41,7 +41,7 @@ $variables= mysqli_query($mysqli,"SELECT * FROM `main_stages` ");
             $indiv_cont=mysqli_query($mysqli,$indiv_cont_query) or die(mysqli_error() .$indiv_cont_query);
             $individ_content= mysqli_fetch_assoc($indiv_cont);
             if ($individ_content["title"]=="") {
-                echo "Индивидуальный контет {$les_number}";
+                echo "{$les_number} шаг Индивидуального Маршрута";
             }else{
                 echo $individ_content["title"];
             }

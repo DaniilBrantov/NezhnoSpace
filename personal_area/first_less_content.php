@@ -74,77 +74,6 @@
         </div>
     </div>
 </div>
-<div class="wrapper_your_sebor">
-    <div class="first_stage_container">
-        <div class="free_access">
-            <div class="free_access_cnt">
-                    <p>
-                        <span>Бесплатный доступ</span>  к первому этапу и <br> индивидуальному маршруту у тебя <br> будет на <span>14 дней</span> .
-                    </p>
-            </div>
-        </div>
-        <div class="begining_your_sebor"></div>
-        <div class="show_your_sebor"></div>
-        <div class="your_sebor">
-            <div class="your_sebor_title">
-                <p>
-                    Дальше у тебя есть выбор:
-                </p>
-            </div>
-            <div class="your_sebor_cnt">
-                <div class="your_sebor_items">
-                    <div class="your_sebor_item">
-                        <div class="your_sebor_item_title">
-                            <h3>Оформить подписку на месяц</h3>
-                        </div>
-                        <hr>
-                        <div class="your_sebor_txt">
-                            <p>
-                            <span>Что ты получишь:</span>  каждый месяц тут будут появляться отдельные материалы: тексты и упражнения по теме нарушений пищевого поведения, а также приглашения на практические сессии с психологами и другими приглашенными специалистами онлайн. Но это не будет методично выстроенный курс, это такая форма поддержки и тестирования, как далеко ты готова зайти. 
-                            </p>
-                        </div>
-                        <div class="your_sebor_price">
-                            <p>300₽ <span>в месяц</span></p>
-                        </div>
-                        <div class="your_sebor_btn">
-                            <form action="https://eatintelligent.ru/payment" method='post'>
-                                <input type="hidden" value="1" name="order">
-                                <input type="hidden" value="300" name="sum">
-                                <button type="submit">Оформить</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="your_sebor_item">
-                        <div class="your_sebor_item_title">
-                            <h3>Дальше проходить курс</h3>
-                        </div>
-                        <hr>
-                        <div class="your_sebor_txt">
-                            <p>
-                            <span>Что ты получишь:</span> 8 основных этапов с теорией и практикой, после выполнения заданий и твоей обратной связи на каждом этапе тебе будет открываться задания индивидуального маршрута. Каждый маршрут уникален и будет создаваться специально под тебя нашей рекомендательной системой. Доступ к курсу будет открыт 8 недель, также тебе будут доступны психологическая и техническая поддержка, все материалы и мероприятия из подписки.
-                            </p>
-                        </div>
-                        <div class="your_sebor_price">
-                            <p>7000₽ </p>
-                        </div>
-                        <div class="your_sebor_btn">
-                            <form action="https://eatintelligent.ru/payment" method='post'>
-                                <input type="hidden" value="2" name="order">
-                                <input type="hidden" value="7000" name="sum">
-                                <button type="submit">Продолжить</button>
-                            </form>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                
-            </div>
-        </div>
-        <div class="end_your_sebor"></div>
-    </div>
-</div>
 <div class="wrapper_stage_video">
     <div class="stage_video">
         <h2>
@@ -163,13 +92,6 @@
             <h2>
                 Практика
             </h2>
-            <div class="audio_cont practice_audio">
-                <audio id="audio" controls preload="none">
-                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $main_stages['audio']; ?>" type="audio/mpeg">
-                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $main_stages['audio']; ?>" type="audio/ogg">
-                    Ваш Браузер не поддерживает данный формат audio.
-                </audio>
-            </div>
             <div class="practice_cnt">
                 <h3>
                     <span>Вот</span>  наша техника безопасности:
@@ -191,7 +113,8 @@
                         <li>
                             <img src="<?php echo get_template_directory_uri(); ?>/images/help_hands_icon.png" alt="">
                             <p>
-                                <span>Ты</span> имеешь право получить помощь - <br>у тебя для этого есть чат с нами
+                            
+                                <span>Ты</span> имеешь право получить помощь в <br>процессе - пиши нам сюда support@eatintelligent.ru
                             </p>
                         </li>
                     </ul>
@@ -212,12 +135,12 @@
             </div>
             <div class="psychology_resistane_cnt">
                 <div class="psychology_resistane_txt">
-                    <p> <span>Сопротивление в психологии никто не отменял</span>  и нет единого тумблера, чтобы его выключить.У тебя есть время походить и переварить материалы, написать за поддержкой.</p>
+                    <p>Сопротивление в психологии никто не отменял  и нет единого тумблера, чтобы его выключить. У тебя есть время походить и переварить материалы, написать за поддержкой.</p>
                 </div>
                 <div class="psychology_resistane_contacts">
-                    <p>Написать на почту: <a href="kl@eatintelligent.ru">kl@eatintelligent.ru </a> <br>
-                        Или в Инстаграм: <a href="https://www.instagram.com/eat.intelligent/">eat.intelligent </a> <br>
-                        с темой : курс ei</p>
+                    <p>Написать на почту: <span>support@eatintelligent.ru</span>   <br>
+                        В Инстаграм: <a href="https://www.instagram.com/eat.intelligent/">eat.intelligent </a> <br>
+                        Во Вконтакте : <a href="https://vk.com/eatintelligent">vk.com/eatintelligent</a></p>
                 </div>
             </div>
         </div>
@@ -238,30 +161,30 @@
             <div class="audio_meditation_cnt">
                 <div class="audio_cont practice_audio">
                     <audio id="audio" controls preload="none">
-                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/coldplay-paradise.mp3" type="audio/mpeg">
-                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/coldplay-paradise.mp3" type="audio/ogg">
+                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/практика1.mp3" type="audio/mpeg">
+                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/практика1.mp3" type="audio/ogg">
                         Ваш Браузер не поддерживает данный формат audio.
                     </audio>
                 </div>
-                <a href="<?php echo get_template_directory_uri(); ?>/personal_area/audio/coldplay-paradise.mp3" download="" title="EatIntelligent_stage_1">
+                <a href="<?php echo get_template_directory_uri(); ?>/personal_area/audio/практика1.mp3" download="" title="EatIntelligent_stage_1">
                     <img src="<?php echo get_template_directory_uri(); ?>/images/download_icon.png" alt="">
                 </a>
             </div>
             
             <div class="audio_meditation_txt">
                 <p>
-                С этими базовыми навыками мы будем идти весь курс, также можно пользоваться магий вне Хогвартса - в обычной жизни. Попробуй прямо сейчас с этой медитацией. Также ты можешь скачать PDF с описанием этих упражнений ниже.
+                С этими базовыми навыками мы будем идти весь курс, также можно пользоваться магий вне Хогвартса - в обычной жизни. Ты можешь скачать PDF с описанием этих упражнений - <a href="<?php echo get_template_directory_uri(); ?>/personal_area/pdf_files/practice_1_stage.pdf" target="_blank" >жми здесь!</a>  Попробуй упражнение прямо сейчас с этой медитацией ниже.
                 </p>
             </div>
             <div class="audio_meditation_cnt">
                 <div class="audio_cont practice_audio">
                     <audio id="audio" controls preload="none">
-                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/coldplay-paradise.mp3" type="audio/mpeg">
-                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/coldplay-paradise.mp3" type="audio/ogg">
+                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/медитация1.mp3" type="audio/mpeg">
+                        <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/медитация1.mp3" type="audio/ogg">
                         Ваш Браузер не поддерживает данный формат audio.
                     </audio>
                 </div>
-                <a href="<?php echo get_template_directory_uri(); ?>/personal_area/audio/coldplay-paradise.mp3" download="" title="EatIntelligent_stage_1">
+                <a href="<?php echo get_template_directory_uri(); ?>/personal_area/audio/медитация1.mp3" download="" title="EatIntelligent_stage_1">
                     <img src="<?php echo get_template_directory_uri(); ?>/images/download_icon.png" alt="">
                 </a>
             </div>
@@ -278,7 +201,10 @@
             <div class="we_are_ready_cnt">
                 <div class="we_are_ready_txt">
                     <p>
-                        <span>А сейчас</span> мы готовы начать погружение и ваши индивидуальные маршруты. Пройди опросник, и мы определим точку А, из которой отправляемся к гармоничным отношениям с едой, телом и собой.
+                        Давай начнем погружение в индивидуальные маршруты.
+                    </p>
+                    <p><span>25 апреля в 19:00</span> мы ждем тебя на онлайн-занятии с основательницей проекта Ксенией Ларькиной, где ты сможешь четко сформулировать свой запрос на работу.</p>
+                    <p>Проходи опросник, и мы определим точку А, из которой отправляемся к гармоничным отношениям с едой, телом и собой.</p>
                     </p>
                 </div>
                 <div class="we_are_ready_btn">
@@ -306,7 +232,9 @@
             </div>
     </div>
 </div>
-<form class="none" action="https://eatintelligent.ru/auth-check" method='post' >
+<form class="none" action="https://eatintelligent.ru/your_type" method='post' >
     <input type="hidden" name="answer" id="answer_input">
+    <input type="hidden" name="user_name" id="user_name">
+    <input type="hidden" name="user_mail" id="user_mail">
     <button class="answer_input_btn" type="submit"></button>
 </form>

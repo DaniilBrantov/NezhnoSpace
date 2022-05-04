@@ -62,17 +62,9 @@
         "main"=> $_POST["main"],
         "individual"=> $_POST["individual"],
         ];
-    }
-    if($_POST["answer"]){
-        $user_id=$_SESSION["user"]["id"];
-        $route_value= $_POST["answer"];
-        mysqli_query($mysqli,"UPDATE `users` SET `route_value`='$route_value' WHERE `users`.`id` = '$user_id'");
-        header('Location: first-stage-individual');
-    }
+    };
+
+
+
 
 ?>
-
-
-
-
-

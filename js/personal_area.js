@@ -1,8 +1,6 @@
 //Авторизация
 
 
-//'$'-выбор эл-та по классу. И при клике выполняем функцию.
-// e или event это как this,указывает на то,с чем работаем.
 $('#auth_btn').click(function(e){
 //отключает стандартное поведение e(кнопки)
     e.preventDefault();
@@ -213,35 +211,35 @@ $(window).scroll(function() {
 
 
 
-window.onscroll = function() {
-    let free_access_cnt = document.querySelector(".free_access_cnt");
+// window.onscroll = function() {
+//     let free_access_cnt = document.querySelector(".free_access_cnt");
 
-    if(free_access_cnt){
+//     if(free_access_cnt){
         
-        let free_access = window.document.querySelector(".free_access").offsetTop;
-        let begining_your_sebor = window.document.querySelector(".begining_your_sebor").offsetTop;
-        let show_your_sebor = window.document.querySelector(".show_your_sebor").offsetTop;
-        let your_sebor_title = document.querySelector(".your_sebor_title");
-        let your_sebor_cnt = document.querySelector(".your_sebor_cnt");
-        let your_sebor = document.querySelector(".your_sebor");
-        let scrolled = window.pageYOffset;
-        let free_scrolled= scrolled+400;
+//         let free_access = window.document.querySelector(".free_access").offsetTop;
+//         let begining_your_sebor = window.document.querySelector(".begining_your_sebor").offsetTop;
+//         let show_your_sebor = window.document.querySelector(".show_your_sebor").offsetTop;
+//         let your_sebor_title = document.querySelector(".your_sebor_title");
+//         let your_sebor_cnt = document.querySelector(".your_sebor_cnt");
+//         let your_sebor = document.querySelector(".your_sebor");
+//         let scrolled = window.pageYOffset;
+//         let free_scrolled= scrolled+400;
 
-        if(free_scrolled >= free_access && free_scrolled < begining_your_sebor) {
-            free_access_cnt.classList.add('is_visible');
-        } else {
-            free_access_cnt.classList.remove('is_visible');
-        };
-        if(scrolled-500 > free_access){
-            function ShowYourSebor(){
-                your_sebor.classList.add('is_visible');
-            }
-            setTimeout(ShowYourSebor, 100);
-        } else {
-            your_sebor.classList.remove('is_visible');
-        }
-    }
-};
+//         if(free_scrolled >= free_access && free_scrolled < begining_your_sebor) {
+//             free_access_cnt.classList.add('is_visible');
+//         } else {
+//             free_access_cnt.classList.remove('is_visible');
+//         };
+//         if(scrolled-500 > free_access){
+//             function ShowYourSebor(){
+//                 your_sebor.classList.add('is_visible');
+//             }
+//             setTimeout(ShowYourSebor, 100);
+//         } else {
+//             your_sebor.classList.remove('is_visible');
+//         }
+//     }
+// };
 
 
 
@@ -379,7 +377,7 @@ var questionTree = function (selector) {
         if (choice && choice != 0) {
             choice_array.push(choice);
         }
-        if(arrayQuestions[nowQuestion].question != "Молодец"){
+        if(arrayQuestions[nowQuestion].question != "Твой аккаунт успешно создан.Проверяй почту,чтобы узнать логин и пароль"){
             printButton();
         }else{
             delButton(select.querySelector(".questionnaire_buttons"));
@@ -463,16 +461,18 @@ var questionTree = function (selector) {
             sum3 += choice_array[i]/10;
         }
         let result;
-        if (sum1 > 2.4 && sum2 > 1.8 && sum3 > 2.7 || sum1 > 2.4 && sum3 > 2.7) {
+        if (sum1 > 2.4 && sum2 > 1.8 && sum3 > 2.7 || sum1 > 2.4 && sum2 > 1.8) {
             result=4;
-        }else if(sum2 > 1.8 && sum3 > 2.7 || sum3 > 2.7 ){
-            result=3;
-        }else if(sum1 > 2.4 && sum2 > 1.8 || sum1 > 2.4){
+        }else if(sum2 > 1.8 && sum3 > 2.7 || sum2 > 1.8 ){
             result=1;
+        }else if(sum1 > 2.4 && sum3 > 2.7 || sum1 > 2.4){
+            result=3;
         }else{
             result=2;
         }
         document.querySelector("#answer_input").value=result;
+        document.querySelector("#user_name").value=name_val;
+        document.querySelector("#user_mail").value=mail_val;
         document.querySelector('.answer_input_btn').click();
     }
 };
@@ -513,10 +513,12 @@ if(document.querySelector(".questionTree")){
     question.addQuestion("31. Можете ли вы остановиться, если едите что либо вкусное?");
     question.addQuestion("32. Едите ли вы больше чем обычно в компании (когда едят другие)? ");
     question.addQuestion("33. Когда вы готовите пищу, часто ли вы её пробуете?");
-    question.addQuestion("Молодец");
+    question.addQuestion("Твой аккаунт успешно создан.Проверяй почту,чтобы узнать логин и пароль");
 
     question.startQuestions();
 }
+
+
 
 
 
@@ -580,11 +582,9 @@ function OpenStage(open_stage_num,individ_arr){
     }
     const all_main_arr=Array.prototype.slice.call(main_list);
     const main_arr=Array.prototype.slice.call(main_list);
-    main_arr.shift();
     main_arr.splice(0,open_stage_num);
     NoAccessLess(main_arr);
     open_main_arr=all_main_arr.filter(x => !main_arr.includes(x));
-
     const individ_id=individ_arr.filter(function(item, pos) {
         return individ_arr.indexOf(item) == pos;
     });
@@ -613,10 +613,6 @@ function MainIndivStage() {
 }
 
 
-
-
-
-
     $('.reg_btn').prop('disabled', true);
 $(".reg_checkbox_item").bind('change', function() {
     if ( $(this).is(':checked') ) {
@@ -627,5 +623,239 @@ $(".reg_checkbox_item").bind('change', function() {
     }
 });
     
+
+
+
+
+
+if(document.querySelector(".les_hw")) {
+    var doSomething = function(err, values) {
+        function Repeats(){
+            for (var b = 0; b < err.length; b++)
+            if (err[b] !== false) return !1;
+            return !0
+        }
+        if(Repeats()){
+            val=values.join('^');
+            $('#survey_value').val(val);
+            $('#survey_btn').click();
+        };
+
+    };
+    var url = window.location.href;
+    var id = url.substring(url.lastIndexOf('id=') + 3);
+    
+    var schema = {
+        options: {
+        hideNotReq: true
+        },
+        title: {
+        label: 'Тест', className: 'survey_title'
+        },
+        submitButton: {
+        label: 'Отправить', className: 'classic_btn', type: 'submit'
+        },
+        onSubmit: doSomething,
+    };
+    if(id==2){
+        schema.body=[
+            {label: 'Опиши кратко свою стратегию здесь, пожалуйста: ', tag: 'textarea'},
+            {label: 'С чем в большей степени связана твоя стратегия?', tag: 'radio', data : [ 
+                {'value': '1', 'label': 'с определенными мыслями'},
+                {'value': '2', 'label': 'с чувствами или эмоциональными состояниями'},
+                {'value': '3', 'label': 'с внешними ситуациями или событиями'}
+            ]}
+        ]
+    }if(id==3){
+        schema.body=[
+            {label: 'Выдели свои вторичные выгоды. Что хорошее делает для тебя нарушение пищевого поведения?', tag: 'checkbox', data : [ 
+                {'value': '1', 'label': '«дает разрешение» уйти от неприятной ситуации или от решения сложной проблемы'},
+                {'value': '2', 'label': 'предоставляет возможность получить заботу, любовь, внимание окружающих'},
+                {'value': '3', 'label': 'отпадает необходимость соответствовать тем высочайшим требованиям, которые предъявля­ют к вам окружающие и вы сами'}
+            ]},
+            {label: 'Какого элемента оптимальной родительской позиции тебе не хватало больше всего?', tag: 'radio', data : [ 
+                {'value': '1', 'label': 'адекватность'},
+                {'value': '2', 'label': 'гибкость'},
+                {'value': '3', 'label': 'прогностичность'}
+            ]},
+            {label: 'Какой стиль воспитания больше всего ты ощущал?', tag: 'radio', data : [ 
+                {'value': '1', 'label': 'авторитарный'},
+                {'value': '2', 'label': 'демократический'},
+                {'value': '3', 'label': 'попустительский'},
+                {'value': '4', 'label': 'хаотический'},
+                {'value': '5', 'label': 'опекающий'}
+            ]}
+        ]
+    }if(id==4){
+        schema.body=[
+            {label: 'Опиши идеал в форме и весе тела. Что оказало влияние на его формирование? Как он до сих пор поддерживается?', tag: 'textarea'},
+            {label: 'Выпиши, пожалуйста, хотя бы 3 своих самых задевающих триггера, которые напоминают тебе о весе или необходимости контролировать себя с едой.', tag: 'textarea'},
+            {label: 'В виде какого образа представляется та часть, которая стыдит? Чьим голосом она говорит?', tag: 'radio', data : [ 
+                {'value': '1', 'label': 'мама/папа'},
+                {'value': '2', 'label': 'родственник: бабушка, тетя, двоюродный племянник троюродного деверя'},
+                {'value': '3', 'label': 'друг/коллега/одноклассник/одногруппник'},
+                {'value': '4', 'label': 'кто-то обладающий авторитетом: тренер, учитель, начальник'},
+                {'value': '5', 'label': 'левый прохожий/селебрити/незнакомый образ'},
+                {'value': '6', 'label': 'ты'}
+            ]}
+        ]
+    }if(id==5){
+        schema.body=[
+            {label: 'У тебя есть в опыте физическое/ сексуальное/ эмоциональное насилие/ буллинг', tag: 'checkbox', data : [ 
+                {'value': '1', 'label': 'да'},
+            ]},
+            {label: 'Если ты хочешь поделиться с нами своим рассказом из упражнения “Офрендас”, напиши его здесь, пожалуйста:', tag: 'textarea'},
+            {label: 'На каком уровне по пирамиде Дилтса лежит решение твоей проблемы?', tag: 'radio', data : [ 
+                {'value': '1', 'label': 'поведение'},
+                {'value': '2', 'label': 'навыки'},
+                {'value': '3', 'label': 'ценности'},
+                {'value': '4', 'label': 'идентичность'},
+                {'value': '5', 'label': 'миссия'}
+            ]},
+        ]
+    }if(id==6){
+        schema.body=[
+            {label: 'Отметь чувства, которые ты испытываешь из-за процесса легализации:', tag: 'checkbox', data : [ 
+                {'value': '1', 'label': 'тревога'},
+                {'value': '2', 'label': 'злость'},
+                {'value': '3', 'label': 'раздражение'}
+            ]},
+            {label: 'В фазе легализации все немного набирают вес. Тело мстит за годы отказа и депривации. Поделись своими переживаниями с нами', tag: 'textarea'},
+            {label: 'Удалось ли отследить изменения состояния от физического голода до насыщения в упражнении Вилка?', tag: 'checkbox', data : [ 
+                {'value': '1', 'label': 'да'},
+            ]},
+            {label: 'Удалось ли почувствовать разные уровни насыщения в упражнении Вкусняшка?', tag: 'checkbox', data : [ 
+                {'value': '1', 'label': 'да'},
+            ]}
+        ]
+    }if(id==7){
+        schema.body=[
+            {label: 'Что я получила из опыта прохождения курса?', tag: 'textarea'},
+            {label: 'Какой момент в курсе ты бы назвала поворотным? Этап или упражнение индивидуального маршрута, которое попало в самую точку и позволило дальше раскрутить клубок? Опиши свой опыт, пожалуйста:', tag: 'textarea'},
+            {label: 'С чем мне было сложно справиться? Где требуется больше внимания? Выбери этап:', tag: 'radio', data : [ 
+                {'value': '1', 'label': '2'},
+                {'value': '2', 'label': '3'},
+                {'value': '3', 'label': '4'},
+                {'value': '4', 'label': '5'},
+                {'value': '5', 'label': '6'},
+            ]},
+            {label: 'Опиши свою трудность, пожалуйста:', tag: 'textarea'},
+        ]
+    }if(id==8){
+        schema.body=[
+            {label: 'Выдели моменты про тебя', tag: 'checkbox', data : [ 
+                {'value': '1', 'label': 'я плохо различаю/ редко обращаю внимания на сигналы тела'},
+                {'value': '2', 'label': 'мне сложно получать удовольствие от физической активности'},
+                {'value': '3', 'label': 'я плохо понимаю/чувствую размеры своего тела'},
+                {'value': '3', 'label': 'мне сложно соединить эмоции и тело'},
+                {'value': '3', 'label': 'я стыжусь себя и своего тела в сексуальном контакте'}
+            ]}
+        ]
+    }
+    new Survey().create(document.getElementById('survey'), schema);
+}
+
+
+
+
+(adsbygoogle = window.adsbygoogle || []).push({});
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  
+    ga('create', 'UA-46156385-1', 'cssscript.com');
+    ga('send', 'pageview');
+
+
+
+
+
+
+    $(".form-switch input").click( function() {
+        if (!$(this).is(":checked")) {
+            $('#your_program').prop("disabled",true);
+            $('.familiar p').fadeTo("slow", 0.5);
+        } else {
+            $("#your_program").prop("disabled",false);
+            $('.familiar p').fadeTo("slow", 1);
+        }
+    });
+
+
+    $(".q-answer").keyup(function() {
+        this.value=this.value.replace(/\^/g, '');
+        if (this.value.length > 1000){
+            this.value = this.value.substr(0, 1000);
+        }
+        
+            
+    });
+
+
+
+
+
+
+
+// // Валидация перед оплатой
+//     function isCorrectFIO(fio) {
+//         if (!fio) {
+//             return false;
+//     }
+
+//     var fioA = fio.split(' ');
+
+//     if (fioA.length !== 3) {
+//             return false;
+//     }
+
+//     for (var i = 0; i < 3; i++) {
+//             if (/[^-А-ЯA-Z\x27а-яa-z]/.test(fioA[i])) {
+//                 return false;
+//         }
+//     }
+
+//     return true;
+// };
+
+
+
+
+// $('#payment_check_btn').click(function(e){
+//         e.preventDefault();
+//         let full_name= $('#full_name').val();
+//         if (isCorrectFIO(full_name)){
+//             let formData = new FormData;
+//             formData.append('full_name', full_name);
+//             $.ajax({
+//                 url: 'https://eatintelligent.ru/payment/',
+//                 type: 'POST',
+//                 dataType: 'json',
+//                 processData:false,
+//                 contentType:false,
+//                 cache:false,
+//                 data: formData, 
+//                 success: function(data){
+//                     if(data.status){
+//                         document.location.href= '/payment';
+//                     }else{
+//                         if (data.type===1) {
+//                             data.fields.forEach(function(field){
+//                                 $(`input[name="${field}"]`).addClass('error');
+//                             });
+//                         }
+//                         //$('.auth_msg').removeClass('none').text(data.message);
+//                     }
+//                 },
+//                 error: function(jqxhr, status, errorMsg) {
+//                     console.log(status, errorMsg);
+//                 }
+//             });
+//         }else{
+//             window.location.href = 'https://eatintelligent.ru/payment';
+//         }
+// });
 
 
