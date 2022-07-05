@@ -1,8 +1,9 @@
 
 .topslider{
-    height: 600px;
+    height: 100%;
     color: rgb(189, 189, 189);
     background-color: var(--black);
+    padding-bottom: 150px;
 }
 .topslider h1{
     margin: 0;
@@ -312,6 +313,10 @@ display: inline-block;
 }
 .catalog__more{
     display: none;
+}
+.topslider h2{
+    margin-left: 30px;
+    margin-right: 30px;
 }
 }
 

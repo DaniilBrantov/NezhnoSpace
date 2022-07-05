@@ -1,11 +1,8 @@
-<?php get_header(); ?>
-<div class="container">
-    <div class="article">
-        <h1> <?php the_title(); ?> </h1>
-        <p> <?php the_content(); ?> </p>
-                
-    </div>
-</div>
-<?php
+<?php 
+
+
+get_header();
+require_once "blog/single_content.php";
 get_footer();
 ?>
+

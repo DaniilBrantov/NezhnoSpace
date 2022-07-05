@@ -16,6 +16,7 @@ $change_sex=$_POST["change_sex"];
 $id=$_SESSION['user']['id'];
 $change_save=$_POST['change_save'];
 $avatar_btn=$_POST["avatar_btn"];
+$check_img=$_POST["check_img"];
 
 if($_POST['param']) {
 	$param = json_decode($_POST['param']);
@@ -47,9 +48,10 @@ if(isset($change_save)){
     header('Location: /my_account');
 }
 else if(isset($avatar_btn)){
-
-        echo $_POST['post_data'];
-
+    $_SESSION['user']['avatar']= $check_img;
+    var_dump($check_img);
+    mysqli_query($mysqli, "UPDATE `users` SET `avatar` = '$check_img' WHERE `users`.`id` = $id ");
+    header('Location: /change');
 
 }
 

@@ -8,7 +8,7 @@
                 </h2>
             </div>
 <?php echo do_shortcode('[contact-form-7 id="215" title="Контактная форма e-i"]'); ?>
-      </div>
+    </div>
     </div>
 </div>
 

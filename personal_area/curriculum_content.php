@@ -6,8 +6,7 @@
         header('Location: auth');
     }
     $user_id=$_SESSION['user']['id'];
-
-    if($_SESSION['user']['payment'] == 1){ ?>
+    if($_SESSION['user']['payment'] == 1 || $_SESSION['user']['payment'] == 3 || $_SESSION['user']['payment'] == 0){ ?>
         <div class="container">
             <div class="subscription_less">
         <?php  
@@ -28,7 +27,7 @@
                                     <p></p>
                                     </div>
                                     <div class="curriculum_btn">
-                                        <a href="lesson?subscription:id=' . $var["id"] .'">
+                                        <a href="subscription_lesson?id=' . $var["id"] .'">
                                             <button>
                                                 <img src="'. get_template_directory_uri() .'/images/account_arrow.svg" alt="">
                                             </button>
@@ -37,7 +36,37 @@
                                 </div>
                             </div>
                     </div> '        ; }; 
-        ?>
+
+
+                    // $temp = $wp_query; $wp_query= null;
+                    // $wp_query = new WP_Query(); $wp_query->query( '&paged='.$paged );
+                    // query_posts('cat=44&posts_per_page=5&order=ASC');
+                    // while ($wp_query->have_posts()) : $wp_query->the_post();?>
+
+                    <!-- <div class="curriculum_item sub_stage_item">
+                            <div class="main_less">
+                                <div style="" class="main_less_img">
+                                    <a class="main_less_link" href="<?php the_permalink(); ?>">
+                                        <img src="" alt="" />
+                                    </a>
+                                </div>
+                                <div class="curriculum_content">
+                                    <div class="curriculum_text">
+                                        <h3><?php the_title(); ?></h3>
+                                    <p></p>
+                                    </div>
+                                    <div class="curriculum_btn">
+                                        <a href="<?php the_permalink(); ?>">
+                                            <button>
+                                                <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div> -->
+                    <?php //endwhile; ?>
+
         </div>
         </div><?php 
 
@@ -59,7 +88,7 @@
                                             <p></p>
                                         </div>
                                         <div  class="curriculum_btn main_stage_link curriculum_btn_mobile">
-                                            <a href="lesson?id=' . $var["less_number"] .'">
+                                            <a href="subscription_lesson?id=' . $var["id"] .'">
                                                 <button>
                                                     <img src="'. get_template_directory_uri().'/images/account_arrow.svg" alt="">
                                                 </button>
@@ -73,7 +102,7 @@
                                             <h4 class="slider_title">Дополнительные материалы</h4>
                                         </div>
                                         <div class="curriculum_btn curriculum_btn_mobile">
-                                            <a href="lesson">
+                                            <a href="additional_materials">
                                                 <button>
                                                     <img src="'. get_template_directory_uri().'/images/account_arrow.svg" alt="">
                                                 </button>
@@ -86,8 +115,51 @@
                     </div>
                 </div> '        ; }; 
 
-                    }
-                    else{
+
+            //     $temp = $wp_query; $wp_query= null;
+            //     $wp_query = new WP_Query(); $wp_query->query('showposts=5' . '&paged='.$paged );
+            //     query_posts('cat=44&posts_per_page=5');
+            //     while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+<!-- 
+                <div class="curriculum_item_mobile">
+                    <div class="curriculum_number_mobile">
+                        <hr>
+                    </div>
+                    <div class="slider">
+                <div class="slide" style="background-size:100%;">
+                                    <div class="slide_content">
+                                        <div class="slider_text">
+                                            <h4 class="slider_title"><?php the_title(); ?></h4>
+                                            <p></p>
+                                        </div>
+                                        <div  class="curriculum_btn main_stage_link curriculum_btn_mobile">
+                                            <a href="<?php the_permalink(); ?>">
+                                                <button>
+                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slide">
+                                    <div class="slide_content">
+                                        <div class="slider_text">
+                                            <h4 class="slider_title">Дополнительные материалы</h4>
+                                        </div>
+                                        <div class="curriculum_btn curriculum_btn_mobile">
+                                            <a href="additional_materials">
+                                                <button>
+                                                    <img src="<?php echo get_template_directory_uri();?>/images/account_arrow.svg" alt="">
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div> -->
+
+                <?php //endwhile;
+                    }else{
 ?>  
 <div class="curriculum">
     <div class="container">
@@ -140,7 +212,7 @@
                 </div>
             </div>
             <div class="account_btn curriculum_link">
-            <a href="lesson">
+            <a href="additional_materials">
                 <button>
                         <p> Дополнительные материалы </p>
                         <img src="<?php echo get_template_directory_uri(); ?>/images/account_btn_arrow.svg" alt="">
@@ -206,7 +278,7 @@
                 </div>
             </div>
             <div class="account_btn curriculum_link">
-            <a href="lesson">
+            <a href="additional_materials">
                 <button>
                         <p> Дополнительные материалы </p>
                         <img src="'. get_template_directory_uri().'/images/account_btn_arrow.svg" alt="">
@@ -273,7 +345,7 @@
                                     <h4 class="slider_title">Дополнительные материалы</h4>
                                 </div>
                                 <div class="curriculum_btn first_stage_btn_mobile">
-                                    <a href="lesson">
+                                    <a href="additional_materials">
                                         <button>
                                         <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
                                         </button>
@@ -335,7 +407,7 @@
                                     <h4 class="slider_title">Дополнительные материалы</h4>
                                 </div>
                                 <div class="curriculum_btn curriculum_btn_mobile">
-                                    <a href="lesson">
+                                    <a href="additional_materials">
                                         <button>
                                             <img src="'. get_template_directory_uri().'/images/account_arrow.svg" alt="">
                                         </button>

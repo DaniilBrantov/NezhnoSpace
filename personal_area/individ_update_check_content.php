@@ -14,16 +14,28 @@
     $audio_txt=$_POST["audio_txt"];
     $content= $_POST["content"];
     $id= $_POST["id"];
-    $query = "INSERT INTO `individ_content` (`id`, `title`, `purpose`, `result`, `theory_content`, `audio_txt`, `audio`) VALUES (NULL, '$title', '$purpose', '$result', '$content', '$audio_txt', 'audio') ";
+    $audio = $_FILES['audio']['name'];
+    $audio_tmp_name=$_FILES['audio']['tmp_name'];
 
-    if (true) {
+    chdir('wp-content/themes/my-theme/personal_area/audio/');
+    getcwd();
+    $audio_path= getcwd().'/'.$audio;
+    if (move_uploaded_file($audio_tmp_name,$audio_path)) {
+        $query = "INSERT INTO `individ_content` (`id`, `title`, `purpose`, `result`, `theory_content`, `audio_txt`, `audio`) VALUES (NULL, '$title', '$purpose', '$result', '$content', '$audio_txt', '$audio') ";
         mysqli_query($mysqli, $query) or die(mysqli_error() .$query);
 
         $content_id = mysqli_insert_id($mysqli);
 
         mysqli_query($mysqli, "INSERT INTO `users_individ_content` (`id`, `id_users`, `id_individ_content`, `less_number`) VALUES (NULL, '$id', '$content_id', '$less_number')");
 
-        //var_dump(mysqli_insert_id($mysqli));
+        header('Location: /admin');
+    }else if(!move_uploaded_file($audio_tmp_name,$audio_path)){
+        $query = "INSERT INTO `individ_content` (`id`, `title`, `purpose`, `result`, `theory_content`, `audio_txt`) VALUES (NULL, '$title', '$purpose', '$result', '$content', '$audio_txt') ";
+        mysqli_query($mysqli, $query) or die(mysqli_error() .$query);
+
+        $content_id = mysqli_insert_id($mysqli);
+
+        mysqli_query($mysqli, "INSERT INTO `users_individ_content` (`id`, `id_users`, `id_individ_content`, `less_number`) VALUES (NULL, '$id', '$content_id', '$less_number')");
 
         header('Location: /admin');
     }

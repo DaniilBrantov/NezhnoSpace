@@ -38,7 +38,7 @@ if(isset($_POST["help_btn"])){
   $headers .= "Subject: {$subject}";
   $headers .= "X-Mailer: PHP/".phpversion();
 
-  $success=mail($to, $subject, $message,$headers);
+  $success=mail($to, $subject, $message, $headers);
 
   if (!$success) {
       $errorMessage = error_get_last()['message'];

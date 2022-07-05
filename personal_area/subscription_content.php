@@ -1,13 +1,30 @@
+<?php
+session_start();
+require_once "connect.php";
+if (!$_SESSION['user']) {
+    $href="https://nezhno.space/registration";
+    $order="3";
+}else{
+    $href="https://nezhno.space/payment";
+    $order="1";
+}
+
+?>
+
+
+
+
 <div class="wrapper_subscription">
     <div class="container">
         <div class="subscription">
             <div class="subcription_cnt">
                 <h1>Подписка ei</h1>
-                <p>Как оставаться на плаву, даже если вокруг неспокойные мутные воды. Ваш островок поддержки и принятия.</p>
-                <form action="https://eatintelligent.ru/payment" method='post'>
-                    <input type="hidden" value="1" name="order">
+                <p>Нежно - онлайн платформа психологической поддержки и заботы о себе. Мы часто не принимаем себя и свое тело. Заедаем проблемы и эмоции. Испытываем стресс, тревожимся. Не понимаем: что делать дальше? </p>
+                <p>Наша платформа поможет тебе принимать свое тело и справляться с эмоциями. Мы поддержим и направим тебя на путь к здоровым отношениям с едой, своим телом и окружающими. </p>
+                <form action="<?php echo $href; ?>" method='post'>
+                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
                     <input type="hidden" value="300" name="sum">
-                    <button class="wht_btn_with_arr" type="submit"><p>Продолжить</p><img src="<?php echo get_template_directory_uri(); ?>/images/btn_arrow_black.svg" alt=""></button>
+                    <button class="wht_btn_with_arr" type="submit"><p>Попробовать</p><img src="<?php echo get_template_directory_uri(); ?>/images/btn_arrow_black.svg" alt=""></button>
                 </form>
             </div>
             <div class="subcription_img">
@@ -20,12 +37,29 @@
             
             <div class="vulnerable_places_cnt">
                 <h2>
-                Уязвимые места у каждого свои: 
+                Что ты здесь найдешь?
             </h2>
-                <p>кто-то запутался в себе, у кого-то сложные взаимоотношения в семье, с друзьями или на работе, кому-то сложно выходить на новый профессиональный уровень или побороть страхи, связанные с деньгами. </p>
-                <p>Бессилие, тревога, усталость, ощущение собственной никчёмности – не лучшие спутники по жизни.</p>
-                <p>Наш проект поможет подружиться с собой и отыскать внутренние источники вдохновения, энергии, уверенности в себе. Чтобы твоя внутренняя опора стала крепче любых внешних обстоятельств.</p>
-                <p>Каждый месяц мы будем раскрывать новую тему, становиться ближе к пониманию себя и своих возможностей, учиться искать и находить выход даже из самых запутанных лабиринтов.</p>
+                <p>Ты получишь 4 материала по теме месяца:</p>
+                <ol>
+                    <li>
+                        Психообразование: подкаст
+                    </li>
+                    <li>
+                        Статья от приглашенного специалиста
+                    </li>
+                    <li>
+                        Гайд: подборка книг, фильмов и проектов
+                    </li>
+                    <li>
+                        Терапия: тесты и упражнения
+                    </li>
+                </ol>
+                <p>Мы посмотрим, что влияет на твои отношения с едой и телом, собой и миром.</p>
+                <form class="btn_wht_u_find" action="<?php echo $href; ?>" method='post'>
+                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
+                    <input type="hidden" value="300" name="sum">
+                    <button class="wht_btn_with_arr" type="submit"><p>Попробовать</p><img src="<?php echo get_template_directory_uri(); ?>/images/btn_arrow_black.svg" alt=""></button>
+                </form>
             </div>
         </div>
 
@@ -33,61 +67,133 @@
         <div class="subscription_elements">
             <div class="subscription_item">
                 <h3 class="subscription_item_title">
-                    Качество жизни
+                    Темы на год:
                 </h3>
                 <div class="subscription_item_txt">
-                <p>Тревога, страх, стыд, скорбь, отчаяние – вы можете испытывать любые эмоции. Ведь они тоже часть жизни.</p> 
-                <p>Желание спрятаться от стресса «в домик» естественно, но что, если не сжиматься комочком от проблем, а отыскать в себе силы, чтобы раскрыться и увидеть в трудностях возможности для роста?</p>
-                <p>Первый месяц нашей совместной работы мы посвятим инструментам для сохранения ресурса, усилий и контакта с собой.</p> 
+                    <ol>
+                        <li>
+                        качество жизни
+                        </li>
+                        <li>
+                        тревожность
+                        </li>
+                        <li>
+                        кризисы
+                        </li>
+                        <li>
+                        деньги
+                        </li>
+                        <li>
+                        отношения
+                        </li>
+                        <li>
+                        карьера
+                        </li>
+                        <li>
+                        сексуальность
+                        </li>
+                        <li>
+                        тело
+                        </li>
+                        <li>
+                        выгорание
+                        </li>
+                        <li>
+                        эмоции
+                        </li>
+                        <li>
+                        уверенность в себе
+                        </li>
+                        <li>
+                        самооценка
+                        </li>
+                    </ol>
                 </div>
-                <p class="subscription_item_num">
+                <!-- <p class="subscription_item_num">
                     1
-                </p>
+                </p> -->
             </div>
             <div class="subscription_item">
                 <h3 class="subscription_item_title">
-                    Тревожность
+                    База материалов и онлайн-занятий с психологами, которых нет в открытом доступе:
                 </h3>
                 <div class="subscription_item_txt">
-                <p>Твой самый простой и действенный способ прийти в себя – съесть что-нибудь вкусненькое, или выпить чего-то покрепче, или купить еще одно платье, или войти в новые деструктивные отношения?</p>
-                <p>Почему так происходит и как остановить этот «порочный круг»?</p>
-                <p>В рамках проекта мы разберём какие факторы провоцируют у тебя острую тревогу и стресс, как завершить цикл стресс-реакции – переключить тело и психику с режима «Выживание» на более бережный, – и вернуться к личной и профессиональной продуктивности.</p>
+                    <ul>
+                        <li>
+                            лекция с практикой, как определиться с запросом
+                        </li>
+                        <li>
+                            7-минутная практика на расслабление (йога)
+                        </li>
+                        <li>
+                            гайд от нутрициолога
+                        </li>
+                        <li>
+                            гормоны счастья от эндокринолога
+                        </li>
+                        <li>
+                            карманная медитация на снятие тревожности
+                        </li>
+                        <li>
+                            и др.
+                        </li>
+                    </ul>
                 </div>
-                <p class="subscription_item_num">
+                <!-- <p class="subscription_item_num">
                     2
-                </p>
+                </p> -->
             </div>
             <div class="subscription_item">
                 <h3 class="subscription_item_title">
-                    Кризисы
+                    Наш искусственный интеллект
                 </h3>
                 <div class="subscription_item_txt">
                 <p>
-                    Даже для самых непростых жизненных ситуаций можно найти решение, если научиться слушать и слышать себя.
+                    подстраивается под тебя и обучается на твоих подсказках. Для того, чтобы рекомендательная система обучалась, достаточно просто использовать платформу Нежно
                 </p>
-                <p>
-                    Еда помогает нам «подкрепиться» и приглушить переживания, но в долгосрочной перспективе она не даст достаточно «ресурса».
-                </p>
-                <p>
-                    Поиск опоры в прошлом опыте, выстраивание прочного фундамента из собственных ценностей и смыслов, стабилизация эмоционального состояния и поиск альтернатив – задачи на этот месяц нашей совместной работы.</p>
                 </div>
-                <p class="subscription_item_num">
+                <!-- <p class="subscription_item_num">
                     3
-                </p>
+                </p> -->
             </div>
         </div>
         <div class="your_conductor">
             <div class="your_conductor_title">
-                <h2>Оформи подписку. <span> Твой первый шаг к более глубокому пониманию себя начинается здесь и сейчас.</span></h2>
+                Твой первый шаг к более глубокому пониманию себя начинается здесь и сейчас.</span></h2>
                 
             </div>
-            <div class="your_conductor_link">
-                <form action="https://eatintelligent.ru/payment" method='post'>
-                    <input type="hidden" value="1" name="order">
+            <div class="your_conductor_btns">
+                <div class="your_conductor_link">
+                    <form action="https://nezhno.space/payment" method='post'>
+                        <input type="hidden" value="1" name="order">
+                        <input type="hidden" value="300" name="sum">
+                        <button type="submit">
+                                Оформить Подписку
+                            <p>
+                                300P
+                                <span style="color:#F2C0E3; text-decoration: line-through;">
+                                    <span style="color:#F2C0E3;
+                                    font-size:18px;
+                                    position: relative;
+                                    top: -10px;">
+                                        700P
+                                    </span>
+                            </span> 
+                            </p>
+
+                        </button>
+                    </form>
+                    
+                </div>
+                <div>
+                <form action="<?php echo $href; ?>" method='post'>
+                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
                     <input type="hidden" value="300" name="sum">
-                    <button type="submit">Оформить Подписку</button>
+                    <button class="wht_btn_with_arr try_1_week" type="submit"><p>Попробовать 1 неделю бесплатно</p></button>
                 </form>
+                </div>
             </div>
+            
         </div>
     </div>
 </div>

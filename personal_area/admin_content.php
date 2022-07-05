@@ -3,6 +3,7 @@
 
     if($_SESSION["admin"]){
         require_once "connect.php";
+        date_default_timezone_set('Europe/Moscow');
 
 
     
@@ -19,7 +20,7 @@
         <div class="admin_main_content">
             <div class="admin_add">
                 <h2>Добавить переменную:</h2>
-                    <form action="https://eatintelligent.ru/add_var" method='post' enctype="multipart/form-data">
+                    <form action="https://nezhno.space/add_var" method='post' enctype="multipart/form-data">
                         <div class="add_var_item stage_number">
                             <input class="add_var_item_input" type="text"  name="less_number" required oninvalid="this.setCustomValidity('Уточни, какой номер этапа')" oninput="setCustomValidity('')">
                             <label class="add_var_item_label">Номер Этапа</label>
@@ -116,29 +117,55 @@
         <?php 
         $users=mysqli_query($mysqli,"SELECT * FROM `users` WHERE `payment` = '2'");
         while($person=mysqli_fetch_assoc($users)){
+        $person_id=$person["id"];
+        $today=new DateTime(date('Y-m-d H:i:s'));
+        $interval = $today->diff(new DateTime($person["next_stage"]));
+        $difference = $interval->format("%D");
+        $difference = floor($difference /6+2);
+
+        $users_individ_content=mysqli_query($mysqli,"SELECT * FROM `users_individ_content` WHERE `id_users` = '$person_id'");
             echo '<div class="individ_cnt_item">
-                    <p>' . $person["name"] . '</p>
+                    <p style="--1:var(--turquoise);
+                    --2:#454545;
+                    --3:var(--pink);
+                    --4:var(--purple);
+                    background: var(--'.$person["route_value"].');">' . $person["name"] . '</p>
                     <p>' . $person["mail"] . '</p>
                     <div class="admin_btn_group indiv_btn" >
-                        <a href="individ_update?id=' . $person["id"] .'">Добавть контент</a>
+                        <a href="individ_update?id=' . $person["id"] .'">Добавить контент</a>
                     </div>
-                    </div>
-                    <div class="statistics_part_content individ_statistics">
+                    </div>';
+                    while($individ_content=mysqli_fetch_assoc($users_individ_content)){
+                        $individ_content_id=$individ_content["id_individ_content"];
+                        $individual_cnt=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `individ_content` WHERE `id` = '$individ_content_id'"));
+                        echo '<div class="individ_admin_list">
+                            <p>'.$individ_content["less_number"].'.</p>
+                            <span>'.$individual_cnt["title"].'</span>
+                            <a class="change_indiv_les" href="individ_change?id=' . $person["id"] .'">Редактировать</a>
+                            <a class="delete_indiv_les" href="delete_variable?stage=' . $person["id"] .'&les_num=' .$individ_content["less_number"]. '">Удалить</a>
+                            ';
+                            if($individ_content["publication"]==0){
+                                echo '<button class="publication_btn change_indiv_les" value="' . $person["id"] .' , ' .$individ_content["less_number"]. '">Опубликовать</button>';
+                            }
+
+                        echo'</div>';
+                    };
+                    echo '<div class="statistics_part_content individ_statistics">
                         <div class="statistics_part_text">
                             <div class="statistics_part_title">
                                 <p>Пройдено:</p>
                             </div>
                             <div class="statistics_part_procent">
-                                <p><span>10</span>/12</p>
+                                <p><span>'.$difference.'</span>/8</p>
                             </div>
                         </div>
                         <div class="progress indiv_progress">
-                            <progress id="indiv_progress" max="12" value="10">10</progress>
+                            <progress id="indiv_progress" max="8" value="'.$difference.'">'.$difference.'</progress>
                         </div>
-                    </div>';  }; 
+                    </div>';
+
+            }; 
         ?>
-
-
     </div>
 </div>
 

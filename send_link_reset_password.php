@@ -5,6 +5,6 @@
  
  */
 get_header();
-require_once "personal_area/send_link_reset_password_content.php";
+require_once "reset_password/send_link_reset_password_content.php";
 get_footer();
 ?>

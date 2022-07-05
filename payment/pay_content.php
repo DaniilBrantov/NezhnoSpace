@@ -3,17 +3,33 @@
 <?php
     session_start();
     require_once 'wp-content/themes/my-theme/personal_area/connect.php';
-    if (!$_SESSION['user']) {
-        header('Location: auth');
-    }
     require __DIR__ . '/lib/autoload.php';
     use YooKassa\Client;
-    $order = $_POST["order"];
-    $sum = $_POST["sum"];
     $email = $_SESSION['user']['mail'];
-    $full_name=$_POST["full_name"];
-    $phone=$_POST["phone"];
-
+    $phone_val=substr($_POST["phone"], -10);
+    $user_tel=mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM `users`  WHERE `users`.`mail` = '$email' "));
+    if($_SESSION['user']){
+        $full_name=$_SESSION['user']['full_name'];
+        if($_SESSION['user']['order'] && $_SESSION['user']['sum']){
+            $order=$_SESSION['user']['order'];
+            $sum=$_SESSION['user']['sum'];
+        }else{
+            $order = $_POST["order"];
+            $sum = $_POST["sum"];
+        };
+    }else{
+        $full_name=$_POST["full_name"];
+        $order = $_POST["order"];
+        $sum = $_POST["sum"];
+    }
+    if($user_tel["telephone"]=="0"){
+        $phone='7'.$phone_val;
+        if($phone_val){
+            mysqli_query($mysqli,"UPDATE `users` SET `telephone`='$phone_val' WHERE `mail`='$email'");
+        };
+    }else{
+        $phone='7'.$user_tel["telephone"];
+    }
         $description = 'Заказ № '.$order.' E-mail: '.$email;
         $client = new \YooKassa\Client();
         $client->setAuth('868432', 'live_2N08jIIa9MIMz37wjt0uUBCJyhs-knXVLd5gW2Mh0qk');

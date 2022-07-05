@@ -57,8 +57,15 @@ try {
 } catch (\Exception $e) {
     $response = $e;
 }
+$user_payment=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `users` WHERE `users`.`id`='$user_id' "));
+
 if ($response["status"]=="succeeded" && $response["amount"]["value"]=='300.00') {
-    mysqli_query($mysqli,"UPDATE `users` SET `payment` = '1' WHERE `users`.`id` = '$user_id'");
+    if($user_payment["payment"]=='2'){
+        $new_payment='4';
+    }else{
+        $new_payment='1';
+    }
+    mysqli_query($mysqli,"UPDATE `users` SET `payment` = '$new_payment' WHERE `users`.`id` = '$user_id'");
     header('Location: uchebnaya-programma');
     $email->Body    =  '
     
@@ -77,7 +84,7 @@ if ($response["status"]=="succeeded" && $response["amount"]["value"]=='300.00') 
             </h2>  
             <p>Тебе уже доступны первые материалы в Личном Кабинете: </p>
             <div style="margin: 50px 0px;">
-                <a href="https://eatintelligent.ru/first_stage" style="
+                <a href="https://nezhno.space/first_stage" style="
                     color: whitesmoke;
                     text-decoration: navajowhite;
                     padding: 15px 30px;
@@ -90,7 +97,13 @@ if ($response["status"]=="succeeded" && $response["amount"]["value"]=='300.00') 
     ';
 
 }else if($response["status"]=="succeeded" && $response["amount"]["value"]=='7000.00'){
-    mysqli_query($mysqli,"UPDATE `users` SET `payment` = '2' WHERE `users`.`id` = '$user_id'");
+    $user_payment=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `users` WHERE `users`.`id`='$user_id' "));
+    if($user_payment["payment"]=='1'){
+        $new_payment='4';
+    }else{
+        $new_payment='2';
+    }
+    mysqli_query($mysqli,"UPDATE `users` SET `payment` = '$new_payment' WHERE `users`.`id` = '$user_id'");
     header('Location: uchebnaya-programma');
     $email->Body    =  '
     
@@ -110,7 +123,7 @@ if ($response["status"]=="succeeded" && $response["amount"]["value"]=='300.00') 
         <p>28 апреля откроется Второй этап нашего курса. </p>
         <p>Первый этап уже доступен на платформе, ты можешь к нему вернуться, если ещё не прошла. </p>
         <div style="margin: 50px 20px;">
-            <a href="https://eatintelligent.ru/first_stage" style="
+            <a href="https://nezhno.space/first_stage" style="
                 color: whitesmoke;
                 text-decoration: navajowhite;
                 padding: 15px 30px;

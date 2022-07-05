@@ -1,6 +1,10 @@
 <?php 
+session_start();
 
-//if($_COOKIE['user']== ''): 
+if ($_SESSION['user']) {
+    header('Location: my_account');
+};
+$order=$_POST["order"];
 ?>
 
 <div class="pers">
@@ -70,6 +74,7 @@
                     <input value="reg_checkbox" type="checkbox" class="reg_checkbox_item" id="reg_checkbox">
                     <label for="reg_checkbox"><a class="reg_check_link" href="contract">Соглашаюсь с условиями публичной оферты</a></label>
                 </div>
+                <input id="reg_order" type="hidden" value="<?php echo $order; ?>" name="order">
                 <button class="reg_btn" type="submit" >Зарегистрироваться</button>
                 <p class="pers_link">У вас уже есть аккаунт? - <a class="pers_link" href="/auth">авторизируйтесь</a></p>
                 <p class="auth_msg none">Lorem ipsum dolor sit amet.</p>
@@ -110,10 +115,32 @@
             document.getElementById("hint2").style.opacity = "0";
         }
     };
+
+
+
 </script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery-3.5.1.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/personal_area.js"></script>
-<?php //else: require_once 'my_account_content.php';
-    //endif;  ?>
+<script src="<?php echo get_template_directory_uri(); ?>/libs/modal/modal.js"></script>
+
+<script>
+    let reg_order=document.querySelector('#reg_order').value;
+    if(reg_order && reg_order!==''){
+        var modal = $modal({
+            title: 'Чао Белла!',
+            content: '<p>Пройди регистрацию на платформе Нежно, для тебя откроется твой Личный Кабинет с доступом к бесплатной неделе подписки. <br>До встречи!</p>',
+            footerButtons: [
+                { class: 'btn__ok', text: 'ОК', handler: 'modalHandlerCancel' }
+            ]
+        });
+        modal.show();
+
+        document.addEventListener('click', function (e) {
+            if (e.target.dataset.handler === 'modalHandlerCancel') {
+                modal.hide();
+            }
+        });
+    }
+</script>
 
 

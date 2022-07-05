@@ -1,10 +1,9 @@
 <script type="module">
-    import '/aos/dist/aos.css'; 
     AOS.init();
     AOS.init({
-  offset: 3,
-  easing: 'ease-in-sine',
-  once: true
+    offset: 3,
+    easing: 'ease-in-sine',
+    once: true
 });
 </script>
 
@@ -30,7 +29,6 @@
             Поставьте галочки, где узнали себя:
         </h2>
     <div class="recognized_yourself">
-        
         <div class="recognized_yourself_checkbox">
             <div data-aos="fade-right" class="recognized_yourself_checkbox_item">
                 <input class="recognized_yourself_input" type="checkbox" id="1stage_1" />
@@ -56,6 +54,13 @@
                 <input class="recognized_yourself_input" type="checkbox" id="1stage_6" />
                 <label for="1stage_6"><span></span>Мне сложно распознавать и различать эмоции</label> 
             </div>
+            <div class="general_btn">
+                <a href="#stage_video">
+                    <button>
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                    </button>
+                </a>
+            </div>
         </div>
         <div class="recognized_yourself_img">
             <img src="<?php echo get_template_directory_uri(); ?>/images/recognized_yourself.png" alt="">
@@ -75,7 +80,7 @@
     </div>
 </div>
 <div class="wrapper_stage_video">
-    <div class="stage_video">
+    <div id="stage_video" class="stage_video">
         <h2>
         Почему отношения с едой - база? <br>
         База любви к себе в первую очередь
@@ -232,9 +237,10 @@
             </div>
     </div>
 </div>
-<form class="none" action="https://eatintelligent.ru/your_type" method='post' >
+<form class="none" action="https://nezhno.space/your_type" method='post' >
     <input type="hidden" name="answer" id="answer_input">
     <input type="hidden" name="user_name" id="user_name">
     <input type="hidden" name="user_mail" id="user_mail">
+    <input type="hidden" name="user_tel" id="user_tel">
     <button class="answer_input_btn" type="submit"></button>
 </form>

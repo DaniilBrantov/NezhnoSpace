@@ -11,8 +11,10 @@
     }else{
         $main_stages=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `main_stages` WHERE `less_number` = '$less_num' ORDER BY id LIMIT 1 "));
     }
-    
-    $pos = strpos($_SESSION["stages"]['main'],$_SERVER['REQUEST_URI']);
+    $Mass1=array('mounth'=>'october','money'=>200,'name'=>'Mila');
+
+    $url =  "https://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+    $pos = in_array($url,$_SESSION["stages"]['main']);
     if($main_stages["title"]=="" || !$pos){
         header('Location: uchebnaya-programma');
     }
@@ -123,7 +125,7 @@
         </div>
     </div>
     
-    <form action="https://eatintelligent.ru/lesson_check"  method='post'>
+    <form action="https://nezhno.space/lesson_check"  method='post'>
         <div id="survey" class = 'survey'></div>
         <input id="survey_value" type="hidden" name="survey_value">
         <input id="less_num" type="hidden" name="less_num" value="<?php echo $less_num; ?>">

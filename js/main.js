@@ -236,7 +236,7 @@ $(document).ready(function(){
   "use strict";
   //регулярное выражение для проверки email
   var pattern = /^[a-z0-9][a-z0-9\._-]*[a-z0-9]*@([a-z0-9]+([a-z0-9-]*[a-z0-9]+)*\.)+[a-z]+/i;
-  var mail = $('input[name=email]');
+  var mail = $('input[name=reset_email]');
    
   mail.blur(function(){
       if(mail.val() != ''){
@@ -307,6 +307,12 @@ $('.choice_img_item > :checkbox').on('change', function() {
 //CHANGE SRC
 $(function () {
   $('.color_skin_item_black').click(function () {
+    $('.choice_img_item > input').each(function(){
+      let val_check_img =$(this).prop('value');
+      val_check_img=val_check_img.concat('_2');
+      $(this).val(val_check_img)
+    });
+    
     $('.choice_img_item > label > img').each(function(){
       const imgSrc =$(this).attr('src');
       const last_imgSrc= imgSrc.slice(-6);
@@ -316,11 +322,18 @@ $(function () {
     })
   });
   $('.color_skin_item_white').click(function () {
+    $('.choice_img_item > input').each(function(){
+      let val_check_img =$(this).prop('value');
+      val_check_img=val_check_img.replace(/\_2/, '');
+      $(this).val(val_check_img)
+    });
+
     $('.choice_img_item > label > img').each(function(){
       const imgSrc =$(this).attr('src');
       const last_imgSrc= imgSrc.slice(-6);
       if(last_imgSrc == "_2.png"){
         $(this).attr('src', $(this).attr('src').replace(/\_2.png/, '.png'));
+        $(this).val($(this).val().replace(/\_2/, ''));
       }
     })
   });

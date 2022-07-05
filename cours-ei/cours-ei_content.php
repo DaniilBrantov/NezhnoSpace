@@ -433,7 +433,7 @@ $count_price=0;
 
                     <div class="sim-slider">
             <ul class="sim-slider-list">
-                <li><img class="sim-slider_bg" src="http://pvbk.spb.ru/inc/slider/imgs/no-image.gif" alt="screen"></li> <!-- это экран -->
+                <li><img class="sim-slider_bg" src="https://pvbk.spb.ru/inc/slider/imgs/no-image.gif" alt="screen"></li> <!-- это экран -->
                 <li id="img1" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review1.svg" alt="1"></li>
                 <li id="img2" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review2.svg" alt="2"></li>
                 <li id="img3" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review3.svg" alt="3"></li>

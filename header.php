@@ -32,16 +32,18 @@
     <link href="<?php echo get_template_directory_uri(); ?>/css/page-blog.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/contacts_content.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/form.css" rel="stylesheet">
-    <link href="<?php echo get_template_directory_uri(); ?>/css/404.css" rel="stylesheet">
+    <link href="<?php echo get_template_directory_uri(); ?>/css/404.css" rel="stylesheet" type="text/css">
     <link href="<?php echo get_template_directory_uri(); ?>/css/cours-ei.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/documents.css" rel="stylesheet">
     <link href="<?php echo get_template_directory_uri(); ?>/css/single.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/libs/phone/css/intlTelInput.css">
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/libs/modal/modal.css">
     <link href="<?php echo get_template_directory_uri(); ?>/css/personal_area.css" rel="stylesheet">
     
 
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/libs/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/libs/slick/slick-theme.css"/>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
 
 

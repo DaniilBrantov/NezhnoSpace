@@ -11,8 +11,14 @@
     date_default_timezone_set("Europe/Moscow");
     $today=date('Y-m-d H:i:s'); 
     $user_start=mysqli_fetch_assoc($user_query)['next_stage'];
-    $payment=$_SESSION['user']['payment'];
+    
     $open_stage_num=0;
+
+    if($_SESSION['user']['payment']== '4'){
+        $payment= 1;
+    }else{
+        $payment=$_SESSION['user']['payment'];
+    }
 
 
     
@@ -32,7 +38,7 @@
         
         if(order==1 && today > open_date){
             <?php 
-            if($payment==1 ){
+            if($payment==1){
                 if ($user_start == NULL) {
                     $next_less = date('Y-m-d H:i:s', strtotime($today));
                     $user_start=$next_less;
@@ -57,14 +63,14 @@
                     $next_less = date('Y-m-d H:i:s', strtotime($today.'+ 6 days'));
                     $user_start=$next_less;
                     mysqli_query($mysqli, "UPDATE `users` SET `next_stage`='$next_less' WHERE `users`.`id` = '$user_id' ");
-                }else if($user_start <= $today && !NULL){
+                }else if($user_start <= $today){
                     while ($user_start<=$today){
                         $user_start=date("Y-m-d H:i:s", strtotime($user_start.'+ 6 days'));
                         $open_stage_num++;
                     };
                 };
                 $indiv_arr = array(); 
-                $result= mysqli_query($mysqli,"SELECT * FROM `users_individ_content` WHERE `id_users`='$user_id' ");
+                $result= mysqli_query($mysqli,"SELECT * FROM `users_individ_content` WHERE `id_users`='$user_id' AND `publication`='1'");
                 while($var=mysqli_fetch_assoc($result)){
                     $indiv_arr[] = $var['less_number']; 
                 };
@@ -73,6 +79,15 @@
                     const open_stage_num=<?php echo json_encode($open_stage_num); ?>;
                     const individ_arr=<?php echo json_encode($indiv_arr); ?>;
                     OpenStage(open_stage_num,individ_arr);
+        }else if(order==3){
+            <?php
+                if($payment==3){
+                    $open_stage_num++;
+                }
+            ?>
+            const open_stage_num=<?php echo json_encode($open_stage_num); ?>;
+            const individ_arr=[];
+            OpenStage(open_stage_num,individ_arr);
         }else{
             NoAccessLess(main_less_link);
             NoAccessLess(individ_less_link);

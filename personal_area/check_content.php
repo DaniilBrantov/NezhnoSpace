@@ -1,7 +1,7 @@
 <?php
-// session_start();
-// ob_start();
+session_start();
 require_once 'connect.php';
+
 
     $nname=$_POST['nname'];
     //$surname=$_POST['surname'];
@@ -9,6 +9,7 @@ require_once 'connect.php';
     $pass=$_POST['pass'];
     $pass_conf=$_POST['pass_conf'];
     $checkbox=$_POST['reg_checkbox'];
+    $order=$_POST['order'];
 
     $check_user=mysqli_query($mysqli, "SELECT * FROM `users` WHERE `mail` = '$mail'");
     
@@ -79,8 +80,12 @@ require_once 'connect.php';
 
       $pass= md5($pass."lksd4fvm879");
 
-      $mysqli->query("INSERT INTO `users`( `name`, `surname`, `mail`, `password`) VALUES('$nname','$surname','$mail','$pass') ");
 
+      if($order){
+        $mysqli->query("INSERT INTO `users`( `name`, `surname`, `mail`, `password`, `payment`) VALUES('$nname','$surname','$mail','$pass','$order') ");
+      }else{
+        $mysqli->query("INSERT INTO `users`( `name`, `surname`, `mail`, `password`) VALUES('$nname','$surname','$mail','$pass') ");
+      };
 
 
 
@@ -112,17 +117,18 @@ require_once 'connect.php';
           >
               
               <h2>
-                  Ты успешно зарегистрировалась на сайте Eat Intelligent.
+                Чао, Белла. 
               </h2>  
-              <p>Тебе уже доступен первый этап нашего курса по психологии питания и пищевого поведения : </p>
+              <p>Ты успешно зарегистрировалась на платформе «Нежно». <br>
+              Тебе уже доступна бесплатная неделя подписки и материалы по психологии питания и пищевого поведения.</p>
               <div style="margin: 50px 20px;">
-                  <a href="https://eatintelligent.ru/first_stage" style="
+                  <a href="https://nezhno.space/uchebnaya-programma" style="
                       color: whitesmoke;
-                      text-decoration: navajowhite;
+                      text-decoration: none;
                       padding: 15px 30px;
                       border: 2px solid whitesmoke;
                       border-radius: 50px;
-                  ">Первый Этап</a>
+                  ">Бесплатная неделя</a>
               </div>
                   
           </div>

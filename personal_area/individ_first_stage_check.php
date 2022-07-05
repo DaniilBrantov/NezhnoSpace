@@ -3,11 +3,18 @@
     $user_id=$_SESSION['user']['id'];
     $route_value=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT `route_value` FROM `users` WHERE `id`='$user_id'"));
     $route_val=$route_value['route_value'];
+    
     if ($route_val==0){
+        if(!$_SESSION["user"]){
+            header('Location: auth');
+        }else{
+            header('Location: first_stage');
+        }
+    }elseif ($route_val==5){
         header('Location: first_stage');
     }else{
         if($route_val==1 || $route_val==4){
-            $image='purple_robot.png';
+            $image='type_picture_1.png';
             $txt=[
                 "1. <span>Вспомни</span> 2-3 последних эпизода, когда ты заела свой эмоциональный дискомфорт",
                 "2. <span>Опиши</span> каждый по схеме ниже:
@@ -41,7 +48,7 @@
                 "4. <span>Ответь</span> прямо сейчас на свою телесную потребность. Попробуй пройтись и размяться. Поменяй положение тела. Сделай глубокий вдох."
             ];
         }else if($route_val==3){
-            $image='purple_robot.png';
+            $image='type_picture_2.png';
             $audio='ogranich_type.mp3';
             $video='https://www.youtube.com/embed/0frR8ckE02E';
             $txt=[

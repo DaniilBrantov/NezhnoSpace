@@ -5,16 +5,6 @@
 
 ?>
 
-<script type="module">
-    import '/aos/dist/aos.css'; 
-    AOS.init();
-    AOS.init({
-    offset: 3,
-    easing: 'ease-in-sine',
-    once: true
-});
-</script>
-
 
 
 
@@ -47,7 +37,7 @@
         <div class="your_sebor">
             <div class="your_sebor_title">
                 <p>
-                    Дальше у тебя есть выбор:
+                    
                 </p>
             </div>
             <div class="your_sebor_cnt">
@@ -71,7 +61,7 @@
                             <p>300₽ <span>в месяц</span></p>
                         </div>
                         <div class="your_sebor_btn">
-                            <form action="https://eatintelligent.ru/payment" method='post'>
+                            <form action="https://nezhno.space/payment" method='post'>
                                 <input type="hidden" value="1" name="order">
                                 <input type="hidden" value="300" name="sum">
                                 <button type="submit">Оформить</button>
@@ -79,7 +69,7 @@
                         </div>
                     </div>
 
-                    <div class="your_sebor_item">
+                    <!-- <div class="your_sebor_item">
                         <div class="your_sebor_item_title">
                             <h3>Дальше проходить курс</h3>
                         </div>
@@ -98,14 +88,14 @@
                             <p>7000₽ </p>
                         </div>
                         <div class="your_sebor_btn">
-                            <form action="https://eatintelligent.ru/payment" method='post'>
+                            <form action="https://nezhno.space/payment" method='post'>
                                 <input type="hidden" value="2" name="order">
                                 <input type="hidden" value="7000" name="sum">
                                 <button type="submit">Продолжить</button>
                             </form>
                             
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 
                 
@@ -187,14 +177,14 @@
                     </div>
                 </div>
             </div>
-            <div class="subscr_cours_item cours_item_link">
+            <!-- <div class="subscr_cours_item cours_item_link">
                 <div class="subscr_cours_cnt">
                     <div class="subscr_cours_txt">
                         <h2>Курс</h2>
                         <p>Пройди Курс. Погрузись глубоко в причины твоих нарушений пищевого поведения и реши проблему комплексно.</p>
                     </div>
                     <div class="general_btn subscr_cours_btn">
-                        <form action="https://eatintelligent.ru/payment" method='post'>
+                        <form action="https://nezhno.space/payment" method='post'>
                                 <input type="hidden" value="2" name="order">
                                 <input type="hidden" value="7000" name="sum">
                                 <button id="our_trainings_btn_3">
@@ -203,7 +193,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -1,78 +1,103 @@
-
-<div class="page-blog">
+<div class="wrapper_blog">
     <div class="container">
-
-        <h2>
-            Блог
-        </h2>
-        <div class="main-blog">
-            <div class="blog_first-line">
-                <?php
-            $temp = $wp_query; $wp_query= null;
-        $wp_query = new WP_Query(); $wp_query->query('showposts=2' . '&paged='.$paged );
-            query_posts('cat=18&posts_per_page=2');
-            while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
-                <div class="blog_first-line_item">
-                <a href="<?php the_permalink(); ?>">
-                    <div class="blog_first-line_img">
+        <div class="blog_title">
+            <h1>Блог</h1>
+        </div>
+            <div class="blog">
+                <div class="blog_fst_line">
                     <?php
-                        if (has_post_thumbnail() ) {
-                            the_post_thumbnail('blog');
-                        }
-                    ?>
-                    </div>
-                    <div class="blog_first-line_content">
-                        <p><?php the_title(); ?></p>
-                    </div>
-                </a>
+                $temp = $wp_query; $wp_query= null;
+                $wp_query = new WP_Query(); $wp_query->query('showposts=5' . '&paged='.$paged );
+                query_posts('cat=18&posts_per_page=5');
+                while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+                        <a style="
+                        background: linear-gradient( rgba(0, 0, 0, 0), rgb(0, 0, 1) ), url(
+                                <?php 
+                                    if (has_post_thumbnail() ) {
+                                        the_post_thumbnail_url('blog');
+                                    } 
+                                ?>) center no-repeat;
+                        background-size: cover;
+                        " class="blog_item" href="<?php the_permalink(); ?>"> 
+                            <div class="blog_item_top">
+                                <div class="blog_favourites">
+                                
+                                </div>
+                                <div class="blog_date">
+                                    <?php echo get_the_date();?>
+                                </div>
+                            </div>
+                            <div class="blog_item_txt">
+                                <div class="blog_item_title">
+                                    <h3>
+                                        <?php the_title(); ?>
+                                    </h3>
+                                </div>
+                                <div class="blog_item_description">
+                                <?php
+                                    $limit = 50;
+                                    $string = strip_tags( get_the_content() );
+                                    
+
+                                    if (strlen($string) > $limit) {
+                                        $substring_limited = substr($string, 0, $limit);
+                                        $return = substr($substring_limited, 0, strrpos($substring_limited, ' ')) . $after;
+                                        } else
+                                        $return = $string;
+                                        echo $return.'...';
+                                ?>
+                                </div>
+                            </div>
+                        </a>
+                <?php endwhile; ?>
+                    
                 </div>
-            <?php endwhile; ?>
-            </div>
-
-            <div class="blog_second-line">
-
-            <?php
-            $temp = $wp_query; $wp_query= null;
-        $wp_query = new WP_Query(); $wp_query->query('showposts=2' . '&paged='.$paged );
-            query_posts('cat=18&posts_per_page=8&offset=2');
-            while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
-                <div class="blog_second-line_item">
-                <a href="<?php the_permalink(); ?>">
-                    <div class="blog_second-line_img">
+                <div class="blog_snd_line">
                     <?php
-                        if (has_post_thumbnail() ) {
-                            the_post_thumbnail('blog');
-                        }
-                    ?>
-                    </div>
-                    <div class="blog_second-line_content">
-                        <p><?php the_title(); ?></p>
-                    </div>
-                </a>
-                </div>
-            
-            <?php endwhile; ?>
-            </div>
-                <!-- <?php echo do_shortcode('[ajax_load_more container_type="div" css_classes="blog_second-line" post_type="post" posts_per_page="8" offset="10" pause="true" destroy_after="15" images_loaded="true" scroll="false" transition_container="false" button_label="Смотреть ещё" button_loading_label="Загрузка..." button_done_label="Статьи закончились" no_results_text=" <div>Sorry, nothing found in this query</div>"]'); ?> -->
+                    $temp = $wp_query; $wp_query= null;
+                    $wp_query = new WP_Query(); $wp_query->query('showposts=4' . '&paged='.$paged );
+                    query_posts('cat=18&posts_per_page=4&offset=5');
+                    while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+                    <a style="
+                        background: linear-gradient( rgba(0, 0, 0, 0), rgb(0, 0, 1) ), url(
+                                <?php 
+                                    if (has_post_thumbnail() ) {
+                                        the_post_thumbnail_url('blog');
+                                    } 
+                                ?>) center no-repeat;
+                        background-size: cover;
+                        " class="blog_item" href="<?php the_permalink(); ?>">
+                        <div class="blog_item_top">
+                            <div class="blog_favourites">
+                            </div>
+                            <div class="blog_date">
+                                <?php echo get_the_date();?>
+                            </div>
+                        </div>
+                            <div class="blog_item_txt">
+                                <div class="blog_item_title">
+                                    <h3>
+                                        <?php the_title(); ?>
+                                    </h3>
+                                </div>
+                                <div class="blog_item_description">
+                                    <?php
+                                        $limit = 110;
+                                        $string = strip_tags( get_the_content() );
+                                        
 
-            <!-- <script>
-            const blog_else=document.querySelector('.blog-else')
-            const show14=document.querySelector('.show_14');
-            const thirdline=document.querySelector('#blog_third-line');
-            show14.onclick=function () {
-                show14.id="all_articles"
-                show14.classList='all_articles';
-                thirdline.style='display:grid';
-                show14.style='display:none';
-                show14.textContent='Смотреть все статьи (<?php echo  $count_blogs ; ?>)' ;
-                const look_all=document.createElement('a');
-                look_all.href='all-articles.php';
-                look_all.classList='show_14';
-                look_all.textContent='Смотреть все(<?php echo  $count_blogs ; ?>)'
-                blog_else.prepend(look_all);
-                }
-                
-            </script> -->
+                                        if (strlen($string) > $limit) {
+                                            $substring_limited = substr($string, 0, $limit);
+                                            $return = substr($substring_limited, 0, strrpos($substring_limited, ' ')) . $after;
+                                            } else
+                                            $return = $string;
+                                            echo $return.'...';
+                                    ?>
+                                </div>
+                            </div>
+                    </a>
+                    <?php endwhile; ?>
+                </div>
+            </div>
     </div>
-    
 </div>

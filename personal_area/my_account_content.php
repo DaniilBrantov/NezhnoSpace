@@ -7,9 +7,23 @@
     if(!$_SESSION["stages"]){
         header('Location: uchebnaya-programma');
     }
-    $main_count=str_word_count($_SESSION["stages"]['main'])/5 +1;
-    $individual_count=str_word_count($_SESSION["stages"]['individual'])/6 +1;
+    
+    $all_main=$_SESSION["stages"]['all_main'];
+    $main_count=count($_SESSION["stages"]['main']);
+    $individual_count=floor(str_word_count($_SESSION["stages"]['individual'])/6 +1);
     $points=$individual_count*6;
+    $main_procent=ceil(($main_count/$all_main)*100);
+
+
+    $id=$_SESSION['user']["id"];
+    $user_assoc=mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM `users`  WHERE `users`.`id` = $id "));
+    $announcement='0';
+    if($_SESSION['user']['payment']==1 || $_SESSION['user']['payment']==3){
+        if($_SESSION['user']['route_value']==6){
+            $announcement='1';
+        }
+    }else{
+    }
 ?>  
 
 <div class="account">
@@ -21,7 +35,11 @@
             </div>
             <div class="profile_mobile">
                 <div class="profile_img">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/account_icon.jpg" alt="">
+                    <?php if($user_assoc["avatar"]){ 
+                        echo '<img src="'.get_template_directory_uri().'/images/change_img'.$user_assoc["avatar"].'.png" alt="">';
+                    } else{ 
+                        echo '<img src="'.get_template_directory_uri().'/images/account_icon.jpg" alt="">';
+                    }; ?>
                 </div>
                 <div class="profile_user_mobile">
                     <p class="profile_user_name"><?=$_SESSION['user']['name']?></p>
@@ -29,8 +47,19 @@
                 </div>
             </div>
                 <a href="change">Редактировать</a> 
+                    <form action="auth-check" method="post">
+                        <input type="hidden" name="change_material" value="1">
+                        <button class="change_material" type="submit">
+                            <?php if($_SESSION['user']["payment"]=='3' || $_SESSION['user']["payment"]=='1' || $_SESSION['user']["payment"]=='0'){
+                                    echo "Курс";
+                                }else{
+                                    echo "Подписка";
+                                } 
+                            ?>
+                        </button>
+                    </form>
         </div>
-        <?php if($_SESSION['user']['payment']==1){ ?>
+        <?php if($_SESSION['user']['payment']==1 || $_SESSION['user']['payment']==3 || $_SESSION['user']['payment']==0){ ?>
             <div class="sub_btns">
                 <div class="sub_wall">
                     <div class="sub_elements">
@@ -41,8 +70,8 @@
                                 </div>
                                 <div class="announcement_item_right">
                                     <div class="pie_chart">
-                                        <div class="pie animate" style="--p:1;--c:#DBDBDB"> 
-                                            0/1 
+                                        <div class="pie animate" style="--p:<?php echo $announcement; ?>00;--c:#DBDBDB"> 
+                                            <?php echo $announcement; ?>/1 
                                             <span>
                                                 Сделано
                                             </span>
@@ -63,8 +92,8 @@
                                     Доступные материалы
                                 </h3>
                                 <div class="pie_chart">
-                                    <div class="pie animate" style="--p:54;--c:#DBDBDB"> 
-                                        2/4
+                                    <div class="pie animate" style="--p:<?php echo $main_procent; ?>;--c:#DBDBDB"> 
+                                        <?php echo $main_count.'/'.$all_main; ?>
                                         <span>
                                             Сделано
                                         </span>
@@ -89,15 +118,11 @@
                                     </p>
                                 </div>
                                 <div class="general_btn">
-                                    <form action="https://eatintelligent.ru/payment" method='post'>
-                                        <input type="hidden" value="2" name="order">
-                                        <input type="hidden" value="7000" name="sum">
+                                    <a href="additional_materials">
                                         <button type="submit">
                                             <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
                                         </button>
-                                    </form>
-                                        
-                                    
+                                    </a>
                                 </div>
                             </div>
                         
@@ -131,7 +156,7 @@
                             <p>Пройдено уроков</p>
                         </div>
                         <div class="statistics_part_procent">
-                            <p><span><?php echo $main_count; ?></span>/8</p>
+                            <p><span><?php echo ($main_count+1); ?></span>/8</p>
                         </div>
                     </div>
                     <div class="progress">
@@ -171,31 +196,34 @@
                             <p>Количество набранных баллов</p>
                         </div>
                         <div class="statistics_part_procent">
-                            <p><span><?php echo $points; ?></span>/100</p>
+                            <p><span><?php echo $main_procent; ?></span>/100</p>
                         </div>
                     </div>
                     <div class="statistics_part_schedule">
                         <div class="progress">
-                            <progress id="progress3" max="100" value="<?php echo $points; ?>">80</progress>
+                            <progress id="progress3" max="100" value="<?php echo $main_procent; ?>">80</progress>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="account_link">
-        <div class="account_line">
-            <hr>
-        </div>
-        <div class="account_btn">
-            <a href="uchebnaya-programma">
-                <button>
-                        <p> Твоя программа </p>
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/account_btn_arrow.svg" alt="">
-                </button>
-            </a>  
+    <div class="cours_account_link">
+        <div class="account_link">
+            <div class="account_line">
+                <hr>
+            </div>
+            <div class="account_btn">
+                <a href="uchebnaya-programma">
+                    <button>
+                            <p> Твоя программа </p>
+                            <img src="<?php echo get_template_directory_uri(); ?>/images/account_btn_arrow.svg" alt="">
+                    </button>
+                </a>  
+            </div>
         </div>
     </div>
+    
 <?php } ?>
 
     <div class="account_btn_mobile">

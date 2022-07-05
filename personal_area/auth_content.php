@@ -1,10 +1,9 @@
 <?php
-    // session_start();
+    session_start();
 
-    // if ($_SESSION['user']) {
-    //     header('Location: my_account');
-    // }
-    //if($_COOKIE['user']== ''):
+    if ($_SESSION['user']) {
+        header('Location: my_account');
+    }
 ?>
 <div class="pers auth">
     <div class="figure"></div>

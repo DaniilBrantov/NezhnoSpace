@@ -35,9 +35,11 @@
 </footer>
 <?php wp_footer(); ?>
 
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="<?php echo get_template_directory_uri(); ?>/libs/phone/js/intlTelInput.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/jquery-3.5.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<script src="<?php echo get_template_directory_uri(); ?>/libs/phone/js/intlTelInput-jquery.min.js"></script>
 
 
 
@@ -45,6 +47,7 @@
 <link href="https://unpkg.com/survey-jquery/modern.min.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="https://unpkg.com/survey-jquery"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/jsonToSurvey.min.js"></script>
+
 <script src="<?php echo get_template_directory_uri(); ?>/js/personal_area.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/js/slider.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -52,6 +55,7 @@
 <script src="<?php echo get_template_directory_uri(); ?>/js/main.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 
 
 
