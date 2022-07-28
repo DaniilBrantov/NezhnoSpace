@@ -6,8 +6,16 @@ require_once 'wp-content/themes/my-theme/personal_area/connect.php';
 
 require __DIR__ . '/lib/autoload.php';
 $client = new \YooKassa\Client();
-$client->setAuth('868432', 'live_2N08jIIa9MIMz37wjt0uUBCJyhs-knXVLd5gW2Mh0qk');
+
+//Nezhno
+    $client->setAuth('924292', 'live_3RpyTpaK4mfe9cMn2AfQWUNWlHoed9BiRLWoOubbL2E');
+//EI
+//$client->setAuth('868432', 'live_2N08jIIa9MIMz37wjt0uUBCJyhs-knXVLd5gW2Mh0qk');
+//TestPay
 //$client->setAuth('869895', 'test_Q7KD27W77DlrRMm2yjcWW08DE8iXYHqSUTiP1-DaZMM');
+//$client->setAuth('869895', 'test_Q7KD27W77DlrRMm2yjcWW08DE8iXYHqSUTiP1-DaZMM');
+
+
 $paymentId = $_SESSION["pay_id"];
 $user_id=$_SESSION["user"]["id"];
 $user_mail=$_SESSION["user"]["mail"];
@@ -59,13 +67,17 @@ try {
 }
 $user_payment=mysqli_fetch_assoc(mysqli_query($mysqli,"SELECT * FROM `users` WHERE `users`.`id`='$user_id' "));
 
-if ($response["status"]=="succeeded" && $response["amount"]["value"]=='300.00') {
+if ($response["status"]=="succeeded" && $response["amount"]["value"]=='7.00') {
+    if($response["payment_method"]["id"] && $response["metadata"]){
+        $payment_method=$response["payment_method"]["id"];
+        $rate=$response["metadata"]["rate"];
+    };
     if($user_payment["payment"]=='2'){
         $new_payment='4';
     }else{
         $new_payment='1';
     }
-    mysqli_query($mysqli,"UPDATE `users` SET `payment` = '$new_payment' WHERE `users`.`id` = '$user_id'");
+    mysqli_query($mysqli,"UPDATE `users` SET `payment` = '$new_payment', `payment_method` = '$payment_method', `rate` = '$rate' WHERE `users`.`id` = '$user_id'");
     header('Location: uchebnaya-programma');
     $email->Body    =  '
     

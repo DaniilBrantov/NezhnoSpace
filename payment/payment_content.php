@@ -4,9 +4,11 @@
     require_once 'wp-content/themes/my-theme/personal_area/connect.php';
 
 
-
-
+if(!$sum || empty($sum) || $sum==NULL){
+    header('Location: subscription');
+};
 ?>
+
 <div class="wrapper_payment">
     <div class="payment">
         <div class="payment_title">
@@ -41,6 +43,7 @@
                         </div>
                         <input id="pay_order" type="hidden" value="<?php echo $order; ?>" name="order">
                         <input id="pay_sum" type="hidden" value="<?php echo $sum; ?>" name="sum">
+                        <input type="hidden" value="<?php echo $rate; ?>" name="rate">
                         <div class="curriculum_btn">
                             <button id="payment_check_btn" type="submit" disabled>
                                 <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
@@ -67,6 +70,7 @@
                         };
                         txt=txt+`<input type="hidden" value="<?php echo $order; ?>" name="order">
                         <input type="hidden" value="<?php echo $sum; ?>" name="sum">
+                        <input type="hidden" value="<?php echo $rate; ?>" name="rate">
                         <div class="curriculum_btn">
                             <button id="payment_check_btn" type="submit" disabled>
                                 <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">

@@ -240,7 +240,6 @@
 /* MY ACCOUNT */
 .account{
     margin-top: 80px;
-    margin-bottom: 50px;
 }
 .profile{
     background: #f6f6f6;
@@ -1599,6 +1598,26 @@
     height: 60%;
     border-radius: 40px;
 }
+.unsubscribe_form{
+    background: #e9e9e9;
+    border-radius: 30px;
+    width: 350px;
+    text-align: center;
+    padding: 15px;
+    margin: auto;
+}
+.unsubscribe_confirmation{
+    display: none;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    height: 100%;
+    align-items: center;
+}
+.unsubscribe_form_btns{
+    display: flex;
+    justify-content: space-between;
+}
 .choice_img_active{
     display: block;
 }
@@ -2263,6 +2282,7 @@ text-align: left;
 .wrapper_subscription{
     background: #0d0d0d;
     color: whitesmoke;
+    padding-bottom: 50px;
 }
 .subscription{
     display: flex;
@@ -2371,7 +2391,6 @@ text-align: left;
 .your_conductor_link p{
     font-size: 32px;
     margin: 10px;
-    margin-left: 40px;
 }
 .sub_stage_item{
     margin: 20px;
@@ -2971,6 +2990,126 @@ text-align: left;
     cursor: pointer;
     font-weight: bold;
 }
+.profile_unsubscribe{
+    height: 100%;
+}
+.unsubscribe_btn{
+    text-align: center;
+    width: 350px;
+    margin: 20px 5px;
+}
+.unsubscribe_btn button{
+    border: none;
+    background: none;
+    color: #787878;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.subscribe_btn{
+    margin-top: 30px;
+}
+.bcgrd_white{
+    background: var(--white);
+}
+.sub_btn_back{
+    position: absolute;
+    top: 100px;
+    left: 50px;
+}
+.pay_subscription{
+    width: 1514px;
+    margin: 50px auto;
+    background: url(../images/bcrd_cloud.jpg) center no-repeat;
+    border-radius: 14px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pay_subscription h2{
+    font-size: 32px;
+    width: 320px;
+}
+.pay_subscription_cards{
+    display: flex;
+    justify-content: space-evenly;
+    width: 70%;
+}
+.pay_subscription_card{
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--white);
+    text-align: left;
+    border-radius: 14px;
+    width: 312px;
+    padding: 0;
+}
+.pay_subscription_card_img{
+    height: 340px;
+    background: #161616;
+    border-radius: 14px 14px 0 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.pay_subscription_card_img img{
+    margin: auto;
+}
+.pay_subscription_card_cnt{
+    background: #191919;
+    border-radius: 0 0 14px 14px;
+    padding: 20px;
+    height: 90px;
+}
+.pay_subscription h4{
+    margin: 0;
+    font-size: 20px;
+}
+.pay_subscription p{
+    font-size: 14px;
+    color: #B3B3B3;
+}
+.pay_subscription_card_flex{
+    display: flex;
+    position: relative;
+}
+.pay_subscription_price{
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    padding: 10px;
+    top: 30px;
+    right: 0;
+    display: flex;
+    align-items: center;
+}
+.pay_subscription_price span{
+    font-size: 14px;
+}
+.dot {
+    background-color: var(--white);
+    height: 9px;
+    width: 9px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.dot-pulse {
+    border-radius: 50%;
+    margin: 0;
+    background-color: var(--white);
+    animation: DotPulse 1s infinite;
+}
+.pay_subscription_benefit{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(to right,var(--purple),rgb(207, 50, 88), var(--pink));
+    border-radius: 50px;
+    padding: 10px 20px;
+    color: var(--white);
+    font-weight: bold;
+}
 
 
 
@@ -3047,39 +3186,20 @@ text-align: left;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@keyframes DotPulse {
+    0%   { 
+        opacity: .5;
+        height: 9px;
+        width: 9px;
+        transition: opacity .2s linear;
+    }
+    50%  { 
+        opacity: 0; 
+        transform: scale(3.5);
+        transition: opacity .2s linear;
+    }
+    100%  { opacity: 0; transition: opacity .2s ease;}
+}
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;
@@ -3256,6 +3376,14 @@ text-align: left;
     .account_link{
         width: 90%;
     }
+    .pay_subscription{
+        width: 90%;
+        display: block;
+    }
+    .pay_subscription_cards{
+        width: 950px;
+        justify-content: space-between;
+    }
 }
 
 
@@ -3281,7 +3409,6 @@ text-align: left;
         width: 100%;
         padding-top: 0;
         height: 100%;
-        margin-bottom: 50px;
     }
     .profile_n_statistics{
         display: block;
@@ -3491,6 +3618,31 @@ text-align: left;
     }
     .account_link{
         width: 100%;
+    }
+    .unsubscribe_btn{
+        margin: auto;
+        margin-bottom: 50px;
+    }
+    .subscribe_btn{
+        width: 350px;
+        margin: auto;
+        margin-bottom: 30px;
+    }
+    .pay_subscription{
+        background: none;
+        width: 340px;
+        padding: 32px 0;
+    }
+    .pay_subscription_cards{
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .pay_subscription_card{
+        margin-bottom: 50px;
+    }
+    .pay_subscription h2 {
+        margin-bottom: 70px;
     }
 }
 
@@ -3837,6 +3989,9 @@ text-align: left;
         width: 300px;
         margin-left: -170px;
     }
+    .sub_btn_back {
+        left: 0px;
+    }
 }
 
 
@@ -4093,5 +4248,8 @@ iframe {
 }
 .auth_link{
     padding: 20px 60px;
+}
+.subscribe_btn{
+    width: 300px;
 }
 }

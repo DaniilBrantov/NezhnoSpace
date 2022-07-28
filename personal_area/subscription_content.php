@@ -157,7 +157,7 @@ if (!$_SESSION['user']) {
                 </p> -->
             </div>
         </div>
-        <div class="your_conductor">
+        <!-- <div class="your_conductor">
             <div class="your_conductor_title">
                 Твой первый шаг к более глубокому пониманию себя начинается здесь и сейчас.</span></h2>
                 
@@ -183,7 +183,6 @@ if (!$_SESSION['user']) {
 
                         </button>
                     </form>
-                    
                 </div>
                 <div>
                 <form action="<?php echo $href; ?>" method='post'>
@@ -194,6 +193,101 @@ if (!$_SESSION['user']) {
                 </div>
             </div>
             
-        </div>
+        </div> -->
     </div>
+        <div class="pay_subscription">
+            <div class="pay_subscription_title">
+                <h2>
+                    Начни заботиться о себе с Нежно
+                </h2>
+            </div>
+            <div class="pay_subscription_cards">
+                <form action="<?php echo $href; ?>" method='post'>
+                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
+                    <input type="hidden" value="7" name="sum">
+                    <input type="hidden" value="1" name="rate">
+                    <button class="pay_subscription_card" type="submit">
+                        <div style="background: rgba(255, 255, 255, 0.4);" class="pay_subscription_card_img">
+                            <img src="<?php echo get_template_directory_uri(); ?>/images/pay_subscription_card_1.png" alt="">
+                        </div>
+                        <div class="pay_subscription_card_cnt">
+                                <h4>
+                                    1 месяц
+                                </h4>
+                                <div class="pay_subscription_card_flex">
+                                    <div class="pay_subscription_card_txt">
+                                        <p>
+                                            первые 7 дней за 7 ₽
+                                        </p>
+                                    </div>
+                                    <div class="pay_subscription_price">
+                                        700 ₽ / <span>месяц</span> 
+                                    </div>
+                                </div>
+                        </div>
+                    </button>
+                </form>
+                
+                <form action="<?php echo $href; ?>" method='post'>
+                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
+                    <input type="hidden" value="7" name="sum">
+                    <input type="hidden" value="2" name="rate">
+                    <button class="pay_subscription_card" type="submit">
+                        <div style="background: rgba(27, 27, 27, 0.8);" class="pay_subscription_card_img">
+                            <img src="<?php echo get_template_directory_uri(); ?>/images/pay_subscription_card_2.png" alt="">
+                        </div>
+                        <div class="pay_subscription_card_cnt">
+                                <h4>
+                                    6 месяцев
+                                </h4>
+                                <div class="pay_subscription_card_flex">
+                                    <div class="pay_subscription_card_txt">
+                                        <p>
+                                            первые 7 дней за 7 ₽
+                                        </p>
+                                    </div>
+                                    <div class="pay_subscription_price">
+                                        3600 ₽
+                                    </div>
+                                </div>
+                        </div>
+                    </button>
+                </form>
+
+                <form action="<?php echo $href; ?>" method='post'>
+                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
+                    <input type="hidden" value="7" name="sum">
+                    <input type="hidden" value="3" name="rate">
+                    <button style="box-shadow: 0 0 15px 7px rgb(77, 77, 77);" class="pay_subscription_card" type="submit">
+                        <div style="background: #101010;" class="pay_subscription_card_img">
+                            <div class="pay_subscription_benefit">
+                                    Выгода 15%
+                            </div>
+                            <img src="<?php echo get_template_directory_uri(); ?>/images/pay_subscription_card_3.png" alt="">
+                        </div>
+                        <div class="pay_subscription_card_cnt">
+                                <h4>
+                                    1 год
+                                </h4>
+                                <div class="pay_subscription_card_flex">
+                                    <div class="pay_subscription_card_txt">
+                                        <p>
+                                            первые 7 дней за 7 ₽
+                                        </p>
+                                        <p>
+                                            500₽ / месяц
+                                        </p>
+                                    </div>
+                                    <div class="pay_subscription_price">
+                                    <div class="dot">
+                                        <div class="dot-pulse"></div>
+                                    </div>
+                                        6000 ₽ 
+                                    </div>
+                                </div>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
 </div>

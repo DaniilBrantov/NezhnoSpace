@@ -340,6 +340,21 @@ $(function () {
 });
 
 
+$(function () {
+  $('.unsubscribe_btn button').click(function () {
+    $('.unsubscribe_confirmation').addClass('unsubscribe_form_btns');
+    $('.account').addClass('change_blur');
+  });
+});
+
+$(function () {
+  $('#unsubscribe_cancel').click(function (e) {
+    e.preventDefault();
+    $('.unsubscribe_confirmation').removeClass('unsubscribe_form_btns');
+    $('.account').removeClass('change_blur');
+  });
+});
+
 
 
 

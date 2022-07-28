@@ -19,6 +19,7 @@ if($_POST["answer"] || $_POST["form_name"]){
                 $_SESSION["user"]["full_name"] =$_POST["form_name"];
                 $_SESSION["user"]["order"] = $_POST['order'];
                 $_SESSION["user"]["sum"] = $_POST['sum'];
+                $_SESSION["user"]["rate"] = $_POST['rate'];
                 if($_POST["user_tel"]){
                     mysqli_query($mysqli,"UPDATE `users` SET `telephone` = '$user_tel' WHERE `users`.`id` = '$user_id'");
                 }
@@ -179,6 +180,7 @@ if($_POST["answer"] || $_POST["form_name"]){
                                     $_SESSION["user"]["full_name"] =$_POST["form_name"];
                                     $_SESSION["user"]["order"] = $_POST['order'];
                                     $_SESSION["user"]["sum"] = $_POST['sum'];
+                                    $_SESSION["user"]["rate"] = $_POST['rate'];
                                     header('Location: payment');
                                 }else{
                                     echo '

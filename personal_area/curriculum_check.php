@@ -56,7 +56,6 @@
             const individ_arr=[];
             OpenStage(open_stage_num,individ_arr);
         }else if(order==2 && today > open_date){
-            
             <?php 
             if($payment==2){
                 if ($user_start == NULL) {
@@ -83,8 +82,29 @@
             <?php
                 if($payment==3){
                     $open_stage_num++;
-                }
+                };
             ?>
+            const open_stage_num=<?php echo json_encode($open_stage_num); ?>;
+            const individ_arr=[];
+            OpenStage(open_stage_num,individ_arr);
+        }else if(order==6){
+            <?php 
+                if($payment==6){
+                    $open_month=date("Y-m-d H:i:s", strtotime($user_start.'+ 27 days'));
+                    if($open_month <= $today){
+                        $query_update_payment = $mysqli->query("UPDATE `users` SET `payment`='3' WHERE `mail`='$user_mail'");
+                    }else{
+                        if($user_start <= $today){
+                            while ($user_start<=$today){
+                                $user_start=date("Y-m-d H:i:s", strtotime($user_start.'+ 7 days'));
+                                $open_stage_num++;
+                            };
+                        };
+                    }
+                };
+            ?>
+            const user_start=<?php echo json_encode($user_start); ?>;
+            console.log(user_start);
             const open_stage_num=<?php echo json_encode($open_stage_num); ?>;
             const individ_arr=[];
             OpenStage(open_stage_num,individ_arr);

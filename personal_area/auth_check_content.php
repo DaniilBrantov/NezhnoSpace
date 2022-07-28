@@ -42,6 +42,7 @@
             "age"=>$user["age"],
             "mail"=>$user["mail"],
             "payment"=>$user["payment"],
+            "next_stage"=>$user["next_stage"],
             "avatar"=>$user["avatar"],
         ];
 
@@ -58,6 +59,21 @@
 
         echo json_encode($response);
     }
+
+
+
+
+
+
+
+
+
+
+
+    $email= $_SESSION["user"]["mail"];
+    $sql="SELECT * FROM `users` WHERE `mail` = '$email' ";
+    $users=mysqli_fetch_assoc(mysqli_query($mysqli,$sql));
+
     if($_POST["main"]){
         $_SESSION["stages"]=[
         "main"=> $_POST["main"],
@@ -69,9 +85,6 @@
         $_SESSION["user"]["route_value"]=$_POST["route_val"];
     }
     if($_POST["change_material"]){
-        $email= $_SESSION["user"]["mail"];
-        $sql="SELECT * FROM `users` WHERE `mail` = '$email' ";
-        $users=mysqli_fetch_assoc(mysqli_query($mysqli,$sql));
         if($users["payment"]=='4'){
             if($_SESSION["user"]["payment"] == '4' || $_SESSION["user"]["payment"] == '2'){
                 $_SESSION["user"]["payment"]= '1';
@@ -102,10 +115,26 @@
             }else{
                 $_SESSION["user"]["payment"]= '3';
             }
+        }else{
+            if($_SESSION["user"]["payment"] == '6'){
+                $_SESSION["user"]["payment"]= '5';
+            }else{
+                $_SESSION["user"]["payment"]= '6';
+            }
         }
         header('Location: /my_account');
     }
 
+    if($_POST["unsubscribe_form_btn"]){
+        if($users["payment"]=='4'){
+            $mysqli->query("UPDATE `users` SET `payment`='2',`payment_method`='' WHERE `mail`='$email'");
+            $_SESSION["user"]["payment"]= '2';
+        }elseif($users["payment"]=='1'){
+            $mysqli->query("UPDATE `users` SET `payment`='6',`payment_method`='' WHERE `mail`='$email'");
+            $_SESSION["user"]["payment"]= '6';
+        }
+        header('Location: /my_account');
+    }
 
 
 ?>

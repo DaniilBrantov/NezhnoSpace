@@ -13,9 +13,11 @@
         if($_SESSION['user']['order'] && $_SESSION['user']['sum']){
             $order=$_SESSION['user']['order'];
             $sum=$_SESSION['user']['sum'];
+            $rate=$_SESSION['user']['rate'];
         }else{
             $order = $_POST["order"];
             $sum = $_POST["sum"];
+            $rate=$_POST["rate"];
         };
     }else{
         $full_name=$_POST["full_name"];
@@ -32,7 +34,11 @@
     }
         $description = 'Заказ № '.$order.' E-mail: '.$email;
         $client = new \YooKassa\Client();
-        $client->setAuth('868432', 'live_2N08jIIa9MIMz37wjt0uUBCJyhs-knXVLd5gW2Mh0qk');
+        //Nezhno
+            $client->setAuth('924292', 'live_3RpyTpaK4mfe9cMn2AfQWUNWlHoed9BiRLWoOubbL2E');
+        //EI
+        //$client->setAuth('868432', 'live_2N08jIIa9MIMz37wjt0uUBCJyhs-knXVLd5gW2Mh0qk');
+        //TestPay
         //$client->setAuth('869895', 'test_Q7KD27W77DlrRMm2yjcWW08DE8iXYHqSUTiP1-DaZMM');
         $idempotenceKey = uniqid('', true);
         if($order==1 && $full_name && $phone){
@@ -40,7 +46,7 @@
             (
                 array(
                     'amount' => array(
-                        'value' => '300',
+                        'value' => '7',
                         'currency' => 'RUB',
                     ),
                     'confirmation' => array(
@@ -53,20 +59,24 @@
                         ),
                         "items" => array(
                             array(
-                                "description" => "Курс по психологии питания",
+                                "description" => "Подписка на платформу nezhno.space для $email",
                                 "quantity" => "1.00",
                                 "amount" => array(
-                                    "value" => "300.00",
+                                    "value" => "7.00",
                                     "currency" => "RUB"
                                 ),
                                 "vat_code" => "1",
                                 "payment_mode" => "full_prepayment",
-                                "payment_subject" => "service"
+                                "payment_subject" => "service",
                             )
                         )
                     ),
+                    "metadata" => array(
+                        "rate" => "$rate"
+                    ),
                     'capture' => true,
                     'description' => $description,
+                    'save_payment_method' => true,
                     'merchant_customer_id'=> $email,
                 ), $idempotenceKey
             );
@@ -90,7 +100,7 @@
                         ),
                         "items" => array(
                             array(
-                                "description" => "Наименование товара 1",
+                                "description" => "Курс по психологии питания",
                                 "quantity" => "1.00",
                                 "amount" => array(
                                     "value" => "7000.00",

@@ -6,7 +6,7 @@
     }
     if(!$_SESSION["stages"]){
         header('Location: uchebnaya-programma');
-    }
+    };
     
     $all_main=$_SESSION["stages"]['all_main'];
     $main_count=count($_SESSION["stages"]['main']);
@@ -18,7 +18,7 @@
     $id=$_SESSION['user']["id"];
     $user_assoc=mysqli_fetch_assoc(mysqli_query($mysqli, "SELECT * FROM `users`  WHERE `users`.`id` = $id "));
     $announcement='0';
-    if($_SESSION['user']['payment']==1 || $_SESSION['user']['payment']==3){
+    if($_SESSION['user']['payment']==1 || $_SESSION['user']['payment']==3 || $_SESSION['user']['payment']==6){
         if($_SESSION['user']['route_value']==6){
             $announcement='1';
         }
@@ -26,40 +26,99 @@
     }
 ?>  
 
+
+
+
+
+
+
+
+
+<div class="unsubscribe_confirmation">
+    <div class="unsubscribe_form" id="unsubscribe_form">
+        <h2>Подтверждение отмены подписки</h2>
+        <form action="https://nezhno.space/auth-check" method='post' id="choice_img_grid">
+            <p>
+                Вы можете отменить подписку сейчас и продолжить ее использование до указанной даты(11.11.11).
+            </p>
+            <div class="unsubscribe_form_btns">
+                <div class="unsubscribe_form_btn">
+                    <button style="background: #424242; font-weight: normal;" class="btn__ok" id="unsubscribe_cancel">Отмена</button>
+                </div>
+                <div class="unsubscribe_form_btn">
+                    <input class="btn__ok" type="submit" name="unsubscribe_form_btn" value="Подтвердить">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 <div class="account">
     <div class="profile_n_statistics">
-        <div class="profile">
-            <div class="profile_user">
-                <p class="profile_user_name"><?=$_SESSION['user']['surname']?> <?=$_SESSION['user']['name']?></p>
-                <p class="profile_user_year">Возраст: <?=$_SESSION['user']['age']?></p>
-            </div>
-            <div class="profile_mobile">
-                <div class="profile_img">
-                    <?php if($user_assoc["avatar"]){ 
-                        echo '<img src="'.get_template_directory_uri().'/images/change_img'.$user_assoc["avatar"].'.png" alt="">';
-                    } else{ 
-                        echo '<img src="'.get_template_directory_uri().'/images/account_icon.jpg" alt="">';
-                    }; ?>
+        <div class="profile_unsubscribe">
+            <div class="profile">
+                <div class="profile_user">
+                    <p class="profile_user_name"><?=$_SESSION['user']['surname']?> <?=$_SESSION['user']['name']?></p>
+                    <p class="profile_user_year">Возраст: <?=$_SESSION['user']['age']?></p>
                 </div>
-                <div class="profile_user_mobile">
-                    <p class="profile_user_name"><?=$_SESSION['user']['name']?></p>
-                    <p class="profile_user_year">Возраст: ...</p>
+                <div class="profile_mobile">
+                    <div class="profile_img">
+                        <?php if($user_assoc["avatar"]){ 
+                            echo '<img src="'.get_template_directory_uri().'/images/change_img'.$user_assoc["avatar"].'.png" alt="">';
+                        } else{ 
+                            echo '<img src="'.get_template_directory_uri().'/images/account_icon.jpg" alt="">';
+                        }; ?>
+                    </div>
+                    <div class="profile_user_mobile">
+                        <p class="profile_user_name"><?=$_SESSION['user']['name']?></p>
+                        <p class="profile_user_year">Возраст: ...</p>
+                    </div>
                 </div>
+                    <a href="change">Редактировать</a> 
+                        <form action="auth-check" method="post">
+                            <input type="hidden" name="change_material" value="1">
+                            <button class="change_material" type="submit">
+                                <?php if($_SESSION['user']["payment"]=='3' || $_SESSION['user']["payment"]=='1' || $_SESSION['user']["payment"]=='0' || $_SESSION['user']['payment']=='6'){
+                                        echo "Курс";
+                                    }else{
+                                        echo "Подписка";
+                                    } 
+                                ?>
+                            </button>
+                        </form>
             </div>
-                <a href="change">Редактировать</a> 
-                    <form action="auth-check" method="post">
-                        <input type="hidden" name="change_material" value="1">
-                        <button class="change_material" type="submit">
-                            <?php if($_SESSION['user']["payment"]=='3' || $_SESSION['user']["payment"]=='1' || $_SESSION['user']["payment"]=='0'){
-                                    echo "Курс";
-                                }else{
-                                    echo "Подписка";
-                                } 
-                            ?>
+            <?php if($_SESSION['user']['payment']==1){ ?>
+                <div class="unsubscribe_btn">
+                    <button>Отписаться</button>
+                </div>
+            <?php }else{ ?>
+                <div class="subscribe_btn your_conductor_link">
+                    <form action="https://nezhno.space/payment" method='post'>
+                        <input type="hidden" value="1" name="order">
+                        <input type="hidden" value="7" name="sum">
+                        <button type="submit">
+                                Оформить Подписку
+                            <p>
+                                700P
+                                <!-- <span style="color:#F2C0E3; text-decoration: line-through;">
+                                    <span style="color:#F2C0E3;
+                                    font-size:18px;
+                                    position: relative;
+                                    top: -10px;">
+                                        700P
+                                    </span>
+                                </span>  -->
+                            </p>
+
                         </button>
                     </form>
+                </div>
+            <?php }; ?>
         </div>
-        <?php if($_SESSION['user']['payment']==1 || $_SESSION['user']['payment']==3 || $_SESSION['user']['payment']==0){ ?>
+        
+        <?php if($_SESSION['user']['payment']==1 || $_SESSION['user']['payment']==3 || $_SESSION['user']['payment']==0 || $_SESSION['user']['payment']==6){ ?>
             <div class="sub_btns">
                 <div class="sub_wall">
                     <div class="sub_elements">

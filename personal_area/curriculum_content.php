@@ -6,7 +6,26 @@
         header('Location: auth');
     }
     $user_id=$_SESSION['user']['id'];
-    if($_SESSION['user']['payment'] == 1 || $_SESSION['user']['payment'] == 3 || $_SESSION['user']['payment'] == 0){ ?>
+
+
+$users=mysqli_query($mysqli,"SELECT * FROM `users`");
+while($customer=mysqli_fetch_assoc($users)){
+    $today=strtotime(date('Y-m-d H:i:s'));
+    $next_stage=strtotime($customer["next_stage"]) ;
+    $difference= ($today - $next_stage)/ 86400;
+    if ($next_stage && $customer["pay_month"] == '0') {
+        if($difference > 28){
+            $customer_id=$customer["id"];
+            echo $difference;
+            //mysqli_query($mysqli,"UPDATE `users` SET `pay_month` = '2' WHERE `users`.`id` = '$customer_id'");
+        }
+    }
+    
+}
+    
+
+
+    if($_SESSION['user']['payment'] == 1 || $_SESSION['user']['payment'] == 3 || $_SESSION['user']['payment'] == 0 || $_SESSION['user']['payment'] == 6){ ?>
         <div class="container">
             <div class="subscription_less">
         <?php  
