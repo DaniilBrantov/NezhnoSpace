@@ -9,11 +9,14 @@
                 Telegram <br>
                 <span class="tg"><a href="https://web.telegram.org/k/">@eatintel</a></span><br> <br>
                 Instagram <br>
-                <span class="instagram"><a href="https://www.instagram.com/eat.intelligent">eat.intelligent</a></span> <br> 
+                <span class="instagram"><a href="https://www.instagram.com/eat.intelligent">eat.intelligent</a></span>
+                <br>
             </p>
-            <img class="contacts-arrow" src="<?php echo get_template_directory_uri(); ?>/images/Arrow.png" alt=""> <br>
+            <img class="contacts-arrow" src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" alt="">
+            <br>
             <a href="https://www.instagram.com/eat.intelligent">
-                <img class="img-instagram" src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg" alt="">
+                <img class="img-instagram" src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg"
+                    alt="">
             </a>
         </div>
     </div>

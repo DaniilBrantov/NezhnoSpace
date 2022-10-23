@@ -18,7 +18,7 @@
 <div class="wrapper_admin">
     <div class="admin_add update">
             <h1>Обновить переменную</h1>
-        <form action="update_check" method="post">
+        <form action="_check" method="post">
             <input type="hidden" name="id" value="<?php echo $var["id"]; ?>">
                     <div class="add_var_item stage_number">
                         <input class="add_var_item_input" type="text" name="less_number" value="<?php echo $var["less_number"]; ?>" required >

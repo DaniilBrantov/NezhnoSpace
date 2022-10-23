@@ -26,7 +26,7 @@ while($customer=mysqli_fetch_assoc($users)){
     if ($next_stage && $customer["payment_method"]) {
         $customer_id=$customer["id"];
 
-        if($customer["pay_month"] == '0'){
+        if($customer["pay_month"] == '0' || $customer["pay_month"] == 'NULL'){
             if($customer["rate"]=="1"){
                 $pay_month='1';
                 $fst_val= 693.0;
@@ -39,7 +39,6 @@ while($customer=mysqli_fetch_assoc($users)){
             };
 
             if ($difference > 7) {
-                
                 $payment = $client->createPayment(
                     array(
                         'amount' => array(
@@ -48,7 +47,7 @@ while($customer=mysqli_fetch_assoc($users)){
                         ),
                         'capture' => true,
                         'payment_method_id' => $customer["payment_method"],
-                        'description' => 'Подписка на платформу Нежно',
+                        'description' => 'Подписка на платформу Нежно: ' . $customer["mail"],
                     ),
                     uniqid('', true)
                 );
@@ -78,7 +77,7 @@ while($customer=mysqli_fetch_assoc($users)){
                     ),
                     'capture' => true,
                     'payment_method_id' => $customer["payment_method"],
-                    'description' => 'Подписка на платформу Нежно',
+                    'description' => 'Подписка на платформу Нежно: ' . $customer["mail"],
                 ),
                 uniqid('', true)
             );
@@ -91,3 +90,4 @@ while($customer=mysqli_fetch_assoc($users)){
 }
 
 ?>
+

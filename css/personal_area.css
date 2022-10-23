@@ -170,7 +170,7 @@
     color: rgb(180, 39, 39);
     margin: 0;
     padding: 5px;
-    padding-top: 20px;
+    font-size: 13px;
 }
 .hint{
     position: absolute;
@@ -605,8 +605,8 @@
     justify-content: space-between;
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    margin-top: 120px;
-  }
+    margin-top: 80px;
+}
 .curriculum_item {
     margin: 20px;
     margin-top: 120px;
@@ -632,16 +632,15 @@
 .main_less{
     margin-bottom: 70px;
     width: 100%;
-    margin-right: 70px;
 }
 .individ_less{
     margin-bottom: 70px;
     width: 100%;
     margin-right: 10px;
 }
-.main_less_img{
+.main_less_img, .slide{
     width: 100%;
-    background: #414141;
+    background: #252525;
     height: 270px;
     border-radius: 20px;
 }
@@ -675,7 +674,7 @@
     font-size: 24px;
     font-weight: bold ;
 }
-.main_less p{
+.curriculum_content p{
     width: 310px;
     font-size: 16px;
 }
@@ -744,7 +743,7 @@
     margin-top: 10px;
     
 }
-.slick-center{
+.slider .slick-center{
     opacity: 1;
     height: 150px;
     margin-top: 0;
@@ -774,7 +773,8 @@
     margin: 10px 40px;
 }
 .curriculum_number_mobile p{
-    color: gray;
+    color: #757575;
+    font-weight: bold;
 }
 .curriculum_number_mobile hr{
     width: 80%;
@@ -2236,16 +2236,34 @@ text-align: left;
     color: #cbcbcb;
     font-size: 12px;
 }
-.no_access{
+.next_stage{
+    padding: 20px;
+    color: #E4E4E4;
+    font-weight: bold;
+    font-size: 14px;
+}
+.no_access {
+    position: relative;
+}
+.no_access:before {
+    content: "";
+    width: 100%;
+    position: absolute;
+    z-index: 1;
     filter: blur(2px) contrast(0%);
-    background: url(../images/padlock.svg) no-repeat center #212121a6;
+    background: url(../images/padlock.svg) no-repeat center #00000000;
     background-size: 80px;
+    height: 100%;
+    border-radius: 20px;
 }
 .wrapper_subscr_cours{
     background: #0e0e0e;
     color: gainsboro;
     padding: 50px 0;
 }
+
+
+
 .subscr_cours{
     display: grid;
     grid-template-rows: repeat(3, 100px);
@@ -2314,6 +2332,7 @@ text-align: left;
     justify-content: space-around;
     font-weight: bold;
     align-items: center;
+    text-decoration: none;
 }
 .wht_btn_with_arr p{
     margin: 0;
@@ -2624,11 +2643,21 @@ text-align: left;
     background: #222;
     padding: 15px 30px;
     border-radius: 10px;
-    border: navajowhite;
+    border: none;
     color: var(--white);
     font-size: 16px;
     cursor: pointer;
     transition: .5s;
+    font-weight: bold;
+}
+.classic_btn_white{
+    background: var(--white);
+    padding: 13px 30px;
+    border-radius: 10px;
+    color: var(--black);
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
     font-weight: bold;
 }
 .classic_btn:hover,.read_btn:hover{
@@ -3110,6 +3139,35 @@ text-align: left;
     color: var(--white);
     font-weight: bold;
 }
+.promocode{
+    background: linear-gradient(90deg, rgba(127,69,217,1) 0%, rgba(209,55,206,1) 100%);
+    border-radius: 20px;
+    padding: 40px 2em;
+    margin: 100px 20px 0;
+    color: rgb(245, 245, 245);
+    font-size: 24px;
+}
+.promocode_title h2{
+    margin-top: 0;
+}
+.promocode_form{
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    width: 90%;
+    align-items: end;
+    grid-column-gap: 20px;
+}
+.promocode_input{
+    margin-bottom: 0;
+    height: 45px;
+    padding: 0;
+    width: 300px;
+    background-color: #ffffff70;
+    border-radius: 15px;
+}
+.promocode_cnt{
+    height: 45px;
+}
 
 
 
@@ -3186,6 +3244,97 @@ text-align: left;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes circle {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+#white-circle {
+  animation: .35s ease-in .35s forwards circle;
+  transform: none;
+  transform-origin: center;
+}
+@keyframes check {
+  from {
+    stroke-dasharray: 0px, 40px;
+  }
+  to {
+    stroke-dasharray: 40px, 40px;
+  }
+}
+#check {
+  animation: .34s cubic-bezier(0.6, 0, 1, 1) .8s forwards check; 
+  stroke-dasharray: 0, 40px;
+}
+@keyframes check-group {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.09);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+#check-group {
+  animation: .32s ease-in-out 1.03s check-group;
+  transform-origin: center;
+}
 @keyframes DotPulse {
     0%   { 
         opacity: .5;
@@ -3644,6 +3793,18 @@ text-align: left;
     .pay_subscription h2 {
         margin-bottom: 70px;
     }
+    #promocode_btn{
+        width: 100%;
+    }
+    .promocode_form {
+        grid-template-columns: 300px;
+        width: 300px;
+        margin: auto;
+    }
+    .promocode_cnt{
+        height: 100%;
+        margin-top: 10px;
+    }
 }
 
 
@@ -3663,7 +3824,6 @@ text-align: left;
     }
     .curriculum_item_mobile{
         display: block;
-        margin-top: 60px;
         margin-bottom: 100px;
     }
     .les_banner_img {
@@ -3801,6 +3961,18 @@ text-align: left;
         display: flex;
         margin: 20px auto;
     }
+    .promocode{
+        font-size: 18px;
+    }
+    .no_access{
+        filter: blur(2px) contrast(0%);
+        background: url(../images/padlock.svg) no-repeat center #212121a6;
+        background-size: 80px;
+    }
+    .no_access::before{
+        display: none;
+    }
+
 }
 
 
@@ -4251,5 +4423,14 @@ iframe {
 }
 .subscribe_btn{
     width: 300px;
+}
+.promocode {
+    margin: 100px 5px 0;
+}
+.promocode_form, .promocode_input {
+    width: 270px;
+}
+#promocode_btn {
+    width: 90%;
 }
 }

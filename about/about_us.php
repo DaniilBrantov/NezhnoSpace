@@ -1,244 +1,337 @@
 <div class="container">
-    <div class="we-are">
-        <h1>О нас</h1>
-        <p>Eat Intelligent – это проект для людей и компаний, которые<br> заботятся о ментальном здоровье, личном развитии и <br> профессиональном росте. </p>
-    </div>
-</div>
-<div class="main-technologies">
-    <div class="wrapper-technologies">
-        <div class="container">
-            <div class="technologies">
-                <div class="technol-item">
-                    <h2>
-                        Мы <br> соединили
-                    </h2>
-                    <p>
-                        Big Data <br>+<br>Нейронные сети <br>+ <br>Психология
-                    </p>
-                </div>
-                <img src="<?php echo get_template_directory_uri(); ?>/images/Arrow.png" alt="arrow">
-                <div class="technol-item">
-                    <h2>
-                        Вы <br> получаете
-                    </h2>
-                    <p>
-                    индивидуальный <br> маршрут <br>
-                    на курсах,тренингах и <br> консультациях  
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="history-n-clients">
-    <div class="container history">
-        <div class="history-content">
-            <h2>
-                История
-            </h2>
+    <div class="banner_about">
+        <div class="banner_about_cnt grid_gap_2em">
+            <h1>
+                О НАС
+            </h1>
             <p>
-                Первоначально наши первые курсы и тренинги создавались для помощи людям с <br> нарушениями и расстройствами пищевого поведения. В процессе практического <br> исследования и реализации поняли, что результаты гораздо шире, чем просто <br> налаженные отношения с едой.
+                Нежно Space — это платформа психологической поддержки.
+                Мы помогаем нашим клиентам жить полной жизнью
+                24/7&nbspблагодаря системе искусственного интеллекта.
+                С&nbspего помощью вы&nbspполучаете поддерживающие материалы,
+                рекомендованные специально под&nbspваши&nbspпотребности.
+            </p>
+            <p>
+                Мы совершенствуемся вместе с&nbspвами. Команда Нежно участвует
+                в&nbspконференциях, проводит исследования и&nbspвсегда находится на&nbspсвязи
+                с&nbspпрофессиональными сообществом практикующих психологов,
+                психотерапевтов&nbspи&nbspпсихиатров.
+            </p>
+            <p>
+                Искусственный интеллект тоже не&nbspстоит на&nbspместе: база данных
+                регулярно развивается, а&nbspзначит наша&nbspзабота и&nbspподдержка становится
+                еще&nbspэффективней&nbspи&nbspточней.
             </p>
         </div>
-        <div class="clients-content">
-            <h2>Наши Клиенты</h2>
-                <div class="client-items_line-1">
-                    <div class="clients_item">
-                        <p>Становятся <br> увереннее в себе</p>
-                    </div>
-                    <div class="clients_item">
-                        <p>Отстаивают <br> собственные <br> интересы</p>
-                    </div>
-                    <div class="clients_item">
-                        <p>Легко защищают <br> личные границы</p>
-                    </div>
-                </div>
-                <div class="client-items_line-2">
-                    <div class="clients_item">
-                        <p>Сохраняют <br> долговременную <br> мотивацию</p>
-                    </div>
-                    <div class="clients_item">
-                        <p>Вырабатывают <br> стойкие привычки</p>
-                    </div>
-                </div>
+        <div class="banner_about_img">
+            <img src="<?php getUrl(); ?>/images/about.jpg" alt="">
         </div>
-        <div class="target">
-            <div class="target_img">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/target.jpg" alt="target">
+    </div>
+    <div class="we_are mt_200">
+        <div class="we_are_item_1">
+            <div class="we_are_img">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/logo_vector.svg" alt="">
             </div>
-            <div class="target-content">
-                <h3>Наша цель</h3>
-                <p>Наша цель – помогать в <br> повышении личной и <br> профессиональной <br>  эффективности человека через 
-развитие навыков принимать <br> решения, справляться с <br> трудностями не только с <br> помощью еды, <br>
-быть осознанным и брать <br> ответственность.</p>
+            <div class="we_are_txt">
+                <p>
+                    Мы работаем через подписку.
+                    У вас будет доступ в кабинет, где находятся
+                    материалы для психологической поддержки
+                </p>
+            </div>
+        </div>
+        <div class="we_are_item_2">
+            <div class="we_are_img">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/logo_vector.svg" alt="">
+            </div>
+            <div class="we_are_txt">
+                <p>
+                    Искусственный интеллект
+                    изучает ваши потребности
+                    и подбирает индивидуальную терапию
+                </p>
+            </div>
+        </div>
+        <div class="we_are_item_3">
+            <div class="we_are_img">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/logo_vector.svg" alt="">
+            </div>
+            <div class="we_are_txt">
+                <p>
+                    Все упражнения и методики
+                    взяты из доказательной
+                    базы психологии
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="what_are_doing mt_200">
+
+        <div class="what_are_doing_grid">
+            <h3>
+                что делаем
+            </h3>
+            <div class="what_are_doing_txt grid_gap_2em">
+                <p>
+                    Пользователь сам выстраивает свой персональный маршрут терапии.
+                    Мы готовы поддерживать вас в любое время:
+                </p>
+                <ul>
+                    <li>когда вам тревожно и страшно</li>
+                    <li>когда вам радостно</li>
+                    <li>когда у вас нет сил</li>
+                    <li>когда вы не знаете, что чувствуете</li>
+                    <li>когда вы не можете принять своё тело</li>
+                </ul>
+                <p>
+                    Мы работаем с нарушениями пищевого поведения, депрессивным
+                    состоянием и тревожностью. У нас можно найти ответы на вопросы
+                    об отношениях и сексуальном поведении, кризисах в жизни и
+                    внутренней гармонии.
+                </p>
+            </div>
+            <div class="what_are_doing_img">
+                <img src="<?php getUrl(); ?>/images/what_are_we_doing.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="what_are_doing mt_200">
+        <h3>
+            как делаем
+        </h3>
+        <div class="what_are_doing_grid">
+            <div class="what_are_doing_img">
+                <img src="<?php getUrl(); ?>/images/how_are_we_doing.jpg" alt="">
+            </div>
+            <div class="what_are_doing_txt grid_gap_2em">
+                <p>
+                    Каждый пользователь имеет круглосуточный доступ к личному
+                    кабинету психологической поддержки. Рекомендательная система
+                    готовит упражнения и практики, экспертные статьи и подкасты,
+                    циклы медитаций и дневники для отслеживания прогресса — всё, что
+                    может понадобиться вам в важные моменты жизни.
+                </p>
+                <p>
+                    Доступ к личному кабинету возможен по подписке.
+                    Ее можно оформить на месяц, полгода или год.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="about_slider mt_200">
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider1.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Стресс связан с увеличением <br>
+                    потребления нездоровой пищи и снижением <br>
+                    потребления здоровой пищи
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider2.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Люди, которые сильно ограничивают себя в еде<br>
+                    и заедают эмоции, могут столкнуться с нарушениями<br>
+                    пищевого поведения
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider3.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Те, кто ограничивает себя в потреблении калорий,<br>
+                    зачастую срываются на продуктах,<br>
+                    которых избегали
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider4.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    38% взрослых переедают от стресса.<br>
+                    После переедания: 49% разочарованы в себе,<br>
+                    46% недовольны своим телом, 36% чувствуют себя ленивыми
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider5.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Интуитивное питание формирует<br>
+                    более позитивный образ тела, улучшает и&nbspрегулирует<br>
+                    эмоциональную сферу
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider6.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Осознанное питание снижает<br>
+                    необходимость в высококалорийных перекусах, позволяет достигать<br>
+                    более высокого уровня насыщения, нормализует вес тела
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider7.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Гарвард подсчитал, что экономика США<br>
+                    в&nbspсреднем теряет 65 миллиардов долларов в&nbspгод<br>
+                    из-за снижения продуктивности от&nbspнарушений пищевого поведения
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider8.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Оксфорд обнаружил, что онлайн-терапия<br>
+                    когнитивно-поведенческого характера эффективна<br>
+                    при&nbspэмоциональном переедании.
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider9.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Учёные Оксфорда рассказали, что у приложений психотерапии<br>
+                    большой потенциал. Благодаря им, каждый клиент может получить<br>
+                    персонализированный подход к своей проблеме через смартфон
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider10.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    ВОЗ оценила стоимость потери производительности труда<br>
+                    в 1 триллион долларов США в год<br>
+                    из-за тревожных состояний для мировой экономики
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider11.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Человеку, страдающему от сильной тревоги,<br>
+                    контроль еды, веса или&nbspфизических упражнений<br>
+                    дает ложное чувство контроля, временно снижая тревогу
+                </p>
+            </div>
+        </div>
+        <div class="about_slider_item">
+            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider12.jpg" alt="">
+            <div class="about_slider_txt">
+                <p>
+                    Физическое и моральное истощение увеличивает<br>
+                    потребление фаст-фуда. Фаст-фуд не решает проблему, <br>
+                    и&nbspприводит к дальнейшему употреблению нездоровой пищи
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="our_platform mt_200">
+        <h3>
+            Наша платформа – часть проекта по устойчивому развитию ООН
+        </h3>
+        <div class="our_platform_cnt">
+            <div class="our_platform_item">
+                <img class="our_platform_item_img" src="<?php echo get_template_directory_uri()  ?>/images/purpose3.png"
+                    alt="">
+                <div class="our_platform_item_txt none">
+                    <p class="white_txt bold_txt">
+                        Ментальное здоровье — важная составляющая благополучия и качества жизни.
+                    </p>
+                </div>
+            </div>
+            <div class="our_platform_item">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/purpose4.png" alt="">
+                <div class="our_platform_item_txt none">
+                    <p class="white_txt bold_txt">
+                        Обеспечиваем гендерное равенство на работе и помогаем стать увереннее женщинам, которые
+                        столкнулись с дискриминацией и РПП на фоне стресса.
+                    </p>
+                </div>
+            </div>
+            <div class="our_platform_item">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/purpose5.png" alt="">
+                <div class="our_platform_item_txt none">
+                    <p class="white_txt bold_txt">
+                        Корпоративная подписка Нежно Space — это улучшение условий труда и забота о психике сотрудников
+                    </p>
+                </div>
+            </div>
+            <div class="our_platform_item">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/purpose10.png" alt="">
+                <div class="our_platform_item_txt none">
+                    <p class="white_txt bold_txt">
+                        Нежно Space - это доступ к психологической поддержке для всех, в том числе для уязвимых групп
+                        населения.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="our_team mt_200">
+        <h3>
+            Наша команда
+        </h3>
+        <div class="our_team_cnt ta_center">
+            <div class="our_team_item">
+                <div class="our_team_item_img m_auto">
+                    <img src="" alt="">
+                </div>
+                <div class="our_team_item_title">
+                    <p>
+                        Ксения Ларькина
+                    </p>
+                </div>
+                <div class="our_team_item_post">
+                    <p>
+                        должность
+                    </p>
+                </div>
+            </div>
+            <div class="our_team_item">
+                <div class="our_team_item_img m_auto">
+                    <img src="" alt="">
+                </div>
+                <div class="our_team_item_title">
+                    <p>
+                        Даниил Брантов
+                    </p>
+                </div>
+                <div class="our_team_item_post">
+                    <p>
+                        должность
+                    </p>
+                </div>
+            </div>
+            <div class="our_team_item">
+                <div class="our_team_item_img m_auto">
+                    <img src="" alt="">
+                </div>
+                <div class="our_team_item_title">
+                    <p>
+                        Полина Карепанова
+                    </p>
+                </div>
+                <div class="our_team_item_post">
+                    <p>
+                        должность
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="proj-for">
-    <div class="container">
-        <div class="project">
-            <h2>
-                Проект эффективен
-            </h2>
-            <div class="for-who">
-                <div class="for-who_item-1">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/for-who_1.svg" alt="for-who1">
-                    <p>Для частных лиц</p>
-                </div>
-
-                <div class="for-who_item-2">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/for-who_2.svg" alt="for-who1">
-                    <p>Для корпоративных клиентов</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="wrapper-sign">
-    <div class="container">
-        <h2>
-            Знакомо?
-        </h2>
-        <div class="sign">
-
-            <div class="sign-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sign_item1.jpg" alt="">
-            </div>
-
-            <div class="sign-item">
-                <div class="sign-item_content">
-                    <h3>
-                        Не <br>нравлюсь себе
-                    </h3>
-                    <p>
-                    Критикую себя за каждую мелочь. Чуть ли не <br> каждый день ругаю себя за фигуру, гоняю <br> мысли о промахах и упущенных <br> возможностях. Постоянно думаю о <br> «последствиях» еще одного кусочка <br>
-                    или пропущенной тренировки. Силы <br> исчерпаны, настроение на нуле, отражение в <br> зеркале нагоняет тоску.
-                    </p>
-                </div>
-            </div>
-
-            <div class="sign-item">
-                <div class="sign-item_content">
-                    <h3>
-                    А что<br> 
-                    люди подумают
-                    </h3>
-                    <p>
-                    Есть потребность получить ободрение, чтобы <br> заметили, похвалили, сделали комплимент. <br>
-                    Чувствую социальное давление, что надо <br> достичь идеала. Недоумеваю, кто это все <br> напридумывал
-                    и есть ли выжившие после <br> достижения цели. Мне жизненно необходимо <br> быть хорошим(ей) для всех вокруг.
-                    </p>
-                </div>
-            </div>
-
-            <div class="sign-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sign_item2.jpg" alt="">
-            </div>
-
-            <div class="sign-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sign_item3.jpg" alt="">
-            </div>
-
-            <div class="sign-item">
-                <div class="sign-item_content">
-                    <h3>
-                        Отвращение к себе
-                    </h3>
-                    <p>
-                    Чаще всего мои переживания связаны со стыдом, <br> виной и отвращением к себе, потому что я переела,
-                    не <br> смог продержаться, опять не выполнил <br>  предновогоднее обещание, не начал новую жизнь с <br> понедельника.
-                    Мне сложно воспринимать, описывать и <br> свободно выражать другие эмоции.
-                    </p>
-                </div>
-            </div>
-
-            <div class="sign-item">
-                <div class="sign-item_content">
-                    <h3>
-                        Ничего не чувствую
-                    </h3>
-                    <p>
-                    Эмоции – это трата времени и сил. Я люблю все <br> держать под контролем. Какой смысл злиться <br> или грустить,
-                    если этим делу не поможешь. <br> Лучше я просчитаю варианты и выберу наиболее <br> подходящий.
-                    </p>
-                </div>
-            </div>
-
-            <div class="sign-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sign_item4.jpg" alt="">
-            </div>
-
-            <div class="sign-item">
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sign_item5.jpg" alt="">
-            </div>
-
-            <div class="sign-item">
-                <div class="sign-item_content">
-                    <h3>
-                        Не знаю чего хочу
-                    </h3>
-                    <p>
-                    Сомневаюсь в своем выборе: профессии, платья, <br> партнера, блюда в ресторане… Мне уже 25, 30, <br> 45, 50…лет и
-                    мне уже поздно что-либо менять. <br> Слишком много «надо», у меня нет времени на <br>
-                    свои «хочу». Не знаю, с чего начать перемены, <br> боюсь экспериментировать и пробовать новое. 
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
- <section class="section">
-      <div class="container">
-        <h2 class="section__title">FAQ</h2>
-        <div class="faq">
-          <input type="checkbox" id="faq-1" class="faq__toggle">
-          <label for="faq-1" class="faq__title">
-            <span>Как много консультаций мне понадобится, чтобы решить мой вопрос?</span>
-            <i class="faq__title-icon"></i>
-          </label>
-          <div class="faq__content">Зависит от запроса,
-в среднем для первых результатов необходимо 6-8 сессий</div>
-        </div>
-        <div class="faq">
-          <input type="checkbox" id="faq-2" class="faq__toggle">
-          <label for="faq-2" class="faq__title">
-            <span>Как это работает? </span>
-            <i class="faq__title-icon"></i>
-          </label>
-          <div class="faq__content">Формулируем экологичный запрос. Выбираем мишени терапии:
-эмоциональные реакции, паттерны поведения, телесные ощущения, убеждения. В
-процессе консультирования обсуждаем сложности, проблемы и находим патологические
-стратегии, меняем их.</div>
-        </div>
-        <div class="faq">
-          <input type="checkbox" id="faq-3" class="faq__toggle">
-          <label for="faq-3" class="faq__title">
-            <span>Какие гарантии вы можете мне дать?</span>
-            <i class="faq__title-icon"></i>
-          </label>
-          <div class="faq__content">Мы гарантируем безопасное пространство,
-принятие, доказательные методы.</div>
-        </div>
-        <div class="faq">
-          <input type="checkbox" id="faq-4" class="faq__toggle">
-          <label for="faq-4" class="faq__title">
-            <span>Как часто мне нужно ходить?</span>
-            <i class="faq__title-icon"></i>
-          </label>
-          <div class="faq__content">Темп и интенсивность работы зависит от запроса и ваших
-личных особенностей. Сессии могут проходить один раз в 1-2-3 недели.</div>
-        </div>
-        <div class="faq">
-          <input type="checkbox" id="faq-5" class="faq__toggle">
-          <label for="faq-5" class="faq__title">
-            <span>Как мне подготовиться к консультации?</span>
-            <i class="faq__title-icon"></i>
-          </label>
-          <div class="faq__content">Никак специально готовиться не нужно.
-Позаботьтесь о комфортном месте на время сессии. Можно заранее приготовить ручку и
-блокнот для записей.</div>
-        </div>
-      </div>
-    </section>

@@ -1,5 +1,4 @@
 //Авторизация
-
 $("#auth_btn").click(function (e) {
   //отключает стандартное поведение e(кнопки)
   e.preventDefault();
@@ -542,6 +541,20 @@ function NoAccessLess(main_less_link) {
       no_access.parentElement.querySelector(".curriculum_btn");
     curriculum_btn.classList.add("none");
     no_access.classList.add("no_access");
+
+
+    const main_less_img =
+      no_access.parentElement.querySelector(".main_less_img");
+    if (main_less_img) {
+      main_less_img.style.background = "#a7a7a7";
+    };
+    var next_stage = document.createElement("p");
+    var next_stage_txt = document.createTextNode("Доступ открывается каждую неделю");
+    next_stage.classList.add("next_stage");
+    next_stage.appendChild(next_stage_txt);
+    no_access.appendChild(next_stage);
+
+
     entry.remove();
     if (window.innerWidth <= 720) {
       const mobile_no_access = no_access.parentElement.parentElement;
@@ -624,7 +637,7 @@ function MainIndivStage() {
     type: "POST",
     url: "https://nezhno.space/auth-check/",
     data: json,
-    success: function (data) {},
+    success: function (data) { },
   });
 }
 
@@ -926,7 +939,7 @@ function isCorrectFIO(fio) {
   return true;
 }
 
-let payment_check_btn = document.querySelector("#payment_check_btn");
+payment_check_btn = document.querySelector("#payment_check_btn");
 
 $("#pay_mail").change(function (e) {
   let pay_mail = document.querySelector("#pay_mail");
@@ -952,7 +965,7 @@ $("#full_name").change(function (e) {
     errorMsg = $("#error_name");
   if (!isCorrectFIO(full_name.val())) {
     full_name.addClass("error");
-    errorMsg.removeClass("none");
+    errorMsg.removeClass("none").text("Некорректный номер телефона");
     payment_check_btn.setAttribute("disabled", "true");
   } else {
     errorMsg.addClass("none");
@@ -979,7 +992,7 @@ if (document.querySelector("#phone")) {
     formatOnDisplay: false,
     defaultCountry: "auto",
     geoIpLookup: function (callback) {
-      $.get("https://ipinfo.io", function () {}, "jsonp").always(function (
+      $.get("https://ipinfo.io", function () { }, "jsonp").always(function (
         resp
       ) {
         var countryCode = resp && resp.country ? resp.country : "";
@@ -995,23 +1008,46 @@ if (document.querySelector("#phone")) {
     autoHideDialCode: false,
   });
 }
+
+
+
+
 // валидация при потере фокуса
-telInput.blur(function () {
+
+
+function ValNumber(check_btn) {
   if ($.trim(telInput.val())) {
-    let payment_check_btn = document.querySelector("#payment_check_btn");
+    var check_btn = document.querySelector(check_btn);
     if (telInput.intlTelInput("isValidNumber")) {
       errorMsg.addClass("none");
       let full_name = $("#full_name").val();
-      if (isCorrectFIO(full_name)) {
-        payment_check_btn.removeAttribute("disabled");
+      if (isCorrectFIO(full_name) && check_btn !== null) {
+        check_btn.removeAttribute("disabled");
       }
     } else {
       telInput.addClass("error");
-      errorMsg.removeClass("none");
-      payment_check_btn.setAttribute("disabled", "true");
+      errorMsg.removeClass("none").text("Некорректный номер телефона");
+      if (check_btn !== null) {
+        check_btn.setAttribute("disabled", "true");
+      }
     }
+  } else {
+    telInput.addClass("error");
+    errorMsg.removeClass("none").text("Введите номер телефона");
   }
+}
+telInput.blur(function () {
+  var check_btn = "#payment_check_btn";
+  ValNumber(check_btn);
 });
+
+
+
+
+
+
+
+
 // сброс при нажатии на клавишу
 telInput.keydown(function () {
   telInput.removeClass("error");
@@ -1051,8 +1087,8 @@ $("#individ_rating_btn").click(function (e) {
     success: function (data) {
       $(".rating_success").html(
         '<div class="rating_success_item"><p>Моя оценка Индивидуальному этапу: ' +
-          keys["rating"] +
-          "</p></div>"
+        keys["rating"] +
+        "</p></div>"
       );
     },
   });
@@ -1084,17 +1120,84 @@ $(".form-switch").change(function (e) {
       type: "POST",
       url: "https://nezhno.space/auth-check/",
       data: { route_val: 6 },
-      success: function (data) {},
+      success: function (data) { },
     });
   }
 });
 
 
 
-$(".recognized_yourself a").on("click", function(e){
+$(".recognized_yourself a").on("click", function (e) {
   e.preventDefault();
   var anchor = $(this).attr('href');
   $('html, body').stop().animate({
-      scrollTop: $(anchor).offset().top - 60
+    scrollTop: $(anchor).offset().top - 60
   }, 800);
+});
+
+
+
+$("#promocode_btn").click(function (e) {
+
+  e.preventDefault();
+
+  $("input").removeClass("error");
+  $(".promocode_msg").addClass("none");
+  $("#error_phone").addClass("none");
+  let promocode = $('input[name="promocode"]').val();
+  let user_tel = $('input[name="user_tel"]').val();
+  if (promocode === "") {
+    $(".promocode_msg").removeClass("none").text("Введите промокод");
+    $("#promocode_input").addClass("error");
+  } else if (user_tel === "" || !telInput.intlTelInput("isValidNumber")) {
+    if (user_tel === "") {
+      $("#phone").addClass("error");
+      $("#error_phone").removeClass("none").text("Введите номер телефона");
+    } else {
+      $("#error_phone").removeClass("none").text("Некорректный номер телефона");
+    }
+    $("#phone").addClass("error");
+  } else {
+
+    let formData = new FormData();
+    formData.append("promocode", promocode);
+    formData.append("user_tel", user_tel);
+
+    $.ajax({
+      url: "https://nezhno.space/promocode_check/",
+      type: "POST",
+      dataType: "json",
+      processData: false,
+      contentType: false,
+      cache: false,
+      data: formData,
+      success: function (data) {
+        if (data.status) {
+          $(".promocode").fadeOut(500, function () {
+            let success_txt = '<div class="promocode_title"><h2>Теперь Вам доступны уроки</h2></div>';
+            let success_svg = $(".promocode_svg").html();
+            $(".promocode").html(success_txt + success_svg);
+            $(".promocode svg").removeClass('none');
+            $('.promocode').css('text-align', 'center');
+            $(".promocode").fadeIn(1000);
+            setTimeout(function () {
+              window.location.reload(1);
+            }, 1500);
+          });
+        } else {
+          if (data.type == 1) {
+            $(".promocode_msg").removeClass("none").text(data.message);
+            $("#promocode_input").addClass("error");
+          }
+          if (data.type == 2) {
+            $("#error_phone").removeClass("none");
+          }
+
+        }
+      },
+      error: function (jqxhr, status, errorMsg) {
+        console.log(status, errorMsg);
+      },
+    });
+  };
 });

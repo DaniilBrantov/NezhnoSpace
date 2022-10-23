@@ -19,7 +19,7 @@ $count_price=0;
             <div class="cours-text">
                 <h1>Курс </h1>
                 <p>
-                Курс по психологии питания и пещевого поведения
+                    Курс по психологии питания и пещевого поведения
                 </p>
             </div>
         </div>
@@ -43,7 +43,9 @@ $count_price=0;
             <div class="base-item">
                 <div class="base-item_content">
                     <h3>Зацикленность на еде, теле, диете.</h3>
-                    <p>Что я поем? Когда я поем? Сколько кг наберу или скину? Постоянный подсчет съеденного после еды занимают слишком много нашего жизненного пространства. Времени жить, наслаждаться, строить планы не остается.</p>
+                    <p>Что я поем? Когда я поем? Сколько кг наберу или скину? Постоянный подсчет съеденного после еды
+                        занимают слишком много нашего жизненного пространства. Времени жить, наслаждаться, строить планы
+                        не остается.</p>
                 </div>
             </div>
             <div class="base-item">
@@ -55,22 +57,26 @@ $count_price=0;
             <div class="base-item">
                 <div class="base-item_content">
                     <h3>Сложно сделать выбор,</h3>
-                    <p>начиная от блюда в ресторане, заканчивая вопросом “кто я?”, “кем я хочу быть”, “чего я на самом деле хочу”.</p>
+                    <p>начиная от блюда в ресторане, заканчивая вопросом “кто я?”, “кем я хочу быть”, “чего я на самом
+                        деле хочу”.</p>
                 </div>
             </div>
             <div class="base-item">
                 <div class="base-item_content">
                     <h3>Игнорировать свои потребности</h3>
-                    <p>во благо окружающих и выйти в выходной на работу? - Всегда, пожалуйста! Съесть тортик, который не хочешь, чтобы не обидеть подругу? - Дайте два! Отсутствуют личные границы, и ты себе уже не принадлежишь.</p>
+                    <p>во благо окружающих и выйти в выходной на работу? - Всегда, пожалуйста! Съесть тортик, который не
+                        хочешь, чтобы не обидеть подругу? - Дайте два! Отсутствуют личные границы, и ты себе уже не
+                        принадлежишь.</p>
                 </div>
             </div>
             <div class="base-item">
                 <img src="<?php echo get_template_directory_uri(); ?>/images/course-base3.jpg" alt="X">
             </div>
         </div>
-        <h2 class="cours-advertisement">Курс – это путевка в жизнь свободную от постоянной тревоги по поводу и без. </h2>
+        <h2 class="cours-advertisement">Курс – это путевка в жизнь свободную от постоянной тревоги по поводу и без.
+        </h2>
         <div class="wrapper_cours-btn">
-            <a href="first_stage"><button class="course-btn" >Записаться</button></a>
+            <a href="first_stage"><button class="course-btn">Записаться</button></a>
         </div>
     </div>
 </div>
@@ -80,49 +86,59 @@ $count_price=0;
         <div class="cours-forwho">
 
             <div id="d1" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s1" class ="cours-forwho_text">не различаешь эмоции, не умеешь с ними справляться.</span></p>
+                <p><span class="you"> Ты </span><span id="s1" class="cours-forwho_text">не различаешь эмоции, не умеешь
+                        с ними справляться.</span></p>
             </div>
             <script>
-            
-</script>
+
+            </script>
             <div id="d2" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s2" class ="cours-forwho_text">ешь, когда скучно, одиноко, на стрессе и когда испытываешь сильные эмоции: тревога,грусть, ликование…</span></p>
+                <p><span class="you"> Ты </span><span id="s2" class="cours-forwho_text">ешь, когда скучно, одиноко, на
+                        стрессе и когда испытываешь сильные эмоции: тревога,грусть, ликование…</span></p>
             </div>
 
             <div id="d3" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s3" class ="cours-forwho_text">избегаешь “плохую/вредную” еду: от картошки фри до творога с 5% жирностью вместо 0%.</span></p>
+                <p><span class="you"> Ты </span><span id="s3" class="cours-forwho_text">избегаешь “плохую/вредную” еду:
+                        от картошки фри до творога с 5% жирностью вместо 0%.</span></p>
             </div>
 
             <div id="d4" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s4" class ="cours-forwho_text">злишься и винишь себя, когда съешь что-то вредное.</span></p>
+                <p><span class="you"> Ты </span><span id="s4" class="cours-forwho_text">злишься и винишь себя, когда
+                        съешь что-то вредное.</span></p>
             </div>
 
             <div id="d5" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s5" class ="cours-forwho_text">считаешь, что хорошую форму не сделать без ограничений.</span></p>
+                <p><span class="you"> Ты </span><span id="s5" class="cours-forwho_text">считаешь, что хорошую форму не
+                        сделать без ограничений.</span></p>
             </div>
 
             <div id="d6" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="ds6" class ="cours-forwho_text">веришь, что, когда похудеешь до идеала, тогда будешь достойна хорошей работы, отношений, и начнешь жить.</span></p>
+                <p><span class="you"> Ты </span><span id="ds6" class="cours-forwho_text">веришь, что, когда похудеешь до
+                        идеала, тогда будешь достойна хорошей работы, отношений, и начнешь жить.</span></p>
             </div>
 
             <div id="d7" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s7" class ="cours-forwho_text">часто срываешься с ПП</span></p>
-            </div>  
+                <p><span class="you"> Ты </span><span id="s7" class="cours-forwho_text">часто срываешься с ПП</span></p>
+            </div>
 
             <div id="d8" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s8" class ="cours-forwho_text">не различаешь эмоциональный и физический голод.</span></p>
+                <p><span class="you"> Ты </span><span id="s8" class="cours-forwho_text">не различаешь эмоциональный и
+                        физический голод.</span></p>
             </div>
 
             <div id="d9" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s9" class ="cours-forwho_text">критикуешь себя, обесцениваешь свои успехи.</span></p>
+                <p><span class="you"> Ты </span><span id="s9" class="cours-forwho_text">критикуешь себя, обесцениваешь
+                        свои успехи.</span></p>
             </div>
 
             <div id="d10" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s10" class  ="cours-forwho_text">не различаешь эмоции, не умеешь с ними справляться.</span></p>
+                <p><span class="you"> Ты </span><span id="s10" class="cours-forwho_text">не различаешь эмоции, не умеешь
+                        с ними справляться.</span></p>
             </div>
 
             <div id="d11" class="cours-forwho_item">
-                <p><span class="you"> Ты </span><span id="s11" class ="cours-forwho_text">не принимаешь себя и свое тело.</span></p>
+                <p><span class="you"> Ты </span><span id="s11" class="cours-forwho_text">не принимаешь себя и свое
+                        тело.</span></p>
             </div>
         </div>
     </div>
@@ -138,80 +154,93 @@ $count_price=0;
                     <p>О способах и подходах <br> работы с рпп</p> <br>
                     <div class="program-result">
                         <h4>Результат:</h4>
-                        <p>Получишь подробное описание <br> твоего случая со стороны <br> психологии, наша рекомендательная <br> система даст первые практические <br> упражнения, и ты начнешь двигаться <br> по своему индивидуальному маршруту</p>
+                        <p>Получишь подробное описание <br> твоего случая со стороны <br> психологии, наша
+                            рекомендательная <br> система даст первые практические <br> упражнения, и ты начнешь
+                            двигаться <br> по своему индивидуальному маршруту</p>
+                    </div>
                 </div>
-            </div>
                 <span class='n1'>1</span>
             </div>
 
             <div class="program-item">
-                
+
                 <h3>Выявление <br> патологических <br> стратегий</h3>
                 <h4>Ты узнаешь:</h4>
                 <p>Что такое патологические <br> стратегии, как мы их формируем и <br> зачем они нам</p>
                 <div class="program-result" style="height: 220px">
                     <h4>Результат:</h4>
-                    <p>Заметишь свои основные стратегии, <br> определишь желаемые изменения в них, получишь от нашей <br> рекомендательной системы <br> дополнительные материалы для их <br> достижения</p>
+                    <p>Заметишь свои основные стратегии, <br> определишь желаемые изменения в них, получишь от нашей
+                        <br> рекомендательной системы <br> дополнительные материалы для их <br> достижения</p>
                 </div>
                 <span class='n2'>2</span>
             </div>
 
             <div class="program-item">
-                
+
                 <h3>Семейный и <br> генетический <br> фактор </h3>
                 <h4>Ты узнаешь:</h4>
                 <p>Как влияют процессы в семье и <br> на работе на рпп, на <br> самовыражение и независимость</p>
                 <div class="program-result">
                     <h4>Результат:</h4>
-                    <p>Проанализируешь свой опыт <br> взросления и найдешь триггеры, <br> которые до сих пор влияют на тебя. <br> Наша рекомендательная система <br> предложит упражнения на <br> выстраивание границ, возвращение <br> ответственности только за твою <br> жизнь</p>
+                    <p>Проанализируешь свой опыт <br> взросления и найдешь триггеры, <br> которые до сих пор влияют на
+                        тебя. <br> Наша рекомендательная система <br> предложит упражнения на <br> выстраивание границ,
+                        возвращение <br> ответственности только за твою <br> жизнь</p>
                 </div>
                 <span class='n3'>3</span>
             </div>
 
             <div class="program-item">
-                
+
                 <h3>Социальный фактор </h3>
                 <h4>Ты узнаешь:</h4>
-                <p>Как влияет социум на образ тела и <br> самоценность. Как дорого тебе <br> обходится идеал тела, еды и успешной <br> женщины, нарисованный обществом.</p>
+                <p>Как влияет социум на образ тела и <br> самоценность. Как дорого тебе <br> обходится идеал тела, еды и
+                    успешной <br> женщины, нарисованный обществом.</p>
                 <div class="program-result">
                     <h4>Результат:</h4>
-                    <p>Получишь подробное описание <br> твоего случая со стороны психологии, <br> наша рекомендательная система даст <br> первые практические упражнения, и <br> ты начнешь двигаться по своему <br> индивидуальному маршруту</p>
+                    <p>Получишь подробное описание <br> твоего случая со стороны психологии, <br> наша рекомендательная
+                        система даст <br> первые практические упражнения, и <br> ты начнешь двигаться по своему <br>
+                        индивидуальному маршруту</p>
                 </div>
                 <span class='n4'>4</span>
             </div>
 
             <div class="program-item">
-                
+
                 <h3>Личный фактор </h3>
                 <h4>Ты узнаешь:</h4>
                 <p>Где во всей этой истории Я? Моя <br> ответственность, выбор, <br> осознанность</p><br>
                 <div class="program-result">
                     <h4>Результат:</h4>
-                    <p>Поймешь, где твои «хочу». Наша <br> рекомендательная система научит <br> выбирать себя и слышать сигналы <br> тела, эмоций и внутренних ощущений.</p>
+                    <p>Поймешь, где твои «хочу». Наша <br> рекомендательная система научит <br> выбирать себя и слышать
+                        сигналы <br> тела, эмоций и внутренних ощущений.</p>
                 </div>
                 <span class='n5'>5</span>
             </div>
 
             <div class="program-item">
-                
+
                 <h3>Трансформация</h3>
                 <h4>Ты узнаешь:</h4>
-                <p>Как переработать опыт, который <br> вы «раскопали» на курсе. Как его <br> трансформировать в новый.</p><br>
+                <p>Как переработать опыт, который <br> вы «раскопали» на курсе. Как его <br> трансформировать в новый.
+                </p><br>
                 <div class="program-result">
                     <h4>Результат:</h4>
-                    <p>Введешь новые практики для работы с  <br>мыслями, убеждениями, эмоциями. <br> Наша рекомендательная система <br> познакомит с разными  подходами и<br> техниками для закрепления.</p> 
+                    <p>Введешь новые практики для работы с <br>мыслями, убеждениями, эмоциями. <br> Наша
+                        рекомендательная система <br> познакомит с разными подходами и<br> техниками для закрепления.
+                    </p>
                 </div>
                 <span class='n6'>6</span>
             </div>
 
             <div class="program-item">
-                
+
                 <h3>Рефлексия. <br> Осознание результатов. <br> Планирование </h3>
                 <h4>Ты узнаешь:</h4>
                 <p>Какой путь ты уже прошла. </p>
                 <div class="program-result">
                     <h4>Результат:</h4>
-                    <p>Осознаешь сильные и слабые <br> стороны. Будешь уметь использовать <br> полученные на курсе инструменты, <br> чтобы жить, наслаждаться и строить <br> планы на будущее.</p>
+                    <p>Осознаешь сильные и слабые <br> стороны. Будешь уметь использовать <br> полученные на курсе
+                        инструменты, <br> чтобы жить, наслаждаться и строить <br> планы на будущее.</p>
                 </div>
                 <span class='n7'>7</span>
             </div>
@@ -237,23 +266,25 @@ $count_price=0;
             </div> -->
 
             <div class="program-item">
-                
+
                 <h3>Фокус на теле, <br> движении</h3>
                 <h4>Ты узнаешь:</h4>
-                <p>О концепции интуитивного <br> движения. Как удовлетворять <br> физиологическую потребность в <br> движении, даже когда только <br> лишь мысли о фитнесе и спорте <br> вызывают отторжения.</p>
+                <p>О концепции интуитивного <br> движения. Как удовлетворять <br> физиологическую потребность в <br>
+                    движении, даже когда только <br> лишь мысли о фитнесе и спорте <br> вызывают отторжения.</p>
                 <h4>Бонус!</h4>
                 <p>Онлайн занятие с телесно-ориентированным психотерапевтом и специалистом по психосоматике.</p>
                 <div class="program-result">
                     <h4>Результат:</h4>
-                    <p>Научишься удовлетворять свою потребность в физической <br> активности комфортно и в кайф, без насилия над собой.</p>
+                    <p>Научишься удовлетворять свою потребность в физической <br> активности комфортно и в кайф, без
+                        насилия над собой.</p>
                 </div>
                 <span class='n9'>8</span>
             </div>
-    </div>
-    <div class="wrapper_cours-btn">
-            <a href="first_stage"><button class="course-btn" >Записаться</button></a>
         </div>
-</div>
+        <div class="wrapper_cours-btn">
+            <a href="first_stage"><button class="course-btn">Записаться</button></a>
+        </div>
+    </div>
 </div>
 <!-- <div class="wrapper-rates">
     <div class="container">
@@ -429,219 +460,250 @@ $count_price=0;
     <hr>
     <div class="container">
         <h2>Отзывы</h2>
-        
 
-                    <div class="sim-slider">
+
+        <div class="sim-slider">
             <ul class="sim-slider-list">
-                <li><img class="sim-slider_bg" src="https://pvbk.spb.ru/inc/slider/imgs/no-image.gif" alt="screen"></li> <!-- это экран -->
-                <li id="img1" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review1.svg" alt="1"></li>
-                <li id="img2" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review2.svg" alt="2"></li>
-                <li id="img3" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review3.svg" alt="3"></li>
-                <li id="img4" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review4.svg" alt="4"></li>
-                <li id="img5" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review5.svg" alt="5"></li>
-                <li id="img6" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review6.svg" alt="6"></li>
-                <li id="img7" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review7.svg" alt="7"></li>
-                <li id="img8" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review8.svg" alt="8"></li>
-                <li id="img9" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review9.svg" alt="9"></li>
-                <li id="img10" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review10.svg" alt="10"></li>
-                <li id="img11" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review11.svg" alt="11"></li>
-                <li id="img12" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review12.svg" alt="12"></li>
-                <li id="img13" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review13.svg" alt="13"></li>
-                <li id="img14" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review14.svg" alt="14"></li>
-                <li id="img15" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review15.svg" alt="15"></li>
-                <li id="img16" class="sim-slider-element"><img src="<?php echo get_template_directory_uri(); ?>/images/review16.svg" alt="16"></li>
+                <li><img class="sim-slider_bg" src="https://pvbk.spb.ru/inc/slider/imgs/no-image.gif" alt="screen"></li>
+                <!-- это экран -->
+                <li id="img1" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review1.svg" alt="1"></li>
+                <li id="img2" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review2.svg" alt="2"></li>
+                <li id="img3" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review3.svg" alt="3"></li>
+                <li id="img4" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review4.svg" alt="4"></li>
+                <li id="img5" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review5.svg" alt="5"></li>
+                <li id="img6" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review6.svg" alt="6"></li>
+                <li id="img7" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review7.svg" alt="7"></li>
+                <li id="img8" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review8.svg" alt="8"></li>
+                <li id="img9" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review9.svg" alt="9"></li>
+                <li id="img10" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review10.svg" alt="10"></li>
+                <li id="img11" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review11.svg" alt="11"></li>
+                <li id="img12" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review12.svg" alt="12"></li>
+                <li id="img13" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review13.svg" alt="13"></li>
+                <li id="img14" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review14.svg" alt="14"></li>
+                <li id="img15" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review15.svg" alt="15"></li>
+                <li id="img16" class="sim-slider-element"><img
+                        src="<?php echo get_template_directory_uri(); ?>/images/review16.svg" alt="16"></li>
             </ul>
-            <div class="sim-slider-arrow-left"><img class="l-arrow" src="<?php echo get_template_directory_uri(); ?>/images/Arrow.png" alt=""></div>
-            <div class="sim-slider-arrow-right"><img class="r-arrow" src="<?php echo get_template_directory_uri(); ?>/images/Arrow.png" alt=""></div>
+            <!-- <div class="sim-slider-arrow-left"><img class="l-arrow" src="<?php echo get_template_directory_uri(); ?>/images/Arrow.png" alt=""></div> -->
+            <!-- <div class="sim-slider-arrow-right"><img class="r-arrow" src="<?php echo get_template_directory_uri(); ?>/images/Arrow.png" alt=""></div> -->
 
-            
+
             <div class="sim-slider-dots"></div>
-            </div>
+        </div>
 
-        <script>function Sim(sldrId) {
+        <script>
+        function Sim(sldrId) {
 
-let id = document.getElementById(sldrId);
-if(id) {
-    this.sldrRoot = id
-}
-else {
-    this.sldrRoot = document.querySelector('.sim-slider')
-};
+            let id = document.getElementById(sldrId);
+            if (id) {
+                this.sldrRoot = id
+            } else {
+                this.sldrRoot = document.querySelector('.sim-slider')
+            };
 
-// Carousel objects
-this.sldrList = this.sldrRoot.querySelector('.sim-slider-list');
-this.sldrElements = this.sldrList.querySelectorAll('.sim-slider-element');
-this.sldrElemFirst = this.sldrList.querySelector('.sim-slider-element');
-this.leftArrow = this.sldrRoot.querySelector('div.sim-slider-arrow-left');
-this.rightArrow = this.sldrRoot.querySelector('div.sim-slider-arrow-right');
-this.indicatorDots = this.sldrRoot.querySelector('div.sim-slider-dots');
+            // Carousel objects
+            this.sldrList = this.sldrRoot.querySelector('.sim-slider-list');
+            this.sldrElements = this.sldrList.querySelectorAll('.sim-slider-element');
+            this.sldrElemFirst = this.sldrList.querySelector('.sim-slider-element');
+            this.leftArrow = this.sldrRoot.querySelector('div.sim-slider-arrow-left');
+            this.rightArrow = this.sldrRoot.querySelector('div.sim-slider-arrow-right');
+            this.indicatorDots = this.sldrRoot.querySelector('div.sim-slider-dots');
 
-// Initialization
-this.options = Sim.defaults;
-Sim.initialize(this)
-};
+            // Initialization
+            this.options = Sim.defaults;
+            Sim.initialize(this)
+        };
 
-Sim.defaults = {
+        Sim.defaults = {
 
-// Default options for the carousel
-loop: true,     // Бесконечное зацикливание слайдера
-auto: true,     // Автоматическое пролистывание
-interval: 5000, // Интервал между пролистыванием элементов (мс)
-arrows: true,   // Пролистывание стрелками
-dots: true      // Индикаторные точки
-};
+            // Default options for the carousel
+            loop: true, // Бесконечное зацикливание слайдера
+            auto: true, // Автоматическое пролистывание
+            interval: 5000, // Интервал между пролистыванием элементов (мс)
+            arrows: true, // Пролистывание стрелками
+            dots: true // Индикаторные точки
+        };
 
-Sim.prototype.elemPrev = function(num) {
-num = num || 1;
+        Sim.prototype.elemPrev = function(num) {
+            num = num || 1;
 
-let prevElement = this.currentElement;
-this.currentElement -= num;
-if(this.currentElement < 0) this.currentElement = this.elemCount-1;
+            let prevElement = this.currentElement;
+            this.currentElement -= num;
+            if (this.currentElement < 0) this.currentElement = this.elemCount - 1;
 
-if(!this.options.loop) {
-    if(this.currentElement == 0) {
-        this.leftArrow.style.display = 'none'
-    };
-    this.rightArrow.style.display = 'block'
-};
+            if (!this.options.loop) {
+                if (this.currentElement == 0) {
+                    this.leftArrow.style.display = 'none'
+                };
+                this.rightArrow.style.display = 'block'
+            };
 
-this.sldrElements[this.currentElement].style.opacity = '1';
-this.sldrElements[prevElement].style.opacity = '0';
+            this.sldrElements[this.currentElement].style.opacity = '1';
+            this.sldrElements[prevElement].style.opacity = '0';
 
-if(this.options.dots) {
-    this.dotOn(prevElement); this.dotOff(this.currentElement)
-}
-};
-
-Sim.prototype.elemNext = function(num) {
-num = num || 1;
-
-let prevElement = this.currentElement;
-this.currentElement += num;
-if(this.currentElement >= this.elemCount) this.currentElement = 0;
-
-if(!this.options.loop) {
-    if(this.currentElement == this.elemCount-1) {
-        this.rightArrow.style.display = 'none'
-    };
-    this.leftArrow.style.display = 'block'
-};
-
-this.sldrElements[this.currentElement].style.opacity = '1';
-this.sldrElements[prevElement].style.opacity = '0';
-
-if(this.options.dots) {
-    this.dotOn(prevElement); this.dotOff(this.currentElement)
-}
-};
-
-Sim.prototype.dotOn = function(num) {
-this.indicatorDotsAll[num].style.cssText = 'background-color:#202020;; cursor:pointer;width: 7px;height: 7px;bottom: 1px;position: relative;'
-};
-
-Sim.prototype.dotOff = function(num) {
-this.indicatorDotsAll[num].style.cssText = 'background-color:#fff; cursor:default;'
-};
-
-Sim.initialize = function(that) {
-
-// Constants
-that.elemCount = that.sldrElements.length; // Количество элементов
-
-// Variables
-that.currentElement = 0;
-let bgTime = getTime();
-
-// Functions
-function getTime() {
-    return new Date().getTime();
-};
-function setAutoScroll() {
-    that.autoScroll = setInterval(function() {
-        let fnTime = getTime();
-        if(fnTime - bgTime + 10 > that.options.interval) {
-            bgTime = fnTime; that.elemNext()
-        }
-    }, that.options.interval)
-};
-
-// Start initialization
-if(that.elemCount <= 1) {   // Отключить навигацию
-    that.options.auto = false; that.options.arrows = false; that.options.dots = false;
-    that.leftArrow.style.display = 'none'; that.rightArrow.style.display = 'none'
-};
-if(that.elemCount >= 1) {   // показать первый элемент
-    that.sldrElemFirst.style.opacity = '1';
-};
-
-if(!that.options.loop) {
-    that.leftArrow.style.display = 'none';  // отключить левую стрелку
-    that.options.auto = false; // отключить автопркрутку
-}
-else if(that.options.auto) {   // инициализация автопрокруки
-    setAutoScroll();
-    // Остановка прокрутки при наведении мыши на элемент
-    that.sldrList.addEventListener('mouseenter', function() {clearInterval(that.autoScroll)}, false);
-    that.sldrList.addEventListener('mouseleave', setAutoScroll, false)
-};
-
-if(that.options.arrows) {  // инициализация стрелок
-    that.leftArrow.addEventListener('click', function() {
-        let fnTime = getTime();
-        if(fnTime - bgTime > 1000) {
-            bgTime = fnTime; that.elemPrev()
-        }
-    }, false);
-    that.rightArrow.addEventListener('click', function() {
-        let fnTime = getTime();
-        if(fnTime - bgTime > 1000) {
-            bgTime = fnTime; that.elemNext()
-        }
-    }, false)
-}
-else {
-    that.leftArrow.style.display = 'none'; that.rightArrow.style.display = 'none'
-};
-
-if(that.options.dots) {  // инициализация индикаторных точек
-    let sum = '', diffNum;
-    for(let i=0; i<that.elemCount; i++) {
-        sum += '<span class="sim-dot"></span>'
-    };
-    that.indicatorDots.innerHTML = sum;
-    that.indicatorDotsAll = that.sldrRoot.querySelectorAll('span.sim-dot');
-    // Назначаем точкам обработчик события 'click'
-    for(let n=0; n<that.elemCount; n++) {
-        that.indicatorDotsAll[n].addEventListener('click', function() {
-            diffNum = Math.abs(n - that.currentElement);
-            if(n < that.currentElement) {
-                bgTime = getTime(); that.elemPrev(diffNum)
+            if (this.options.dots) {
+                this.dotOn(prevElement);
+                this.dotOff(this.currentElement)
             }
-            else if(n > that.currentElement) {
-                bgTime = getTime(); that.elemNext(diffNum)
-            }
-            // Если n == that.currentElement ничего не делаем
-        }, false)
-    };
-    that.dotOff(0);  // точка[0] выключена, остальные включены
-    for(let i=1; i<that.elemCount; i++) {
-        that.dotOn(i)
-    }
-}
-};
+        };
 
-new Sim();</script>
+        Sim.prototype.elemNext = function(num) {
+            num = num || 1;
+
+            let prevElement = this.currentElement;
+            this.currentElement += num;
+            if (this.currentElement >= this.elemCount) this.currentElement = 0;
+
+            if (!this.options.loop) {
+                if (this.currentElement == this.elemCount - 1) {
+                    this.rightArrow.style.display = 'none'
+                };
+                this.leftArrow.style.display = 'block'
+            };
+
+            this.sldrElements[this.currentElement].style.opacity = '1';
+            this.sldrElements[prevElement].style.opacity = '0';
+
+            if (this.options.dots) {
+                this.dotOn(prevElement);
+                this.dotOff(this.currentElement)
+            }
+        };
+
+        Sim.prototype.dotOn = function(num) {
+            this.indicatorDotsAll[num].style.cssText =
+                'background-color:#202020;; cursor:pointer;width: 7px;height: 7px;bottom: 1px;position: relative;'
+        };
+
+        Sim.prototype.dotOff = function(num) {
+            this.indicatorDotsAll[num].style.cssText = 'background-color:#fff; cursor:default;'
+        };
+
+        Sim.initialize = function(that) {
+
+            // Constants
+            that.elemCount = that.sldrElements.length; // Количество элементов
+
+            // Variables
+            that.currentElement = 0;
+            let bgTime = getTime();
+
+            // Functions
+            function getTime() {
+                return new Date().getTime();
+            };
+
+            function setAutoScroll() {
+                that.autoScroll = setInterval(function() {
+                    let fnTime = getTime();
+                    if (fnTime - bgTime + 10 > that.options.interval) {
+                        bgTime = fnTime;
+                        that.elemNext()
+                    }
+                }, that.options.interval)
+            };
+
+            // Start initialization
+            if (that.elemCount <= 1) { // Отключить навигацию
+                that.options.auto = false;
+                that.options.arrows = false;
+                that.options.dots = false;
+                that.leftArrow.style.display = 'none';
+                that.rightArrow.style.display = 'none'
+            };
+            if (that.elemCount >= 1) { // показать первый элемент
+                that.sldrElemFirst.style.opacity = '1';
+            };
+
+            if (!that.options.loop) {
+                that.leftArrow.style.display = 'none'; // отключить левую стрелку
+                that.options.auto = false; // отключить автопркрутку
+            } else if (that.options.auto) { // инициализация автопрокруки
+                setAutoScroll();
+                // Остановка прокрутки при наведении мыши на элемент
+                that.sldrList.addEventListener('mouseenter', function() {
+                    clearInterval(that.autoScroll)
+                }, false);
+                that.sldrList.addEventListener('mouseleave', setAutoScroll, false)
+            };
+
+            if (that.options.arrows) { // инициализация стрелок
+                that.leftArrow.addEventListener('click', function() {
+                    let fnTime = getTime();
+                    if (fnTime - bgTime > 1000) {
+                        bgTime = fnTime;
+                        that.elemPrev()
+                    }
+                }, false);
+                that.rightArrow.addEventListener('click', function() {
+                    let fnTime = getTime();
+                    if (fnTime - bgTime > 1000) {
+                        bgTime = fnTime;
+                        that.elemNext()
+                    }
+                }, false)
+            } else {
+                that.leftArrow.style.display = 'none';
+                that.rightArrow.style.display = 'none'
+            };
+
+            if (that.options.dots) { // инициализация индикаторных точек
+                let sum = '',
+                    diffNum;
+                for (let i = 0; i < that.elemCount; i++) {
+                    sum += '<span class="sim-dot"></span>'
+                };
+                that.indicatorDots.innerHTML = sum;
+                that.indicatorDotsAll = that.sldrRoot.querySelectorAll('span.sim-dot');
+                // Назначаем точкам обработчик события 'click'
+                for (let n = 0; n < that.elemCount; n++) {
+                    that.indicatorDotsAll[n].addEventListener('click', function() {
+                        diffNum = Math.abs(n - that.currentElement);
+                        if (n < that.currentElement) {
+                            bgTime = getTime();
+                            that.elemPrev(diffNum)
+                        } else if (n > that.currentElement) {
+                            bgTime = getTime();
+                            that.elemNext(diffNum)
+                        }
+                        // Если n == that.currentElement ничего не делаем
+                    }, false)
+                };
+                that.dotOff(0); // точка[0] выключена, остальные включены
+                for (let i = 1; i < that.elemCount; i++) {
+                    that.dotOn(i)
+                }
+            }
+        };
+
+        new Sim();
+        </script>
 
     </div>
     <hr>
     <div class="container">
         <div class="go-contacts">
-            <p>Если ты не нашла ответ на свой вопрос и хочешь проконсультироваться по поводу <br> курса,напиши свой вопрос в </p>
+            <p>Если ты не нашла ответ на свой вопрос и хочешь проконсультироваться по поводу <br> курса,напиши свой
+                вопрос в </p>
             <div class="go-contacts_a">
                 <a href="contacts">Контакты</a>
             </div>
-            
+
         </div>
     </div>
 </div>
-

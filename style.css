@@ -2,21 +2,129 @@
 Theme Name: IEE NNGU
 Autor: brantov
 */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
+
 :root {
-    --white: #ffffff;
-    --black:#000;
-    --pink:#D026CC;
-    --purple:#473A92;
-    --turquoise:#26A7D0;
+  --white: #f5f5f7;
+  --black:#1d1d1f;
+
+  --pink:#D026CC;
+  --purple:#473A92;
+  --turquoise:#26A7D0;
+  
+  --grey:#D9D9D9;
+  --violet:#BFA4CE;
+  --light_violet: #EFE1F0;
+  --dark_violet:#7264AA;
+  --blue:#8D9ACE;
+  --brown:#917286;
+  --violet_2:#B796BC;
+  
 }
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+
 body {
-    font-family: "SF Pro Display","SF Pro Icons","Helvetica Neue","Helvetica","Arial",sans-serif,sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    margin: 0;
-    scroll-behavior: smooth;
-  }
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+  scroll-behavior: smooth;
+  min-width: 320px;
+
+}
 .container {
-    max-width: 1140px;
-    margin: 0 auto;
+  max-width: 1184px;
+  margin: 0 auto;
+  color: var(--black);
+}
+a {
+  text-decoration: none;
+}
+h1,h2,h3,h4,h5{
+  font-family: 'Ubuntu Condensed', sans-serif;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0;
+}
+h1{
+  font-size: 60px;
+}
+h2{
+  font-size: 48px;
+}
+h3{
+  font-size: 32px;
+}
+h4{
+  font-size: 24px;
+}
+h5{
+  font-size: 18px;
+}
+p{
+  margin: 0;
+  /* margin-top: 20px; */
+}
+.bold_txt{
+  font-weight: 600;
+}
+.white_txt{
+  color: var(--white);
+}
+.txt18{
+  font-size: 18px;
+}
+.txt13{
+  font-size: 18px;
+}
+.link12{
+  font-size: 12px;
+}
+.mt_200{
+  margin-top: 200px;
+}
+.ta_center{
+  text-align: center;
+}
+.grid_gap_2em{
+  display: grid;
+  grid-row-gap: 2em;
+}
+ul{
+  margin: 0;
+  padding-left: 20px;
+}
+.m_auto{
+  margin: auto;
+}
+.none{
+  display: none;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 95%;
+    overflow: hidden;
   }
+}
+@media screen and (max-width: 1200px) {
+  .mt_200{
+    margin-top: 50px;
+  }
+}
