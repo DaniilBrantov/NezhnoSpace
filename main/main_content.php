@@ -1,6 +1,6 @@
 <main class="main">
-    <div class="container intro">
-        <div class="intro_wrap">
+    <div class="container main_cnt intro">
+        <div class="banner_main_width intro_wrap">
             <h1 class="intro_title">Здравствуй, <span>это Нежно Space</span></h1>
             <p class="intro_subtitle">Платформа психологической поддержки
                 на основе Искусственного Интеллекта. Мы здесь, чтобы помочь справиться с расстройством пищевого
@@ -10,7 +10,7 @@
             </p>
         </div>
         <div class="intro_anxiety">
-            <h2 class="intro_anxiety-title">Меня тревожит:</h2>
+            <h2 class="banner_main_width intro_anxiety-title">Меня тревожит:</h2>
             <div class="intro_anxiety-slider">
                 <div class="slider_sliders">
                     <div class="it_bothers_me_item">
@@ -74,7 +74,7 @@
             </div>
         </div>
         <div class="intro_link-wrap">
-            <a href="#subscriptions">Хочу разобраться в этом!</a>
+            <a href="auth" target="_blank">Хочу разобраться в этом!</a>
         </div>
     </div>
     <section class="subscriptions" id="subscriptions">
@@ -138,7 +138,7 @@
                         </form>
                     </li>
                 </ul>
-                <p class="ta_center">Пока не готовы начать? <a href="">Узнайте больше о подписке Нежно Space</a></p>
+                <p class="ta_center">Пока не готовы начать? <span>Узнайте больше о подписке Нежно Space</span></p>
             </div>
         </div>
     </section>
@@ -201,7 +201,7 @@
                 </ul>
             </li>
         </ul>
-        <a class="less-more_link" href="my_account">начать</a>
+        <a class="less-more_link" href="my_account" target="_blank">начать</a>
     </section>
     <section class="reviews">
         <h2 class="trial-title">отзывы:</h2>

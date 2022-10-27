@@ -2,7 +2,7 @@
     display: grid;
     align-items: end;
     grid-template-columns: 1fr 1fr;
-    margin-top: 20px;
+    margin-top: 80px;
     grid-column-gap: 30px;
 }
 .banner_about_img{
@@ -46,6 +46,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 70px;
+    height: 200px;
 }
 .our_team_cnt{
     display: flex;
@@ -247,10 +248,6 @@
     .about_slider_item.slick-active .about_slider_txt{
         width: 300px;
         right: 0;
-    }
-    .our_platform_item_txt{
-        width: 160px;
-        height: 160px;
     }
     .about_slider_item.slick-center, .about_slider_item.slick-active{
         margin-top: 110px;

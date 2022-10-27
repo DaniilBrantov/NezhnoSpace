@@ -1,14 +1,33 @@
 main {
-  background: linear-gradient(
-    -15deg,
-    #927af1 0%,
-    #cfc6f0 25%,
-    #e6cef3 50%,
-    #b7aaed 66%,
-    #cfc6f4 100%
-  );
-}
 
+}
+main::before{
+  content: '';
+  display: inline-block;
+  width: 2000px;
+  height: 1000px;
+  border-radius: 50%;
+  background-color: #7264AA;
+  position: absolute;
+  filter: blur(500px);
+  top: -100px;
+  left: -1000px;
+  transform: rotate(-45deg);
+}
+main::after{
+  content: '';
+  display: inline-block;
+  width: 1500px;
+  height: 1000px;
+  border-radius: 50%;
+  background-color: #BFA4CE;
+  position: absolute;
+  filter: blur(500px);
+  top: 400px;
+  left: 900px;
+  transform: rotate(-45deg);
+  z-index: -1;
+}
 .intro {
   margin: 0 auto;
   margin-bottom: 48px;
@@ -123,6 +142,7 @@ background-size: 100% 100%;
   color: #111111;
   margin: 7px;
   font-size: 13px;
+  cursor: pointer;
 }
 .it_bothers_me_item {
   height: 100%;
@@ -248,10 +268,10 @@ background-size: 100% 100%;
   background-position: center 15%;
 }
 .subscriptions_item:nth-child(2) {
-  background-image: url("../images/logo-vector7264AA.svg");
+  background-image: url("../images/logo-vectorBFA4CE.svg");
 }
 .subscriptions_item:last-child {
-  background-image: url("../images/logo-vectorBFA4CE.svg");
+  background-image: url("../images/logo-vector7264AA.svg");
 }
 .subscriptions_item-wrap {
   flex: 1;
@@ -321,7 +341,7 @@ background-size: 100% 100%;
   line-height: 16px;
   color: #111111;
 }
-.subscriptions > p > a {
+.subscriptions p span {
   font-size: 13px;
   line-height: 16px;
   color: #3f3176;
@@ -350,8 +370,11 @@ background-size: 100% 100%;
   display: block;
   position: relative;
   margin: 0 auto;
-  width: 427px;
+  width: 350px;
   height: 167px;
+}
+.about__image img{
+  width: 100%;
 }
 .about__image::before {
   position: absolute;
@@ -734,32 +757,7 @@ background-size: 100% 100%;
   color: #ffffff;
   cursor: pointer;
 }
-.footer {
-  padding: 34px 3%;
-  background: #343639;
-  font-size: 13px;
-  line-height: 16px;
-  color: #f4f4f4;
-}
-.footer_nav > .nav_list {
-  display: block;
-}
-.footer_nav > .nav_list li {
-  margin-bottom: 10px;
-}
-.footer_nav > .nav_list a {
-  font-size: 13px;
-  line-height: 16px;
-  color: #f4f4f4;
-}
-.footer_policy > span,
-.footer_data > span {
-  display: block;
-  margin-bottom: 10px;
-}
-.footer_data {
-  margin-bottom: 34px;
-}
+
 .social-list {
   display: flex;
   justify-content: center;
@@ -781,6 +779,45 @@ background-size: 100% 100%;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes MainAnimationBefore {
+  from {
+    top: -100px;
+    left: -1000px;
+  }
+  to {
+    top: 400px;
+    left: 900px;
+  }
+}
+@keyframes MainAnimationAfter {
+  from {
+    top: 400px;
+    left: 900px;
+  }
+  to {
+    top: -600px;
+    left: -1000px;
+  }
+}
 
 
 
@@ -832,6 +869,9 @@ background-size: 100% 100%;
   .reviews_constitutor-goals{
     margin-top: 20px;
   }
+  .about__image {
+    width: 427px;
+  }
 }
 
 
@@ -862,6 +902,10 @@ background-size: 100% 100%;
   .intro {
     padding: 144px 0;
     margin-bottom: 54px;
+  }
+  .banner_main_width{
+    width: 950px;
+    margin: auto;
   }
   .intro_wrap {
     padding-top: 0;
@@ -962,16 +1006,6 @@ background-size: 100% 100%;
     background-image: url("../images/logo-vector.svg");
     background-position: 15% 25%;
     width: 281px;
-  }
-  .subscriptions_item::before {
-    position: absolute;
-    left: 11.76%;
-    top: 6.77%;
-    display: block;
-    content: "";
-    width: 50px;
-    height: 4px;
-    background-image: url("../images/group119.svg");
   }
   .subscriptions_item-title {
     width: 100%;
@@ -1208,6 +1242,9 @@ background-size: 100% 100%;
     color: #111111;
     transition: font-size 0.4s;
   }
+  .trial_item > ul > li.show-active p{
+    width: auto;
+  }
   .trial_item > ul > li::before {
     position: absolute;
     left: 0;
@@ -1263,12 +1300,6 @@ background-size: 100% 100%;
     display: inline-block;
     padding: 13px 26px;
   }
-  .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 60px 2.5%;
-  }
   .reviews_constitutor-goals{
     margin-top: 0px;
   }
@@ -1313,6 +1344,9 @@ background-size: 100% 100%;
   .intro {
     padding: 144px 0;
   }
+  .main_cnt{
+    padding-bottom: 20px;
+  }
   .slider_prev {
     left: -80px;
   }
@@ -1346,9 +1380,6 @@ background-size: 100% 100%;
   }
   .trial_link {
     margin-left: 21.5%;
-  }
-  .footer {
-    padding: 60px 12.5%;
   }
   .subscriptions_list .slick-list{
     width: 900px;
