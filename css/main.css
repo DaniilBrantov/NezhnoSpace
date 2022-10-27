@@ -53,6 +53,11 @@ background-size: 100% 100%;
 }
 .intro_subtitle > span {
   display: block;
+  cursor: pointer;
+}
+.it_bothers_me_item .intro_txt_active{
+  color: rgb(240, 240, 240);
+  background-color: #8D9ACE;
 }
 .intro_anxiety {
   position: relative;
@@ -324,7 +329,6 @@ background-size: 100% 100%;
 .about {
   margin-bottom: 48px;
   color: #111111;
-  overflow-x: hidden;
 }
 /* .about::before {
   width: 100%;

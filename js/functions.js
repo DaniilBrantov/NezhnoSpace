@@ -426,3 +426,8 @@ $(function () {
         })
     }
 });
+
+
+// Intro Anxiety
+
+$(function () { $('.it_bothers_me_item span').click(function () { $(this).addClass($(this).attr("class") !== "intro_txt_active" ? "intro_txt_active" : $(this).removeClass("intro_txt_active")); }); });
