@@ -72,19 +72,19 @@ if($_POST["answer"] || $_POST["form_name"]){
                     $pass= md5($password."lksd4fvm879");
                     mysqli_query($mysqli,"INSERT INTO `users` (`name`, `telephone`, `mail`, `password`,`route_value`) VALUES ('$user_name','$user_tel','$user_mail','$pass','$route_value') ");
 
-                    $email = new \PHPMailer\PHPMailer\PHPMailer();
-                    $email->CharSet = 'utf-8';
-                    $email->isSMTP();
-                    $email->Host = 'smtp.yandex.ru';
-                    $email->SMTPAuth = true;                              
-                    $email->Username = 'support@eatintelligent.ru'; 
-                    $email->Password = 'Eat123Intelligent123';
-                    $email->SMTPSecure = 'ssl';
-                    $email->Port = 465; 
+                    // $email = new \PHPMailer\PHPMailer\PHPMailer();
+                    // $email->CharSet = 'utf-8';
+                    // $email->isSMTP();
+                    // $email->Host = 'smtp.yandex.ru';
+                    // $email->SMTPAuth = true;                              
+                    // $email->Username = 'support@eatintelligent.ru'; 
+                    // $email->Password = 'Eat123Intelligent123';
+                    // $email->SMTPSecure = 'ssl';
+                    // $email->Port = 465; 
 
-                    $email->setFrom('support@eatintelligent.ru');
-                    $email->addAddress($user_mail);    
-                    $email->isHTML(true);                                 
+                    // $email->setFrom('support@eatintelligent.ru');
+                    // $email->addAddress($user_mail);    
+                    // $email->isHTML(true);                                 
 
                     $email->Subject = 'Курс по Психологии питания и пищевому поведению';
                     if($_POST["user_mail"]){
@@ -116,100 +116,100 @@ if($_POST["answer"] || $_POST["form_name"]){
                                     border-radius: 50px;
                                 ">Индивидуальный Маршрут</a>
                             </div>
-                            <p?>Мы ждем тебя на онлайн занятие с психологом, основательницей проекта, где ты сможешь четко сформулировать свой запрос по работе с пищевым поведением и принятием своего тела.</p>
+                            <p?>Мы ждем тебя на онлайн занятие с психологом, основательницей проекта, где ты сможешь
+четко сформулировать свой запрос по работе с пищевым поведением и принятием своего тела.</p>
 
-                            <p>Подключайся по ссылке </p>
-                                <h3>25 апреля <span style="font-size:15px" >в 19:00</span></h3>
-                            </p>
-                            <div style="margin: 50px 0px;">
-                                <a href="https://online.bizon365.ru/room/127192/Eatintelligent-online-meeting" style="
+<p>Подключайся по ссылке </p>
+<h3>25 апреля <span style="font-size:15px">в 19:00</span></h3>
+</p>
+<div style="margin: 50px 0px;">
+    <a href="https://online.bizon365.ru/room/127192/Eatintelligent-online-meeting" style="
                                     color: whitesmoke;
                                     text-decoration: navajowhite;
                                     padding: 15px 30px;
                                     border: 2px solid whitesmoke;
                                     border-radius: 50px;
                                 ">Перейти</a>
-                            </div>
-                        </div>
-                    ';
-                    }else{
-                        $email->Body    =  '
-                    
-                        <div style="
+</div>
+</div>
+';
+}else{
+$email->Body = '
+
+<div style="
                         background: #1C1C1C;
                         color: whitesmoke;
                         padding: 30px;
                         margin: 30px;
                         border-radius: 20px;
                         margin: 30px auto;
-                        max-width: 500px;"
-                        >
-                            
-                            <h2>
-                                Чао Белла!
-                            </h2> 
-                            <p>Твоя регистрация на онлайн занятие прошла успешно. </p> 
-                            <p>Вот всё,что тебе нужно, чтобы попасть в твой личный кабинет, ждем тебя там :</p>
-                            <span style="font-weight:bold;">логин:</span><span style="margin: 50px; font-size: 20px;"><a href="/compose?To='.$user_mail.'" style=" color: whitesmoke; text-decoration:none;">'.$user_mail.'</a></span><br><br>
-                            <span style="font-weight:bold;">пароль:</span><span style="margin: 50px; font-size: 20px;">'.$password.'</span>
-                            <p>Ждём тебя 26 мая в 19:00</p>
-                            <p>Ссылку на конференцию пришлем за сутки до занятия на эту почту.</p>
-                            <p>С заботой,</p>
-                            <p>Команда Eat Intelligent.</p>
-                        </div>
-                    ';
-                    };
-                    $email->AltBody = '';
+                        max-width: 500px;">
 
-                    if(!$email->send()) {
-                        echo 'Error';
-                    } else {
-                        $sql="SELECT * FROM `users` WHERE `mail` = '$user_mail' AND `password` = '$pass'";
-                        $result=mysqli_query($mysqli,$sql);
-                        $user=mysqli_fetch_assoc($result);
-                                $_SESSION["user"]=[
-                                    "id"=>$user["id"],
-                                    "name"=>$user["name"],
-                                    "surname"=>$user["surname"],
-                                    "sex"=>$user["sex"],
-                                    "age"=>$user["age"],
-                                    "mail"=>$user["mail"],
-                                    "payment"=>$user["payment"],
-                                ];
-                                if($_POST['order'] && $_POST['sum']){
-                                    $_SESSION["user"]["full_name"] =$_POST["form_name"];
-                                    $_SESSION["user"]["order"] = $_POST['order'];
-                                    $_SESSION["user"]["sum"] = $_POST['sum'];
-                                    $_SESSION["user"]["rate"] = $_POST['rate'];
-                                    header('Location: payment');
-                                }else{
-                                    echo '
-                                        <div class="wrapper_your_type">
-                                            <div class="your_type">
-                                                <h1>Ваш аккаунт успешно создан! Проверьте почту,чтобы узнать логин и пароль!</h1>
-                                                    <div class="general_btn">
-                                                        <a href="first-stage-individual">
-                                                            <button>
-                                                                <img src="'. get_template_directory_uri() .'/images/account_arrow.svg" alt="">
-                                                            </button>
-                                                        </a>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        ';
-                                }
-                }
-            };
-            }
-        }
-    }
-    
+    <h2>
+        Чао Белла!
+    </h2>
+    <p>Твоя регистрация на онлайн занятие прошла успешно. </p>
+    <p>Вот всё,что тебе нужно, чтобы попасть в твой личный кабинет, ждем тебя там :</p>
+    <span style="font-weight:bold;">логин:</span><span style="margin: 50px; font-size: 20px;"><a
+            href="/compose?To='.$user_mail.'"
+            style=" color: whitesmoke; text-decoration:none;">'.$user_mail.'</a></span><br><br>
+    <span style="font-weight:bold;">пароль:</span><span style="margin: 50px; font-size: 20px;">'.$password.'</span>
+    <p>Ждём тебя 26 мая в 19:00</p>
+    <p>Ссылку на конференцию пришлем за сутки до занятия на эту почту.</p>
+    <p>С заботой,</p>
+    <p>Команда Eat Intelligent.</p>
+</div>
+';
+};
+//$email->AltBody = '';
+
+if(!$email->send()) {
+echo 'Error';
+} else {
+$sql="SELECT * FROM `users` WHERE `mail` = '$user_mail' AND `password` = '$pass'";
+$result=mysqli_query($mysqli,$sql);
+$user=mysqli_fetch_assoc($result);
+$_SESSION["user"]=[
+"id"=>$user["id"],
+"name"=>$user["name"],
+"surname"=>$user["surname"],
+"sex"=>$user["sex"],
+"age"=>$user["age"],
+"mail"=>$user["mail"],
+"payment"=>$user["payment"],
+];
+if($_POST['order'] && $_POST['sum']){
+$_SESSION["user"]["full_name"] =$_POST["form_name"];
+$_SESSION["user"]["order"] = $_POST['order'];
+$_SESSION["user"]["sum"] = $_POST['sum'];
+$_SESSION["user"]["rate"] = $_POST['rate'];
+header('Location: payment');
+}else{
+echo '
+<div class="wrapper_your_type">
+    <div class="your_type">
+        <h1>Ваш аккаунт успешно создан! Проверьте почту,чтобы узнать логин и пароль!</h1>
+        <div class="general_btn">
+            <a href="first-stage-individual">
+                <button>
+                    <img src="'. get_template_directory_uri() .'/images/account_arrow.svg" alt="">
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+';
+}
+}
+};
+}
+}
+}
+
 }
 else{
-    header('Location: first-stage-individual');
+header('Location: first-stage-individual');
 }
 
 
 ?>
-
-

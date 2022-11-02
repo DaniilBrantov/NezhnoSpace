@@ -89,19 +89,19 @@ require_once 'connect.php';
 
 
 
-      $email = new \PHPMailer\PHPMailer\PHPMailer();
-      $email->CharSet = 'utf-8';
-      $email->isSMTP();
-      $email->Host = 'smtp.yandex.ru';
-      $email->SMTPAuth = true;                              
-      $email->Username = 'support@eatintelligent.ru'; 
-      $email->Password = 'Eat123Intelligent123';
-      $email->SMTPSecure = 'ssl';
-      $email->Port = 465; 
+      // $email = new \PHPMailer\PHPMailer\PHPMailer();
+      // $email->CharSet = 'utf-8';
+      // $email->isSMTP();
+      // $email->Host = 'smtp.yandex.ru';
+      // $email->SMTPAuth = true;                              
+      // $email->Username = 'support@eatintelligent.ru'; 
+      // $email->Password = 'Eat123Intelligent123';
+      // $email->SMTPSecure = 'ssl';
+      // $email->Port = 465; 
 
-      $email->setFrom('support@eatintelligent.ru');
-      $email->addAddress($mail);    
-      $email->isHTML(true);                                 
+      // $email->setFrom('support@eatintelligent.ru');
+      // $email->addAddress($mail);    
+      // $email->isHTML(true);                                 
 
       $email->Subject = 'Eat Intelligent';
       $email->Body    =  '

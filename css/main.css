@@ -1,32 +1,54 @@
-main {
+section{
+  position: relative;
+}
+.main{
+  background-color: whitesmoke;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
 
+.bg_item{
+  width: 500px;
+  height: 250px;
 }
-main::before{
-  content: '';
-  display: inline-block;
-  width: 2000px;
-  height: 1000px;
+.bg_item_3 { 
+  top: 550vh;
+}
+.bg_item_4 { 
+  top: 600vh;
+}
+
+
+.bg_item {
+  position: absolute;
+  animation: cube 12s ease-in forwards infinite;
+  transform: rotate(-45deg);
   border-radius: 50%;
+  filter: blur(200px);
+  animation-duration: 25s;
+}
+.bg_item_1 { 
+  top: -50vh;
+  left: -45vw;
   background-color: #7264AA;
-  position: absolute;
-  filter: blur(500px);
-  top: -100px;
-  left: -1000px;
-  transform: rotate(-45deg);
+  animation-name: bg_item_1;
 }
-main::after{
-  content: '';
-  display: inline-block;
-  width: 1500px;
-  height: 1000px;
-  border-radius: 50%;
+.bg_item_2 { 
+  top: 50vh;
+  left: 35vw;
   background-color: #BFA4CE;
-  position: absolute;
-  filter: blur(500px);
-  top: 400px;
-  left: 900px;
-  transform: rotate(-45deg);
-  z-index: -1;
+  animation-name: bg_item_2;
+}
+.bg_item_3 { 
+  left: -45vw;
+  background-color: #7264AA;
+  animation-name: bg_item_3;
+}
+.bg_item_4 { 
+  left: 35vw;
+  background-color: #BFA4CE;
+  animation-name: bg_item_4;
 }
 .intro {
   margin: 0 auto;
@@ -77,6 +99,7 @@ background-size: 100% 100%;
 .it_bothers_me_item .intro_txt_active{
   color: rgb(240, 240, 240);
   background-color: #8D9ACE;
+  box-shadow: none;
 }
 .intro_anxiety {
   position: relative;
@@ -143,6 +166,7 @@ background-size: 100% 100%;
   margin: 7px;
   font-size: 13px;
   cursor: pointer;
+  box-shadow: 1px 1px 10px #111;
 }
 .it_bothers_me_item {
   height: 100%;
@@ -198,6 +222,7 @@ background-size: 100% 100%;
   padding-top: 40px;
 }
 .intro_link-wrap > a {
+  position: relative;
   padding: 16px 40px 16px 0;
   width: 316px;
   margin: 0 auto;
@@ -218,7 +243,6 @@ background-size: 100% 100%;
   background-image: url("../images/arrow-copy.svg");
   background-repeat: no-repeat;
   background-position: 90% center;
-  background-size: 7%;
 }
 .subscriptions {
   margin-bottom: 48px;
@@ -281,7 +305,7 @@ background-size: 100% 100%;
   margin: 0 auto;
   margin-bottom: 16px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 13px;
   line-height: 16px;
   letter-spacing: 0.01em;
@@ -401,6 +425,9 @@ background-size: 100% 100%;
   font-size: 13px;
   line-height: 16px;
 }
+.about_description p{
+  margin-top: 20px;
+}
 .less-more {
   padding: 0 16px;
   margin-bottom: 48px;
@@ -450,7 +477,7 @@ background-size: 100% 100%;
   background-size: contain;
 }
 .less-more_item-title {
-  font-weight: 500;
+  font-weight: bold;
   font-size: 18px;
   line-height: 18px;
   margin: 15px 0;
@@ -522,6 +549,12 @@ background-size: 100% 100%;
   border-radius: 40px;
   box-shadow: 0px 1px 10px rgba(141, 154, 206, 0.5);
 }
+.reviews_item hr{
+  border-radius: 5px;
+  height: 2px;
+  background: #8D9ACE;
+  border: none;
+}
 .reviews_author {
   padding-bottom: 3px;
   margin: 0;
@@ -530,7 +563,6 @@ background-size: 100% 100%;
   line-height: 25px;
   text-transform: uppercase;
   color: #111111;
-  border-bottom: 3px solid #8d9ace;
 }
 .reviews_text {
   flex: 1;
@@ -538,6 +570,7 @@ background-size: 100% 100%;
   line-height: 16px;
   color: #111111;
   margin: 10px 0;
+  height: 112px;
 }
 .reviews_time {
   position: relative;
@@ -547,7 +580,8 @@ background-size: 100% 100%;
   color: #111111;
 }
 .reviews_time:first-of-type {
-  align-items: end;
+  display: grid;
+  float: right;
 }
 .reviews_time::after {
   position: absolute;
@@ -661,13 +695,15 @@ background-size: 100% 100%;
 .trial_title {
   display: inline-block;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 16px;
   color: rgba(17, 17, 17, 0.7);
   margin: 0;
 }
 .trial_title.active {
   color: #421dd8;
+  font-weight: bold;
+  font-size: 13px;
 }
 .trial_nested-list {
   position: absolute;
@@ -677,7 +713,7 @@ background-size: 100% 100%;
   padding-top: 15px;
 }
 .trial_item > ul > li {
-  line-height: 16px;
+  line-height: 13px;
   font-size: 13px;
   color: #111111;
   white-space: nowrap;
@@ -724,7 +760,6 @@ background-size: 100% 100%;
   font-size: 13px;
   line-height: 16px;
   display: none;
-  margin: 0;
 }
 .trial_text-show {
   display: block;
@@ -782,48 +817,70 @@ background-size: 100% 100%;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@keyframes MainAnimationBefore {
-  from {
-    top: -100px;
-    left: -1000px;
+@keyframes bg_item_1 {
+  33% {
+    top: 40vh;
+    left: 60vw;
+    transform: rotate(45deg);
   }
-  to {
-    top: 400px;
-    left: 900px;
+  66% { 
+    top: 60vh;
+    left: -60vw; 
+    transform: rotate(45deg);
+  }
+  100% {  
+    top: -50vh;
+    left: -45vw;
   }
 }
-@keyframes MainAnimationAfter {
-  from {
-    top: 400px;
-    left: 900px;
+@keyframes bg_item_2 {
+  33% {
+    top: 70vh;
+    left: -35vw;
+    transform: rotate(45deg);
   }
-  to {
-    top: -600px;
-    left: -1000px;
+  66% { 
+    top: -80vh;
+    left: 5vw;
+    transform: rotate(20deg);
+  }
+  100% {  
+    top: 50vh;
+    left: 35vw;
   }
 }
-
-
-
-
-
-
+@keyframes bg_item_3 {
+  33% {
+    top: 560vh;
+    left: 60vw;
+    transform: rotate(45deg);
+  }
+  66% { 
+    top: 600vh;
+    left: -60vw; 
+    transform: rotate(45deg);
+  }
+  100% {  
+    top: 560vh;
+    left: -45vw;
+  }
+}
+@keyframes bg_item_4 {
+  33% {
+    top: 620vh;
+    left: -35vw;
+    transform: rotate(45deg);
+  }
+  66% { 
+    top: 500vh;
+    left: 5vw;
+    transform: rotate(20deg);
+  }
+  100% {  
+    top: 600vh;
+    left: 35vw;
+  }
+}
 
 
 
@@ -951,7 +1008,6 @@ background-size: 100% 100%;
     text-align: left;
     font-size: 16px;
     line-height: 20px;
-    letter-spacing: 1px;
   }
   .intro_subtitle > span {
     display: inline;
@@ -971,7 +1027,6 @@ background-size: 100% 100%;
     width: 396px;
     letter-spacing: 0.1em;
     background-position: 90% center;
-    background-size: 9%;
     white-space: nowrap;
   }
   .subscriptions {
@@ -989,6 +1044,8 @@ background-size: 100% 100%;
     margin-bottom: 0;
     font-size: 32px;
     line-height: 37px;
+    text-align: right;
+    top: -40px;
   }
   .subscriptions_title::after {
     display: none;
@@ -1025,6 +1082,9 @@ background-size: 100% 100%;
     transition-duration: 0.4s;
     transition-delay: 0.2s;
   }
+  .subscriptions_item:hover{
+    box-shadow: 0 0 20px rgba(141, 154, 206, 0.5);
+  }
   .subscriptions_item:hover button {
     opacity: 1;
   }
@@ -1038,9 +1098,10 @@ background-size: 100% 100%;
     display: flex;
     align-items: center;
     gap: 30px;
-    padding: 0 7%;
     text-align: right;
     flex-direction: row-reverse;
+    width: 880px;
+    margin: auto;
   }
   .about__image::before {
     left: auto;
@@ -1073,7 +1134,9 @@ background-size: 100% 100%;
     margin-bottom: 0;
   }
   .less-more {
-    padding: 0 10%;
+    width: 880px;
+    margin: auto;
+    padding: 50px 0;
     text-align: center;
   }
   .less-more_title {
@@ -1230,7 +1293,7 @@ background-size: 100% 100%;
     position: relative;
     padding-left: 16px;
     margin-bottom: 14px;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 20px;
   }
   .trial_item > ul > li + li {
@@ -1279,6 +1342,7 @@ background-size: 100% 100%;
     text-transform: uppercase;
     color: #111111;
     margin-top: 0;
+    font-weight: bold;
   }
   .trial_list-reference {
     width: 145px;
@@ -1307,7 +1371,13 @@ background-size: 100% 100%;
     min-width: 450px;
     height: 512px;
   }
-
+  .bg_item{
+    width: 1000px;
+    height: 500px;
+  }
+  .reviews_constitutor-item {
+    font-size: 16px;
+  }
 }
 
 
@@ -1366,12 +1436,6 @@ background-size: 100% 100%;
     margin-right: 15%;
     text-align: end;
   }
-  .about {
-    padding: 0 16%;
-  }
-  .less-more {
-    padding: 0 24%;
-  }
   .reviews {
     margin: 0 12.5%;
   }
@@ -1384,4 +1448,48 @@ background-size: 100% 100%;
   .subscriptions_list .slick-list{
     width: 900px;
   }
+  .bg_item{
+    width: 2000px;
+    height: 1000px;
+  }
+  .bg_item_3 { 
+    top: 300vh;
+  }
+  .bg_item_4 { 
+    top: 400vh;
+  }
+
+  @keyframes bg_item_3 {
+    33% {
+      top: 360vh;
+      left: 60vw;
+      transform: rotate(45deg);
+    }
+    66% { 
+      top: 400vh;
+      left: -60vw; 
+      transform: rotate(45deg);
+    }
+    100% {  
+      top: 360vh;
+      left: -45vw;
+    }
+  }
+  @keyframes bg_item_4 {
+    33% {
+      top: 420vh;
+      left: -35vw;
+      transform: rotate(45deg);
+    }
+    66% { 
+      top: 300vh;
+      left: 5vw;
+      transform: rotate(20deg);
+    }
+    100% {  
+      top: 400vh;
+      left: 35vw;
+    }
+  }
+  
 }

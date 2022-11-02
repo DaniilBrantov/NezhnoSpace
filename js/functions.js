@@ -431,3 +431,11 @@ $(function () {
 // Intro Anxiety
 
 $(function () { $('.it_bothers_me_item span').click(function () { $(this).addClass($(this).attr("class") !== "intro_txt_active" ? "intro_txt_active" : $(this).removeClass("intro_txt_active")); }); });
+
+//Header Navigation Active
+
+$(function () {
+    let nav_href = document.querySelectorAll(".nav_list li a");
+    let url = document.location.href;
+    nav_href.forEach((el) => { el.href === url ? el.classList.add("nav_active") : el.classList.remove("nav_active") })
+});

@@ -15,22 +15,22 @@ while($customer=mysqli_fetch_assoc($users)){
         if ($customer["pay_week"] == '0') {
             if($week > 1){
                 
-                $email = new \PHPMailer\PHPMailer\PHPMailer();
+                // $email = new \PHPMailer\PHPMailer\PHPMailer();
 
-                $email->CharSet = 'utf-8';
-                $email->isSMTP();
-                $email->Host = 'smtp.yandex.ru';
-                $email->SMTPAuth = true;                              
-                $email->Username = 'support@eatintelligent.ru'; 
-                $email->Password = 'Eat123Intelligent123';
-                $email->SMTPSecure = 'ssl';
-                $email->Port = 465; 
+                // $email->CharSet = 'utf-8';
+                // $email->isSMTP();
+                // $email->Host = 'smtp.yandex.ru';
+                // $email->SMTPAuth = true;                              
+                // $email->Username = 'support@eatintelligent.ru'; 
+                // $email->Password = 'Eat123Intelligent123';
+                // $email->SMTPSecure = 'ssl';
+                // $email->Port = 465; 
             
-                $email->setFrom('support@eatintelligent.ru');
-                $email->addAddress($customer["mail"]);    
-                $email->isHTML(true);                                 
+                // $email->setFrom('support@eatintelligent.ru');
+                // $email->addAddress($customer["mail"]);    
+                // $email->isHTML(true);                                 
             
-                $email->Subject = 'Нежно';
+                // $email->Subject = 'Нежно';
     
     
                 $email->Body    =  '
@@ -76,22 +76,22 @@ while($customer=mysqli_fetch_assoc($users)){
         }else{
             if($week > $customer["pay_week"]){
                 
-                $email = new \PHPMailer\PHPMailer\PHPMailer();
+                // $email = new \PHPMailer\PHPMailer\PHPMailer();
 
-                $email->CharSet = 'utf-8';
-                $email->isSMTP();
-                $email->Host = 'smtp.yandex.ru';
-                $email->SMTPAuth = true;                              
-                $email->Username = 'support@eatintelligent.ru'; 
-                $email->Password = 'Eat123Intelligent123';
-                $email->SMTPSecure = 'ssl';
-                $email->Port = 465; 
+                // $email->CharSet = 'utf-8';
+                // $email->isSMTP();
+                // $email->Host = 'smtp.yandex.ru';
+                // $email->SMTPAuth = true;                              
+                // $email->Username = 'support@eatintelligent.ru'; 
+                // $email->Password = 'Eat123Intelligent123';
+                // $email->SMTPSecure = 'ssl';
+                // $email->Port = 465; 
             
-                $email->setFrom('support@eatintelligent.ru');
-                $email->addAddress($customer["mail"]);    
-                $email->isHTML(true);                                 
+                // $email->setFrom('support@eatintelligent.ru');
+                // $email->addAddress($customer["mail"]);    
+                // $email->isHTML(true);                                 
             
-                $email->Subject = 'Нежно';
+                // $email->Subject = 'Нежно';
     
     
                 $email->Body    =  '

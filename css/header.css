@@ -4,6 +4,7 @@
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.95);
   z-index: 11;
+  top: 0;
 }
 .header_wrap {
   max-width: 1440px;
@@ -45,6 +46,9 @@
 .header_nav.header_nav-show {
   display: block;
 }
+.nav_active{
+  font-weight: bold;
+}
 .nav_list {
   display: flex;
   flex-direction: column;
@@ -56,7 +60,6 @@
   list-style: none;
 }
 .nav_list a {
-  font-weight: 400;
   font-size: 16px;
   line-height: 20px;
   color: #111111;

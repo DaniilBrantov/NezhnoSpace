@@ -53,18 +53,18 @@ if(isset($_POST["reset_send"])){
                     }else{
                         $link_reset_password = $address_site."set_new_password?email=$email&token=$token";
 
-                        $send_email = new \PHPMailer\PHPMailer\PHPMailer();
-                        $send_email->CharSet = 'utf-8';
-                        $send_email->isSMTP();
-                        $send_email->Host = 'smtp.yandex.ru';
-                        $send_email->SMTPAuth = true;                              
-                        $send_email->Username = 'support@eatintelligent.ru'; 
-                        $send_email->Password = 'Eat123Intelligent123';
-                        $send_email->SMTPSecure = 'ssl';
-                        $send_email->Port = 465; 
-                        $send_email->setFrom('support@eatintelligent.ru');
-                        $send_email->addAddress($email);    
-                        $send_email->isHTML(true);                                 
+                        // $send_email = new \PHPMailer\PHPMailer\PHPMailer();
+                        // $send_email->CharSet = 'utf-8';
+                        // $send_email->isSMTP();
+                        // $send_email->Host = 'smtp.yandex.ru';
+                        // $send_email->SMTPAuth = true;                              
+                        // $send_email->Username = 'support@eatintelligent.ru'; 
+                        // $send_email->Password = 'Eat123Intelligent123';
+                        // $send_email->SMTPSecure = 'ssl';
+                        // $send_email->Port = 465; 
+                        // $send_email->setFrom('support@eatintelligent.ru');
+                        // $send_email->addAddress($email);    
+                        // $send_email->isHTML(true);                                 
                         $send_email->Subject = 'Нежно: восстановление пароля ';
 
                         $send_email->Body    =  '

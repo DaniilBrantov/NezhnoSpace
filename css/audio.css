@@ -31,6 +31,9 @@
     justify-content: center;
     align-items: center;
   }
+  .info-icon path{
+    fill: #7264AA;
+  }
   .info-tultip {
     position: absolute;
     right: 0;
@@ -68,7 +71,7 @@
   }
   .progress {
     position: relative;
-    background-color: #fff;
+    background-color: #BFA4CE;
     border-radius: 5px;
     height: 100%;
     width: 0;
