@@ -1,3 +1,5 @@
+<test>
+
 <div class="container">
     <div class="banner_about">
         <div class="banner_about_cnt grid_gap_2em">
@@ -27,6 +29,7 @@
             <img src="<?php getUrl(); ?>/images/about.jpg" alt="">
         </div>
     </div>
+    <test>
     <div class="we_are mt_200">
         <div class="we_are_item_1">
             <div class="we_are_img">
