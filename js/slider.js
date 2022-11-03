@@ -216,7 +216,6 @@ $(function () {
     let btnPrev = document.querySelector('.slider_sliders .slick-prev');
 
     if ($('.slider_sliders').slick('slickCurrentSlide') === 0) {
-        console.log(btnPrev)
         btnPrev.style.display = 'none'
     }
 
