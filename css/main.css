@@ -1326,9 +1326,8 @@ background-size: 100% 100%;
   }
   .trial_item > ul > li.show-active {
     line-height: 16px;
-    font-size: 13px;
+    font-size: 12.5px;
     color: #111111;
-    transition: font-size 0.4s;
   }
   .trial_item > ul > li.show-active p{
     min-width: 200px;
