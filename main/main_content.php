@@ -309,7 +309,7 @@
             <ul class="trial_list">
                 <li class="trial_item">
                     <p class="trial_title active">Тема 1</p>
-                    <ul class="trial_nested-list">
+                    <ul class="trial_nested-list active">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -323,7 +323,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 2</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -337,7 +337,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 3</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -351,7 +351,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 4</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -365,7 +365,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 5</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -379,7 +379,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 6</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -393,7 +393,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 7</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>
@@ -407,7 +407,7 @@
                 </li>
                 <li class="trial_item">
                     <p class="trial_title">Тема 8</p>
-                    <ul class="trial_nested-list visually-hidden">
+                    <ul class="trial_nested-list">
                         <li class="show-active">
                             <p>Общее</p>
                         </li>

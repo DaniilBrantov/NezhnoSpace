@@ -359,45 +359,37 @@ $(function () {
 $(function () {
 
     const list = document.querySelector(".trial_list");
-    const elem = document.querySelector(".trial_nested-list");
+    const elem = document.querySelectorAll(".trial_nested-list");
     if (elem) {
-        elem.addEventListener("click", (evt) => {
-            if (evt.target instanceof HTMLParagraphElement) {
-                [...elem.children].forEach((el) => el.classList.remove("show-active"));
-                evt.target.parentNode.classList.add("show-active");
-                document.querySelector(".trial_description-title").textContent =
-                    evt.target.textContent;
-            }
-        });
+        elem.forEach((item) => {
+            if(!item.classList.contains('active')) {
+                item.style.display = 'none';
+            } 
+
+            item.addEventListener('click', function(evt) {
+                item.children.forEach((el) => el.classList.remove('show-active'));
+                evt.target.parentNode.classList.add('show-active');
+
+                if (evt.target instanceof HTMLParagraphElement) {
+                    document.querySelector(".trial_description-title").textContent = evt.target.textContent;
+                }
+            })
+        })
     };
 
     if (list) {
         list.addEventListener("click", (evt) => {
             if (evt.target.classList.contains("trial_title")) {
                 evt.target.classList.toggle("active");
-                const nextElem = evt.target.nextElementSibling;
-                nextElem.classList.toggle("visually-hidden");
-                [...document.querySelectorAll(".trial_nested-list")].map((el) => {
-                    if (el !== nextElem) {
-                        el.classList.add("visually-hidden");
-                    }
-                });
-
+                evt.target.parentNode.querySelector('.trial_nested-list').classList.toggle('active');
+                evt.target.parentNode.querySelector('.trial_nested-list').style.display = '';
+                document.querySelector(".trial_description-title").textContent = evt.target.parentNode.querySelector(".show-active").textContent;
+            
                 [...document.querySelectorAll(".trial_title")].map((el) => {
                     if (el !== evt.target) {
                         el.classList.remove("active");
-                    }
-                });
-
-                nextElem?.addEventListener("click", (evt) => {
-                    if (evt.target instanceof HTMLParagraphElement) {
-                        [...nextElem.children].forEach((el) =>
-                            el.classList.remove("show-active")
-                        );
-
-                        evt.target.parentNode.classList.add("show-active");
-                        document.querySelector(".trial_description-title").textContent =
-                            evt.target.textContent;
+                        el.parentNode.querySelector('.trial_nested-list').classList.remove('active');
+                        el.parentNode.querySelector('.trial_nested-list').style.display = 'none';
                     }
                 });
             }
