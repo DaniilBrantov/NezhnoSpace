@@ -51,7 +51,7 @@
     text-align: center;
     font-size: 16px;
     line-height: 20px;
-    color: rgb(0, 0, 0); /*здесь цвет текста изменить, и название трека будет видно при меньших расширениях */
+    color: rgb(0, 0, 0);
   }
   .player__box-wrap {
     display: flex;
@@ -115,8 +115,6 @@
     display: none;
     width: 44px;
     height: 44px;
-	  /*удалила внешний отступ у кнопки.он мешает адаптивности, заменен на паддинги у аудио (.player_box)
-    margin-right: 25px;*/
   }
   
   .play .play-show {
@@ -204,26 +202,21 @@
     .player__wrap {
       flex-direction: row-reverse;
       order: 1;
-	/*изменила распределение элем.по контейнеру и задала ширину*/
-	  width: 20%;
+	    width: 20%;
       justify-content: space-between;
     }
     .volume-box {
       order: -1;
     }
     .title {
-      /*изменила ширину, добавила отступ, задала свойства текста и убрала нижний отступ*/
       width: calc(80% - 44px);
       margin-left: 44px;
       text-align: center;
       font-size: 13px;
       font-weight: 600;
       line-height: 20px;
-      /* margin-bottom: 15px;*/
     }
     .player__box-wrap {
-      /*justify-content: flex-start;*/
-		/*изменила выравнивание и ширину*/
 	    justify-content: space-between;
       width: 80%;
     }
@@ -235,7 +228,6 @@
       display: flex;
       flex-direction: column-reverse;
       align-self: center;
-	/*изменила алгоритм расчета границ для добавления внутр отступов, добавила отступы*/
 	    box-sizing: border-box;
       padding-left: 25px;
       padding-right: 25px;
