@@ -1,5 +1,3 @@
-<test>
-
 <div class="container">
     <div class="banner_about">
         <div class="banner_about_cnt grid_gap_2em">
@@ -29,7 +27,6 @@
             <img src="<?php getUrl(); ?>/images/about.jpg" alt="">
         </div>
     </div>
-    <test>
     <div class="we_are mt_200">
         <div class="we_are_item_1">
             <div class="we_are_img">
@@ -121,28 +118,32 @@
             </div>
         </div>
     </div>
-    <div class="about_slider mt_200">
-        <div class="about_slider_item">
-            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider1.jpg" alt="">
-            <div class="about_slider_txt">
-                <p>
-                    Стресс связан с увеличением <br>
-                    потребления нездоровой пищи и снижением <br>
-                    потребления здоровой пищи
-                </p>
-            </div>
+<!-- SLIDER -->
+    <div class="block__about_slider">
+        <div class="about_slider-before">
         </div>
-        <div class="about_slider_item">
-            <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider2.jpg" alt="">
-            <div class="about_slider_txt">
-                <p>
-                    Люди, которые сильно ограничивают себя в еде<br>
-                    и заедают эмоции, могут столкнуться с нарушениями<br>
-                    пищевого поведения
-                </p>
+        <div class="about_slider mt_200">
+            <div class="about_slider_item">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider1.jpg" alt="">
+                <div class="about_slider_txt">
+                    <p>
+                        Стресс связан с увеличением <br>
+                        потребления нездоровой пищи и снижением <br>
+                        потребления здоровой пищи
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="about_slider_item">
+            <div class="about_slider_item">
+                <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider2.jpg" alt="">
+                <div class="about_slider_txt">
+                    <p>
+                        Люди, которые сильно ограничивают себя в еде<br>
+                        и заедают эмоции, могут столкнуться с нарушениями<br>
+                        пищевого поведения
+                    </p>
+                </div>
+            </div>
+            <div class="about_slider_item">
             <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider3.jpg" alt="">
             <div class="about_slider_txt">
                 <p>
@@ -242,7 +243,9 @@
                 </p>
             </div>
         </div>
+        </div>
     </div>
+<!--  -->
     <div class="our_platform mt_200">
         <h3>
             Наша платформа – часть проекта по устойчивому развитию ООН
