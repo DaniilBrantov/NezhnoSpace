@@ -538,6 +538,7 @@ background-size: 100% 100%;
 }
 .reviews_list .slick-list{
   height: 220px;
+  overflow: visible!important;
 }
 .reviews_item {
   min-width: 0;
