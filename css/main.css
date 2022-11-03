@@ -703,7 +703,6 @@ background-size: 100% 100%;
 .trial_title.active {
   color: #421dd8;
   font-weight: bold;
-  font-size: 13px;
 }
 .trial_nested-list {
   position: absolute;
@@ -1267,6 +1266,7 @@ background-size: 100% 100%;
     margin-bottom: 16px;
     color: #111111;
     transition: margin-bottom 0.4s;
+    font-size: 13px;
   }
   .trial_title::after {
     display: block;
@@ -1299,6 +1299,7 @@ background-size: 100% 100%;
     opacity: 1;
   }
   .trial_nested-list.active {
+    padding-top: 0;
     animation-name: drop;
     animation-duration: 0.4s;
     transition: all 0.4s cubic-bezier(0, 0, 1, 1);
