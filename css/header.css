@@ -53,6 +53,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 0;
 }
 .nav_list li {
   margin-bottom: 32px;
@@ -70,6 +71,9 @@
 }
 .header-btn {
   display: none;
+}
+.header_user img{
+  width: 24px;
 }
 .visually-hidden:not(:focus):not(:active) {
   position: absolute;
@@ -142,6 +146,9 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: #111111;
+  }
+  .header_user img{
+    width: 32px;
   }
 }
 
