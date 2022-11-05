@@ -95,9 +95,8 @@ $(function () {
     $('.about_slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
         let colors = ['#EFE1F0', '#BFA4CE', '#D9D9D9', '#7264AA', '#8D9ACE',
             '#917286', '#EFE1F0', '#BFA4CE', '#D9D9D9', '#7264AA', '#8D9ACE', '#917286'];
-        $('.about_slider').cssBefore('background-color', colors[nextSlide]);
+        document.querySelector('.about_slider-before').style.background = colors[nextSlide];
     })
-    $('.about_slider').slick('setPosition');
 });
 
 $(function () {
