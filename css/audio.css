@@ -51,7 +51,7 @@
     text-align: center;
     font-size: 16px;
     line-height: 20px;
-    color: #fff;
+    color: rgb(0, 0, 0);
   }
   .player__box-wrap {
     display: flex;
@@ -71,7 +71,7 @@
   }
   .progress {
     position: relative;
-    background-color: #BFA4CE;
+    background-color: #fff;
     border-radius: 5px;
     height: 100%;
     width: 0;
@@ -101,7 +101,7 @@
   .current-time,
   .duration-time {
     font-size: 12px;
-    color: #fff;
+    color: #111111;
   }
   
   .btn-box {
@@ -115,7 +115,6 @@
     display: none;
     width: 44px;
     height: 44px;
-    margin-right: 25px;
   }
   
   .play .play-show {
@@ -129,6 +128,7 @@
   .pause,
   .play {
     cursor: pointer;
+    padding-right: 20px;
   }
   
   .replay,
@@ -202,24 +202,35 @@
     .player__wrap {
       flex-direction: row-reverse;
       order: 1;
+	    width: 20%;
+      justify-content: space-between;
     }
     .volume-box {
       order: -1;
     }
     .title {
-      min-width: 100%;
-      color: #111111;
-      margin-bottom: 15px;
+      width: calc(80% - 44px);
+      margin-left: 44px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 20px;
     }
     .player__box-wrap {
-      justify-content: flex-start;
-      min-width: 75%;
-  
+	    justify-content: space-between;
+      width: 80%;
+    }
+    .pause,
+    .play {
+      padding-right: 0px;
     }
     .player_box {
       display: flex;
       flex-direction: column-reverse;
       align-self: center;
+	    box-sizing: border-box;
+      padding-left: 25px;
+      padding-right: 25px;
     }
   
     .progress-container {

@@ -56,7 +56,7 @@ section{
 }
 .intro_wrap {
   position: relative;
-  padding-top: 325px;
+  padding-top: 300px;
   margin-bottom: 48px;
 }
 .intro_wrap::before {
@@ -100,6 +100,7 @@ background-size: 100% 100%;
   color: rgb(240, 240, 240);
   background-color: #8D9ACE;
   box-shadow: none;
+  transition: 0.2s;
 }
 .intro_anxiety {
   position: relative;
@@ -166,7 +167,8 @@ background-size: 100% 100%;
   margin: 7px;
   font-size: 13px;
   cursor: pointer;
-  box-shadow: 1px 1px 10px #111;
+  box-shadow: 1px 1px 10px #11111115;
+  transition: 0.2s;
 }
 .it_bothers_me_item {
   height: 100%;
@@ -180,7 +182,8 @@ background-size: 100% 100%;
 }
 .slider_sliders .slick-dots button::before{
   font-size: 10px;
-  color: rgb(242, 242, 242);
+  color: rgba(141, 154, 206, 0.2);
+  opacity: 1;
 }
 .slider_sliders .slick-dots li.slick-active button::before{
   color: #7264AA;
@@ -224,7 +227,7 @@ background-size: 100% 100%;
 .intro_link-wrap > a {
   position: relative;
   padding: 16px 40px 16px 0;
-  width: 316px;
+  width: 100%;
   margin: 0 auto;
   display: block;
   background: #421dd8;
@@ -446,6 +449,7 @@ background-size: 100% 100%;
 .less-more_subtitle {
   line-height: 16px;
   margin-bottom: 34px;
+  font-size: 13px;
 }
 .less-more_subtitle > p > span {
   display: block;
@@ -471,7 +475,7 @@ background-size: 100% 100%;
   content: "";
   min-width: 64px;
   height: 64px;
-  background-image: url("../images/logo-vectorBFA4CE.svg");
+  background-image: url("../images/logo_vector.svg");
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -554,9 +558,10 @@ background-size: 100% 100%;
   height: 2px;
   background: #8D9ACE;
   border: none;
+  margin-top: 0;
 }
 .reviews_author {
-  padding-bottom: 3px;
+  padding-bottom: 2px;
   margin: 0;
   font-family: "Ubuntu Condensed";
   font-size: 22px;
@@ -672,7 +677,7 @@ background-size: 100% 100%;
 .trial-title {
   font-size: 32px;
   line-height: 37px;
-  margin: 2em 0 1em;
+  margin: 1.5em 0 1em;
 }
 .reviews h2{
   margin-left: 34px;
@@ -685,6 +690,7 @@ background-size: 100% 100%;
   display: flex;
   padding-bottom: 44px;
   list-style-type: none;
+  padding-left: 0;
 }
 .trial_item {
   cursor: pointer;
@@ -695,7 +701,7 @@ background-size: 100% 100%;
 .trial_title {
   display: inline-block;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 13px;
   line-height: 16px;
   color: rgba(17, 17, 17, 0.7);
   margin: 0;
@@ -709,7 +715,7 @@ background-size: 100% 100%;
   left: 0;
   display: flex;
   list-style-type: none;
-  padding-top: 15px;
+  padding-left: 0;
 }
 .trial_item > ul > li {
   line-height: 13px;
@@ -932,6 +938,10 @@ background-size: 100% 100%;
   .about__image {
     width: 427px;
   }
+  .intro_link-wrap > a {
+    width: 396px;
+  }
+  
 }
 
 
@@ -1027,7 +1037,6 @@ background-size: 100% 100%;
   .intro_link-wrap > a {
     display: inline-block;
     padding: 16px 117px 16px 43px;
-    width: 396px;
     letter-spacing: 0.1em;
     background-position: 90% center;
     white-space: nowrap;
@@ -1149,6 +1158,7 @@ background-size: 100% 100%;
   }
   .less-more_subtitle {
     margin: 20px 0;
+    font-size: 16px;
   }
   .less-more_subtitle > p > span {
     display: block;
@@ -1258,6 +1268,7 @@ background-size: 100% 100%;
     margin-left: 0;
   }
   .trial_title {
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1403,6 +1414,9 @@ background-size: 100% 100%;
   }
   .reviews_constitutor-item {
     font-size: 16px;
+  }
+  .slider_sliders .slick-dots button::before{
+    color: rgb(242, 242, 242);
   }
 }
 
