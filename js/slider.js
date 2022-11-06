@@ -212,7 +212,7 @@ $(function () {
     let slidesLength = document.querySelectorAll('.it_bothers_me_item.slick-slide').length;
     let btnNext = document.querySelector('.slider_sliders .slick-next');
     let btnPrev = document.querySelector('.slider_sliders .slick-prev');
-
+    
     if (btnNext && btnPrev) {
         if ($('.slider_sliders').slick('slickCurrentSlide') === 0) {
             btnPrev.style.display = 'none'
