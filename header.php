@@ -32,14 +32,10 @@
 <body>
     <header class="header">
         <div class="header_wrap">
-            <button class="header_btn">
-                <img class="header_open" src="<?php getUrl(); ?>/images/menu.svg" alt="menu open button">
-                <img class="header_close visually-hidden" src="<?php getUrl(); ?>/images/menu-close.svg"
-                    alt="menu close button">
-            </button>
+            <button class="header_btn"></button>
             <div class="header_logo">
                 <a href="/">
-                    <img src="<?php getUrl(); ?>/images/logo.png" alt="">
+                    <img src="<?php getUrl(); ?>/images/logo.svg" alt="">
                 </a>
             </div>
             <nav class="nav header_nav">

@@ -1,6 +1,4 @@
-<test>
-
-    <div class="container">
+     <div class="container">
         <div class="banner_about">
             <div class="banner_about_cnt grid_gap_2em">
                 <h1>

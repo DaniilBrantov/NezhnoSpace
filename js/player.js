@@ -1,9 +1,9 @@
 (() => {
+    const musicList = ["coldplay-paradise", "практика1", "ukulele"];
+    let index = 0;
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
   );
-  const musicList = ["coldplay-paradise", "практика1", "ukulele"];
-  let index = 0;
   const audioPlayer = document.querySelector(".player");
 
   const playBtn = document.querySelector(".play");

@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 
 function toggleImage() {
-  [...this.children].forEach(el => el.classList.toggle('visually-hidden'));
+  this.classList.toggle('menu_close');
   document.querySelector('.header_nav').classList.toggle('header_nav-show');
 }
 

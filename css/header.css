@@ -23,6 +23,11 @@
   background-color: transparent;
   border: 0;
   z-index: 21;
+  background-image: url('../images/menu.svg');
+  cursor: pointer;
+}
+.menu_close {
+  background-image: url("../images/menu-close.svg");
 }
 .header_logo {
   display: flex;
