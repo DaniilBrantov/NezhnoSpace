@@ -262,17 +262,6 @@ background-size: 100% 100%;
   text-transform: uppercase;
   color: #000000;
 }
-.subscriptions_title::after {
-  position: absolute;
-  left: 50%;
-  bottom: -67%;
-  transform: translateX(-50%);
-  display: block;
-  content: "";
-  width: 50px;
-  height: 4px;
-  background-image: url("../images/group119.svg");
-}
 .subscriptions_list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -283,16 +272,20 @@ background-size: 100% 100%;
 
 }
 .subscriptions_item {
-  min-width: 233px;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
-  padding: 176px 32px 0 32px;
+  padding: 120px 32px 0 32px;
   background: rgba(255, 255, 255, 0.2);
   border: 2.5px solid #8d9ace;
-  border-radius: 45px;
+  border-radius: 25px;
   background-image: url("../images/logo-vector.svg");
   background-repeat: no-repeat;
-  background-position: center 15%;
+  background-position: center 32px;
+  background-size: 70px;
+}
+.subscriptions_item br{
+  display: none;
 }
 .subscriptions_item:nth-child(2) {
   background-image: url("../images/logo-vectorBFA4CE.svg");
@@ -304,7 +297,7 @@ background-size: 100% 100%;
   flex: 1;
 }
 .subscriptions_item-title {
-  width: 75%;
+  width: 130px;
   margin: 0 auto;
   margin-bottom: 16px;
   text-align: center;
@@ -320,7 +313,7 @@ background-size: 100% 100%;
 .subscriptions_item-duration {
   display: block;
   margin-bottom: 10px;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 18px;
   line-height: 22px;
   letter-spacing: 0.01em;
@@ -329,13 +322,13 @@ background-size: 100% 100%;
 .subscriptions_item-price {
   display: block;
   margin-bottom: 10px;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 15px;
   line-height: 18px;
 }
 .subscriptions_item-trial,
 .subscriptions_price-month {
-  display: block;
+  display: none;
   font-size: 13px;
   line-height: 16px;
 }
@@ -348,8 +341,8 @@ background-size: 100% 100%;
   padding: 16px 15px;
   margin-top: auto;
   margin-bottom: 34px;
-  background: #421dd8;
-  border: 2px solid #421dd8;
+  background: #7264AA;
+  border: 2px solid #7264AA;
   border-radius: 15px;
   font-weight: bold;
   text-align: center;
@@ -1055,11 +1048,7 @@ background-size: 100% 100%;
     margin-bottom: 0;
     font-size: 32px;
     line-height: 37px;
-    text-align: right;
-    top: -40px;
-  }
-  .subscriptions_title::after {
-    display: none;
+
   }
   .subscriptions_list {
     margin-bottom: 14px;
@@ -1073,7 +1062,12 @@ background-size: 100% 100%;
     padding: 226px 32px 0 32px;
     background-image: url("../images/logo-vector.svg");
     background-position: 15% 25%;
-    width: 281px;
+    width: 272px;
+    background-size: 100px;
+    border-radius: 45px;
+  }
+  .subscriptions_item br{
+    display: block;
   }
   .subscriptions_item-title {
     width: 100%;
@@ -1417,6 +1411,10 @@ background-size: 100% 100%;
   .slider_sliders .slick-dots button::before{
     color: rgb(242, 242, 242);
   }
+  .subscriptions_item-trial,
+  .subscriptions_price-month{
+    display: block;
+  }
 }
 
 
@@ -1470,6 +1468,10 @@ background-size: 100% 100%;
   }
   .subscriptions_wrap {
     flex-direction: row;
+  }
+  .subscriptions_title{
+    text-align: right;
+    top: -40px;
   }
   .subscriptions > p {
     margin-right: 15%;

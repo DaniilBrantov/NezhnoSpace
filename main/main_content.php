@@ -88,8 +88,8 @@
                 <ul class="subscriptions_list">
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <h3 class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</h3>
+                            <p class="subscriptions_item-title">Начни заботится о себе
+                                с Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 месяц</span>
                                 <span class="subscriptions_item-price">500 ₽ / мес.</span>
@@ -105,8 +105,8 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <h3 class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</h3>
+                            <p class="subscriptions_item-title">Начни заботится о себе
+                                с Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">6 месяцев</span>
                                 <span class="subscriptions_item-price">3600 ₽</span>
@@ -123,8 +123,8 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <h3 class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</h3>
+                            <p class="subscriptions_item-title">Начни заботится о себе
+                                с Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 год</span>
                                 <span class="subscriptions_item-price">6000 ₽</span>
