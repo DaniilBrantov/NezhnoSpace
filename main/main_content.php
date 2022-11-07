@@ -514,8 +514,7 @@
                             </span>
                             <div class="player_box">
                                 <div class="progress-container" id="progress-container">
-                                    <div class="progress" id="progress">
-                                    </div>
+                                    <input type="range" class="progress" id="progress" max="100" value="0">
                                 </div>
                                 <div class="duration">
                                     <span class="current-time">00:00</span>
