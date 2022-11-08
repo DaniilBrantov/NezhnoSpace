@@ -157,6 +157,8 @@ $(function () {
         variableWidth: true,
         speed: 700,
         touchThreshold: 25,
+        swipe: true,
+        swipeToSlide: true,
         responsive: [
             {
                 breakpoint: 768,
@@ -212,12 +214,12 @@ $(function () {
     let slidesLength = document.querySelectorAll('.it_bothers_me_item.slick-slide').length;
     let btnNext = document.querySelector('.slider_sliders .slick-next');
     let btnPrev = document.querySelector('.slider_sliders .slick-prev');
-    
+
     if (btnNext && btnPrev) {
         if ($('.slider_sliders').slick('slickCurrentSlide') === 0) {
             btnPrev.style.display = 'none'
         }
-    
+
         $('.slider_sliders').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             if (nextSlide === slidesLength - 1) {
                 btnNext.style.display = 'none';

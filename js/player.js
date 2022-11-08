@@ -1,6 +1,6 @@
 (() => {
-    const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type",  ];
-    let index = 0;
+  const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type",];
+  let index = 0;
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
   );
@@ -35,7 +35,7 @@
   seekSlider.addEventListener("input", (e) => {
     e.preventDefault();
     showRangeProgress(e.target);
-    musicPause();
+    musicPlay();
   });
 
   seekSlider.addEventListener("change", (e) => {
@@ -55,7 +55,7 @@
     false
   );
 
-setInterval(() => {
+  setInterval(() => {
     setSliderMax();
     audioPlayer.style.setProperty(
       "--seek-before-width",
@@ -141,7 +141,7 @@ setInterval(() => {
     let speedIndexValue;
     if (
       speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) +
-        1 <
+      1 <
       speedList.length
     ) {
       speedIndexValue =
