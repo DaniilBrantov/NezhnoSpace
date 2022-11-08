@@ -513,6 +513,7 @@
                                 </svg>
                             </span>
                             <div class="player_box">
+                                <!-- input range -->
                                 <div class="progress-container" id="progress-container">
                                     <input type="range" class="progress" id="progress" max="100" value="0">
                                 </div>

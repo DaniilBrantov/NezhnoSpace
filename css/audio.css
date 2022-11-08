@@ -65,6 +65,7 @@
 }
 #progress.progress {
   width: 100%;
+  cursor: pointer;
 }
 input[type="range"] {
   position: relative;

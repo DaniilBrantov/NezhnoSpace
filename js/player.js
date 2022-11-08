@@ -1,11 +1,10 @@
 (() => {
-    const musicList = ["coldplay-paradise", "практика1", "ukulele"];
+    const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type",  ];
     let index = 0;
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
   );
   const audioPlayer = document.querySelector(".player");
-
   const playBtn = document.querySelector(".play");
   const seekSlider = document.querySelector("#progress.progress");
 
@@ -30,10 +29,18 @@
       "--seek-before-width",
       (rangeInput.value / rangeInput.max) * 100 + "%"
     );
+    setSliderMax();
   };
 
   seekSlider.addEventListener("input", (e) => {
+    e.preventDefault();
     showRangeProgress(e.target);
+    musicPause();
+  });
+
+  seekSlider.addEventListener("change", (e) => {
+    e.preventDefault();
+    musicPlay();
   });
 
   //duration audio
@@ -48,7 +55,7 @@
     false
   );
 
-  setInterval(() => {
+setInterval(() => {
     setSliderMax();
     audioPlayer.style.setProperty(
       "--seek-before-width",
@@ -57,11 +64,6 @@
     audioPlayer.querySelector(".player_box .current-time").textContent =
       getTimeCodeFromNum(audio.currentTime);
   }, 2);
-
-  seekSlider.addEventListener("change", () => {
-    audioPlayer.querySelector(".player_box .current-time").textContent =
-      getTimeCodeFromNum(seekSlider.value);
-  });
 
   audio.addEventListener("timeupdate", () => {
     seekSlider.value = Math.floor(audio.currentTime);
@@ -98,7 +100,6 @@
   function setTitle(index) {
     document.getElementById("player_title_text").textContent =
       musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1);
-    //titleDesktop.textContent = musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1)
   }
 
   setTitle(index);
@@ -171,10 +172,7 @@
     if (index > musicList.length - 1) {
       index = 0;
     }
-
-    audio.src = `./music/${musicList[index]}.mp3`;
-    // music.src = `../audio/${musicList[index]}.mp3`
-
+    audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
     setTitle(index);
 
     musicPlay();
