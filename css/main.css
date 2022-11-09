@@ -696,6 +696,7 @@ section {
   display: flex;
   list-style-type: none;
   padding-left: 0;
+  display: none;
 }
 .trial_nested-list_mobile{
   display: flex;
@@ -706,7 +707,7 @@ section {
   color: #111111;
   white-space: nowrap;
   cursor: pointer;
-  justify-content: space-around;
+  justify-content: start;
 }
 .trial_nested-list_mobile li{
   margin-right: 10px;
@@ -1254,7 +1255,6 @@ section {
   }
   .trial_nested-list {
     position: sticky;
-    display: none;
     overflow: hidden;
     display: block;
     padding-left: 0;
