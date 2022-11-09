@@ -886,9 +886,11 @@ section {
   }
   .bg_item_3 {
     bottom: 8%;
+    left: -45vw;
   }
   .bg_item_4 {
     bottom: 10%;
+    left: 35vw;
   }
 
   @keyframes bg_item_3 {
@@ -1371,9 +1373,11 @@ section {
 
   .bg_item_3 {
     bottom: 4%;
+    left: -45vw;
   }
   .bg_item_4 {
     bottom: 8%;
+    left: 35vw;
   }
 
   @keyframes bg_item_3 {
@@ -1487,9 +1491,11 @@ section {
   }
   .bg_item_3 {
     bottom: -14%;
+    left: -45vw;
   }
   .bg_item_4 {
     bottom: -17%;
+    left: 35vw;
   }
 
   @keyframes bg_item_3 {
@@ -1529,9 +1535,11 @@ section {
 @media (max-width: 660px) {
   .bg_item_3 {
     bottom: 2%;
+    left: -45vw;
   }
   .bg_item_4 {
     bottom: 4%;
+    left: 35vw;
   }
 
   @keyframes bg_item_3 {
