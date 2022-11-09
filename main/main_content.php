@@ -306,7 +306,7 @@
     <section id="try_free" class="trial try_free">
         <h2 class="trial-title">попробовать бесплатно:</h2>
         <div class="trial_wrap">
-            <ul class="trial_list">
+            <ul class="trial_list themes_slider">
                 <li class="trial_item">
                     <p class="trial_title active">Тема 1</p>
                     <ul class="trial_nested-list active">
@@ -420,11 +420,22 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="trial_nested-list_mobile">
+                <li class="show-active">
+                    <p>Общее</p>
+                </li>
+                <li>
+                    <p class="trial_list-reference">Рекомендуемая система</p>
+                </li>
+                <li>
+                    <p class="trial_list-diary">Тренажер</p>
+                </li>
+            </ul>
             <div class="trial_description">
                 <div class="trial_description-wrap">
                     <p class="trial_description-title">Общее</p>
                     <div class="trial_description-text">
-                        <p>Цель гайда предложить тебе книги, фильмы, проекты, подкасты по принципу -
+                        <p>Тема1 Цель гайда предложить тебе книги, фильмы, проекты, подкасты по принципу -
                             ровно столько, сколько нужно.
                             less is more Мозгу так легче сфокусироваться и сделать первый шаг.
                             Цель гайда предложить тебе книги, фильмы, проекты, <span>подкасты</span>
@@ -526,7 +537,8 @@
                     </div>
                 </div>
                 <div class="trial_text-wrap">
-                    <p class="trial_text trial_text-show">Цель гайда предложить тебе книги, фильмы, проекты, подкасты
+                    <p class="trial_text trial_text-show">Тема1 Цель гайда предложить тебе книги, фильмы, проекты,
+                        подкасты
                         по
                         принципу - ровно столько, сколько нужно.
                         less is more. Мозгу так легче сфокусироваться и сделать первый шаг. Гайды Нежно Space - это не

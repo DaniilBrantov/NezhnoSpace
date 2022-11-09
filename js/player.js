@@ -2,7 +2,7 @@
   const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type",];
   let index = 0;
   const audio = new Audio(
-    `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
+    `wp-content/themes/nezhno/audio/${musicList[index]}.mp3`
   );
   const audioPlayer = document.querySelector(".player");
   const playBtn = document.querySelector(".play");

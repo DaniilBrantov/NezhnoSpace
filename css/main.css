@@ -1,24 +1,22 @@
-section{
+section {
   position: relative;
 }
-.main{
+.main {
   background-color: whitesmoke;
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: hidden !important;
 }
-
-.bg_item{
+.bg_item {
   width: 500px;
   height: 250px;
 }
-.bg_item_3 { 
-  top: 550vh;
+/* .bg_item_3 { 
+  top: 350vh;
 }
 .bg_item_4 { 
-  top: 600vh;
-}
-
+  top: 400vh;
+} */
 
 .bg_item {
   position: absolute;
@@ -28,26 +26,26 @@ section{
   filter: blur(200px);
   animation-duration: 25s;
 }
-.bg_item_1 { 
+.bg_item_1 {
   top: -50vh;
   left: -45vw;
-  background-color: #7264AA;
+  background-color: #7264aa;
   animation-name: bg_item_1;
 }
-.bg_item_2 { 
+.bg_item_2 {
   top: 50vh;
   left: 35vw;
-  background-color: #BFA4CE;
+  background-color: #bfa4ce;
   animation-name: bg_item_2;
 }
-.bg_item_3 { 
+.bg_item_3 {
   left: -45vw;
-  background-color: #7264AA;
+  background-color: #7264aa;
   animation-name: bg_item_3;
 }
-.bg_item_4 { 
+.bg_item_4 {
   left: 35vw;
-  background-color: #BFA4CE;
+  background-color: #bfa4ce;
   animation-name: bg_item_4;
 }
 .intro {
@@ -60,18 +58,18 @@ section{
   margin-bottom: 48px;
 }
 .intro_wrap::before {
-position: absolute;
-top: 0;
-left: 50%;
-transform: translateX(-50%);
-display: block;
-content: "";
-min-width: 396px;
-max-width: 396px;
-height: 290px;
-background-image: url("../images/intro-mobile.png");
-background-repeat: no-repeat;
-background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  content: "";
+  min-width: 396px;
+  max-width: 396px;
+  height: 290px;
+  background-image: url("../images/intro-mobile.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 .intro_title {
   text-align: center;
@@ -96,9 +94,9 @@ background-size: 100% 100%;
   display: block;
   cursor: pointer;
 }
-.it_bothers_me_item .intro_txt_active{
+.it_bothers_me_item .intro_txt_active {
   color: rgb(240, 240, 240);
-  background-color: #8D9ACE;
+  background-color: #8d9ace;
   box-shadow: none;
   transition: 0.2s;
 }
@@ -133,10 +131,9 @@ background-size: 100% 100%;
   cursor: pointer;
   z-index: 1;
 }
-.slider_sliders .slick-arrow.slick-prev{
+.slider_sliders .slick-arrow.slick-prev {
   transform: rotate(180deg);
   top: 37%;
-  
 }
 .hidden {
   display: none;
@@ -177,27 +174,27 @@ background-size: 100% 100%;
   height: 100%;
   width: 340px;
 }
-.slider_sliders .slick-dots li{
+.slider_sliders .slick-dots li {
   width: 10px;
 }
-.slider_sliders .slick-dots button::before{
+.slider_sliders .slick-dots button::before {
   font-size: 10px;
   color: rgba(141, 154, 206, 0.2);
   opacity: 1;
 }
-.slider_sliders .slick-dots li.slick-active button::before{
-  color: #7264AA;
+.slider_sliders .slick-dots li.slick-active button::before {
+  color: #7264aa;
   opacity: 1;
 }
-.it_bothers_me_item{
+.it_bothers_me_item {
   width: 1075px;
   height: 100%;
   text-align: center;
 }
-.it_bothers_me_item .i_dont_always_eat{
+.it_bothers_me_item .i_dont_always_eat {
   margin-left: 0;
 }
-.it_bothers_me_item .im_constantly_procrastinating{
+.it_bothers_me_item .im_constantly_procrastinating {
   margin-right: 0;
 }
 
@@ -231,11 +228,11 @@ background-size: 100% 100%;
   margin: 0 auto;
   display: block;
   background: #421dd8;
-    background-position-x: 0%;
-    background-position-y: 0%;
-    background-repeat: repeat;
-    background-image: none;
-    background-size: auto;
+  background-position-x: 0%;
+  background-position-y: 0%;
+  background-repeat: repeat;
+  background-image: none;
+  background-size: auto;
   border: 2px solid #421dd8;
   border-radius: 15px;
   font-weight: bold;
@@ -269,7 +266,6 @@ background-size: 100% 100%;
   padding: 0;
   margin: auto;
   margin-bottom: 20px;
-
 }
 .subscriptions_item {
   min-width: 200px;
@@ -284,7 +280,7 @@ background-size: 100% 100%;
   background-position: center 32px;
   background-size: 70px;
 }
-.subscriptions_item br{
+.subscriptions_item br {
   display: none;
 }
 .subscriptions_item:nth-child(2) {
@@ -341,8 +337,8 @@ background-size: 100% 100%;
   padding: 16px 15px;
   margin-top: auto;
   margin-bottom: 34px;
-  background: #7264AA;
-  border: 2px solid #7264AA;
+  background: #7264aa;
+  border: 2px solid #7264aa;
   border-radius: 15px;
   font-weight: bold;
   text-align: center;
@@ -392,7 +388,7 @@ background-size: 100% 100%;
   margin: 0 auto;
   width: 100%;
 }
-.about__image img{
+.about__image img {
   width: 100%;
 }
 .about__image::before {
@@ -420,7 +416,7 @@ background-size: 100% 100%;
   font-size: 13px;
   line-height: 16px;
 }
-.about_description p{
+.about_description p {
   margin-top: 20px;
 }
 .less-more {
@@ -429,7 +425,7 @@ background-size: 100% 100%;
   color: #111111;
   text-align: left;
 }
-.less-more_list{
+.less-more_list {
   padding-left: 0;
 }
 .less-more_title {
@@ -457,7 +453,6 @@ background-size: 100% 100%;
   line-height: 16px;
   color: #111111;
   list-style-type: none;
-
 }
 .less-more_item::before {
   position: absolute;
@@ -532,9 +527,9 @@ background-size: 100% 100%;
   display: flex;
   gap: 16px;
 }
-.reviews_list .slick-list{
+.reviews_list .slick-list {
   height: 220px;
-  overflow: visible!important;
+  overflow: visible !important;
 }
 .reviews_item {
   min-width: 0;
@@ -546,10 +541,10 @@ background-size: 100% 100%;
   border-radius: 40px;
   box-shadow: 0px 1px 10px rgba(141, 154, 206, 0.5);
 }
-.reviews_item hr{
+.reviews_item hr {
   border-radius: 5px;
   height: 2px;
-  background: #8D9ACE;
+  background: #8d9ace;
   border: none;
   margin-top: 0;
 }
@@ -663,7 +658,7 @@ background-size: 100% 100%;
 .trial {
   padding: 0 16px;
 }
-.try_free{
+.try_free {
   margin-bottom: 0;
   padding-bottom: 50px;
 }
@@ -672,11 +667,10 @@ background-size: 100% 100%;
   line-height: 37px;
   margin: 1.5em 0 1em;
 }
-.reviews h2{
+.reviews h2 {
   margin-left: 34px;
 }
 .trial_wrap {
-  
 }
 .trial_list {
   position: relative;
@@ -799,21 +793,14 @@ background-size: 100% 100%;
 .social-list_item + .social-list_item {
   margin-left: 16px;
 }
-.subscriptions_list .slick-list{
+.subscriptions_list .slick-list {
   height: 100%;
   min-width: 350px;
 }
-.subscriptions_list, .subscriptions_list .slick-list{
+.subscriptions_list,
+.subscriptions_list .slick-list {
   width: 350px;
 }
-
-
-
-
-
-
-
-
 
 @keyframes bg_item_1 {
   33% {
@@ -821,12 +808,12 @@ background-size: 100% 100%;
     left: 60vw;
     transform: rotate(45deg);
   }
-  66% { 
+  66% {
     top: 60vh;
-    left: -60vw; 
+    left: -60vw;
     transform: rotate(45deg);
   }
-  100% {  
+  100% {
     top: -50vh;
     left: -45vw;
   }
@@ -837,64 +824,16 @@ background-size: 100% 100%;
     left: -35vw;
     transform: rotate(45deg);
   }
-  66% { 
+  66% {
     top: -80vh;
     left: 5vw;
     transform: rotate(20deg);
   }
-  100% {  
+  100% {
     top: 50vh;
     left: 35vw;
   }
 }
-@keyframes bg_item_3 {
-  33% {
-    top: 560vh;
-    left: 60vw;
-    transform: rotate(45deg);
-  }
-  66% { 
-    top: 600vh;
-    left: -60vw; 
-    transform: rotate(45deg);
-  }
-  100% {  
-    top: 560vh;
-    left: -45vw;
-  }
-}
-@keyframes bg_item_4 {
-  33% {
-    top: 620vh;
-    left: -35vw;
-    transform: rotate(45deg);
-  }
-  66% { 
-    top: 500vh;
-    left: 5vw;
-    transform: rotate(20deg);
-  }
-  100% {  
-    top: 600vh;
-    left: 35vw;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media screen and (min-width: 660px) {
   .intro {
@@ -925,7 +864,7 @@ background-size: 100% 100%;
   .reviews_video video {
     border-radius: 20px;
   }
-  .reviews_constitutor-goals{
+  .reviews_constitutor-goals {
     margin-top: 20px;
   }
   .about__image {
@@ -936,36 +875,12 @@ background-size: 100% 100%;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (min-width: 960px) {
   .intro {
     padding: 144px 0;
     margin-bottom: 54px;
   }
-  .banner_main_width{
+  .banner_main_width {
     width: 950px;
     margin: auto;
   }
@@ -1048,13 +963,12 @@ background-size: 100% 100%;
     margin-bottom: 0;
     font-size: 32px;
     line-height: 37px;
-
   }
   .subscriptions_list {
     margin-bottom: 14px;
     width: 900px;
   }
-  .subscriptions_list .slick-list{
+  .subscriptions_list .slick-list {
     width: 900px;
   }
   .subscriptions_item {
@@ -1066,7 +980,7 @@ background-size: 100% 100%;
     background-size: 100px;
     border-radius: 45px;
   }
-  .subscriptions_item br{
+  .subscriptions_item br {
     display: block;
   }
   .subscriptions_item-title {
@@ -1087,7 +1001,7 @@ background-size: 100% 100%;
     transition-duration: 0.4s;
     transition-delay: 0.2s;
   }
-  .subscriptions_item:hover{
+  .subscriptions_item:hover {
     box-shadow: 0 0 20px rgba(141, 154, 206, 0.5);
   }
   .subscriptions_item:hover button {
@@ -1215,7 +1129,7 @@ background-size: 100% 100%;
     grid-template-columns: repeat(2, 1fr);
     gap: 2%;
   }
-  .reviews h2{
+  .reviews h2 {
     margin-left: 0px;
   }
   .reviews_video {
@@ -1236,7 +1150,6 @@ background-size: 100% 100%;
     margin: 0 2.5%;
     padding: 0;
     padding-bottom: 60px;
-
   }
   .trial-title {
     font-size: 32px;
@@ -1318,7 +1231,7 @@ background-size: 100% 100%;
       opacity: 0.5;
       max-height: 50%;
     }
-  
+
     100% {
       max-height: max-content;
       opacity: 1;
@@ -1339,7 +1252,7 @@ background-size: 100% 100%;
     font-size: 12.5px;
     color: #111111;
   }
-  .trial_item > ul > li.show-active p{
+  .trial_item > ul > li.show-active p {
     min-width: 200px;
   }
   .trial_item > ul > li::before {
@@ -1394,45 +1307,69 @@ background-size: 100% 100%;
     display: inline-block;
     padding: 13px 26px;
   }
-  .reviews_constitutor-goals{
+  .reviews_constitutor-goals {
     margin-top: 0px;
   }
-  .about__image{
+  .about__image {
     min-width: 450px;
     height: 512px;
   }
-  .bg_item{
+  .bg_item {
     width: 1000px;
     height: 500px;
+  }
+  .bg_item_3 {
+    top: 700vh;
+  }
+  .bg_item_4 {
+    top: 800vh;
+  }
+  @keyframes bg_item_3 {
+    33% {
+      top: 720vh;
+      left: 60vw;
+      transform: rotate(45deg);
+    }
+    66% {
+      top: 740vh;
+      left: -60vw;
+      transform: rotate(45deg);
+    }
+    100% {
+      top: 700vh;
+      left: -45vw;
+    }
+  }
+  @keyframes bg_item_4 {
+    33% {
+      top: 780vh;
+      left: -35vw;
+      transform: rotate(45deg);
+    }
+    66% {
+      top: 760vh;
+      left: 5vw;
+      transform: rotate(20deg);
+    }
+    100% {
+      top: 800vh;
+      left: 35vw;
+    }
   }
   .reviews_constitutor-item {
     font-size: 16px;
   }
-  .slider_sliders .slick-dots button::before{
+  .slider_sliders .slick-dots button::before {
     color: rgb(242, 242, 242);
   }
   .subscriptions_item-trial,
-  .subscriptions_price-month{
+  .subscriptions_price-month {
     display: block;
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (min-width: 1200px) {
-  .slider_sliders{
+  .slider_sliders {
     width: 1100px;
   }
   .it_bothers_me_item > span {
@@ -1451,7 +1388,7 @@ background-size: 100% 100%;
   .intro {
     padding: 144px 0;
   }
-  .main_cnt{
+  .main_cnt {
     padding-bottom: 20px;
   }
   .slider_prev {
@@ -1469,7 +1406,7 @@ background-size: 100% 100%;
   .subscriptions_wrap {
     flex-direction: row;
   }
-  .subscriptions_title{
+  .subscriptions_title {
     text-align: right;
     top: -40px;
   }
@@ -1486,51 +1423,50 @@ background-size: 100% 100%;
   .trial_link {
     margin-left: 21.5%;
   }
-  .subscriptions_list .slick-list{
+  .subscriptions_list .slick-list {
     width: 900px;
   }
-  .bg_item{
+  .bg_item {
     width: 2000px;
     height: 1000px;
   }
-  .bg_item_3 { 
-    top: 300vh;
+  .bg_item_3 {
+    top: 450vh;
   }
-  .bg_item_4 { 
-    top: 400vh;
+  .bg_item_4 {
+    top: 500vh;
   }
 
   @keyframes bg_item_3 {
     33% {
-      top: 360vh;
+      top: 460vh;
       left: 60vw;
       transform: rotate(45deg);
     }
-    66% { 
-      top: 400vh;
-      left: -60vw; 
+    66% {
+      top: 500vh;
+      left: -60vw;
       transform: rotate(45deg);
     }
-    100% {  
-      top: 360vh;
+    100% {
+      top: 450vh;
       left: -45vw;
     }
   }
   @keyframes bg_item_4 {
     33% {
-      top: 420vh;
+      top: 480vh;
       left: -35vw;
       transform: rotate(45deg);
     }
-    66% { 
-      top: 300vh;
+    66% {
+      top: 450vh;
       left: 5vw;
       transform: rotate(20deg);
     }
-    100% {  
+    100% {
       top: 400vh;
       left: 35vw;
     }
   }
-  
 }
