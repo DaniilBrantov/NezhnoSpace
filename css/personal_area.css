@@ -756,9 +756,9 @@
     bottom: -110px;
     transition: 0.2s;
 }
-.slick-list{
+/* .slick-list{
     height: 200px;
-}
+} */
 .slide h4{
     margin-top: 20px;
     font-size: 17px;
