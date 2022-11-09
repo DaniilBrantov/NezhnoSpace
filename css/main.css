@@ -675,7 +675,6 @@ section {
 .trial_list {
   position: relative;
   display: flex;
-  padding-bottom: 44px;
   list-style-type: none;
   padding-left: 0;
 }
@@ -703,6 +702,24 @@ section {
   display: flex;
   list-style-type: none;
   padding-left: 0;
+}
+.trial_nested-list_mobile{
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+  line-height: 13px;
+  font-size: 13px;
+  color: #111111;
+  white-space: nowrap;
+  cursor: pointer;
+  justify-content: space-around;
+}
+.trial_nested-list_mobile li{
+  margin-right: 10px;
+}
+.trial_nested-list_mobile .active {
+  color: #421dd8;
+  font-weight: bold;
 }
 .trial_item > ul > li {
   line-height: 13px;
@@ -1366,6 +1383,9 @@ section {
   .subscriptions_price-month {
     display: block;
   }
+  .trial_nested-list_mobile{
+    display: none;
+  }
 }
 
 @media screen and (min-width: 1200px) {
@@ -1439,28 +1459,28 @@ section {
 
   @keyframes bg_item_3 {
     33% {
-      top: 460vh;
+      top: 360vh;
       left: 60vw;
       transform: rotate(45deg);
     }
-    66% {
-      top: 500vh;
-      left: -60vw;
+    66% { 
+      top: 400vh;
+      left: -60vw; 
       transform: rotate(45deg);
     }
-    100% {
-      top: 450vh;
+    100% {  
+      top: 360vh;
       left: -45vw;
     }
   }
   @keyframes bg_item_4 {
     33% {
-      top: 480vh;
+      top: 420vh;
       left: -35vw;
       transform: rotate(45deg);
     }
-    66% {
-      top: 450vh;
+    66% { 
+      top: 300vh;
       left: 5vw;
       transform: rotate(20deg);
     }
