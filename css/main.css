@@ -17,7 +17,7 @@ section {
   animation: cube 12s ease-in forwards infinite;
   transform: rotate(-45deg);
   border-radius: 50%;
-  filter: blur(200px);
+  filter: blur(200px); 
   animation-duration: 25s;
 }
 .bg_item_1 {
@@ -33,14 +33,10 @@ section {
   animation-name: bg_item_2;
 }
 .bg_item_3 {
-  left: -45vw;
   background-color: #7264aa;
-  animation-name: bg_item_3;
 }
 .bg_item_4 {
-  left: 35vw;
   background-color: #bfa4ce;
-  animation-name: bg_item_4;
 }
 .intro {
   margin: 0 auto;
@@ -888,13 +884,19 @@ section {
   .bg_item_3 {
     bottom: 8%;
     left: -45vw;
+    animation-name: bg_item_3;
   }
   .bg_item_4 {
     bottom: 10%;
     left: 35vw;
+    animation-name: bg_item_4;
   }
 
   @keyframes bg_item_3 {
+    0% {
+      bottom: 8%;
+      left: -45vw;
+    }
     33% {
       bottom: 7.6%;
       left: 60vw;
@@ -911,6 +913,10 @@ section {
     }
   }
   @keyframes bg_item_4 {
+    0% {
+      bottom: 10%;
+      left: 35vw;
+    }
     33% {
       bottom: 10.3%;
       left: -35vw;
@@ -1374,13 +1380,19 @@ section {
   .bg_item_3 {
     bottom: 4%;
     left: -45vw;
+    animation-name: bg_item_3;
   }
   .bg_item_4 {
     bottom: 8%;
     left: 35vw;
+    animation-name: bg_item_4;
   }
 
   @keyframes bg_item_3 {
+    0% {
+      bottom: 4%;
+      left: -45vw;
+    }
     33% {
       bottom: 3.7%;
       left: 60vw;
@@ -1397,6 +1409,10 @@ section {
     }
   }
   @keyframes bg_item_4 {
+    0% {
+      bottom: 8%;
+      left: 35vw;
+    }
     33% {
       bottom: 8.3%;
       left: -35vw;
@@ -1492,13 +1508,20 @@ section {
   .bg_item_3 {
     bottom: -14%;
     left: -45vw;
+    animation-name: bg_item_3;
   }
   .bg_item_4 {
     bottom: -17%;
     left: 35vw;
+    animation-name: bg_item_4;
   }
 
   @keyframes bg_item_3 {
+    0% {
+      bottom: -14%;
+      left: -45vw;
+      transform: rotate(-45deg);
+    }
     33% {
       bottom: -13.7%;
       left: 60vw;
@@ -1512,9 +1535,15 @@ section {
     100% {  
       bottom: -14%;
       left: -45vw;
+      transform: rotate(-45deg);
     }
   }
   @keyframes bg_item_4 {
+    0% {
+      bottom: -17%;
+      left: 35vw;
+      transform: rotate(-45deg);
+    }
     33% {
       bottom: -17.3%;
       left: -35vw;
@@ -1528,21 +1557,29 @@ section {
     100% {
       bottom: -17%;
       left: 35vw;
+      transform: rotate(-45deg);
     }
   }
 }
 
-@media (max-width: 660px) {
+@media screen and (max-width: 660px) {
   .bg_item_3 {
     bottom: 2%;
     left: -45vw;
+    animation-name: bg_item_3;
   }
   .bg_item_4 {
     bottom: 4%;
     left: 35vw;
+    animation-name: bg_item_4;
   }
 
   @keyframes bg_item_3 {
+    0% {
+      bottom: 2%;
+      left: -45vw;
+      transform: rotate(-45deg);
+    }
     33% {
       bottom: 1.8%;
       left: 60vw;
@@ -1556,9 +1593,15 @@ section {
     100% {  
       bottom: 2%;
       left: -45vw;
+      transform: rotate(-45deg);
     }
   }
   @keyframes bg_item_4 {
+    0% {
+      bottom: 4%;
+      left: 35vw;
+      transform: rotate(-45deg);
+    }
     33% {
       bottom: 4.2%;
       left: -35vw;
@@ -1572,6 +1615,7 @@ section {
     100% {
       bottom: 4%;
       left: 35vw;
+      transform: rotate(-45deg);
     }
   }
 }
