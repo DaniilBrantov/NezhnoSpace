@@ -1636,3 +1636,18 @@ section {
     }
   }
 }
+
+@media screen and (max-width: 960px) {
+  .subscriptions_list {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+  .subscriptions_list .slick-list {
+    width: 100%;
+    min-width: 350px;
+    max-width: 850px;
+  }
+  .subscriptions_item.slick-slide{
+    height: 350px;
+  }
+}
