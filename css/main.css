@@ -1042,10 +1042,10 @@ section {
   .subscriptions_list {
     margin-bottom: 0;
     height: 540px;
-    width: 900px;
+    width: 920px;
   }
   .subscriptions_list .slick-list {
-    width: 900px;
+    width: 920px;
     display: flex;
     align-items: center;
   }
