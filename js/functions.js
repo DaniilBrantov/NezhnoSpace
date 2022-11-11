@@ -9,6 +9,7 @@ function ActiveEl(el, active_class) {
     $('.' + el).click(function (e) {
         let el_active = this;
         $('.' + el).each(function () {
+            this.classList.remove(active_class);
             if (this == el_active) {
                 this.classList.add(active_class);
             } else {

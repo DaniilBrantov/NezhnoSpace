@@ -2,7 +2,7 @@ section {
   position: relative;
 }
 .main {
-  background-color: whitesmoke;
+  background-color: rgb(255, 255, 255);
   position: relative;
   width: 100%;
   overflow: hidden !important;
@@ -187,7 +187,9 @@ section {
 .it_bothers_me_item .im_constantly_procrastinating {
   margin-right: 0;
 }
-
+.main_learn_more{
+  font-size: 16px;
+}
 .slider_toggle {
   display: flex;
   justify-content: center;
@@ -261,7 +263,7 @@ section {
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  padding: 120px 32px 0 32px;
+  padding: 120px 16px 0 16px;
   background: rgba(255, 255, 255, 0.2);
   border: 2.5px solid #8d9ace;
   border-radius: 25px;
@@ -275,6 +277,7 @@ section {
 }
 .subscriptions_item:nth-child(2) {
   background-image: url("../images/logo-vectorBFA4CE.svg");
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 .subscriptions_item:last-child {
   background-image: url("../images/logo-vector7264AA.svg");
@@ -314,9 +317,12 @@ section {
 }
 .subscriptions_item-trial,
 .subscriptions_price-month {
-  display: none;
+  display: block;
   font-size: 13px;
   line-height: 16px;
+}
+.subscriptions_price-month{
+  display: none;
 }
 .subscriptions_item-trial {
   margin-bottom: 6px;
@@ -513,9 +519,13 @@ section {
   grid-template-columns: repeat(5, 1fr);
   gap: 16px; */
 }
-.slick-track {
+.reviews_list .slick-track {
   display: flex;
   gap: 16px;
+}
+.subscriptions_list .slick-track {
+  display: flex;
+  gap: 32px;
 }
 .reviews_list .slick-list {
   height: 220px;
@@ -934,6 +944,12 @@ section {
   }
 }
 
+
+
+
+
+
+
 @media screen and (min-width: 960px) {
   .intro {
     padding: 144px 0;
@@ -1078,14 +1094,18 @@ section {
   .subscriptions > p {
     text-align: center;
   }
+  .subscriptions_price-month{
+    display: block;
+  }
   .about {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
     text-align: right;
     flex-direction: row-reverse;
     width: 880px;
     margin: auto;
+    margin-bottom: 84px;
   }
   .about__image::before {
     left: auto;
@@ -1121,7 +1141,6 @@ section {
   .less-more {
     width: 880px;
     margin: auto;
-    padding: 50px 0;
     text-align: center;
   }
   .less-more_title {
@@ -1438,11 +1457,7 @@ section {
     font-size: 16px;
   }
   .slider_sliders .slick-dots button::before {
-    color: rgb(242, 242, 242);
-  }
-  .subscriptions_item-trial,
-  .subscriptions_price-month {
-    display: block;
+    color: rgba(242, 242, 242, 0.3);
   }
   .trial_nested-list_mobile{
     display: none;
