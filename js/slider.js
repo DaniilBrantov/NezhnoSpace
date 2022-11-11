@@ -256,7 +256,7 @@ $(function () {
                 breakpoint: 960,
                 settings: {
                     slidesToShow: 1,
-                    centerPadding: '10px',
+                    initialSlide: 0,
                 }
             },
         ]

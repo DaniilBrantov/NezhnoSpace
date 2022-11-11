@@ -1653,16 +1653,27 @@ section {
 }
 
 @media screen and (max-width: 960px) {
+  .subscriptions_title {
+    margin-bottom: 12px;
+  }
   .subscriptions_list {
     width: 100%;
     grid-template-columns: 1fr;
+    height: 390px;
+    margin-bottom: 0;
   }
-  .subscriptions_list .slick-list {
+  .subscriptions_list .slick-list.draggable{
     width: 100%;
     min-width: 350px;
     max-width: 850px;
   }
+  .subscriptions_list .slick-list.draggable {
+    padding-top: 20px !important;
+  }
   .subscriptions_item.slick-slide{
     height: 350px;
+  }
+  .subscription_cnt .ta_center {
+    margin-top: 0;
   }
 }
