@@ -1465,8 +1465,23 @@ section {
 }
 
 @media screen and (min-width: 1200px) {
+  .intro_anxiety {
+    margin-bottom: 25px;
+  }
+  .intro_anxiety-slider {
+    height: 260px;
+  }
   .slider_sliders {
     width: 1100px;
+  }
+  .slider_sliders .slick-list {
+    margin-top: 16px;
+  }
+  .slider_sliders .slick-list .slick-track {
+    height: 228px;
+  }
+  .slider_sliders .slick-slider .slick-dots {
+    top: -15px;
   }
   .it_bothers_me_item > span {
     display: inline-flex;
@@ -1653,6 +1668,12 @@ section {
 }
 
 @media screen and (max-width: 960px) {
+  .intro_anxiety-title {
+    margin-bottom: 12px !important;
+  }
+  .slider_sliders .slick-list .slick-track {
+    margin-top: 20px;
+  }
   .subscriptions_title {
     margin-bottom: 12px;
   }
