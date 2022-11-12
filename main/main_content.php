@@ -7,10 +7,10 @@
         <div class="banner_main_width intro_wrap">
             <h1 class="intro_title">Здравствуй, <span>это Нежно Space</span></h1>
             <p class="intro_subtitle">Платформа психологической поддержки
-                на основе Искусственного Интеллекта. Мы здесь, чтобы помочь справиться с расстройством пищевого
+                на&nbsp;основе Искусственного Интеллекта. Мы здесь, чтобы помочь справиться с расстройством пищевого
                 поведения
                 и&#160;выгоранием. Наши алгоритмы формируют подборку упражнений
-                с учетом твоих конкретных тревог и&#160; сложностей.
+                с&#160;учетом твоих конкретных тревог и&#160;сложностей.
             </p>
         </div>
         <div class="intro_anxiety">
@@ -88,8 +88,8 @@
                 <ul class="subscriptions_list">
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</p>
+                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                                с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 месяц</span>
                                 <span class="subscriptions_item-price">500 ₽ / мес.</span>
@@ -105,8 +105,8 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</p>
+                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                                с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">6 месяцев</span>
                                 <span class="subscriptions_item-price">3600 ₽</span>
@@ -123,8 +123,8 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</p>
+                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                                с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 год</span>
                                 <span class="subscriptions_item-price">6000 ₽</span>
@@ -157,7 +157,7 @@
             <div class="about_description">
                 <p>Мы знаем, как бывает трудно и одиноко.</p>
                 <p>Ничего не происходит без поддержки.
-                    Наша платформа создана специально, чтобы она у тебя была в доступе 24/7. Мы здесь, чтобы помочь тебе
+                    Наша платформа создана специально, чтобы она у&nbsp;тебя была в доступе 24/7. Мы здесь, чтобы помочь тебе
                     выйти
                     из тупика эмоционального выгорания, справиться с РПП, повысить самооценку.</p>
                 <p>Позволь Нежно Space показать тебе, насколько чудесная ты.</p>
@@ -170,11 +170,11 @@
         <div class="less-more_subtitle">
             <p> Мы применяем современные методы психотерапии. Наши алгоритмы подстраиваются под тебя, твой темп и
                 запрос.
-                Цель платформы выстроить твой индивидуальный маршрут терапии по принципу <span>“ровно столько, сколько
-                    нужно”</span>.</p>
-            <p>Мы приготовили для тебя более 30 тем, которые страдают, пока ты тревожишься о еде: карьера, отношения,
+                Цель платформы выстроить твой индивидуальный маршрут терапии по&nbsp;принципу <span>“ровно столько, сколько
+                    нужно”.</span></p>
+            <p>Мы приготовили для тебя более 30 тем, которые страдают, пока ты тревожишься о&nbsp;еде: карьера, отношения,
                 секс,
-                деньги… 1 месяц = 1 тема. В Личном Кабинете ты найдешь 3 блока материалов: </p>
+                деньги… 1 месяц = 1 тема. В&nbsp;Личном Кабинете ты найдешь 3 блока материалов: </p>
         </div>
         <ul class="less-more_list">
             <li class="less-more_item">
