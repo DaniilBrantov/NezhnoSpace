@@ -21,7 +21,7 @@ footer {
 .footer__menu li {
   padding-right: 50px;
   list-style-type: none;
-  padding: 5px;
+  padding: 5px 0;
 }
 .footer__menu a {
   text-decoration: none;
@@ -97,6 +97,7 @@ footer {
   }
   .center-footer {
     margin: 0;
+    gap: 16px;
   }
   .center-footer ul {
     order: 1;
@@ -109,7 +110,7 @@ footer {
   }
   .soc_networks {
     justify-content: space-evenly;
-    padding-top: 30px;
+    padding-top: 16px;
     width: 300px;
     margin: auto;
   }
