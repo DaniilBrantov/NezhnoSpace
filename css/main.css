@@ -87,7 +87,7 @@ section {
 .it_bothers_me_item .intro_txt_active {
   color: rgb(240, 240, 240);
   background-color: #8d9ace;
-  box-shadow: none;
+  box-shadow: 0 0 25px #8d9ace94;
   transition: 0.2s;
 }
 .intro_anxiety {
@@ -163,6 +163,9 @@ section {
 .slider_sliders .slick-list {
   height: 100%;
   width: 340px;
+}
+.slider_sliders .slick-dots {
+  bottom: -20px ;
 }
 .slider_sliders .slick-dots li {
   width: 10px;
@@ -669,6 +672,7 @@ section {
 }
 .reviews h2 {
   margin-left: 34px;
+  margin-top: 0;
 }
 .trial_wrap {
 }
@@ -786,7 +790,8 @@ section {
   transform: rotate(0);
 }
 .trial_link {
-  max-width: 374px;
+  max-width: 396px;
+  width: 100%;
   margin: 0 auto;
   display: block;
   padding: 12px;
@@ -1171,7 +1176,6 @@ section {
     transform: translateY(0);
   }
   .less-more_item-title {
-    padding: 0 40px;
     text-align: center;
   }
   .less-more_item > ul {
