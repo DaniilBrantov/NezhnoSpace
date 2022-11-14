@@ -8,15 +8,16 @@
                 ))
                 ?>
             <div class="center-footer">
+                <div class="footer-documents">
+                    <a href="privacy-politic">Политика конфиденциальности</a>
+                    <a href="contract">Договор публичной оферты</a>
+                </div>
                 <ul>
                     <li>ИП Ларькина К.Ю.</li>
                     <li>ОГРНИП 318527500097073</li>
                     <li>ИНН 525801278469</li>
                 </ul>
-                <div class="footer-documents">
-                    <a href="privacy-politic">Политика конфиденциальности</a>
-                    <a href="contract">Договор публичной оферты</a>
-                </div>
+
 
             </div>
             <div class="soc_networks">

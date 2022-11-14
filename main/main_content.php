@@ -7,10 +7,11 @@
         <div class="banner_main_width intro_wrap">
             <h1 class="intro_title">Здравствуй, <span>это Нежно Space</span></h1>
             <p class="intro_subtitle">Платформа психологической поддержки
-                на основе Искусственного Интеллекта. Мы здесь, чтобы помочь справиться с расстройством пищевого
+                на&nbsp;основе Искусственного Интеллекта. Мы&#160;здесь, чтобы помочь справиться с&#160;расстройством
+                пищевого
                 поведения
-                и&#160;выгоранием. Наши алгоритмы формируют подборку упражнений
-                с учетом твоих конкретных тревог и&#160; сложностей.
+                и&#160;выгоранием. Наши&#160;алгоритмы формируют подборку упражнений
+                с&#160;учетом твоих конкретных тревог и&#160;сложностей.
             </p>
         </div>
         <div class="intro_anxiety">
@@ -57,12 +58,12 @@
                         <span>нахваливаю других, чтобы получить одобрение</span>
                         <span>я отрабатываю лишние калории в спортзале или дополнительными шагами</span>
                         <span>я часто критикую себя</span>
-                        <span>мне страшно, когда моё тело привлекает внимание и я стараюсь всячески избегать таких
+                        <span>мне страшно, когда моё тело привлекает внимание и я&#160;стараюсь всячески избегать таких
                             ситуаций</span>
                     </div>
                     <div class="it_bothers_me_item">
                         <span>я стараюсь контролировать сколько и что я съела</span>
-                        <span>не отказываю в помощи другим, даже если задача не по силам мне</span>
+                        <span>не отказываю в помощи другим, даже если задача не по&#160;силам&#160;мне</span>
                         <span>меня легко ранить критикой, замечанием, неодобрением</span>
                         <span>иногда манипулирую людьми и это может создавать проблемы</span>
                         <span>я постоянно сомневаюсь в себе</span>
@@ -70,8 +71,8 @@
                             задачу</span>
                     </div>
                     <div class="it_bothers_me_item">
-                        <span>стараюсь не проявлять инициативу из-за неуверенности в себе</span> <br>
-                        <span>я часто испытываю чувство вины, даже если ситуация от меня не зависит</span> <br>
+                        <span>стараюсь не проявлять инициативу из-за&#160;неуверенности в себе</span> <br>
+                        <span>я часто испытываю чувство вины, даже если ситуация от&#160;меня не зависит</span> <br>
                         <span>я не понимаю сигналы тела (усталость, голод, сытость)</span>
                     </div>
                 </div>
@@ -88,8 +89,8 @@
                 <ul class="subscriptions_list">
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <h3 class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</h3>
+                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                                с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 месяц</span>
                                 <span class="subscriptions_item-price">500 ₽ / мес.</span>
@@ -105,8 +106,8 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <h3 class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</h3>
+                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                                с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">6 месяцев</span>
                                 <span class="subscriptions_item-price">3600 ₽</span>
@@ -123,8 +124,8 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <h3 class="subscriptions_item-title">Начни заботится о себе
-                                с Нежно</h3>
+                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                                с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 год</span>
                                 <span class="subscriptions_item-price">6000 ₽</span>
@@ -142,7 +143,8 @@
                         </form>
                     </li>
                 </ul>
-                <p class="ta_center">Пока не готовы начать? <span>Узнайте больше о подписке Нежно Space</span></p>
+                <p class="ta_center">Пока не готовы начать? <span class="main_learn_more">Узнайте больше о&#160;подписке
+                        Нежно Space</span></p>
             </div>
         </div>
     </section>
@@ -152,14 +154,15 @@
             <img src="<?php getUrl() ?>/images/photo-mobile.png" alt="photo mobile">
         </picture>
         <div class="about_wrap">
-            <h2 class="about_title">Мы здесь, чтобы ты прошла свой путь нежно</h2>
+            <h2 class="about_title">Мы здесь, чтобы ты&#160;прошла свой путь нежно</h2>
             <div class="about_description">
                 <p>Мы знаем, как бывает трудно и одиноко.</p>
                 <p>Ничего не происходит без поддержки.
-                    Наша платформа создана специально, чтобы она у тебя была в доступе 24/7. Мы здесь, чтобы помочь тебе
+                    Наша платформа создана специально, чтобы она у&nbsp;тебя была в&#160;доступе 24/7. Мы&#160;здесь,
+                    чтобы помочь тебе
                     выйти
-                    из тупика эмоционального выгорания, справиться с РПП, повысить самооценку.</p>
-                <p>Позволь Нежно Space показать тебе, насколько<br> чудесная ты.</p>
+                    из тупика эмоционального выгорания, справиться с&#160;РПП, повысить самооценку.</p>
+                <p>Позволь Нежно Space показать тебе, насколько чудесная ты.</p>
             </div>
         </div>
     </section>
@@ -167,18 +170,20 @@
         <h2 class="less-more_title">
             Что ты получишь в Подписке?</h2>
         <div class="less-more_subtitle">
-            <p> Мы применяем современные методы психотерапии. Наши алгоритмы подстраиваются под тебя, твой темп и
+            <p> Мы применяем современные методы психотерапии. Наши алгоритмы подстраиваются под&#160;тебя, твой темп и
                 запрос.
-                Цель платформы выстроить твой индивидуальный маршрут терапии по принципу <span>“ровно столько, сколько
-                    нужно”</span>.</p>
-            <p>Мы приготовили для тебя более 30 тем, которые страдают, пока ты тревожишься о еде: карьера, отношения,
+                Цель платформы выстроить твой индивидуальный маршрут терапии по&nbsp;принципу <span>“ровно столько,
+                    сколько
+                    нужно”.</span></p>
+            <p>Мы приготовили для тебя более 30 тем, которые страдают, пока ты тревожишься о&nbsp;еде: карьера,
+                отношения,
                 секс,
-                деньги… 1 месяц = 1 тема. В Личном Кабинете ты найдешь 3 блока материалов: </p>
+                деньги… 1 месяц = 1 тема. В&nbsp;Личном Кабинете ты&#160;найдешь 3 блока материалов: </p>
         </div>
         <ul class="less-more_list">
             <li class="less-more_item">
                 <p class="less-more_item-title">Общие материалы
-                    по теме месяца:</p>
+                    по&#160;теме месяца:</p>
                 <ul>
                     <li>Статья от специалиста</li>
                     <li>Психообразование</li>
@@ -284,7 +289,7 @@
                         <li class="reviews_constitutor-item">В теме РПП более 10 лет</li>
                         <li class="reviews_constitutor-item">Практикующий психолог</li>
                         <li class="reviews_constitutor-item">Телесно-ориентированный психотерапевт</li>
-                        <li class="reviews_constitutor-item">Победитель гранта на научные исследования в сфере
+                        <li class="reviews_constitutor-item">Победитель гранта на научные исследования в&#160;сфере
                             психологии и
                             искусственного интеллекта</li>
                         <li class="reviews_constitutor-item">Спикер Сколково</li>
@@ -294,7 +299,8 @@
                     <p class="reviews_constitutor-title">Методика и алгоритмы</p>
                     <ul class="reviews_constitutor-list">
                         <li class="reviews_constitutor-item">Разработаны под руководством клинического психолога</li>
-                        <li class="reviews_constitutor-item">Проходят постоянную супервизию у психотерапевтов с опытом
+                        <li class="reviews_constitutor-item">Проходят постоянную супервизию у&#160;психотерапевтов с
+                            опытом
                         </li>
                         <li class="reviews_constitutor-item">Работы более 30 лет</li>
                     </ul>
@@ -306,7 +312,7 @@
     <section id="try_free" class="trial try_free">
         <h2 class="trial-title">попробовать бесплатно:</h2>
         <div class="trial_wrap">
-            <ul class="trial_list">
+            <ul class="trial_list themes_slider">
                 <li class="trial_item">
                     <p class="trial_title active">Тема 1</p>
                     <ul class="trial_nested-list active">
@@ -420,11 +426,22 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="trial_nested-list_mobile">
+                <li>
+                    <p class="active">Общее</p>
+                </li>
+                <li>
+                    <p class="trial_list-reference">Рекомендуемая система</p>
+                </li>
+                <li>
+                    <p class="trial_list-diary">Тренажер</p>
+                </li>
+            </ul>
             <div class="trial_description">
                 <div class="trial_description-wrap">
                     <p class="trial_description-title">Общее</p>
                     <div class="trial_description-text">
-                        <p>Цель гайда предложить тебе книги, фильмы, проекты, подкасты по принципу -
+                        <p>Тема1 Цель гайда предложить тебе книги, фильмы, проекты, подкасты по принципу -
                             ровно столько, сколько нужно.
                             less is more Мозгу так легче сфокусироваться и сделать первый шаг.
                             Цель гайда предложить тебе книги, фильмы, проекты, <span>подкасты</span>
@@ -513,9 +530,9 @@
                                 </svg>
                             </span>
                             <div class="player_box">
+                                <!-- input range -->
                                 <div class="progress-container" id="progress-container">
-                                    <div class="progress" id="progress">
-                                    </div>
+                                    <input type="range" class="progress" id="progress" max="100" value="0">
                                 </div>
                                 <div class="duration">
                                     <span class="current-time">00:00</span>
@@ -526,7 +543,8 @@
                     </div>
                 </div>
                 <div class="trial_text-wrap">
-                    <p class="trial_text trial_text-show">Цель гайда предложить тебе книги, фильмы, проекты, подкасты
+                    <p class="trial_text trial_text-show">Тема1 Цель гайда предложить тебе книги, фильмы, проекты,
+                        подкасты
                         по
                         принципу - ровно столько, сколько нужно.
                         less is more. Мозгу так легче сфокусироваться и сделать первый шаг. Гайды Нежно Space - это не

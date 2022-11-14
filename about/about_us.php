@@ -119,7 +119,10 @@
                     </div>
                 </div>
             </div>
-            <div class="about_slider mt_200">
+            <div class="block__about_slider">
+                <div class="about_slider-before">
+                </div>
+                <div class="about_slider mt_200">
                 <div class="about_slider_item">
                     <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider1.jpg" alt="">
                     <div class="about_slider_txt">
@@ -239,6 +242,7 @@
                             и&nbspприводит к дальнейшему употреблению нездоровой пищи
                         </p>
                     </div>
+                </div>
                 </div>
             </div>
             <div class="our_platform mt_200">

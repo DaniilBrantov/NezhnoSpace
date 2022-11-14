@@ -1,38 +1,206 @@
-(function () {
-    const musicList = ['coldplay-paradise', 'summer', 'ukulele']
-    let index = 0
+(() => {
+  const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type"];
+  let index = 0;
+  const audio = new Audio(
+    `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
+  );
+  const audioPlayer = document.querySelector(".player");
+  const playBtn = document.querySelector(".play");
+  const seekSlider = document.querySelector("#progress.progress");
 
-    const music = new Audio(`wp-content/themes/my-theme/audio/${musicList[index]}.mp3`)
+  // const next = document.querySelector(".next");
+  // const prev = document.querySelector(".prev");
+  //const titleDesktop = document.querySelector('.title-desktop')
 
-    const playBtn = document.querySelector(".play");
-    const currentTime = document.querySelector(".current-time");
-    const duration = document.querySelector(".duration-time");
-    const progress = document.getElementById("progress");
-    // const next = document.querySelector(".next");
-    // const prev = document.querySelector(".prev");
-    const speed = document.querySelector(".speed");
-    //const titleDesktop = document.querySelector('.title-desktop')
-    const info = document.querySelector('.info');
-    const volumeBtn = document.querySelector(".volume");
-    const volumeNoneBtn = document.querySelector(".volume-none");
-    const volumeRange = document.querySelector(".volume-range");
+  const volumeBtn = document.querySelector(".volume");
+  const volumeNoneBtn = document.querySelector(".volume-none");
+  const volumeRange = document.querySelector(".volume-range");
+  const speed = document.querySelector(".speed");
 
-    function setTitle(index) {
-        $(".title").textContent = musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1);
-        //titleDesktop.textContent = musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1)
+  const info = document.querySelector(".info");
+
+  if (audioPlayer) {
+    //progress audio (google chrome)
+    const setSliderMax = () => {
+      seekSlider.max = Math.floor(audio.duration);
+    };
+
+    const showRangeProgress = (rangeInput) => {
+      audioPlayer.style.setProperty(
+        "--seek-before-width",
+        (rangeInput.value / rangeInput.max) * 100 + "%"
+      );
+      setSliderMax();
+    };
+
+    seekSlider.addEventListener("input", (e) => {
+      e.preventDefault();
+      showRangeProgress(e.target);
+      musicPlay();
+    });
+
+    seekSlider.addEventListener("change", (e) => {
+      e.preventDefault();
+      musicPlay();
+    });
+
+    //duration audio
+
+    audio.addEventListener(
+      "loadeddata",
+      () => {
+        audioPlayer.querySelector(".player_box .duration-time").textContent =
+          getTimeCodeFromNum(audio.duration);
+        audio.volume = 1;
+      },
+      false
+    );
+
+    setInterval(() => {
+      setSliderMax();
+      audioPlayer.style.setProperty(
+        "--seek-before-width",
+        (seekSlider.value / seekSlider.max) * 100 + "%"
+      );
+      audioPlayer.querySelector(".player_box .current-time").textContent =
+        getTimeCodeFromNum(audio.currentTime);
+    }, 2);
+
+    audio.addEventListener("timeupdate", () => {
+      seekSlider.value = Math.floor(audio.currentTime);
+    });
+
+    //play audio
+
+    function musicPlay() {
+      playBtn.classList.remove("play");
+      playBtn.classList.add("pause");
+      audio.play();
     }
 
-    setTitle(index)
+    function musicPause() {
+      playBtn.classList.remove("pause");
+      playBtn.classList.add("play");
+      audio.pause();
+    }
+
+    playBtn.addEventListener(
+      "click",
+      () => {
+        if (audio.paused) {
+          musicPlay();
+        } else {
+          musicPause();
+        }
+      },
+      false
+    );
+
+    //audio title
+
+    function setTitle(index) {
+      document.getElementById("player_title_text").textContent =
+        musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1);
+    }
+
+    setTitle(index);
 
     function getIndex() {
-        return musicList.findIndex(el => music.src.includes(el))
+      return musicList.findIndex((el) => audio.src.includes(el));
+    }
+
+    seekSlider.addEventListener("change", () => {
+      audio.currentTime = seekSlider.value;
+    });
+
+    //volume audio
+
+    if (volumeBtn) {
+      volumeBtn.addEventListener("click", vol);
+    }
+    function vol() {
+      volumeNoneBtn.classList.toggle("active");
+      volumeBtn.classList.toggle("active");
+      if (volumeNoneBtn.classList.contains("active")) {
+        audio.volume = 0;
+      } else {
+        audio.volume = volumeRange.value / 100;
+      }
+    }
+    if (volumeNoneBtn) {
+      volumeNoneBtn.addEventListener("click", vol);
+    }
+
+    //speed audio
+
+    if (speed) {
+      speed.addEventListener("click", setSpeedValue);
+    }
+
+    function setSpeedValue(evt) {
+      const speedList = [1, 1.5, 2];
+      let speedIndexValue;
+      if (
+        speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) +
+          1 <
+        speedList.length
+      ) {
+        speedIndexValue =
+          speedList.findIndex(
+            (el) => el === parseFloat(evt.target.textContent)
+          ) + 1;
+      } else {
+        speedIndexValue = 0;
+      }
+      speed.textContent = speedList[speedIndexValue] + "x";
+      audio.playbackRate = speedList[speedIndexValue];
+    }
+
+    //audio info
+
+    document.addEventListener("click", (evt) => {
+      evt.stopPropagation();
+      if (evt.target.closest(".info") === info) {
+        info.querySelector(".info-tultip").classList.toggle("active");
+      }
+    });
+
+    //next audio
+
+    audio.addEventListener("ended", nextSong);
+    function nextSong() {
+      index++;
+
+      if (index > musicList.length - 1) {
+        index = 0;
+      }
+      audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
+      setTitle(index);
+
+      musicPlay();
+    }
+
+    //audio time
+
+    function getTimeCodeFromNum(num) {
+      let seconds = parseInt(num);
+      let minutes = parseInt(seconds / 60);
+      seconds -= minutes * 60;
+      const hours = parseInt(minutes / 60);
+      minutes -= hours * 60;
+
+      if (hours === 0)
+        return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+      return `${String(hours).padStart(2, 0)}:${minutes}:${String(
+        seconds % 60
+      ).padStart(2, 0)}`;
     }
 
     // next.addEventListener('click', () => {
     //   index = getIndex()
     //   if (index < musicList.length - 1) {
     //     index++
-    //   } 
+    //   }
     //   else {
     //     index = 0
     //   }
@@ -45,7 +213,7 @@
     //   index = getIndex()
     //   if (index > 0) {
     //     index--
-    //   } 
+    //   }
     //   else {
     //     index = musicList.length - 1
     //   }
@@ -53,111 +221,6 @@
     //   setTitle(index)
     //   musucPlay();
     // });
-
-
-    function musucPlay() {
-        music.play();
-        playBtn.classList.add("pause");
-        playBtn.classList.remove("play");
-    }
-
-    function musucPause() {
-        music.pause();
-        playBtn.classList.add("play");
-        playBtn.classList.remove("pause");
-    }
-
-    function handlePlay() {
-        if (music.paused) {
-            musucPlay()
-        } else {
-            musucPause()
-        }
-    }
-
-    let ds, dm;
-    music.onloadeddata = function () {
-        if (duration) {
-            ds = parseInt(music.duration % 60);
-            dm = parseInt((music.duration / 60) % 60);
-            duration.textContent = dm.toString().padStart(2, "0") + ":" + ds;
-        };
-    };
-
-    music.ontimeupdate = function () {
-        progress.style.width = `${music.currentTime}%`;
-    };
-
-    music.addEventListener("timeupdate", function () {
-        var cs = parseInt(music.currentTime % 60);
-        var cm = parseInt((music.currentTime / 60) % 60);
-        currentTime.innerHTML =
-            cm.toString().padStart(2, "0") + ":" + cs.toString().padStart(2, "0");
-    });
-
-    function updateProgress(evt) {
-        const { duration, currentTime } = evt.srcElement;
-        const progressPercent = (currentTime / duration) * 100;
-        progress.style.width = progressPercent + "%";
-    }
-
-    function setProgress(evt) {
-        const width = this.clientWidth;
-        const clickX = evt.offsetX;
-        const duration = music.duration;
-        music.currentTime = (clickX / width) * duration;
-    }
-
-    music.addEventListener("timeupdate", updateProgress);
-
-    $("#progress-container").on('click', setProgress);
-    if (playBtn) {
-        playBtn.addEventListener("click", () => {
-            handlePlay();
-        });
-    }
-
-    if (volumeBtn) {
-        volumeBtn.addEventListener("click", vol);
-    };
-    function vol() {
-        volumeNoneBtn.classList.toggle('active')
-        volumeBtn.classList.toggle('active')
-        if (volumeNoneBtn.classList.contains('active')) {
-            music.volume = 0;
-        } else {
-            music.volume = volumeRange.value / 100;
-        }
-    }
-    if (volumeNoneBtn) {
-        volumeNoneBtn.addEventListener("click", vol);
-    }
-
-    if (info) {
-        info.addEventListener('click', setShowTultip);
-    }
-
-    function setShowTultip(evt) {
-        evt.stopPropagation();
-        info.querySelector('.info-tultip').classList.toggle('active')
-    }
-
-    if (speed) {
-        speed.addEventListener('click', setSpeedValue);
-    }
-
-
-    function setSpeedValue(evt) {
-        const speedList = [1, 1.5, 2]
-        let speedIndexValue
-        if (speedList.findIndex(el => el === parseFloat(evt.target.textContent)) + 1 < speedList.length) {
-            speedIndexValue = speedList.findIndex(el => el === parseFloat(evt.target.textContent)) + 1
-        } else {
-            speedIndexValue = 0
-        }
-        speed.textContent = speedList[speedIndexValue] + 'x'
-        music.playbackRate = speedList[speedIndexValue]
-    }
 
     // document.querySelector('.replay').addEventListener('click', () => {
     //   if (music.currentTime > 0) {
@@ -180,33 +243,5 @@
     // function handleVolumeChange() {
     //   music.volume = volumeRange.value / 100
     // }
-
-    document.addEventListener('click', (evt) => {
-        if (info) {
-            if (info.querySelector('.info-tultip').classList.contains('active')) {
-                info.querySelector('.info-tultip').classList.remove('active')
-            }
-        };
-    })
-
-    if (music) {
-        music.addEventListener('ended', nextSong);
-    }
-
-    function nextSong() {
-        index++;
-
-        if (index > musicList.length - 1) {
-            index = 0;
-        }
-
-        music.src = `./music/${musicList[index]}.mp3`
-        setTitle(index)
-
-        musucPlay();
-    }
-})()
-
-
-
-
+  }
+})();
