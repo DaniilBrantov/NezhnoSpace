@@ -462,7 +462,38 @@ $(function () {
 
 // Intro Anxiety
 
-$(function () { $('.it_bothers_me_item span').click(function () { $(this).addClass($(this).attr("class") !== "intro_txt_active" ? "intro_txt_active" : $(this).removeClass("intro_txt_active")); }); });
+(() => {
+    document.addEventListener('DOMContentLoaded', function() {
+        const anxietyItem = document.querySelectorAll('.it_bothers_me_item span');
+        const local = [];
+        const localStr = JSON.parse(localStorage.getItem('anxiety'));
+
+        if (localStr) {
+            localStr.forEach((arr) => {
+                local.push(arr);
+            })
+        }
+
+        anxietyItem.forEach((item) => {
+            local.forEach((arr) => {
+                if (arr === item.textContent) item.classList.add('intro_txt_active');
+            });
+
+            item.addEventListener('click', function() {
+                item.classList.toggle('intro_txt_active');
+
+                if (item.classList.contains('intro_txt_active')) {
+                    local.push(item.textContent);
+                } else {
+                    local.forEach((arr) => {
+                        if (arr === item.textContent) local.splice(local.indexOf(arr), 1);
+                    })
+                }
+                localStorage.setItem('anxiety', JSON.stringify(local))
+            })
+        })
+    })
+})();
 
 //Header Navigation Active
 
