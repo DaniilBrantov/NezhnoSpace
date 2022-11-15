@@ -78,7 +78,6 @@ h5{
 }
 p{
   margin: 0;
-  margin-top: 20px;
 }
 .bold_txt{
   font-weight: 600;
@@ -95,8 +94,8 @@ p{
 .link12{
   font-size: 12px;
 }
-.mt_200{
-  margin-top: 200px;
+.mt_100{
+  margin-top: 100px;
 }
 .ta_center{
   text-align: center;
@@ -125,7 +124,7 @@ ul{
   }
 }
 @media screen and (max-width: 1200px) {
-  .mt_200{
-    margin-top: 50px;
+  .mt_100{
+    margin-top: 32px;
   }
 }
