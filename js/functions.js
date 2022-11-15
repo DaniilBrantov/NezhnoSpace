@@ -463,7 +463,7 @@ $(function () {
 // Intro Anxiety
 
 (() => {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const anxietyItem = document.querySelectorAll('.it_bothers_me_item span');
         const local = [];
         const localStr = JSON.parse(localStorage.getItem('anxiety'));
@@ -479,7 +479,7 @@ $(function () {
                 if (arr === item.textContent) item.classList.add('intro_txt_active');
             });
 
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 item.classList.toggle('intro_txt_active');
 
                 if (item.classList.contains('intro_txt_active')) {
