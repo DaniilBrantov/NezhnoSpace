@@ -489,8 +489,12 @@ $(function () {
                         if (arr === item.textContent) local.splice(local.indexOf(arr), 1);
                     })
                 }
-                localStorage.setItem('anxiety', JSON.stringify(local))
             })
+        })
+
+        document.querySelector('.intro_link-wrap').addEventListener('click', function(e) {
+            console.log(local)
+            localStorage.setItem('anxiety', JSON.stringify(local))
         })
     })
 })();

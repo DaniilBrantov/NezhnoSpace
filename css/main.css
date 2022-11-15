@@ -141,9 +141,12 @@ section {
   margin: auto;
   margin-bottom: 32px;
 }
+.it_bothers_me_item {
+  height: 100%;
+}
 .it_bothers_me_item > span {
   display: inline-block;
-  width: 95%;
+  width: 94%;
   padding: 16px;
   background: rgba(255, 255, 255, 0.25);
   filter: drop-shadow(0px 1px 15px rgba(17, 17, 17, 0.15));
@@ -151,18 +154,26 @@ section {
   text-align: center;
   line-height: 16px;
   color: #111111;
-  margin: 7px auto;
+  margin: 7px 10px;
   font-size: 13px;
   cursor: pointer;
   box-shadow: 1px 1px 10px #11111115;
   transition: 0.2s;
+
+  overflow: visible;
 }
-.it_bothers_me_item {
-  height: 100%;
+.it_bothers_me_item > span:first-child {
+  margin-top: 10px;
 }
+.it_bothers_me_item > span:last-child {
+  margin-bottom: 10px;
+}
+
 .slider_sliders .slick-list {
   height: 100%;
   width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px
 }
 .slider_sliders .slick-dots {
   bottom: -20px ;
@@ -1623,6 +1634,9 @@ section {
   .intro_anxiety-title {
     margin-bottom: 12px !important;
   }
+  .it_bothers_me_item > span {
+    width: 90%;
+  }
   .slider_sliders .slick-list .slick-track {
     margin-top: 20px;
   }
@@ -1648,5 +1662,16 @@ section {
   }
   .subscription_cnt .ta_center {
     margin-top: 0;
+  }
+}
+
+@media (min-width: 450px) and (max-width: 660px) {
+  .it_bothers_me_item > span {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 450px) {
+  .it_bothers_me_item > span {
+    width: 80%;
   }
 }
