@@ -314,7 +314,7 @@
         <h2 class="trial-title">попробовать бесплатно:</h2>
         <div class="trial_wrap">
             <ul class="trial_list themes_slider">
-                <li class="trial_item">
+                <!-- <li class="trial_item">
                     <p class="trial_title active">Тема 1</p>
                     <ul class="trial_nested-list active">
                         <li class="show-active">
@@ -425,7 +425,7 @@
                             <p class="trial_list-diary">Дневник питания:</p>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
             <ul class="trial_nested-list_mobile">
                 <li>

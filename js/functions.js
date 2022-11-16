@@ -388,60 +388,6 @@ $(function () {
 });
 
 
-
-// Dropdown
-$(function () {
-    var $window = $(window);
-    if ($window.width() >= 960) {
-        const list = document.querySelector(".trial_list");
-        const elem = document.querySelectorAll(".trial_nested-list");
-        if (elem) {
-            elem.forEach((item) => {
-                if (!item.classList.contains('active')) {
-                    item.style.display = 'none';
-                }
-
-                item.addEventListener('click', function (evt) {
-                    item.children.forEach((el) => el.classList.remove('show-active'));
-                    evt.target.parentNode.classList.add('show-active');
-
-                    if (evt.target instanceof HTMLParagraphElement) {
-                        document.querySelector(".trial_description-title").textContent = evt.target.textContent;
-                    }
-                })
-            })
-        };
-
-        if (list) {
-            list.addEventListener("click", (evt) => {
-                if (evt.target.classList.contains("trial_title")) {
-                    evt.target.classList.toggle("active");
-                    evt.target.parentNode.querySelector('.trial_nested-list').classList.toggle('active');
-                    evt.target.parentNode.querySelector('.trial_nested-list').style.display = '';
-                    document.querySelector(".trial_description-title").textContent = evt.target.parentNode.querySelector(".show-active").textContent;
-
-                    [...document.querySelectorAll(".trial_title")].map((el) => {
-                        if (el !== evt.target) {
-                            el.classList.remove("active");
-                            el.parentNode.querySelector('.trial_nested-list').classList.remove('active');
-                            el.parentNode.querySelector('.trial_nested-list').style.display = 'none';
-                        }
-                    });
-                }
-            });
-        };
-    } else {
-        ActiveEl('trial_title', 'active');
-        ActiveEl('trial_nested-list_mobile p', 'active');
-
-    }
-
-});
-
-
-
-
-
 //TextShow
 
 

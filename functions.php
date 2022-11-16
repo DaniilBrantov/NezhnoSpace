@@ -127,6 +127,16 @@ function load_script() /*имя функции произвольное*/
 	);
 	wp_enqueue_script("player");
 
+	/* theme-text */
+	wp_register_script(
+		"theme-text",
+		get_template_directory_uri() . "/js/theme-text.js", 
+		array("my_jquery"),
+		null,
+		true
+	);
+	wp_enqueue_script("theme-text");
+
 
 	$js_files=["personal_area", "slider", "main",
 		"functions", "text-show", "video","menu"];
