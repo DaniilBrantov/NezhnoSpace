@@ -153,14 +153,25 @@
         text: "Тема 8: Тренажер",
       },
     ],
+    9: [
+      {
+        title: "Общее",
+        text: "Тема 9: Общее",
+      },
+      {
+        title: "Рекомендуемая система",
+        text: "Тема 9: Рекомендуемая система",
+      },
+      {
+        title: "Дневник питания",
+        text: "Тема 9: Дневник питания",
+      },
+      {
+        title: "Тренажер",
+        text: "Тема 9: Тренажер",
+      },
+    ],
   };
-
-
-
-
-
-
-
 
   const list = document.querySelector(".trial_list");
   const text = document.querySelector(".trial_description-text");
@@ -282,5 +293,6 @@
     function (data) {
       console.log(data);
     });
+
 
 })();

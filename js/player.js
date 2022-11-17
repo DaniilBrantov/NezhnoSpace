@@ -4,6 +4,8 @@
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
   );
+  audio.className = 'audio';
+  document.body.append(audio);
   const audioPlayer = document.querySelector(".player");
   const playBtn = document.querySelector(".play");
   const seekSlider = document.querySelector("#progress.progress");
