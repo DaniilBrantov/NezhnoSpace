@@ -191,6 +191,7 @@ return $src;
 
 
 /** -------PHP/WP Functions------ **/
+
 function getUrl(){
 echo get_template_directory_uri();
 };

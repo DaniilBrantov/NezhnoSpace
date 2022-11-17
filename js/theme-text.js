@@ -153,25 +153,14 @@
         text: "Тема 8: Тренажер",
       },
     ],
-    9: [
-      {
-        title: "Общее",
-        text: "Тема 9: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 9: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 9: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 9: Тренажер",
-      },
-    ],
   };
+
+
+
+
+
+
+
 
   const list = document.querySelector(".trial_list");
   const text = document.querySelector(".trial_description-text");
@@ -206,9 +195,9 @@
             }
           });
         });
-      }); 
+      });
       mobileTitle.forEach((title) => {
-        title.addEventListener('click', function() {
+        title.addEventListener('click', function () {
           arrayThemes[title.id].forEach((elem) => {
             if (elem.title === document.querySelector('.trial_nested-list_mobile p.active').textContent) {
               ActiveEl('trial_title', 'active');
@@ -222,61 +211,59 @@
       const list = document.querySelector(".trial_list");
       const elem = document.querySelectorAll(".trial_nested-list");
       if (elem) {
-          elem.forEach((item) => {
-              if (!item.classList.contains('active')) {
-                  item.style.display = 'none';
-              }
+        elem.forEach((item) => {
+          if (!item.classList.contains('active')) {
+            item.style.display = 'none';
+          }
 
-              item.addEventListener('click', function (evt) {
-                  item.children.forEach((el) => el.classList.remove('show-active'));
-                  evt.target.parentNode.classList.add('show-active');
+          item.addEventListener('click', function (evt) {
+            item.children.forEach((el) => el.classList.remove('show-active'));
+            evt.target.parentNode.classList.add('show-active');
 
-                  if (evt.target instanceof HTMLParagraphElement) {
-                      document.querySelector(".trial_description-title").textContent = evt.target.textContent;
-                  }
-              })
+            if (evt.target instanceof HTMLParagraphElement) {
+              document.querySelector(".trial_description-title").textContent = evt.target.textContent;
+            }
           })
+        })
       };
 
       if (list) {
-          list.addEventListener("click", (evt) => {
-              if (evt.target.classList.contains("trial_title")) {
-                  evt.target.classList.toggle("active");
+        list.addEventListener("click", (evt) => {
+          if (evt.target.classList.contains("trial_title")) {
+            evt.target.classList.toggle("active");
 
-                  evt.target.parentNode.querySelector('.trial_nested-list').classList.toggle('active');
-                  evt.target.parentNode.querySelector('.trial_nested-list').style.display = '';
-                  document.querySelector(".trial_description-title").textContent = evt.target.parentNode.querySelector(".show-active").textContent;
-                  //изменение контента в зависимости от id
-                  arrayThemes[evt.target.id].forEach((elem) => {
-                    if (elem.title === evt.target.closest('.trial_item').querySelector('.show-active').innerText) {
-                      text.querySelector('p').textContent = elem.text;
-                    }
-                  });
-                  
-
-                  [...document.querySelectorAll(".trial_title")].map((el) => {
-                      if (el !== evt.target) {
-                          el.classList.remove("active");
-                          el.parentNode.querySelector('.trial_nested-list').classList.remove('active');
-                          el.parentNode.querySelector('.trial_nested-list').style.display = 'none';
-                      }
-                  });
+            evt.target.parentNode.querySelector('.trial_nested-list').classList.toggle('active');
+            evt.target.parentNode.querySelector('.trial_nested-list').style.display = '';
+            document.querySelector(".trial_description-title").textContent = evt.target.parentNode.querySelector(".show-active").textContent;
+            //изменение контента в зависимости от id
+            arrayThemes[evt.target.id].forEach((elem) => {
+              if (elem.title === evt.target.closest('.trial_item').querySelector('.show-active').innerText) {
+                text.querySelector('p').textContent = elem.text;
               }
-          });
-      };
-  } 
-});
+            });
 
-//начальная отрисовка тем
+
+            [...document.querySelectorAll(".trial_title")].map((el) => {
+              if (el !== evt.target) {
+                el.classList.remove("active");
+                el.parentNode.querySelector('.trial_nested-list').classList.remove('active');
+                el.parentNode.querySelector('.trial_nested-list').style.display = 'none';
+              }
+            });
+          }
+        });
+      };
+    }
+  });
+
+  //начальная отрисовка тем
   Object.keys(arrayThemes).forEach((key) => {
     list.innerHTML += `
             <li class="trial_item" id=${key}>
-                            <p id=${key} class="trial_title ${
-                              key == 1 ? "active" : ""
-                            }">Тема ${key}</p>
-                            <ul class="trial_nested-list ${
-                              key == 1 ? "active" : ""
-                            }">
+                            <p id=${key} class="trial_title ${key == 1 ? "active" : ""
+      }">Тема ${key}</p>
+                            <ul class="trial_nested-list ${key == 1 ? "active" : ""
+      }">
                                 <li class="show-active">
                                     <p>Общее</p>
                                 </li>
@@ -290,4 +277,10 @@
                         </li>
             `;
   });
+
+  $.getJSON("processing",
+    function (data) {
+      console.log(data);
+    });
+
 })();

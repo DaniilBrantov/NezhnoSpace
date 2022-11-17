@@ -15,12 +15,7 @@ $users=mysqli_query($mysqli,"SELECT * FROM `users`");
         $users_arr[$person["name"]]=$person["mail"];
     }
 
-
-
-    $address_site = "https://nezhno.space/";
-
-
-
+$address_site = "https://nezhno.space/";
 
 
 $variables= mysqli_query($mysqli,"SELECT * FROM `main_stages` ");
@@ -30,6 +25,14 @@ $variables= mysqli_query($mysqli,"SELECT * FROM `main_stages` ");
         }
 
 
+
+//export table "main_try_free"
+if($db_request = mysqli_query($mysqli,"SELECT * FROM `main_try_free`")){
+    $result_request_arr=[];
+    while($result_request = mysqli_fetch_assoc($db_request)){
+        $result_request_arr[$result_request["id"]]=$result_request;
+    }
+}
 
 
 
