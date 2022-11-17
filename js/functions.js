@@ -411,11 +411,12 @@ $(function () {
 (() => {
     document.addEventListener('DOMContentLoaded', function () {
         const anxietyItem = document.querySelectorAll('.it_bothers_me_item span');
+        let anxietyBtn = document.querySelector('.intro_link-wrap');
         const local = [];
-        const localStr = JSON.parse(localStorage.getItem('anxiety'));
+        const sessionStr = JSON.parse(sessionStorage.getItem('anxiety'));
 
-        if (localStr) {
-            localStr.forEach((arr) => {
+        if (sessionStr) {
+            sessionStr.forEach((arr) => {
                 local.push(arr);
             })
         }
@@ -438,10 +439,12 @@ $(function () {
             })
         })
 
-        document.querySelector('.intro_link-wrap').addEventListener('click', function(e) {
-            console.log(local)
-            localStorage.setItem('anxiety', JSON.stringify(local))
-        })
+        if (anxietyBtn) {
+            document.querySelector('.intro_link-wrap').addEventListener('click', function(e) {
+                console.log(local)
+                sessionStorage.setItem('anxiety', JSON.stringify(local))
+            })
+        }
     })
 })();
 
