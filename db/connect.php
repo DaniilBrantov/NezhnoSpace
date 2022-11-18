@@ -1,8 +1,8 @@
 <?php 
 $servername = "localhost";
-$username = "***";
-$password = "***";
-$database = "***";
+$username = "u1301732_reg";
+$password = "aS5jD6iR5irR6f";
+$database = "u1301732_reg-bd";
 $mysqli= mysqli_connect($servername, $username , $password, $database) or die(mysqli_connect_error());
 
     mysqli_query($mysqli, 'set character_set_client="utf8"');
@@ -58,4 +58,3 @@ if($db_request = mysqli_query($mysqli,"SELECT * FROM `main_try_free`")){
 
 
     ?>
-
