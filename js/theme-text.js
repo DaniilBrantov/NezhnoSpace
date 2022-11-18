@@ -181,144 +181,155 @@
   document.addEventListener("DOMContentLoaded", function () {
     const subtitle = document.querySelectorAll(".trial_nested-list li");
     //Вывод объекта data из бд
-    $.getJSON("processing",
-      function (data) {
-        // try_free_theme - это Тема,нажатая пользователем 
-        let try_free_theme = [];
+    $.getJSON("processing", function (data) {
+      // try_free_theme - это Тема,нажатая пользователем
+      let try_free_theme = [];
 
-        // Перебор объекта из бд.
-        function EnumerationData(li) {
-          $.each(data, function (i, val) {
-            if (val.title == li.id) {
-              try_free_theme.push(val);
+      // Перебор объекта из бд.
+      function EnumerationData(li) {
+        $.each(data, function (i, val) {
+          if (val.title == li.id) {
+            try_free_theme.push(val);
+          }
+        });
+      }
+      //desktop
+      subtitle.forEach((li) => {
+        li.addEventListener("click", function () {
+          EnumerationData(li.closest(".trial_item"));
+
+          //Определение активной подтемы
+          try_free_theme.forEach((elem) => {
+            if (elem.trial_theme === li.innerText) {
+              text.querySelector("p").textContent = elem.text;
             }
           });
-        }
-        //desktop
-        subtitle.forEach((li) => {
-          li.addEventListener("click", function () {
+        });
+      });
 
-            EnumerationData(li.closest(".trial_item"));
+      //dropdown
+      var $window = $(window);
+      //mobile
+
+      const mobileSubtitle = document.querySelectorAll(
+        ".trial_nested-list_mobile li"
+      );
+      const mobileTitle = document.querySelectorAll(".trial_title");
+
+      if ($window.width() < 960) {
+        mobileSubtitle.forEach((li) => {
+          li.addEventListener("click", function () {
+            EnumerationData(list.querySelector(".trial_title.active"));
 
             //Определение активной подтемы
             try_free_theme.forEach((elem) => {
               if (elem.trial_theme === li.innerText) {
-                text.querySelector('p').textContent = elem.text;
+                mobileSubtitle.forEach((arr) => {
+                  if (arr !== elem)
+                    arr.querySelector("p").classList.remove("active");
+                });
+                li.querySelector("p").classList.add("active");
+                text.querySelector("p").textContent = elem.text;
               }
             });
           });
         });
+        mobileTitle.forEach((title) => {
+          title.addEventListener("click", function () {
+            EnumerationData(title);
 
-        //dropdown
-        var $window = $(window);
-        //mobile
-
-        const mobileSubtitle = document.querySelectorAll(".trial_nested-list_mobile li");
-        const mobileTitle = document.querySelectorAll('.trial_title');
-
-        if ($window.width() < 960) {
-          mobileSubtitle.forEach((li) => {
-            li.addEventListener("click", function () {
-
-              EnumerationData(list.querySelector('.trial_title.active'));
-
-              //Определение активной подтемы
-              try_free_theme.forEach((elem) => {
-                if (elem.trial_theme === li.innerText) {
-                  mobileSubtitle.forEach((arr) => {
-                if (arr !== elem) arr.querySelector('p').classList.remove('active');
-              })
-              li.querySelector('p').classList.add('active');
-                  text.querySelector('p').textContent = elem.text;
-                }
-              });
+            //Определение активной подтемы
+            try_free_theme.forEach((elem) => {
+              if (elem.trial_theme === document.querySelector(".trial_nested-list_mobile p.active").textContent) {
+                mobileTitle.forEach((arr) => {
+                  if (arr !== elem) arr.classList.remove("active");
+                });
+                title.classList.add("active");
+                text.querySelector("p").textContent = elem.text;
+              }
             });
           });
-          mobileTitle.forEach((title) => {
-            title.addEventListener('click', function () {
+        });
+      } //desktop
+      else if ($window.width() >= 960) {
+        const list = document.querySelector(".trial_list");
+        const elem = document.querySelectorAll(".trial_nested-list");
+        if (elem) {
+          elem.forEach((item) => {
+            if (!item.classList.contains("active")) {
+              item.style.display = "none";
+            }
 
-              EnumerationData(title);
+            item.addEventListener("click", function (evt) {
+              item.children.forEach((el) => el.classList.remove("show-active"));
+              evt.target.parentNode.classList.add("show-active");
 
-              //Определение активной подтемы
-              try_free_theme.forEach((elem) => {
-                if (elem.trial_theme === document.querySelector('.trial_nested-list_mobile p.active').textContent) {
-                  mobileTitle.forEach((arr) => {
-                if (arr !== elem) arr.classList.remove('active');
-              })
-              title.classList.add('active');
-                  text.querySelector('p').textContent = elem.text;
-                }
-              });
-            })
-          })
-        } //desktop
-        else if ($window.width() >= 960) {
-          const list = document.querySelector(".trial_list");
-          const elem = document.querySelectorAll(".trial_nested-list");
-          if (elem) {
-            elem.forEach((item) => {
-              if (!item.classList.contains('active')) {
-                item.style.display = 'none';
-              }
-
-              item.addEventListener('click', function (evt) {
-                item.children.forEach((el) => el.classList.remove('show-active'));
-                evt.target.parentNode.classList.add('show-active');
-
-                if (evt.target instanceof HTMLParagraphElement) {
-                  document.querySelector(".trial_description-title").textContent = evt.target.textContent;
-                }
-              })
-            })
-          };
-
-          if (list) {
-            list.addEventListener("click", (evt) => {
-              if (evt.target.classList.contains("trial_title")) {
-                evt.target.classList.toggle("active");
-
-                evt.target.parentNode.querySelector('.trial_nested-list').classList.toggle('active');
-                evt.target.parentNode.querySelector('.trial_nested-list').style.display = '';
-                document.querySelector(".trial_description-title").textContent = evt.target.parentNode.querySelector(".show-active").textContent;
-
-                //изменение контента в зависимости от id
-
-                EnumerationData(evt.target);
-
-                try_free_theme.forEach((elem) => {
-                  if (elem.trial_theme === evt.target.closest('.trial_item').querySelector('.show-active').innerText) {
-                    text.querySelector('p').textContent = elem.text;
-                  }
-                });
-
-
-                [...document.querySelectorAll(".trial_title")].map((el) => {
-                  if (el !== evt.target) {
-                    el.classList.remove("active");
-                    el.parentNode.querySelector('.trial_nested-list').classList.remove('active');
-                    el.parentNode.querySelector('.trial_nested-list').style.display = 'none';
-                  }
-                });
+              if (evt.target instanceof HTMLParagraphElement) {
+                document.querySelector(".trial_description-title").textContent =
+                  evt.target.textContent;
               }
             });
-          };
+          });
         }
-      });
+
+        if (list) {
+          list.addEventListener("click", (evt) => {
+            if (evt.target.classList.contains("trial_title")) {
+              evt.target.classList.toggle("active");
+
+              evt.target.parentNode
+                .querySelector(".trial_nested-list")
+                .classList.toggle("active");
+              evt.target.parentNode.querySelector(
+                ".trial_nested-list"
+              ).style.display = "";
+              document.querySelector(".trial_description-title").textContent =
+                evt.target.parentNode.querySelector(".show-active").textContent;
+
+              //изменение контента в зависимости от id
+
+              EnumerationData(evt.target);
+
+              try_free_theme.forEach((elem) => {
+                if (
+                  elem.trial_theme ===
+                  evt.target
+                    .closest(".trial_item")
+                    .querySelector(".show-active").innerText
+                ) {
+                  text.querySelector("p").textContent = elem.text;
+                }
+              });
+
+              [...document.querySelectorAll(".trial_title")].map((el) => {
+                if (el !== evt.target) {
+                  el.classList.remove("active");
+                  el.parentNode
+                    .querySelector(".trial_nested-list")
+                    .classList.remove("active");
+                  el.parentNode.querySelector(
+                    ".trial_nested-list"
+                  ).style.display = "none";
+                }
+              });
+            }
+          });
+        }
+      }
+    });
   });
-
-
-
-
 
   //начальная отрисовка тем
   Object.keys(arrayThemes).forEach((key) => {
     if (list) {
       list.innerHTML += `
               <li class="trial_item" id=${key}>
-                              <p id=${key} class="trial_title ${key == 1 ? "active" : ""
-        }">Тема ${key}</p>
-                              <ul class="trial_nested-list ${key == 1 ? "active" : ""
-        }">
+                              <p id=${key} class="trial_title ${
+        key == 1 ? "active" : ""
+      }">Тема ${key}</p>
+                              <ul class="trial_nested-list ${
+                                key == 1 ? "active" : ""
+                              }">
                                   <li class="show-active">
                                       <p>Общее</p>
                                   </li>
@@ -331,8 +342,6 @@
                               </ul>
                           </li>
               `;
-    };
+    }
   });
-
-
 })();
