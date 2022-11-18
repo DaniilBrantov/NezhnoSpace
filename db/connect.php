@@ -1,8 +1,8 @@
 <?php 
 $servername = "localhost";
-$username = "u1301732_reg";
-$password = "aS5jD6iR5irR6f";
-$database = "u1301732_reg-bd";
+$username = "***";
+$password = "***";
+$database = "***";
 $mysqli= mysqli_connect($servername, $username , $password, $database) or die(mysqli_connect_error());
 
     mysqli_query($mysqli, 'set character_set_client="utf8"');
