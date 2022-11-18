@@ -225,8 +225,7 @@
             try_free_theme.forEach((elem) => {
               if (elem.trial_theme === li.innerText) {
                 mobileSubtitle.forEach((arr) => {
-                  if (arr !== elem)
-                    arr.querySelector("p").classList.remove("active");
+                  if (arr !== elem) arr.querySelector("p").classList.remove("active");
                 });
                 li.querySelector("p").classList.add("active");
                 text.querySelector("p").textContent = elem.text;
