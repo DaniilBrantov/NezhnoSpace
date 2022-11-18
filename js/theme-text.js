@@ -201,7 +201,10 @@
         li.addEventListener("click", function () {
           arrayThemes[list.querySelector('.trial_title.active').id].forEach((elem) => {
             if (elem.title === li.innerText) {
-              ActiveEl('trial_nested-list_mobile p', 'active');
+              mobileSubtitle.forEach((arr) => {
+                if (arr !== elem) arr.querySelector('p').classList.remove('active');
+              })
+              li.querySelector('p').classList.add('active');
               text.querySelector('p').textContent = elem.text;
             }
           });
@@ -211,7 +214,10 @@
         title.addEventListener('click', function () {
           arrayThemes[title.id].forEach((elem) => {
             if (elem.title === document.querySelector('.trial_nested-list_mobile p.active').textContent) {
-              ActiveEl('trial_title', 'active');
+              mobileTitle.forEach((arr) => {
+                if (arr !== elem) arr.classList.remove('active');
+              })
+              title.classList.add('active');
               text.querySelector('p').textContent = elem.text;
             }
           });
