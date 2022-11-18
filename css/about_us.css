@@ -57,6 +57,9 @@
     align-items: end;
     margin-top: 40px;
 }
+.doing_title_mobile {
+    display: none;
+}
 .what_are_doing_grid h3{
     grid-column-start: 1;
     grid-column-end: 3;
@@ -94,6 +97,12 @@
 .what_are_doing_txt{
     display: grid;
     grid-row-gap: 1.5em;
+    text-align: start;
+}
+.what_are_doing_txt p, 
+.what_are_doing_txt .what_are_doing_list {
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 .our_platform_cnt{
     display: flex;
@@ -267,19 +276,44 @@
     .we_are_txt{
         text-align: left;
     }
-    .what_are_doing_grid h3{
-        grid-row-start: 2;
+    .what_are_doing_after {
+        position: relative;
+        text-align: start;
     }
-    .what_are_doing_grid{
+    .what_are_doing_after:after {
+        content: '';
+        width: 100%;
+        height: 10px;
+        top: -16px;
+        background-color: #8D9ACE;
+        border-radius: 5px;
+
+        position: absolute;
+    }
+    .what_are_doing_after .what_are_doing_grid {
+        margin-top: 58px;
+    }
+    .what_are_doing_grid {
         grid-template-columns: 100%;
         grid-column-gap: 0;
         grid-row-gap: 32px;
+    }
+    .what_are_doing_grid h3,
+    .how_doing_title {
+        display: none;
+    }
+    h3.doing_title_mobile {
+        display: block;
+        text-align: center;
     }
     .what_are_doing_txt{
         grid-row-start: 3;
     }
     .what_are_doing_img img {
         height: auto;
+    }
+    .how_doing_title::after {
+        display: none;
     }
     .about_slider{
         width: 90%;
@@ -331,13 +365,20 @@
         font-size: 13px;
         margin: 16px;
     }
+    .what_are_doing_after:after {
+        width: 95%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)
+    }
     .what_are_doing_grid h3{
-        grid-row-start: 2;
+        grid-row-start: 0;
     }
     .what_are_doing_grid{
         grid-template-columns: 100%;
         grid-column-gap: 0;
-        grid-row-gap: 32px;
+        grid-row-gap: 16px;
+        margin-top: 0;
     }
     .what_are_doing_txt{
         grid-row-start: 3;
@@ -389,7 +430,7 @@
         display: none;
     }
     .our_platform, .our_team, .what_are_doing_txt{
-        margin: 16px;
+        margin: 0 16px;
     }
     .our_team_cnt{
         margin: 0 16px;
