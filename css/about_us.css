@@ -22,12 +22,12 @@
 .banner_about_cnt h1::before{
     content: '';
     background-color: #B796BC;
-    width: 120%;
+    width: 200%;
     height: 4px;
     position: absolute;
     border-radius: 10px;
     top: 50%;
-    left: -47%;
+    left: -127%;
 }
 .banner_about_cnt p{
     margin-top: 0;
@@ -54,8 +54,8 @@
     display: grid;
     grid-template-columns: repeat(2, 2fr);
     grid-gap: 32px;
-    align-items: end;
     margin-top: 40px;
+    align-items: center;
 }
 .doing_title_mobile {
     display: none;
@@ -68,11 +68,11 @@
 .how_doing_title::after{
     content: '';
     background-color: #B796BC;
-    width: 120%;
+    width: 200%;
     height: 4px;
     position: absolute;
     border-radius: 10px;
-    top: 50%;
+    top: 17px;
     left: 176px;
 }
 .what_are_doing_img{
@@ -96,8 +96,8 @@
 }
 .what_are_doing_txt{
     display: grid;
-    grid-row-gap: 1.5em;
     text-align: start;
+    height: 233px;
 }
 .what_are_doing_txt p, 
 .what_are_doing_txt .what_are_doing_list {
@@ -433,7 +433,7 @@
         margin: 0 16px;
     }
     .our_team_cnt{
-        margin: 0 16px;
+        margin: 0 16px 50px;
     }
     .our_team_item_title{
         margin: 16px 0 10px;

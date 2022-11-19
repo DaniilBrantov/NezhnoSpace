@@ -1,4 +1,4 @@
-<div class="about">
+<div class="about_section">
     <div class="container">
         <div class="banner_about">
             <div class="banner_about_cnt">
@@ -69,9 +69,9 @@
             </div>
             <div class="what_are_doing what_are_doing_after mt_100">
                 <div class="what_are_doing_grid">
-                        <h3 class="doing_title_mobile">
-                            что делаем
-                        </h3>
+                    <h3 class="doing_title_mobile">
+                        что делаем
+                    </h3>
                     <div class="what_are_doing_txt">
                         <h3>
                             что делаем
@@ -103,9 +103,9 @@
             </div>
             <div class="what_are_doing mt_100">
                 <div class="what_are_doing_grid">
-                        <h3 class="doing_title_mobile">
-                            как делаем
-                        </h3>
+                    <h3 class="doing_title_mobile">
+                        как делаем
+                    </h3>
                     <div class="what_are_doing_img">
                         <img src="<?php getUrl(); ?>/images/how_are_we_doing.jpg" alt="">
                     </div>

@@ -193,6 +193,16 @@
           }
         });
       }
+
+      //Разделение текста на обзацы
+      var arrOfTxt;
+      function SeparationTxt(txtToSplit) {
+        arrOfTxt = txtToSplit.split('  ');
+        arrOfTxt = arrOfTxt.join("<p>");
+        console.log(arrOfTxt)
+        return arrOfTxt
+      }
+
       //desktop
       subtitle.forEach((li) => {
         li.addEventListener("click", function () {
@@ -201,7 +211,7 @@
           //Определение активной подтемы
           try_free_theme.forEach((elem) => {
             if (elem.trial_theme === li.innerText) {
-              text.querySelector("p").textContent = elem.text;
+              text.querySelector("p").textContent = SeparationTxt(elem.text);
             }
           });
         });
@@ -228,7 +238,7 @@
                   if (arr !== elem) arr.querySelector("p").classList.remove("active");
                 });
                 li.querySelector("p").classList.add("active");
-                text.querySelector("p").textContent = elem.text;
+                text.querySelector("p").textContent = SeparationTxt(elem.text);
               }
             });
           });
@@ -244,7 +254,7 @@
                   if (arr !== elem) arr.classList.remove("active");
                 });
                 title.classList.add("active");
-                text.querySelector("p").textContent = elem.text;
+                text.querySelector("p").textContent = SeparationTxt(elem.text);
               }
             });
           });
@@ -296,7 +306,7 @@
                     .closest(".trial_item")
                     .querySelector(".show-active").innerText
                 ) {
-                  text.querySelector("p").textContent = elem.text;
+                  text.querySelector("p").textContent = SeparationTxt(elem.text);
                 }
               });
 
@@ -314,7 +324,7 @@
             }
           });
         }
-      }
+      };
     });
   });
 
@@ -323,12 +333,10 @@
     if (list) {
       list.innerHTML += `
               <li class="trial_item" id=${key}>
-                              <p id=${key} class="trial_title ${
-        key == 1 ? "active" : ""
-      }">Тема ${key}</p>
-                              <ul class="trial_nested-list ${
-                                key == 1 ? "active" : ""
-                              }">
+                              <p id=${key} class="trial_title ${key == 1 ? "active" : ""
+        }">Тема ${key}</p>
+                              <ul class="trial_nested-list ${key == 1 ? "active" : ""
+        }">
                                   <li class="show-active">
                                       <p>Общее</p>
                                   </li>
