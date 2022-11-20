@@ -198,20 +198,26 @@
       var arrOfTxt;
       function SeparationTxt(txtToSplit) {
         arrOfTxt = txtToSplit.split('  ');
-        arrOfTxt = arrOfTxt.join("<p>");
-        console.log(arrOfTxt)
         return arrOfTxt
       }
+
 
       //desktop
       subtitle.forEach((li) => {
         li.addEventListener("click", function () {
+          text.querySelectorAll("p").forEach((el) => { el.remove() });
           EnumerationData(li.closest(".trial_item"));
 
           //Определение активной подтемы
           try_free_theme.forEach((elem) => {
             if (elem.trial_theme === li.innerText) {
-              text.querySelector("p").textContent = SeparationTxt(elem.text);
+              SeparationTxt(elem.text).forEach((e) => {
+                let create_txt = document.createElement('p');
+                create_txt.innerHTML = e;
+                text.append(create_txt);
+                try_free_theme = []
+              })
+              //text.querySelector("p").textContent = SeparationTxt(elem.text);
             }
           });
         });
@@ -238,7 +244,13 @@
                   if (arr !== elem) arr.querySelector("p").classList.remove("active");
                 });
                 li.querySelector("p").classList.add("active");
-                text.querySelector("p").textContent = SeparationTxt(elem.text);
+                SeparationTxt(elem.text).forEach((e) => {
+                  let create_txt = document.createElement('p');
+                  create_txt.innerHTML = e;
+                  text.append(create_txt);
+                  try_free_theme = []
+                })
+                //text.querySelector("p").textContent = SeparationTxt(elem.text);
               }
             });
           });
@@ -254,7 +266,13 @@
                   if (arr !== elem) arr.classList.remove("active");
                 });
                 title.classList.add("active");
-                text.querySelector("p").textContent = SeparationTxt(elem.text);
+                SeparationTxt(elem.text).forEach((e) => {
+                  let create_txt = document.createElement('p');
+                  create_txt.innerHTML = e;
+                  text.append(create_txt);
+                  try_free_theme = []
+                })
+                //text.querySelector("p").textContent = SeparationTxt(elem.text);
               }
             });
           });
@@ -296,7 +314,6 @@
                 evt.target.parentNode.querySelector(".show-active").textContent;
 
               //изменение контента в зависимости от id
-
               EnumerationData(evt.target);
 
               try_free_theme.forEach((elem) => {
@@ -306,7 +323,13 @@
                     .closest(".trial_item")
                     .querySelector(".show-active").innerText
                 ) {
-                  text.querySelector("p").textContent = SeparationTxt(elem.text);
+                  SeparationTxt(elem.text).forEach((e) => {
+                    let create_txt = document.createElement('p');
+                    create_txt.innerHTML = e;
+                    text.append(create_txt);
+                    try_free_theme = []
+                  })
+                  //text.querySelector("p").textContent = SeparationTxt(elem.text);
                 }
               });
 
