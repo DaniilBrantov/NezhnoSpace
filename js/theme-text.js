@@ -27,150 +27,6 @@
         text: "Тема 1: Тренажер",
       },
     ],
-    2: [
-      {
-        title: "Общее",
-        text: "Тема 2: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 2: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 2: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 2: Тренажер",
-      },
-    ],
-    3: [
-      {
-        title: "Общее",
-        text: "Тема 3: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 3: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 3: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 3: Тренажер",
-      },
-    ],
-    4: [
-      {
-        title: "Общее",
-        text: "Тема 4: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 4: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 4: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 4: Тренажер",
-      },
-    ],
-    5: [
-      {
-        title: "Общее",
-        text: "Тема 5: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 5: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 5: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 5: Тренажер",
-      },
-    ],
-    6: [
-      {
-        title: "Общее",
-        text: "Тема 6: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 6: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 6: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 6: Тренажер",
-      },
-    ],
-    7: [
-      {
-        title: "Общее",
-        text: "Тема 7: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 7: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 7: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 7: Тренажер",
-      },
-    ],
-    8: [
-      {
-        title: "Общее",
-        text: "Тема 8: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 8: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 8: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 8: Тренажер",
-      },
-    ],
-    9: [
-      {
-        title: "Общее",
-        text: "Тема 9: Общее",
-      },
-      {
-        title: "Рекомендуемая система",
-        text: "Тема 9: Рекомендуемая система",
-      },
-      {
-        title: "Дневник питания",
-        text: "Тема 9: Дневник питания",
-      },
-      {
-        title: "Тренажер",
-        text: "Тема 9: Тренажер",
-      },
-    ],
   };
 
   //Переменные
@@ -182,6 +38,7 @@
     const subtitle = document.querySelectorAll(".trial_nested-list li");
     //Вывод объекта data из бд
     $.getJSON("processing", function (data) {
+      data_db = data;
       // try_free_theme - это Тема,нажатая пользователем
       let try_free_theme = [];
 
@@ -197,6 +54,7 @@
       //Разделение текста на обзацы
       var arrOfTxt;
       function SeparationTxt(txtToSplit) {
+        text.querySelectorAll("p").forEach((el) => { el.remove() });
         arrOfTxt = txtToSplit.split('  ');
         return arrOfTxt
       }
@@ -205,7 +63,6 @@
       //desktop
       subtitle.forEach((li) => {
         li.addEventListener("click", function () {
-          text.querySelectorAll("p").forEach((el) => { el.remove() });
           EnumerationData(li.closest(".trial_item"));
 
           //Определение активной подтемы
@@ -215,7 +72,7 @@
                 let create_txt = document.createElement('p');
                 create_txt.innerHTML = e;
                 text.append(create_txt);
-                try_free_theme = []
+                //try_free_theme = []
               })
               //text.querySelector("p").textContent = SeparationTxt(elem.text);
             }
@@ -314,6 +171,7 @@
                 evt.target.parentNode.querySelector(".show-active").textContent;
 
               //изменение контента в зависимости от id
+
               EnumerationData(evt.target);
 
               try_free_theme.forEach((elem) => {
@@ -350,7 +208,6 @@
       };
     });
   });
-
   //начальная отрисовка тем
   Object.keys(arrayThemes).forEach((key) => {
     if (list) {

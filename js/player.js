@@ -1,4 +1,5 @@
 (() => {
+
   const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type"];
   let index = 0;
   const audio = new Audio(
@@ -144,7 +145,7 @@
       let speedIndexValue;
       if (
         speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) +
-          1 <
+        1 <
         speedList.length
       ) {
         speedIndexValue =
