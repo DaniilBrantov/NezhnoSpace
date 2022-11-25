@@ -765,7 +765,7 @@ section {
   line-height: 16px;
   color: #111111;
 }
-.trial_description-text > p {
+.trial_description-text > p, .trial_text {
   font-size: 13px;
   line-height: 16px;
   margin: 10px 0;

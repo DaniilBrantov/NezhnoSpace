@@ -25,12 +25,10 @@
     if (elem.text.length > 600 && paragraphs.length > 2) {
       let firstText, lastText;
 
-      //делим текст примерно пополам и рубим его по пробелу
+      //делим обзацы примерно пополам и рубим его по пробелу
       half_paragraphs = Math.floor(paragraphs.length / 2)
       firstText = paragraphs.slice(0, half_paragraphs).join('  ');
       lastText = paragraphs.slice(half_paragraphs + 1, paragraphs.length).join('  ');
-      console.log(firstText)
-      console.log(lastText)
 
       let firstArray = firstText.split('  ');
 

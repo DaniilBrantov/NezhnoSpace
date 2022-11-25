@@ -1,6 +1,6 @@
 (() => {
 
-  const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type"];
+  const musicList = ["coldplay-paradise"];
   let index = 0;
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
@@ -172,13 +172,15 @@
 
     audio.addEventListener("ended", nextSong);
     function nextSong() {
-      index++;
+      if (musicList.length > 1) {
+        index++;
 
-      if (index > musicList.length - 1) {
-        index = 0;
+        if (index > musicList.length - 1) {
+          index = 0;
+        }
+        audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
+        setTitle(index);
       }
-      audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
-      setTitle(index);
 
       musicPlay();
     }
