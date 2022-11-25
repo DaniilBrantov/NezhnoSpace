@@ -177,8 +177,8 @@
 } 
 .about_slider_item.slick-active .about_slider_txt{
     display: block;
-    width: 600px;
-    right: 150px;
+    width: 570px;
+    right: 137px;
     margin: 20px auto 0;
     text-align: center;
 
@@ -345,6 +345,9 @@
     .about .container{
         max-width: 100%;
     }
+    .about_slider .slick-list{
+        min-height: 620px;
+    }
     .banner_about{
         margin-top: 0px;
     }
@@ -437,5 +440,32 @@
     }
     .our_team_item_title{
         margin: 16px 0 10px;
+    }
+}
+@media screen and (max-width: 360px) {
+    .about_slider .slick-list {
+        width: 100%;
+        max-width: 270px;
+    }
+    .about_slider_item {
+        max-width: 260px;
+    }
+    .about_slider_item.slick-active .about_slider_txt {
+        width: 100%;
+    }
+}
+@media (min-width: 650px) and (max-width: 750px) {
+    .about_slider .slick-list {
+        height: 550px;
+    }
+    .about_slider_item {
+        max-width: 260px;
+    }
+    .about_slider_item.slick-center, .about_slider_item.slick-active {
+        height: 550px;
+    }
+    .about_slider_item.slick-active .about_slider_txt {
+        width: 550px;
+        right: 150px;
     }
 }
