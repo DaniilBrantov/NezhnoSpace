@@ -253,7 +253,7 @@
                     </div>
                 </div>
             </div>
-            <div class="our_platform mt_100">
+            <div class="our_platform">
                 <h3 class="ta_center">
                     Наша платформа – часть проекта по устойчивому развитию ООН
                 </h3>
