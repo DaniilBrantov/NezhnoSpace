@@ -5,7 +5,7 @@ footer {
 }
 .footer {
   display: flex;
-  align-items: center;
+  justify-content: space-evenly;
 }
 .footer p {
   text-align: center;
@@ -31,18 +31,10 @@ footer {
   margin: 0 100px;
   grid-template-columns: 240px 240px;
   gap: 80px;
+  line-height: 2;
 }
 .center-footer ul {
-  margin-top: 10px;
   list-style-type: none;
-}
-.footer-documents {
-  margin-left: 0px;
-  width: 230px;
-  padding-top: 10px;
-  display: grid;
-  grid-column-gap: 10px;
-  grid-template-rows: 30px;
 }
 .soc_networks a {
   text-decoration: none;

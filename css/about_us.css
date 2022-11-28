@@ -2,7 +2,7 @@
     display: grid;
     align-items: end;
     grid-template-columns: 1fr 1fr;
-    margin-top: 120px;
+    margin-top: 140px;
     grid-column-gap: 30px;
 }
 .banner_about_img{
@@ -21,7 +21,7 @@
 }
 .banner_about_cnt h1::before{
     content: '';
-    background-color: #B796BC;
+    background-color: #8D9ACE;
     width: 200%;
     height: 4px;
     position: absolute;
@@ -67,7 +67,7 @@
 
 .how_doing_title::after{
     content: '';
-    background-color: #B796BC;
+    background-color: #8D9ACE;
     width: 200%;
     height: 4px;
     position: absolute;
@@ -103,6 +103,7 @@
 .what_are_doing_txt .what_are_doing_list {
     grid-column-start: 1;
     grid-column-end: 3;
+    margin: 10px 0;
 }
 .our_platform_cnt{
     display: flex;
@@ -168,7 +169,7 @@
 .about_slider_item {
     width: 300px;
     opacity: 0.4;
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
 .about_slider_item.slick-center,.about_slider_item.slick-active{
@@ -346,7 +347,7 @@
         max-width: 100%;
     }
     .about_slider .slick-list{
-        min-height: 620px;
+        min-height: 530px;
     }
     .banner_about{
         margin-top: 0px;
@@ -382,6 +383,7 @@
         grid-column-gap: 0;
         grid-row-gap: 16px;
         margin-top: 0;
+        padding-bottom: 16px;
     }
     .what_are_doing_txt{
         grid-row-start: 3;
@@ -401,7 +403,7 @@
         display: grid;
     }
     .block__about_slider {
-        margin-top: 40px;
+        margin-top: 16px;
         margin-left: 0;
         margin-right: 0;
     }
@@ -440,6 +442,9 @@
     }
     .our_team_item_title{
         margin: 16px 0 10px;
+    }
+    .our_team, .our_platform{
+        padding-top: 32px;
     }
 }
 @media screen and (max-width: 360px) {
