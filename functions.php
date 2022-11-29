@@ -47,9 +47,9 @@ function load_styles(){
 
 
 
-	$css_files = ["header", "main" , "blog", "companies", "footer", "about_us",
-	"services", "page-blog", "contacts", "form", "404", "cours-ei", "documents",
-	"single", "personal_area", "audio"];
+	$css_files = ["header", "main" , "blog", "footer", "about_us", 
+	"page-blog", "404", "documents",
+	"single", "audio", "sign"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
@@ -138,8 +138,7 @@ function load_script() /*имя функции произвольное*/
 	wp_enqueue_script("theme-text");
 
 
-	$js_files=["personal_area", "slider", "main",
-		"functions", "text-show", "video","menu"];
+	$js_files=["personal_area", "slider", "functions","menu"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(

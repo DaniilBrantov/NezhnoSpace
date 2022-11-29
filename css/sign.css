@@ -1,0 +1,64 @@
+.authorization{
+    background-color: var(--white);
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    display: grid;
+}
+.reg_auth{
+    width: 310px;
+    margin: auto;
+    display: grid;
+    gap: 20px;
+}
+.authorization_title h1{
+    font-size: 20px;
+    text-align: center;
+}
+.authorization_form{
+    box-shadow: 0 0 30px rgba(141, 154, 206, 0.2);
+    padding: 20px;
+    border-radius: 7px;
+    display: grid;
+    gap: 13px;
+}
+.pers_item label{
+    font-size: 13px;
+}
+.pers_item input{
+    font-size: 14px;
+    margin-top: 9px;
+    color: rgba(0, 0, 0, 0.7);
+    border-radius: 3px;
+    border: 0.2px var(--black) solid;
+    width: 100%;
+    padding: 12px 0 12px 9px;
+    outline:none;
+}
+.pers_item input:focus::-webkit-input-placeholder { color:transparent; }
+.pers_item input:focus::-moz-placeholder { color:transparent; } /* FF 19+ */
+
+.pers_item_txt{
+    font-size: 10px;
+    color: var(--main_1);
+    align-items: center;
+    display: flex;
+    gap: 8px;
+}
+.pers_btn button{
+    width: 100%;
+}
+.authorization_question{
+    display: flex;
+    box-shadow: 0 0 30px rgba(141, 154, 206, 0.2);
+    padding: 11px 20px;
+    border-radius: 7px;
+    font-size: 13px;
+    align-items: center;
+    justify-content: space-between;
+}
+.authorization_question a{
+    color: var(--main_1);
+    font-size: 11px;
+
+}
