@@ -5,6 +5,6 @@
  
  */
 get_header();
-require_once "personal_area/reg_content.php";
+require_once "sign/reg_content.php";
 get_footer();
 ?>

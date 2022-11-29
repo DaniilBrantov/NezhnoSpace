@@ -88,52 +88,7 @@ require_once 'connect.php';
       };
 
 
-
-      // $email = new \PHPMailer\PHPMailer\PHPMailer();
-      // $email->CharSet = 'utf-8';
-      // $email->isSMTP();
-      // $email->Host = 'smtp.yandex.ru';
-      // $email->SMTPAuth = true;                              
-      // $email->Username = 'support@eatintelligent.ru'; 
-      // $email->Password = 'Eat123Intelligent123';
-      // $email->SMTPSecure = 'ssl';
-      // $email->Port = 465; 
-
-      // $email->setFrom('support@eatintelligent.ru');
-      // $email->addAddress($mail);    
-      // $email->isHTML(true);                                 
-
-      $email->Subject = 'Eat Intelligent';
-      $email->Body    =  '
-      
-          <div style="
-          background: #1C1C1C;
-          color: whitesmoke;
-          padding: 30px;
-          margin: 30px;
-          border-radius: 20px;
-          margin: 30px auto;
-          max-width: 500px;"
-          >
-              
-              <h2>
-                Чао, Белла. 
-              </h2>  
-              <p>Ты успешно зарегистрировалась на платформе «Нежно». <br>
-              Тебе уже доступна бесплатная неделя подписки и материалы по психологии питания и пищевого поведения.</p>
-              <div style="margin: 50px 20px;">
-                  <a href="https://nezhno.space/uchebnaya-programma" style="
-                      color: whitesmoke;
-                      text-decoration: none;
-                      padding: 15px 30px;
-                      border: 2px solid whitesmoke;
-                      border-radius: 50px;
-                  ">Бесплатная неделя</a>
-              </div>
-                  
-          </div>
-      ';
-      $email->AltBody = '';
+//Код для отправки mail сообщения или его импорт
       if(!$email->send()) {
         echo 'Error';
     } else {
