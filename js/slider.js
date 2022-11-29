@@ -87,7 +87,7 @@ $(function () {
                 settings: {
                     arrows: false,
                     slidesToShow: 1,
-                    centerMode: false,
+                    centerMode: true,
                 }
             }
         ]
