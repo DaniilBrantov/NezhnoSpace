@@ -24,7 +24,8 @@
                 <input type="password" name="сonfirm_password" placeholder="Подтвердите пароль...">
             </div>
             <div class="pers_approval pers_item_txt">
-                <input type="checkbox" required> Я соглашаюсь с условиями публичной оферты
+                <input type="checkbox" required class="visually-hidden" id="pers_approval_checkbox" name="pers_approval_checkbox" >
+                <label for="pers_approval_checkbox">Я соглашаюсь с условиями публичной оферты</label>
             </div>
             <div class="pers_btn">
                 <button class="blue_btn">ЗАРЕГИСТРИРОВАТЬСЯ</button>
