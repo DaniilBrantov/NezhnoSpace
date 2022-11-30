@@ -128,8 +128,8 @@
                 </div>
             </div>
             <div class="block__about_slider">
-                <div class="about_slider-before">
-                </div>
+                <!-- <div class="about_slider-before">
+                </div> -->
                 <div class="about_slider mt_100">
                     <div class="about_slider_item">
                         <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider1.jpg" alt="">
@@ -261,15 +261,15 @@
                     <div class="our_platform_item">
                         <img class="our_platform_item_img"
                             src="<?php echo get_template_directory_uri()  ?>/images/purpose3.png" alt="">
-                        <div class="our_platform_item_txt none">
+                        <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Ментальное здоровье — важная составляющая благополучия и качества жизни.
                             </p>
                         </div>
                     </div>
                     <div class="our_platform_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/purpose4.png" alt="">
-                        <div class="our_platform_item_txt none">
+                        <img src="<?php echo get_template_directory_uri() ?>/images/purpose4.png" alt="">
+                        <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Обеспечиваем гендерное равенство на работе и помогаем стать увереннее женщинам, которые
                                 столкнулись с дискриминацией и РПП на фоне стресса.
@@ -278,7 +278,7 @@
                     </div>
                     <div class="our_platform_item">
                         <img src="<?php echo get_template_directory_uri()  ?>/images/purpose5.png" alt="">
-                        <div class="our_platform_item_txt none">
+                        <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Корпоративная подписка Нежно Space — это улучшение условий труда и забота о психике
                                 сотрудников
@@ -287,7 +287,7 @@
                     </div>
                     <div class="our_platform_item">
                         <img src="<?php echo get_template_directory_uri()  ?>/images/purpose10.png" alt="">
-                        <div class="our_platform_item_txt none">
+                        <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Нежно Space - это доступ к психологической поддержке для всех, в том числе для уязвимых
                                 групп
@@ -304,7 +304,7 @@
                 <div class="our_team_cnt ta_center">
                     <div class="our_team_item">
                         <div class="our_team_item_img m_auto">
-                            <img src="" alt="">
+                            <img src="<?php echo get_template_directory_uri()  ?>/images/our_team_1.jpg" alt="">
                         </div>
                         <div class="our_team_item_title">
                             <p>
@@ -313,13 +313,13 @@
                         </div>
                         <div class="our_team_item_post">
                             <p>
-                                должность
+                                генеральный директор
                             </p>
                         </div>
                     </div>
                     <div class="our_team_item">
                         <div class="our_team_item_img m_auto">
-                            <img src="" alt="">
+                            <img src="<?php echo get_template_directory_uri()  ?>/images/our_team_2.jpg" alt="">
                         </div>
                         <div class="our_team_item_title">
                             <p>
@@ -328,22 +328,22 @@
                         </div>
                         <div class="our_team_item_post">
                             <p>
-                                должность
+                                разработчик
                             </p>
                         </div>
                     </div>
                     <div class="our_team_item">
                         <div class="our_team_item_img m_auto">
-                            <img src="" alt="">
+                            <img src="<?php echo get_template_directory_uri()  ?>/images/our_team_3.jpg" alt="">
                         </div>
                         <div class="our_team_item_title">
                             <p>
-                                Полина Карепанова
+                                Ольга Аль-Нури
                             </p>
                         </div>
                         <div class="our_team_item_post">
                             <p>
-                                должность
+                                project-manager + SMM
                             </p>
                         </div>
                     </div>

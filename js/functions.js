@@ -163,36 +163,6 @@ $('.stage_number').each(function () {
 
 
 
-
-
-
-// Look Password
-$('body').on('mousedown', '.password_control', function () {
-    if ($('#pass').attr('type') == 'password') {
-        $(this).addClass('view');
-        $('#pass').attr('type', 'text');
-    } else {
-        $(this).removeClass('view');
-        $('#pass').attr('type', 'password');
-    }
-    return false;
-});
-
-$('body').on('mouseup', '.password_control', function () {
-    if ($('#pass').attr('type') == 'password') {
-        $(this).addClass('view');
-        $('#pass').attr('type', 'text');
-    } else {
-        $(this).removeClass('view');
-        $('#pass').attr('type', 'password');
-    }
-    return false;
-});
-
-
-
-
-
 // IMAGE STYLES
 $(document).ready(function () {
 
@@ -440,7 +410,7 @@ $(function () {
         })
 
         if (anxietyBtn) {
-            document.querySelector('.intro_link-wrap').addEventListener('click', function(e) {
+            document.querySelector('.intro_link-wrap').addEventListener('click', function (e) {
                 console.log(local)
                 sessionStorage.setItem('anxiety', JSON.stringify(local))
             })
@@ -481,3 +451,18 @@ $(function () {
         }
     })
 })();
+
+// Show Password
+$(function () {
+    $('.pass_eye').click(function () {
+        if ($('.pers_input input').attr('type') == 'password') {
+            $(this).addClass('close_eye');
+            $('.pers_input input').attr('type', 'text');
+        } else {
+            $(this).removeClass('close_eye');
+            $('.pers_input input').attr('type', 'password');
+        }
+        return false;
+    });
+});
+

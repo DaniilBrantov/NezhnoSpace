@@ -13,7 +13,7 @@
             <div class="pers_item">
                 <label>Email</label>
                 <p class="pers_item_txt">На указанный email придет код подтверждения</p>
-                <input type="text" name="mail" placeholder="Введите Email...">
+                <input type="text" name="mail" placeholder="Введите email...">
             </div>
             <div class="pers_item">
                 <label>Пароль</label>

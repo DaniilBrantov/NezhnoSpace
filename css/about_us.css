@@ -196,23 +196,19 @@
 }
 
 .about_slider .slick-arrow{
-    width: 31px;
-    height: 31px;
-    border-top: 2px solid rgba(114, 100, 170, 0.5);
-    border-right: 2px solid rgba(114, 100, 170, 0.5);
+    width: 30px;
+    background: url('../images/black_arrow.svg') no-repeat center;
 }
 
 .about_slider .slick-arrow.slick-prev{
-    transform: rotate(-135deg);
+    transform: rotate(180deg);
+    left: -50px;
+    top: 38%;
 }
 
 .about_slider .slick-arrow.slick-next{
-    transform: rotate(45deg);
-}
-
-.about_slider .slick-arrow.slick-prev,
-.about_slider .slick-arrow.slick-next{
-    top: 37%;
+    right: -50px;
+    top: 40%;
 }
 
 .our_platform_item{
@@ -339,6 +335,10 @@
         height: 200px;
     }
 }
+
+
+
+
 @media screen and (max-width: 720px) {
     .about .mt_100{
         margin-top: 0;
@@ -358,7 +358,7 @@
     }
     .banner_about_cnt{
         margin: 16px;
-        font-size: 13px;
+        font-size: 15px;
     }
     .banner_about_cnt h1{
         font-size: 28px;
@@ -366,7 +366,7 @@
     .we_are {
         grid-template-columns: repeat(1, 2fr);
         grid-gap: 16px;
-        font-size: 13px;
+        font-size: 15px;
         margin: 16px;
     }
     .what_are_doing_after:after {
@@ -383,11 +383,10 @@
         grid-column-gap: 0;
         grid-row-gap: 16px;
         margin-top: 0;
-        padding-bottom: 16px;
     }
     .what_are_doing_txt{
         grid-row-start: 3;
-        font-size: 13px;
+        font-size: 15px;
     }
     .what_are_doing_txt h3, .our_platform h3, .our_team h3{
         font-size: 28px;
@@ -395,6 +394,9 @@
     .what_are_doing_img img {
         height: auto;
         border-radius: 0;
+    }
+    .what_are_doing_txt{
+        height: 100%;
     }
     .our_team_item, .our_team_item_img{
         margin: 15px auto 0;
@@ -413,7 +415,7 @@
     .about_slider_item{
         opacity: 1;
         margin: 10px;
-        font-size: 13px;
+        font-size: 15px;
     }
     .about_slider_item.slick-active .about_slider_txt{
         width: 300px;
@@ -460,6 +462,9 @@
         width: 100%;
     }
 }
+
+
+
 @media (min-width: 650px) and (max-width: 750px) {
     .about_slider .slick-list {
         height: 550px;
