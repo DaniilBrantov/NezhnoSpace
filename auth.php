@@ -5,7 +5,7 @@
  
  */
 get_header();
-require_once "personal_area/auth_content.php";
+require_once "sign/auth_content.php";
 get_footer();
 
 ?>

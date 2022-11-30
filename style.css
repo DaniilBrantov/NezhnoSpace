@@ -84,6 +84,9 @@ ul{
   color: var(--white);
   border: none;
   cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 
