@@ -1678,9 +1678,10 @@ section {
   }
   .subscriptions_list .slick-list.draggable {
     padding-top: 20px !important;
+    padding-bottom: 40px !important;
   }
   .subscriptions_item.slick-slide{
-    height: 350px;
+    min-height: 350px;
   }
   .subscription_cnt .ta_center {
     margin-top: 0;
