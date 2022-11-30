@@ -277,7 +277,7 @@ section {
   min-width: 200px;
   display: flex;
   flex-direction: column;
-  padding: 120px 16px 0 16px;
+  padding: 120px 16px 16px 16px;
   background: rgba(255, 255, 255, 0.2);
   border: 2.5px solid #8d9ace;
   border-radius: 25px;
@@ -346,7 +346,6 @@ section {
   display: inline-block;
   padding: 16px 15px;
   margin-top: auto;
-  margin-bottom: 34px;
   background: #7264aa;
   border: 2px solid #7264aa;
   border-radius: 15px;
