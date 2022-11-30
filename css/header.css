@@ -37,6 +37,9 @@
   height: 32px;
   margin-right: 5%;
 }
+.header_logo img{
+  width: 155px;
+}
 .header_nav {
   width: 50%;
   height: 100vh;
