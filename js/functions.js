@@ -426,7 +426,31 @@ $(function () {
     nav_href.forEach((el) => { el.href === url ? el.classList.add("nav_active") : el.classList.remove("nav_active") })
 });
 
+//проверка нажатого чекбокса на странице регистрации
+(() => {
+    document.addEventListener('DOMContentLoaded', function() {
+        const persApprovalCheckbox = document.querySelector("#pers_approval_checkbox");
+        let btnSubmit = document.querySelector('.pers_btn .blue_btn');
 
+        function changeBtn(opacity, bool, cursor) {
+            btnSubmit.style.opacity = opacity;
+            btnSubmit.disabled = bool; 
+            btnSubmit.style.cursor = cursor;
+        }
+    
+        if (persApprovalCheckbox) {
+            changeBtn('0.5', true, 'default');
+            
+            persApprovalCheckbox.addEventListener("change", function () {
+                if (this.checked) {
+                    changeBtn('1', false, 'pointer');
+                } else {
+                    changeBtn('0.5', true, 'default');
+                }
+            })
+        }
+    })
+})();
 
 // Show Password
 $(function () {
@@ -441,3 +465,4 @@ $(function () {
         return false;
     });
 });
+
