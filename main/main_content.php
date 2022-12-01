@@ -173,9 +173,9 @@
         <div class="less-more_subtitle">
             <p> Мы применяем современные методы психотерапии. Наши алгоритмы подстраиваются под&#160;тебя, твой темп и
                 запрос.
-                Цель платформы выстроить твой индивидуальный маршрут терапии по&nbsp;принципу <span>“ровно столько,
+                Цель платформы выстроить твой индивидуальный маршрут терапии по&nbsp;принципу <span>&#171ровно столько,
                     сколько
-                    нужно”.</span></p>
+                    нужно&#187</span></p>
             <p>Мы приготовили для тебя более 30 тем, которые страдают, пока ты тревожишься о&nbsp;еде: карьера,
                 отношения,
                 секс,
@@ -335,10 +335,12 @@
                                 ровно столько, сколько нужно.
                                 less is more Мозгу так легче сфокусироваться и сделать первый шаг.
                                 Цель гайда предложить тебе книги, фильмы, проекты, <span>подкасты</span>
-                                по принципу - ровно столько, сколько нужно. less is more. Мозгу так легче сфокусироваться и
+                                по принципу - ровно столько, сколько нужно. less is more. Мозгу так легче
+                                сфокусироваться и
                                 сделать
                                 первый
-                                шаг. Гайды Нежно Space - это не список литературы на лето. Ты можешь ограничиться цитатами
+                                шаг. Гайды Нежно Space - это не список литературы на лето. Ты можешь ограничиться
+                                цитатами
                                 из книг,
                                 которые
                                 мы подобрали.
@@ -445,14 +447,14 @@
                     </button>
                 </div>
                 <div class="trial_section_form">
-                <form action="<?php echo paySubscriptionUrl(); ?>" method='post'>
-                    <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
-                    <input type="hidden" value="7" name="sum">
-                    <input type="hidden" value="3" name="rate">
-                    <button class="trial_link" type="submit">
-                        купить 7 дней за 7 рублей
-                    </button>
-                </form>
+                    <form action="<?php echo paySubscriptionUrl(); ?>" method='post'>
+                        <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
+                        <input type="hidden" value="7" name="sum">
+                        <input type="hidden" value="3" name="rate">
+                        <button class="trial_link" type="submit">
+                            купить 7 дней за 7 рублей
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
