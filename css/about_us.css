@@ -340,6 +340,9 @@
 
 
 @media screen and (max-width: 720px) {
+    .about_section .container {
+        max-width: 100%;
+    }
     .about .mt_100{
         margin-top: 0;
     }
