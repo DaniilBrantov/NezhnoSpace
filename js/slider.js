@@ -267,31 +267,3 @@ $(function () {
 
     $('.subscriptions_list').slick('setPosition');
 });
-
-
-$(function () {
-    var $window = $(window);
-    var $slider = $('.themes_slider');
-    var hasInitSlider = false;
-
-    function initSlider() {
-        if ($window.width() < 450 && !hasInitSlider) {
-            $slider.slick({
-                infinite: false,
-                slidesToShow: 5,
-                slidesToScroll: 5,
-            });
-            hasInitSlider = true;
-            $('.trial_item').css({ marginLeft: "0px" });
-        } else if ($window.width() > 450 && hasInitSlider) {
-            $slider.slick('unslick');
-            hasInitSlider = false;
-        }
-    }
-
-    initSlider();
-
-    $window.on('resize', function () {
-        initSlider();
-    });
-});

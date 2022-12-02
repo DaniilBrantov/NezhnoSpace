@@ -171,6 +171,7 @@
             });
           });
         } else if ($window.width() < 960) {
+          //mobile
           const mobileTitle = document.querySelectorAll('.trial_title');
           const mobileSubtitle = document.querySelectorAll(".trial_nested-list_mobile li");
   
@@ -213,8 +214,32 @@
               })
             });
           });
-        }
-      });
+          //слайдер тем в мобильной версии
+          const mobileSlider = $('.themes_slider');
+          let hasInitSlider = false;
+
+          function initSlider() {
+            if ($window.width() < 450 && !hasInitSlider) {
+              mobileSlider.slick({
+                infinite: false,
+                slidesToShow: 5,
+                slidesToScroll: 5,
+              });
+              hasInitSlider = true;
+              $('.trial_item').css({ marginLeft: "0px" });
+            } else if ($window.width() > 450 && hasInitSlider) {
+              mobileSlider.slick('unslick');
+              hasInitSlider = false;
+            }
+          }
+
+          initSlider();
+
+          $window.on('resize', function () {
+            initSlider();
+          });
+          }
+        });
   }
 })();
 
