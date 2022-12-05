@@ -138,7 +138,7 @@ function load_script() /*имя функции произвольное*/
 	wp_enqueue_script("theme-text");
 
 
-	$js_files=["personal_area", "slider", "functions","menu"];
+	$js_files=["personal_area", "slider", "functions","menu","sign"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
@@ -146,7 +146,7 @@ function load_script() /*имя функции произвольное*/
 			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js", 
 			array("my_jquery"),
 			null,
-			false
+			true
 		);
 		wp_enqueue_script($js_files[$i]);
 	}

@@ -1,93 +1,93 @@
-//Авторизация
-$("#auth_btn").click(function (e) {
-  //отключает стандартное поведение e(кнопки)
-  e.preventDefault();
-  $("input").removeClass("error");
-  //val()- взять инф-цию с данного эл-нта
-  let mail = $('input[name="mail"]').val();
-  let pass = $('input[name="pass"]').val();
+// //Авторизация
+// $("#auth_btn").click(function (e) {
+//   //отключает стандартное поведение e(кнопки)
+//   e.preventDefault();
+//   $("input").removeClass("error");
+//   //val()- взять инф-цию с данного эл-нта
+//   let mail = $('input[name="mail"]').val();
+//   let pass = $('input[name="pass"]').val();
 
-  let formData = new FormData();
-  formData.append("mail", mail);
-  formData.append("pass", pass);
+//   let formData = new FormData();
+//   formData.append("mail", mail);
+//   formData.append("pass", pass);
 
-  //обьект ajax со св-ми ,как было у формы.
-  $.ajax({
-    url: "https://nezhno.space/auth-check/",
-    type: "POST",
-    //возращаем текст
-    dataType: "json",
-    processData: false,
-    contentType: false,
-    cache: false,
-    //обьект с нашими данными
-    data: formData,
-    //метод ,который передаёт ф-цию
-    success: function (data) {
-      if (data.status) {
-        document.location.href = "/uchebnaya-programma";
-      } else {
-        if (data.type === 1) {
-          data.fields.forEach(function (field) {
-            $(`input[name="${field}"]`).addClass("error");
-          });
-        }
-        $(".auth_msg").removeClass("none").text(data.message);
-      }
-    },
-    error: function (jqxhr, status, errorMsg) {
-      console.log(status, errorMsg);
-    },
-  });
-});
+//   //обьект ajax со св-ми ,как было у формы.
+//   $.ajax({
+//     url: "https://nezhno.space/auth-check/",
+//     type: "POST",
+//     //возращаем текст
+//     dataType: "json",
+//     processData: false,
+//     contentType: false,
+//     cache: false,
+//     //обьект с нашими данными
+//     data: formData,
+//     //метод ,который передаёт ф-цию
+//     success: function (data) {
+//       if (data.status) {
+//         document.location.href = "/uchebnaya-programma";
+//       } else {
+//         if (data.type === 1) {
+//           data.fields.forEach(function (field) {
+//             $(`input[name="${field}"]`).addClass("error");
+//           });
+//         }
+//         $(".auth_msg").removeClass("none").text(data.message);
+//       }
+//     },
+//     error: function (jqxhr, status, errorMsg) {
+//       console.log(status, errorMsg);
+//     },
+//   });
+// });
 
-//Регистрация
+// //Регистрация
 
-//'$'-выбор эл-та по классу. И при клике выполняем функцию.
-// e или event это как this,указывает на то,с чем работаем.
-$(".reg_btn").click(function (e) {
-  //отключает стандартное поведение e(кнопки)
-  e.preventDefault();
+// //'$'-выбор эл-та по классу. И при клике выполняем функцию.
+// // e или event это как this,указывает на то,с чем работаем.
+// $(".reg_btn").click(function (e) {
+//   //отключает стандартное поведение e(кнопки)
+//   e.preventDefault();
 
-  $(`input`).removeClass("error");
-  //val()- взять инф-цию с данного эл-нта
-  var mail = $('input[name="mail"]').val();
-  var pass = $('input[name="pass"]').val();
-  var nname = $('input[name="nname"]').val();
-  var checkbox = $('input[name="reg_checkbox"]').val();
-  var order = $('input[name="order"]').val();
+//   $(`input`).removeClass("error");
+//   //val()- взять инф-цию с данного эл-нта
+//   var mail = $('input[name="mail"]').val();
+//   var pass = $('input[name="pass"]').val();
+//   var nname = $('input[name="nname"]').val();
+//   var checkbox = $('input[name="reg_checkbox"]').val();
+//   var order = $('input[name="order"]').val();
 
-  var formData = new FormData();
-  formData.append("mail", mail);
-  formData.append("pass", pass);
-  formData.append("nname", nname);
-  formData.append("checkbox", checkbox);
-  formData.append("order", order);
+//   var formData = new FormData();
+//   formData.append("mail", mail);
+//   formData.append("pass", pass);
+//   formData.append("nname", nname);
+//   formData.append("checkbox", checkbox);
+//   formData.append("order", order);
 
-  // обьект ajax со св-ми ,как было у формы.
-  $.ajax({
-    url: "https://nezhno.space/check/",
-    type: "POST",
-    dataType: "json",
-    processData: false,
-    contentType: false,
-    cache: false,
-    data: formData,
-    success: function (data) {
-      if (data.status) {
-        document.location.href = "/auth";
-      } else {
-        if (data.type === 1) {
-          data.fields.forEach(function (field) {
-            $(`input[name="${field}"]`).addClass("error");
-          });
+//   // обьект ajax со св-ми ,как было у формы.
+//   $.ajax({
+//     url: "https://nezhno.space/check/",
+//     type: "POST",
+//     dataType: "json",
+//     processData: false,
+//     contentType: false,
+//     cache: false,
+//     data: formData,
+//     success: function (data) {
+//       if (data.status) {
+//         document.location.href = "/auth";
+//       } else {
+//         if (data.type === 1) {
+//           data.fields.forEach(function (field) {
+//             $(`input[name="${field}"]`).addClass("error");
+//           });
 
-          $(".auth_msg").removeClass("none").text(data.message);
-        }
-      }
-    },
-  });
-});
+//           $(".auth_msg").removeClass("none").text(data.message);
+//         }
+//       }
+//     },
+//   });
+// });
 
 function audioTxt() {
   btn = document.querySelector("#les_button");
