@@ -5,6 +5,6 @@
  
  */
 get_header();
-require_once "personal_area/subscription_content.php";
+require_once "personal_area/subscription/subscription_content.php";
 get_footer();
 ?>

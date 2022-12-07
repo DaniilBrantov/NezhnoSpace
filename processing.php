@@ -5,13 +5,18 @@
  *
  
  */
+require_once 'config/connect.php';
+$db = new SafeMySQL();
 
-
-
-if(require_once 'db/connect.php'){
-    $try_free=$result_request_arr;
-    $try_free_arr= $try_free;
-    echo json_encode($try_free_arr);
+function GetResponseFromDB($condition, $db_func){
+    if($condition){
+        echo json_encode($db_func);
+    }
 }
+
+    GetResponseFromDB(
+        $_POST['try_free'],
+        $db->getAll("SELECT * FROM main_try_free")
+    );
 
 ?>

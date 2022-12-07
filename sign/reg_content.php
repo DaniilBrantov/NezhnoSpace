@@ -17,18 +17,19 @@
             </div>
             <div class="pers_item">
                 <label>Пароль</label>
-                <input type="password" name="password" placeholder="Введите пароль...">
+                <input type="password" name="pass" placeholder="Введите пароль...">
             </div>
             <div class="pers_item">
                 <label>Подтвердите пароль</label>
-                <input type="password" name="сonfirm_password" placeholder="Подтвердите пароль...">
+                <input type="password" name="pass_conf" placeholder="Подтвердите пароль...">
             </div>
             <div class="pers_approval pers_item_txt">
-                <input type="checkbox" required class="visually-hidden" id="pers_approval_checkbox" name="pers_approval_checkbox" >
+                <input type="checkbox" required class="visually-hidden" id="pers_approval_checkbox"
+                    name="approval_check">
                 <label for="pers_approval_checkbox">Я соглашаюсь с условиями публичной оферты</label>
             </div>
             <div class="pers_btn">
-                <button class="blue_btn">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+                <button id="reg_btn" class="blue_btn" type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
             </div>
         </form>
         <div class="authorization_question">

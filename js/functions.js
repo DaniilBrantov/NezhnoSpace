@@ -440,19 +440,19 @@ $(function () {
 
 //проверка нажатого чекбокса на странице регистрации
 (() => {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const persApprovalCheckbox = document.querySelector("#pers_approval_checkbox");
         let btnSubmit = document.querySelector('.pers_btn .blue_btn');
 
         function changeBtn(opacity, bool, cursor) {
             btnSubmit.style.opacity = opacity;
-            btnSubmit.disabled = bool; 
+            btnSubmit.disabled = bool;
             btnSubmit.style.cursor = cursor;
         }
-    
+
         if (persApprovalCheckbox) {
             changeBtn('0.5', true, 'default');
-            
+
             persApprovalCheckbox.addEventListener("change", function () {
                 if (this.checked) {
                     changeBtn('1', false, 'pointer');
