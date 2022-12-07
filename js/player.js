@@ -8,7 +8,7 @@
   audio.className = 'audio';
   document.body.append(audio);
   const audioPlayer = document.querySelector(".player");
-  const playBtn = document.querySelector(".play");
+  const playBtn = document.querySelector(".player__box-wrap .play");
   const seekSlider = document.querySelector("#progress.progress");
 
   // const next = document.querySelector(".next");
@@ -187,19 +187,6 @@
 
     //audio time
 
-    function getTimeCodeFromNum(num) {
-      let seconds = parseInt(num);
-      let minutes = parseInt(seconds / 60);
-      seconds -= minutes * 60;
-      const hours = parseInt(minutes / 60);
-      minutes -= hours * 60;
-
-      if (hours === 0)
-        return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
-      return `${String(hours).padStart(2, 0)}:${minutes}:${String(
-        seconds % 60
-      ).padStart(2, 0)}`;
-    }
 
     // next.addEventListener('click', () => {
     //   index = getIndex()

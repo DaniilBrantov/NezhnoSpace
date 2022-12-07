@@ -271,16 +271,83 @@
             </div>
         </div>
         <div class="reviews_constitutor">
-            <div class="reviews_video">
+            <div class="reviews_video video-container">
                 <!-- <video controls crossorigin playsinline
                     poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
-                    <source src="<?php //getUrl(); ?>/videos/gone.mp4" type="video/mp4" size="1080">
-                    <a href="<?php //getUrl(); ?>/videos/gone.mp4" download>Download</a>
+                    <source src="<?php //getUrl(); 
+                                    ?>/videos/gone.mp4" type="video/mp4" size="1080">
+                    <a href="<?php //getUrl(); 
+                                ?>/videos/gone.mp4" download>Download</a>
                 </video> -->
 
-                <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-                    <source src="<?php getUrl(); ?>/videos/gone.mp4" type="video/mp4" />
+                <!-- <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                    <source src="/videos/gone.mp4" type="video/mp4" />
+                </video> -->
+                <video id="video-player" class='video-player' poster="<?php getUrl(); ?>/videos/preview.png">
+                    <source src="<?php getUrl(); ?>/videos/home.mp4" type="video/mp4" />
                 </video>
+                <div class='video-controls'>
+                    <div class="video-controls_btns">
+                        <div class="video-controls_btns_plays">
+                            <div class='video_play_btn play'>
+                                <svg class="play-show" width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M30.5 19.134C31.1667 19.5189 31.1667 20.4811 30.5 20.866L15.5 29.5263C14.8333 29.9112 14 29.4301 14 28.6603L14 11.3397C14 10.5699 14.8333 10.0888 15.5 10.4737L30.5 19.134Z" fill="white" />
+                                </svg>
+                                <svg class="pause-show" width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="14" y="10" width="4" height="21" rx="2" fill="white" />
+                                    <rect x="22" y="10" width="4" height="21" rx="2" fill="white" />
+                                </svg>
+                            </div>
+                            <div class="duration-video">
+                                <span class="current-time-video">00:00</span>
+                                <span class="">&nbsp;/&nbsp;</span>
+                                <span class="duration-time-video">00:00</span>
+                            </div>
+                        </div>
+                        <div class="video-wrapper_btns">
+                            <div class="volume-box_video">
+                                <span id="volume-video" class="volume-video volume-video-icon active">
+                                    <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15 6.50001C16.333 8.27801 16.333 11.722 15 13.5M18 3.00001C21.988 6.80801 22.012 13.217 18 17M1 12.959V7.04001C1 6.46601 1.448 6.00001 2 6.00001H5.586C5.71833 5.99954 5.8492 5.97228 5.97071 5.91986C6.09222 5.86744 6.20185 5.79095 6.293 5.69501L9.293 2.30701C9.923 1.65101 11 2.11601 11 3.04301V16.957C11 17.891 9.91 18.352 9.284 17.683L6.294 14.314C6.20259 14.2153 6.09185 14.1365 5.96867 14.0825C5.84549 14.0285 5.71251 14.0004 5.578 14H2C1.448 14 1 13.534 1 12.959Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <span class="volume-video-none volume-video-icon">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M26 19L20 13M26 13L20 19" stroke="#fff" stroke-width="2" stroke-linecap="round" />
+                                        <path d="M6 18.959V13.04C6 12.466 6.448 12 7 12H10.586C10.7183 11.9995 10.8492 11.9723 10.9707 11.9199C11.0922 11.8674 11.2019 11.791 11.293 11.695L14.293 8.30701C14.923 7.65101 16 8.11601 16 9.04301V22.957C16 23.891 14.91 24.352 14.284 23.683L11.294 20.314C11.2026 20.2153 11.0918 20.1365 10.9687 20.0825C10.8455 20.0285 10.7125 20.0004 10.578 20H7C6.448 20 6 19.534 6 18.959Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                <div class='progress_volume-video'>
+                                    <input type="range" id="volume-video_range" max="1" min="0" step="0.01" />
+                                </div>
+                            </div>
+                            <div class="fullscreen-box_video">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="48" height="48" fill="white" fill-opacity="0.01" />
+                                    <path d="M33 6H42V15" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M42 33V42H33" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M15 42H6V33" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M6 15V6H15" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <div class="more-box_video">
+                                <svg id="Flat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill='#fff'>
+                                    <path d="M116,64a12,12,0,1,1,12,12A12.01375,12.01375,0,0,1,116,64Zm12,52a12,12,0,1,0,12,12A12.01375,12.01375,0,0,0,128,116Zm0,64a12,12,0,1,0,12,12A12.01375,12.01375,0,0,0,128,180Z" />
+                                </svg>
+                                <div class="more-alert_video">
+                                    <span class="more-alert_speed">Скорость видео: 1x</span>
+                                    <!-- <span></span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="player_video_box">
+                        <!-- input range -->
+                        <div class="progress-video-container" id="progress-video-container">
+                            <input type="range" class="progress-video" id="progress-video" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="reviews_constitutor-info">
@@ -353,15 +420,10 @@
                             <div class="player__wrap">
                                 <div class="info">
                                     <span class="info-icon">
-                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_181_372)">
-                                                <path
-                                                    d="M18 22C17.4477 22 17 21.5523 17 21V15C17 14.4477 16.5523 14 16 14H14C13.4477 14 13 14.4477 13 15C13 15.5523 13.4477 16 14 16C14.5523 16 15 16.4477 15 17V21C15 21.5523 14.5523 22 14 22H13C12.4477 22 12 22.4477 12 23C12 23.5523 12.4477 24 13 24H19C19.5523 24 20 23.5523 20 23C20 22.4477 19.5523 22 19 22H18ZM16 8C15.7033 8 15.4133 8.08797 15.1666 8.2528C14.92 8.41762 14.7277 8.65189 14.6142 8.92597C14.5006 9.20006 14.4709 9.50166 14.5288 9.79264C14.5867 10.0836 14.7296 10.3509 14.9393 10.5607C15.1491 10.7704 15.4164 10.9133 15.7074 10.9712C15.9983 11.0291 16.2999 10.9994 16.574 10.8858C16.8481 10.7723 17.0824 10.58 17.2472 10.3334C17.412 10.0867 17.5 9.79667 17.5 9.5C17.5 9.10218 17.342 8.72064 17.0607 8.43934C16.7794 8.15804 16.3978 8 16 8Z"
-                                                    fill="white" />
-                                                <path
-                                                    d="M16 30C13.2311 30 10.5243 29.1789 8.22202 27.6406C5.91973 26.1022 4.12532 23.9157 3.06569 21.3576C2.00607 18.7994 1.72882 15.9845 2.26901 13.2687C2.80921 10.553 4.14258 8.05845 6.10051 6.10051C8.05845 4.14258 10.553 2.80921 13.2687 2.26901C15.9845 1.72882 18.7994 2.00607 21.3576 3.06569C23.9157 4.12532 26.1022 5.91973 27.6406 8.22202C29.1789 10.5243 30 13.2311 30 16C30 19.713 28.525 23.274 25.8995 25.8995C23.274 28.525 19.713 30 16 30ZM16 4.00001C13.6266 4.00001 11.3066 4.70379 9.33316 6.02237C7.35977 7.34095 5.8217 9.21509 4.91345 11.4078C4.0052 13.6005 3.76756 16.0133 4.23058 18.3411C4.69361 20.6689 5.83649 22.8071 7.51472 24.4853C9.19296 26.1635 11.3312 27.3064 13.6589 27.7694C15.9867 28.2325 18.3995 27.9948 20.5922 27.0866C22.7849 26.1783 24.6591 24.6402 25.9776 22.6668C27.2962 20.6935 28 18.3734 28 16C28 12.8174 26.7357 9.76516 24.4853 7.51472C22.2348 5.26429 19.1826 4.00001 16 4.00001Z"
-                                                    fill="#7264AA" />
+                                                <path d="M18 22C17.4477 22 17 21.5523 17 21V15C17 14.4477 16.5523 14 16 14H14C13.4477 14 13 14.4477 13 15C13 15.5523 13.4477 16 14 16C14.5523 16 15 16.4477 15 17V21C15 21.5523 14.5523 22 14 22H13C12.4477 22 12 22.4477 12 23C12 23.5523 12.4477 24 13 24H19C19.5523 24 20 23.5523 20 23C20 22.4477 19.5523 22 19 22H18ZM16 8C15.7033 8 15.4133 8.08797 15.1666 8.2528C14.92 8.41762 14.7277 8.65189 14.6142 8.92597C14.5006 9.20006 14.4709 9.50166 14.5288 9.79264C14.5867 10.0836 14.7296 10.3509 14.9393 10.5607C15.1491 10.7704 15.4164 10.9133 15.7074 10.9712C15.9983 11.0291 16.2999 10.9994 16.574 10.8858C16.8481 10.7723 17.0824 10.58 17.2472 10.3334C17.412 10.0867 17.5 9.79667 17.5 9.5C17.5 9.10218 17.342 8.72064 17.0607 8.43934C16.7794 8.15804 16.3978 8 16 8Z" fill="white" />
+                                                <path d="M16 30C13.2311 30 10.5243 29.1789 8.22202 27.6406C5.91973 26.1022 4.12532 23.9157 3.06569 21.3576C2.00607 18.7994 1.72882 15.9845 2.26901 13.2687C2.80921 10.553 4.14258 8.05845 6.10051 6.10051C8.05845 4.14258 10.553 2.80921 13.2687 2.26901C15.9845 1.72882 18.7994 2.00607 21.3576 3.06569C23.9157 4.12532 26.1022 5.91973 27.6406 8.22202C29.1789 10.5243 30 13.2311 30 16C30 19.713 28.525 23.274 25.8995 25.8995C23.274 28.525 19.713 30 16 30ZM16 4.00001C13.6266 4.00001 11.3066 4.70379 9.33316 6.02237C7.35977 7.34095 5.8217 9.21509 4.91345 11.4078C4.0052 13.6005 3.76756 16.0133 4.23058 18.3411C4.69361 20.6689 5.83649 22.8071 7.51472 24.4853C9.19296 26.1635 11.3312 27.3064 13.6589 27.7694C15.9867 28.2325 18.3995 27.9948 20.5922 27.0866C22.7849 26.1783 24.6591 24.6402 25.9776 22.6668C27.2962 20.6935 28 18.3734 28 16C28 12.8174 26.7357 9.76516 24.4853 7.51472C22.2348 5.26429 19.1826 4.00001 16 4.00001Z" fill="#7264AA" />
                                             </g>
                                             <defs>
                                                 <clipPath id="clip0_181_372">
@@ -376,27 +438,17 @@
                                 </div>
                                 <div class="volume-box">
                                     <span id="volume" class="volume active">
-                                        <svg width="22" height="20" viewBox="0 0 22 20" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M15 6.50001C16.333 8.27801 16.333 11.722 15 13.5M18 3.00001C21.988 6.80801 22.012 13.217 18 17M1 12.959V7.04001C1 6.46601 1.448 6.00001 2 6.00001H5.586C5.71833 5.99954 5.8492 5.97228 5.97071 5.91986C6.09222 5.86744 6.20185 5.79095 6.293 5.69501L9.293 2.30701C9.923 1.65101 11 2.11601 11 3.04301V16.957C11 17.891 9.91 18.352 9.284 17.683L6.294 14.314C6.20259 14.2153 6.09185 14.1365 5.96867 14.0825C5.84549 14.0285 5.71251 14.0004 5.578 14H2C1.448 14 1 13.534 1 12.959Z"
-                                                stroke="#7264AA" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" />
+                                        <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15 6.50001C16.333 8.27801 16.333 11.722 15 13.5M18 3.00001C21.988 6.80801 22.012 13.217 18 17M1 12.959V7.04001C1 6.46601 1.448 6.00001 2 6.00001H5.586C5.71833 5.99954 5.8492 5.97228 5.97071 5.91986C6.09222 5.86744 6.20185 5.79095 6.293 5.69501L9.293 2.30701C9.923 1.65101 11 2.11601 11 3.04301V16.957C11 17.891 9.91 18.352 9.284 17.683L6.294 14.314C6.20259 14.2153 6.09185 14.1365 5.96867 14.0825C5.84549 14.0285 5.71251 14.0004 5.578 14H2C1.448 14 1 13.534 1 12.959Z" stroke="#7264AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </span>
                                     <span class="volume-none">
-                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M26 19L20 13M26 13L20 19" stroke="#7264AA" stroke-width="2"
-                                                stroke-linecap="round" />
-                                            <path
-                                                d="M6 18.959V13.04C6 12.466 6.448 12 7 12H10.586C10.7183 11.9995 10.8492 11.9723 10.9707 11.9199C11.0922 11.8674 11.2019 11.791 11.293 11.695L14.293 8.30701C14.923 7.65101 16 8.11601 16 9.04301V22.957C16 23.891 14.91 24.352 14.284 23.683L11.294 20.314C11.2026 20.2153 11.0918 20.1365 10.9687 20.0825C10.8455 20.0285 10.7125 20.0004 10.578 20H7C6.448 20 6 19.534 6 18.959Z"
-                                                stroke="#7264AA" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" />
+                                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M26 19L20 13M26 13L20 19" stroke="#7264AA" stroke-width="2" stroke-linecap="round" />
+                                            <path d="M6 18.959V13.04C6 12.466 6.448 12 7 12H10.586C10.7183 11.9995 10.8492 11.9723 10.9707 11.9199C11.0922 11.8674 11.2019 11.791 11.293 11.695L14.293 8.30701C14.923 7.65101 16 8.11601 16 9.04301V22.957C16 23.891 14.91 24.352 14.284 23.683L11.294 20.314C11.2026 20.2153 11.0918 20.1365 10.9687 20.0825C10.8455 20.0285 10.7125 20.0004 10.578 20H7C6.448 20 6 19.534 6 18.959Z" stroke="#7264AA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                                     </span>
-                                    <input type="range" class="volume-range visually-hidden" step="1" value="80" min="0"
-                                        max="100">
+                                    <input type="range" class="volume-range visually-hidden" step="1" value="80" min="0" max="100">
                                 </div>
                                 <div class="speed">1x</div>
                             </div>
@@ -405,17 +457,11 @@
                             </div>
                             <div class="player__box-wrap">
                                 <span class="play">
-                                    <svg class="play-show" width="25" height="25" viewBox="0 0 40 40" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M38.5 20C38.5 30.2173 30.2173 38.5 20 38.5C9.78273 38.5 1.5 30.2173 1.5 20C1.5 9.78273 9.78273 1.5 20 1.5C30.2173 1.5 38.5 9.78273 38.5 20Z"
-                                            fill="#7264AA" stroke="#7264AA" stroke-width="3" />
-                                        <path
-                                            d="M30.5 19.134C31.1667 19.5189 31.1667 20.4811 30.5 20.866L15.5 29.5263C14.8333 29.9112 14 29.4301 14 28.6603L14 11.3397C14 10.5699 14.8333 10.0888 15.5 10.4737L30.5 19.134Z"
-                                            fill="white" />
+                                    <svg class="play-show" width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M38.5 20C38.5 30.2173 30.2173 38.5 20 38.5C9.78273 38.5 1.5 30.2173 1.5 20C1.5 9.78273 9.78273 1.5 20 1.5C30.2173 1.5 38.5 9.78273 38.5 20Z" fill="#7264AA" stroke="#7264AA" stroke-width="3" />
+                                        <path d="M30.5 19.134C31.1667 19.5189 31.1667 20.4811 30.5 20.866L15.5 29.5263C14.8333 29.9112 14 29.4301 14 28.6603L14 11.3397C14 10.5699 14.8333 10.0888 15.5 10.4737L30.5 19.134Z" fill="white" />
                                     </svg>
-                                    <svg class="pause-show" width="25" height="25" viewBox="0 0 40 40" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
+                                    <svg class="pause-show" width="25" height="25" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="20" cy="20" r="20" fill="#7264AA" />
                                         <rect x="14" y="10" width="4" height="21" rx="2" fill="white" />
                                         <rect x="22" y="10" width="4" height="21" rx="2" fill="white" />
@@ -437,12 +483,8 @@
                     <div class="trial_text-wrap"></div>
                     <button class="trial_btn-show">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M17.0562 5.94383L5.67175 17.3282C5.30075 17.6992 5.30075 18.3008 5.67175 18.6718L5.74246 18.7425C6.11346 19.1135 6.71497 19.1135 7.08597 18.7425L18.4704 7.35804C18.8414 6.98705 18.8414 6.38554 18.4704 6.01454L18.3997 5.94383C18.0287 5.57283 17.4272 5.57283 17.0562 5.94383Z"
-                                fill="#421dd8" />
-                            <path
-                                d="M18.0562 17.0562L6.67175 5.67175C6.30075 5.30075 5.69925 5.30075 5.32825 5.67175L5.25754 5.74246C4.88654 6.11346 4.88654 6.71497 5.25754 7.08597L16.642 18.4704C17.013 18.8414 17.6145 18.8414 17.9855 18.4704L18.0562 18.3997C18.4272 18.0287 18.4272 17.4272 18.0562 17.0562Z"
-                                fill="#421dd8" />
+                            <path d="M17.0562 5.94383L5.67175 17.3282C5.30075 17.6992 5.30075 18.3008 5.67175 18.6718L5.74246 18.7425C6.11346 19.1135 6.71497 19.1135 7.08597 18.7425L18.4704 7.35804C18.8414 6.98705 18.8414 6.38554 18.4704 6.01454L18.3997 5.94383C18.0287 5.57283 17.4272 5.57283 17.0562 5.94383Z" fill="#421dd8" />
+                            <path d="M18.0562 17.0562L6.67175 5.67175C6.30075 5.30075 5.69925 5.30075 5.32825 5.67175L5.25754 5.74246C4.88654 6.11346 4.88654 6.71497 5.25754 7.08597L16.642 18.4704C17.013 18.8414 17.6145 18.8414 17.9855 18.4704L18.0562 18.3997C18.4272 18.0287 18.4272 17.4272 18.0562 17.0562Z" fill="#421dd8" />
                         </svg>
                     </button>
                 </div>
