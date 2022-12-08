@@ -1054,6 +1054,7 @@ section {
   }
   .reviews_video video {
     border-radius: 20px;
+    cursor: pointer;
   }
   .reviews_constitutor-goals {
     margin-top: 20px;

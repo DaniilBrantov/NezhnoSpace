@@ -2,13 +2,14 @@
 
 $("#reg_btn").click(function (e) {
 
+    //отключает стандартное поведение e(кнопки)
     e.preventDefault();
     $(`input`).removeClass("error");
     //val()- взять инф-цию с данного эл-нта
+    var first_name = $('input[name="first_name"]').val();
     var mail = $('input[name="mail"]').val();
     var pass = $('input[name="pass"]').val();
     var pass_conf = $('input[name="pass_conf"]').val();
-    var first_name = $('input[name="first_name"]').val();
     var approval_check = $('input[name="approval_check"]').val();
 
     var formData = new FormData();
@@ -28,11 +29,10 @@ $("#reg_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
-            console.log(data.status)
             if (data.status) {
-                console.log(data.message)
+                console.log(data.status)
             } else {
-                console.log(data.status + data.message)
+                console.log(data)
                 // data.fields.forEach(function (field) {
                 //     $(`input[name="${field}"]`).addClass("error");
                 // });
