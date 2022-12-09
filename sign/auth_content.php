@@ -7,8 +7,8 @@
         </div>
         <form class="authorization_form">
             <div class="pers_item">
-                <label>Имя пользователя или email</label>
-                <input type="text" name="name_mail" placeholder="Введите имя или email...">
+                <label>Email</label>
+                <input type="text" name="mail" placeholder="Введите email...">
             </div>
             <div class="pers_item">
                 <div class="pers_item_pass">
@@ -18,13 +18,13 @@
                     </a>
                 </div>
                 <div class="pers_input">
-                    <input type="password" name="password" placeholder="Введите пароль...">
+                    <input type="password" name="pass" placeholder="Введите пароль...">
                     <span class="pass_eye"></span>
                 </div>
 
             </div>
             <div class="pers_btn">
-                <button class="blue_btn">Войти</button>
+                <button id="auth_btn" name="auth_btn" type="submit" class="blue_btn">Войти</button>
             </div>
         </form>
         <div class="authorization_question">

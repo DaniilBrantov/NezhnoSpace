@@ -4,7 +4,7 @@
  *
  
  */
-require_once "personal_area/auth_check_content.php";
+require_once "sign/auth_check_content.php";
 
 
 ?>

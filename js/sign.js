@@ -29,15 +29,21 @@ $("#reg_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
+            //Успешно зарегистрорвался
             if (data.status) {
                 console.log(data.status)
-            } else {
+            }
+            //Выводить ошибки
+            else {
                 console.log(data)
                 // data.fields.forEach(function (field) {
                 //     $(`input[name="${field}"]`).addClass("error");
                 // });
                 // $(".auth_msg").removeClass("none").text(data.message);
             }
+        },
+        error: function (jqxhr, status, errorMsg) {
+            console.log(status, errorMsg);
         },
     });
 });
@@ -50,33 +56,31 @@ $("#auth_btn").click(function (e) {
     //val()- взять инф-цию с данного эл-нта
     let mail = $('input[name="mail"]').val();
     let pass = $('input[name="pass"]').val();
+    let auth_btn = $('input[name="auth_btn"]').val();
 
     let formData = new FormData();
     formData.append("mail", mail);
     formData.append("pass", pass);
+    formData.append("auth_btn", auth_btn);
 
     //обьект ajax со св-ми ,как было у формы.
     $.ajax({
-        url: "https://nezhno.space/auth-check/",
+        url: "auth-check",
         type: "POST",
-        //возращаем текст
         dataType: "json",
         processData: false,
         contentType: false,
         cache: false,
-        //обьект с нашими данными
         data: formData,
-        //метод ,который передаёт ф-цию
         success: function (data) {
+            console.log(data)
             if (data.status) {
-                document.location.href = "/uchebnaya-programma";
+
             } else {
-                if (data.type === 1) {
-                    data.fields.forEach(function (field) {
-                        $(`input[name="${field}"]`).addClass("error");
-                    });
-                }
-                $(".auth_msg").removeClass("none").text(data.message);
+                //     data.fields.forEach(function (field) {
+                //         $(`input[name="${field}"]`).addClass("error");
+                //     });
+                // $(".auth_msg").removeClass("none").text(data.message);
             }
         },
         error: function (jqxhr, status, errorMsg) {

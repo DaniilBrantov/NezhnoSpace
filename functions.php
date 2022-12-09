@@ -54,7 +54,7 @@ function load_styles(){
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
 			$css_files[$i],
-			get_template_directory_uri() . "/css/" . $css_files[$i] . ".css"
+			get_template_directory_uri() . "/css/" . $css_files[$i] . ".css?"
 		);
 		wp_enqueue_style($css_files[$i]);
 	}
@@ -117,43 +117,12 @@ function load_script() /*имя функции произвольное*/
 	);
 	wp_enqueue_script("plyr");
 
-	/* player */
-	wp_register_script(
-		"player",
-		get_template_directory_uri() . "/js/player.js", 
-		array("my_jquery"),
-		null,
-		true
-	);
-	wp_enqueue_script("player");
-
-	/* video-player */
-	wp_register_script(
-		"video-player",
-		get_template_directory_uri() . "/js/video-player.js", 
-		array("my_jquery"),
-		null,
-		true
-	);
-	wp_enqueue_script("video-player");
-
-	/* theme-text */
-	wp_register_script(
-		"theme-text",
-		get_template_directory_uri() . "/js/theme-text.js", 
-		array("my_jquery"),
-		null,
-		true
-	);
-	wp_enqueue_script("theme-text");
-
-
-	$js_files=["personal_area", "slider", "functions","menu","sign"];
+	$js_files=["personal_area", "slider", "functions","menu","sign","theme-text","video-player","player"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
 			$js_files[$i],
-			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js", 
+			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js?" . time(), 
 			array("my_jquery"),
 			null,
 			true
