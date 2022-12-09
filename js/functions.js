@@ -423,7 +423,6 @@ $(function () {
 
         if (anxietyBtn) {
             document.querySelector('.intro_link-wrap').addEventListener('click', function (e) {
-                console.log(local)
                 sessionStorage.setItem('anxiety', JSON.stringify(local))
             })
         }
