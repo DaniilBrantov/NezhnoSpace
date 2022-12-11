@@ -542,18 +542,18 @@ function NoAccessLess(main_less_link) {
     curriculum_btn.classList.add("none");
     no_access.classList.add("no_access");
 
-
     const main_less_img =
       no_access.parentElement.querySelector(".main_less_img");
     if (main_less_img) {
       main_less_img.style.background = "#a7a7a7";
-    };
+    }
     var next_stage = document.createElement("p");
-    var next_stage_txt = document.createTextNode("Доступ открывается каждую неделю");
+    var next_stage_txt = document.createTextNode(
+      "Доступ открывается каждую неделю"
+    );
     next_stage.classList.add("next_stage");
     next_stage.appendChild(next_stage_txt);
     no_access.appendChild(next_stage);
-
 
     entry.remove();
     if (window.innerWidth <= 720) {
@@ -637,7 +637,7 @@ function MainIndivStage() {
     type: "POST",
     url: "https://nezhno.space/auth-check/",
     data: json,
-    success: function (data) { },
+    success: function (data) {},
   });
 }
 
@@ -992,7 +992,7 @@ if (document.querySelector("#phone")) {
     formatOnDisplay: false,
     defaultCountry: "auto",
     geoIpLookup: function (callback) {
-      $.get("https://ipinfo.io", function () { }, "jsonp").always(function (
+      $.get("https://ipinfo.io", function () {}, "jsonp").always(function (
         resp
       ) {
         var countryCode = resp && resp.country ? resp.country : "";
@@ -1009,11 +1009,7 @@ if (document.querySelector("#phone")) {
   });
 }
 
-
-
-
 // валидация при потере фокуса
-
 
 function ValNumber(check_btn) {
   if ($.trim(telInput.val())) {
@@ -1040,13 +1036,6 @@ telInput.blur(function () {
   var check_btn = "#payment_check_btn";
   ValNumber(check_btn);
 });
-
-
-
-
-
-
-
 
 // сброс при нажатии на клавишу
 telInput.keydown(function () {
@@ -1087,8 +1076,8 @@ $("#individ_rating_btn").click(function (e) {
     success: function (data) {
       $(".rating_success").html(
         '<div class="rating_success_item"><p>Моя оценка Индивидуальному этапу: ' +
-        keys["rating"] +
-        "</p></div>"
+          keys["rating"] +
+          "</p></div>"
       );
     },
   });
@@ -1120,25 +1109,25 @@ $(".form-switch").change(function (e) {
       type: "POST",
       url: "https://nezhno.space/auth-check/",
       data: { route_val: 6 },
-      success: function (data) { },
+      success: function (data) {},
     });
   }
 });
 
-
-
 $(".recognized_yourself a").on("click", function (e) {
   e.preventDefault();
-  var anchor = $(this).attr('href');
-  $('html, body').stop().animate({
-    scrollTop: $(anchor).offset().top - 60
-  }, 800);
+  var anchor = $(this).attr("href");
+  $("html, body")
+    .stop()
+    .animate(
+      {
+        scrollTop: $(anchor).offset().top - 60,
+      },
+      800
+    );
 });
 
-
-
 $("#promocode_btn").click(function (e) {
-
   e.preventDefault();
 
   $("input").removeClass("error");
@@ -1158,7 +1147,6 @@ $("#promocode_btn").click(function (e) {
     }
     $("#phone").addClass("error");
   } else {
-
     let formData = new FormData();
     formData.append("promocode", promocode);
     formData.append("user_tel", user_tel);
@@ -1174,11 +1162,12 @@ $("#promocode_btn").click(function (e) {
       success: function (data) {
         if (data.status) {
           $(".promocode").fadeOut(500, function () {
-            let success_txt = '<div class="promocode_title"><h2>Теперь Вам доступны уроки</h2></div>';
+            let success_txt =
+              '<div class="promocode_title"><h2>Теперь Вам доступны уроки</h2></div>';
             let success_svg = $(".promocode_svg").html();
             $(".promocode").html(success_txt + success_svg);
-            $(".promocode svg").removeClass('none');
-            $('.promocode').css('text-align', 'center');
+            $(".promocode svg").removeClass("none");
+            $(".promocode").css("text-align", "center");
             $(".promocode").fadeIn(1000);
             setTimeout(function () {
               window.location.reload(1);
@@ -1192,12 +1181,139 @@ $("#promocode_btn").click(function (e) {
           if (data.type == 2) {
             $("#error_phone").removeClass("none");
           }
-
         }
       },
       error: function (jqxhr, status, errorMsg) {
         console.log(status, errorMsg);
       },
     });
-  };
+  }
 });
+
+(() => {
+  let inputImgAvatar = document.querySelector("#account_input-img");
+  let dropboxGender = document.querySelector(".account_input-gender-wrapper");
+
+  if (inputImgAvatar) {
+    //смена аватарки в профиле
+    inputImgAvatar.addEventListener("change", function () {
+      if (inputImgAvatar.files[0]) {
+        let fr = new FileReader();
+
+        fr.addEventListener(
+          "load",
+          function () {
+            document.querySelector(".account_image-wrap img").src = fr.result;
+          },
+          false
+        );
+
+        fr.readAsDataURL(inputImgAvatar.files[0]);
+      }
+    });
+    //выбор пола
+    dropboxGender.addEventListener("click", function () {
+      let inputGender = document.querySelector(".account_input-gender");
+      let listGender = document.querySelectorAll(".account_gender-list span");
+
+      document
+        .querySelector(".account_gender-select svg")
+        .classList.toggle("dropdown");
+      if (
+        document
+          .querySelector(".account_gender-select svg")
+          .classList.contains("dropdown")
+      ) {
+        document.querySelector(".account_gender-list").style.display = "flex";
+      } else {
+        document.querySelector(".account_gender-list").style.display = "none";
+      }
+
+      listGender.forEach((item) => {
+        item.addEventListener("click", function () {
+          inputGender.value = item.innerText;
+          document
+            .querySelector(".account_gender-select svg")
+            .classList.remove("dropdown");
+          document.querySelector(".account_gender-list").style.display = "none";
+        });
+      });
+    });
+    //ввод номера телефона
+    let inputPhone = document.querySelector("#account_personal-tel");
+    let keyCode;
+    function Mask(event) {
+      event.keyCode && (keyCode = event.keyCode);
+      let pos = this.selectionStart;
+      if (pos < 3) event.preventDefault();
+      let matrix = "+7 (___) ___-__-__",
+        i = 0,
+        def = matrix.replace(/\D/g, ""),
+        val = this.value.replace(/\D/g, ""),
+        newValue = matrix.replace(/[_\d]/g, function (a) {
+          return i < val.length ? val.charAt(i++) || def.charAt(i) : a;
+        });
+      i = newValue.indexOf("_");
+      if (i != -1) {
+        i < 5 && (i = 3);
+        newValue = newValue.slice(0, i);
+      }
+      let reg = matrix
+        .substr(0, this.value.length)
+        .replace(/_+/g, function (a) {
+          return "\\d{1," + a.length + "}";
+        })
+        .replace(/[+()]/g, "\\$&");
+      reg = new RegExp("^" + reg + "$");
+      if (
+        !reg.test(this.value) ||
+        this.value.length < 5 ||
+        (keyCode > 47 && keyCode < 58)
+      )
+        this.value = newValue;
+      if (event.type == "blur" && this.value.length < 5) this.value = "";
+    }
+
+    inputPhone.addEventListener("input", Mask, false);
+    inputPhone.addEventListener("focus", Mask, false);
+    inputPhone.addEventListener("blur", Mask, false);
+    inputPhone.addEventListener("keydown", Mask, false);
+
+    //клик по кнопке сохранить
+    let btnSave = document.querySelector(".account_btn-save");
+
+    btnSave.addEventListener("click", function (e) {
+      e.preventDefault();
+      let name = document.querySelector("#account_personal-name").value;
+      let lastName = document.querySelector("#account_personal-lastName").value;
+      if (name.length > 0 || lastName.length > 0) {
+        function ucFirst(str) {
+          if (!str) return str;
+
+          return str[0].toUpperCase() + str.slice(1);
+        }
+        document.querySelector(".account_personal-name").innerText = `${ucFirst(
+          name
+        )} ${ucFirst(lastName)}`;
+        document.querySelector(".account_fullname").innerText = `${ucFirst(
+          name
+        )} ${ucFirst(lastName)}`;
+      }
+    });
+
+    //клики по меню навигации
+    let navigationList = document.querySelectorAll(
+      ".account_navigation-list li"
+    );
+    navigationList.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        navigationList.forEach((li) => {
+          if (li !== item && li.classList.contains("active")) {
+            li.classList.remove("active");
+          }
+        });
+        item.classList.add("active");
+      });
+    });
+  }
+})();

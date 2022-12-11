@@ -49,7 +49,7 @@ function load_styles(){
 
 	$css_files = ["header", "main" , "blog", "footer", "about_us", 
 	"page-blog", "404", "documents",
-	"single", "audio", "sign"];
+	"single", "audio", "sign", "account-content"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(

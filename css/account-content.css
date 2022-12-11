@@ -1,0 +1,188 @@
+.account_section {
+  margin-top: 172px;
+}
+.account_navigation-list {
+  display: flex;
+  padding-left: 0;
+}
+.account_navigation-list li {
+  margin-right: 30px;
+  list-style-type: none;
+  color: var(--black);
+
+  cursor: pointer;
+}
+.account_navigation-list li:last-child {
+  margin-right: 0;
+}
+.account_navigation-list li.active {
+  font-weight: bold;
+}
+.account_navigation-list li a {
+  color: inherit;
+}
+.account_sections-main {
+  width: 100%;
+  margin-top: 82px;
+  margin-bottom: 64px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.account_analytics-container {
+  width: 100%;
+  max-width: 560px;
+  height: 430px;
+  background-color: #bfcacd;
+}
+.account_personal-data {
+  width: 100%;
+  max-width: 280px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.account_image-wrap {
+  width: 120px;
+  height: 120px;
+  background-color: #bfcacd;
+  border-radius: 50%;
+  overflow: hidden;
+
+  position: relative;
+}
+.account_personal-data img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.account_personal-data img[alt] {
+  color: transparent;
+}
+.account_edit-img {
+  position: absolute;
+  bottom: 16px;
+  left: 48px;
+  cursor: pointer;
+
+  z-index: 10;
+}
+#account_input-img {
+  display: none;
+}
+.account_personal-name {
+  margin-top: 6px;
+  font-weight: bold;
+}
+.account_wrap-gender-age {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+}
+.account_gender-select {
+  width: 60%;
+  margin-right: 17px;
+  cursor: pointer;
+  position: relative;
+}
+.account_gender-select svg {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 32px;
+  height: 8px;
+  top: 17px;
+  right: 15px;
+  transition: transform 0.3s;
+}
+.account_gender-select svg.dropdown {
+  transform: rotate(180deg);
+}
+.account-input-custom {
+  padding: 12px 16px;
+  border: 1px solid #421dd8;
+  border-radius: 10px;
+  text-align: start;
+}
+.account_input-gender {
+  width: 100%;
+  background-color: transparent;
+}
+.account_gender-list {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px 10px;
+  flex-direction: column;
+  border: 1px solid #421dd8;
+  border-radius: 10px;
+
+  display: none;
+}
+.account_gender-list span {
+  padding: 10px 0;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+.account_gender-list span:first-child {
+  border-bottom: 1px solid #421dd8;
+}
+.account_age-select {
+  flex-grow: 1;
+}
+#account_input-age {
+  width: 100%;
+  color: #4b4b4b;
+  text-transform: uppercase;
+}
+#account_personal-name,
+#account_personal-lastName,
+#account_personal-email,
+#account_personal-tel,
+.account_btn-save {
+  width: 100%;
+  margin-top: 16px;
+}
+.account_btn-save {
+}
+.account_sections-footer {
+  width: 100%;
+  margin-bottom: 80px;
+  text-align: center;
+  line-height: 1.2;
+}
+.account_sections-footer a {
+  color: #3f3176;
+  cursor: pointer;
+}
+@media screen and (max-width: 960px) {
+  .account_sections-main {
+    margin-top: 40px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .account_analytics-container {
+    max-width: 650px;
+    order: 2;
+  }
+  .account_section {
+    margin-top: 75px;
+  }
+  .account_personal-data {
+    max-width: 450px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .account_navigation-list {
+    flex-direction: column;
+  }
+  .account_navigation-list li {
+    margin-top: 20px;
+  }
+  .account_navigation-list li:first-child {
+    margin-top: 0;
+  }
+}
