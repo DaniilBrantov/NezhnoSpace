@@ -106,16 +106,23 @@
   border-radius: 10px;
   text-align: start;
 }
+.account-input-custom:focus {
+  outline: none;
+  box-shadow: 0px 1px 5px rgba(141, 154, 206, 0.5);
+}
 .account_input-gender {
   width: 100%;
   background-color: transparent;
 }
 .account_gender-list {
+  position: absolute;
   width: 100%;
   margin-top: 10px;
   padding: 5px 10px;
   flex-direction: column;
   border: 1px solid #421dd8;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 1px 5px rgba(141, 154, 206, 0.5);
   border-radius: 10px;
 
   display: none;
