@@ -31,7 +31,7 @@ $("#reg_btn").click(function (e) {
         success: function (data) {
             //Успешно зарегистрорвался
             if (data.status) {
-                console.log(data.status)
+                console.log(data)
             }
             //Выводить ошибки
             else {

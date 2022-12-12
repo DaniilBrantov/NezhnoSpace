@@ -3,7 +3,7 @@
     require_once( get_theme_file_path('processing.php') );
     $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
     $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
-    $pass=filter_var(trim($_POST['pass']), FILTER_SANITIZE_STRING);
+    $pass=$_POST['pass'];
     $pass_conf=$_POST['pass_conf'];
     $checkbox=$_POST['approval_check'];
 
@@ -48,14 +48,12 @@
     }
 
 
-
-
     if(empty($errors)) {
       // Хешируем пароль
       $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
   
       // Сохраняем таблицу
-      //$db->rawQuery("INSERT INTO `users`( `name`, `mail`, `password`) VALUES('$name','$mail','$hash_pass') ");
+      //$db->query("INSERT INTO `users`( `name`, `mail`, `password`) VALUES('$name','$mail','$hash_pass') ");
       $errors['status']=true;
     } else {
       //Возвращать все ошибки
