@@ -1,27 +1,23 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
 
-    enter();
-
     //если передана переменная action, «разавторизируем» пользователя
     if($_GET['action'] == "out") out(); 
 
-    //вызываем функцию login, которая определяет, авторизирован пользователь или нет
     if (login()){
-        //если пользователь авторизирован, присваиваем переменной $UID его id
         $UID = $_SESSION['id'];
+        echo json_encode($error);
     }else {
-        //если пользователь не авторизирован, проверяем, была ли нажата
-        //кнопка входа на сайт
         if(isset($_POST['auth_btn'])){
-            //функция входа на сайт
-            $error = enter(); 
-
-            //echo json_encode($error);
-
-            //если ошибки отсутствуют, авторизируем пользователя
+            $error=enter();
             if (count($error) == 0){
                 $UID = $_SESSION['id'];
+                $error['status']=true;
+                echo json_encode($error);
+            }else{
+                //функция входа на сайт
+                $error['status']=false;
+                echo json_encode($error);
             }
         }
     }
@@ -29,37 +25,38 @@
 
 
 function enter (){ 
+    $db = new SafeMySQL();
     $error = [];
-    if ($_POST['mail'] != "" && $_POST['pass'] != "" && $_POST['mail'] != NULL && $_POST['pass'] != NULL){       
-        $mail = $_POST['mail']; 
-        $pass = $_POST['pass'];
-        echo json_encode('$error');
 
+    if ($_POST['mail'] != "" && $_POST['pass'] != ""){       
+        $mail=$_POST['mail']; 
+        $pass=$_POST['pass'];
+        $enter_rez=$db->query("SELECT * FROM users WHERE mail=?s",$_POST['mail']);
 
-        $rez = $db->rawQuery("SELECT * FROM users WHERE mail=$mail");
-        if ($db->numRows($rez) == 1){        
-            $row = mysql_fetch_assoc($rez);             
-            if (md5(md5($pass)) == $row['password']){ 
-            setcookie ("mail", $row['mail'], time() + 50000);                         
-            setcookie ("pass", md5($row['mail'].$row['password']), time() + 50000);                    
-            $_SESSION['id'] = $row['id'];               
-            $id = $_SESSION['id'];           
-            lastAct($id);           
-            return $error;          
+        if ($db->numRows($enter_rez) == 1){  
+            $row = $db->getAll("SELECT * FROM users WHERE mail=?s",$_POST['mail'])[0];             
+            if (password_verify($pass, $row['password'])){ 
+                    setcookie ("mail", $row['mail'], time() + 50000);                         
+                    setcookie ("pass", md5($row['mail'].$row['password']), time() + 50000);                    
+                    $_SESSION['id'] = $row['id'];               
+                    $id = $_SESSION['id'];   
+                    lastAct($id);           
+                    return $error;          
             }else{               
-                $error[] = "Неверный пароль";                                       
+                $error['mail'] = "Неверный пароль";                                       
                 return $error;          
             }       
         }else{           
-            $error[] = "Неверный email или пароль";           
+            $error['mail'] = "Такого пользователя не существует";           
             return $error;      
         }   
     }else{    
 
         if($_POST['mail'] === ""){
-            $error[] = "Вы не ввели email";              
-        }elseif($_POST['pass'] === ""){
-            $error[] = "Вы не ввели пароль";              
+            $error['mail'] = "Вы не ввели email";              
+        }
+        if($_POST['pass'] === ""){
+            $error['pass'] = "Вы не ввели пароль";              
         }
         return $error; 
 
@@ -67,16 +64,18 @@ function enter (){
 }
 
 function lastAct($id){
+    $db = new SafeMySQL(); 
     $tm = time();   
-    $db->rawQuery("UPDATE users SET online='$tm', last_act='$tm' WHERE id='$id'"); 
+    $db->query("UPDATE users SET online='$tm', last_act='$tm' WHERE id='$id'"); 
 }
 
 
 
 
 function login () {     
-    ini_set ("session.use_trans_sid", true);    
+    ini_set ("session.use_trans_sid", true);   
     session_start();    
+
     if (isset($_SESSION['id'])){
 
         //если cookie есть, обновляется время их жизни и возвращается true     
@@ -88,7 +87,7 @@ function login () {
             lastAct($id);           
             return true;        
         }else{   
-            //иначе добавляются cookie с логином и паролем, чтобы после перезапуска браузера сессия не слетала     
+            //иначе добавляются cookie с email и паролем, чтобы после перезапуска браузера сессия не слетала     
             $rez = $db->rawQuery("SELECT * FROM users WHERE id='{$_SESSION['id']}'"); 
 
             if ($db->numRows($rez) == 1){       
@@ -126,19 +125,21 @@ function login () {
 
 
 
-
+//Выход из аккаунта
 function out () {
-    session_start();    
+    ini_set ("session.use_trans_sid", true);   
+    session_start();
+    $db = new SafeMySQL();   
     $id = $_SESSION['id'];              
     
     //обнуляется поле online, говорящее, что пользователь вышел
     //с сайта (пригодится в будущем)     
-    $db->rawQuery("UPDATE users SET online=0 WHERE id='$id'");
+    $db->query("UPDATE users SET online=0 WHERE id='$id'");
     unset($_SESSION['id']); //удалятся переменная сессии    
     SetCookie("mail", ""); //удаляются cookie с логином    
+    SetCookie("pass", ""); //удаляются cookie с паролем   
     
-    SetCookie("pass", ""); //удаляются cookie с паролем     
-    header('Location: http://'.$_SERVER['HTTP_HOST'].'/');//перенаправление на главную страницу сайта 
+    header('Location: http://'.$_SERVER['HTTP_HOST'].'/');
 };
 
 
@@ -228,6 +229,19 @@ function out () {
 
 
 
+
+    
+
+
+
+
+
+
+
+
+
+
+
     // $mail=$_POST['mail'];
     // $pass= $_POST['pass'];
     // $pass= md5($pass."lksd4fvm879");
@@ -285,6 +299,17 @@ function out () {
 
     //     echo json_encode($response);
     // }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

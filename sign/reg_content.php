@@ -17,7 +17,10 @@
             </div>
             <div class="pers_item">
                 <label>Пароль</label>
-                <input type="password" name="pass" placeholder="Введите пароль...">
+                <div class="pers_input">
+                    <input type="password" name="pass" placeholder="Введите пароль...">
+                    <span class="pass_eye"></span>
+                </div>
             </div>
             <div class="pers_item">
                 <label>Подтвердите пароль</label>

@@ -91,6 +91,7 @@
             if (data[key].title == id) {
               dataBase[data[key].title].push(
                 {
+                  theme_title: data[key].theme_title,
                   title: data[key].title,
                   text: data[key].text,
                   audio: data[key].audio,
@@ -107,7 +108,7 @@
       for (let key in dataBase) {
         list.innerHTML += `
           <li class="trial_item" id=${key}>
-              <p data-key=${key} class="trial_title ${key == 1 ? "active" : ""}">Тема ${key}</p>
+              <p data-key=${key} class="trial_title ${key == 1 ? "active" : ""}"> ...</p>
                 <ul class="trial_nested-list ${key == 1 ? "active" : ""}">
                   <li class="show-active">
                       <p>Общее</p>
