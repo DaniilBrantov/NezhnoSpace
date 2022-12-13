@@ -47,10 +47,6 @@ $("#reg_btn").click(function (e) {
                         showError(key, data[key]);
                     }
                 }
-                // data.fields.forEach(function (field) {
-                //     $(`input[name="${field}"]`).addClass("error");
-                // });
-                // $(".auth_msg").removeClass("none").text(data.message);
             }
         },
         error: function (jqxhr, status, errorMsg) {
@@ -92,10 +88,6 @@ $("#auth_btn").click(function (e) {
                         showError(key, data[key]);
                     }
                 }
-                //     data.fields.forEach(function (field) {
-                //         $(`input[name="${field}"]`).addClass("error");
-                //     });
-                // $(".auth_msg").removeClass("none").text(data.message);
             }
         },
         error: function (jqxhr, status, errorMsg) {
