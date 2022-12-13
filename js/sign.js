@@ -1,3 +1,9 @@
+const showError = (value, textError) => {
+    document.querySelector(`input[name=${value}]`).classList.add('error');
+    document.querySelector(`.text-error_${value}`).style.opacity = '1';
+    document.querySelector(`.text-error_${value}`).innerText = textError;
+}
+
 //Регистрация
 
 $("#reg_btn").click(function (e) {
@@ -35,7 +41,12 @@ $("#reg_btn").click(function (e) {
             }
             //Выводить ошибки
             else {
-                console.log(data)
+                for (let key in data) {
+                    if (key !== 'status') {
+                        console.log(key, data[key])
+                        showError(key, data[key]);
+                    }
+                }
                 // data.fields.forEach(function (field) {
                 //     $(`input[name="${field}"]`).addClass("error");
                 // });
@@ -73,10 +84,14 @@ $("#auth_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
-            console.log(data)
             if (data.status) {
 
             } else {
+                for (let key in data) {
+                    if (key !== 'status') {
+                        showError(key, data[key]);
+                    }
+                }
                 //     data.fields.forEach(function (field) {
                 //         $(`input[name="${field}"]`).addClass("error");
                 //     });

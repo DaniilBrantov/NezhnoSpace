@@ -9,6 +9,7 @@
             <div class="pers_item">
                 <label>Email</label>
                 <input type="text" name="mail" placeholder="Введите email...">
+                <span class="text-error text-error_mail">text error</span>
             </div>
             <div class="pers_item">
                 <div class="pers_item_pass">
@@ -20,6 +21,7 @@
                 <div class="pers_input">
                     <input type="password" name="pass" placeholder="Введите пароль...">
                     <span class="pass_eye"></span>
+                    <span class="text-error text-error_pass">text error</span>
                 </div>
 
             </div>

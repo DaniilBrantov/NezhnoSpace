@@ -9,22 +9,26 @@
             <div class="pers_item">
                 <label>Ваше имя</label>
                 <input type="text" name="first_name" placeholder="Введите имя...">
+                <span class="text-error text-error_first_name">text error</span>
             </div>
             <div class="pers_item">
                 <label>Email</label>
                 <p class="pers_item_txt">На указанный email придет код подтверждения</p>
                 <input type="text" name="mail" placeholder="Введите email...">
+                <span class="text-error text-error_mail">text error</span>
             </div>
             <div class="pers_item">
                 <label>Пароль</label>
                 <div class="pers_input">
                     <input type="password" name="pass" placeholder="Введите пароль...">
                     <span class="pass_eye"></span>
+                    <span class="text-error text-error_pass">text error</span>
                 </div>
             </div>
             <div class="pers_item">
                 <label>Подтвердите пароль</label>
                 <input type="password" name="pass_conf" placeholder="Подтвердите пароль...">
+                <!-- <span class="text-error text-error_pass_conf">text error</span> -->
             </div>
             <div class="pers_approval pers_item_txt">
                 <input type="checkbox" required class="visually-hidden" id="pers_approval_checkbox"

@@ -477,3 +477,18 @@ $(function () {
     });
 });
 
+//скрытие ошибки на странице регистрации/авторизации после нажатия на инпут
+(() => {
+    let arrayInput = document.querySelectorAll('.pers_item input');
+
+    if (arrayInput) {
+        arrayInput.forEach((input) => {
+            input.addEventListener('focus', function(e) {
+                if (input.classList.contains('error')) {
+                    input.classList.remove('error');
+                    input.closest('.pers_item').querySelector('.text-error').style.opacity = '0';
+                }
+            })
+        })
+    }
+})();

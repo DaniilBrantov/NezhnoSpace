@@ -2,6 +2,8 @@
   background-color: var(--white);
   width: 100vw;
   height: 100vh;
+  margin-top: 70px;
+  margin-bottom: 30px;
   align-items: center;
   display: grid;
 }
@@ -20,7 +22,7 @@
   padding: 20px;
   border-radius: 7px;
   display: grid;
-  gap: 13px;
+  gap: 5px;
 }
 .pers_item label {
   font-size: 13px;
@@ -47,6 +49,8 @@
   display: inline-flex;
   align-items: center;
   user-select: none;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 #pers_approval_checkbox + label::before {
   content: "";
@@ -135,4 +139,21 @@
 }
 .pass_eye.close_eye {
 	background: url(../images/Eye-Off.svg) 0 0 no-repeat;
+}
+
+input.error {
+  outline: 1px solid red;
+  border-color: red;
+}
+.text-error {
+  font-size: 11px;
+  color: red;
+  opacity: 0;
+}
+
+@media (min-width: 960px) {
+  .authorization {
+    margin-top: 100px;
+    height: auto;
+  }
 }
