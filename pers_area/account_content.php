@@ -6,7 +6,7 @@
 <div class="account_section">
     <div class="container">
         <ul class="account_navigation-list">
-            <li class="active account_fullname"><a href="#">Ксения Ларькина</a></li>
+            <li class="active account_fullname"><a href="#">Мои данные</a></li>
             <li><a href="#">Моя подписка</a></li>
             <li><a href="#">Календарь</a></li>
         </ul>
@@ -24,7 +24,7 @@
                     </label>
                     <input type="file" name="account_input-img" id="account_input-img" />
                 </div>
-                <span class="account_personal-name">Kseniya Larkina</span>
+                <span class="account_personal-name">Мои данные</span>
                 <div class="account_wrap-gender-age">
                     <div class="account_gender-select">
                         <div class="account_input-gender-wrapper">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="account_age-select">
                         <input type="date" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="" min="1900-01-01" max="2022-12-31" required="required">
+                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД.MM.ГГГГ">
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
