@@ -39,7 +39,7 @@
       let paragraphs = elem.text.split("  ");
 
       //1 вариант
-      if (elem.text.length > 600 && paragraphs.length > 2) {
+      if (elem.text.length > 300 && paragraphs.length > 2) {
         let firstText, lastText;
 
         //делим обзацы примерно пополам и рубим его по пробелу
@@ -139,9 +139,7 @@
         for (let key in dataBase) {
           list.innerHTML += `
           <li class="trial_item" id=${key}>
-              <p data-key=${key} class="trial_title ${
-            key == 1 ? "active" : ""
-          }">${dataTheme[key] ? dataTheme[key] : key}</p>
+              <p data-key=${key} class="trial_title ${key == 1 ? "active" : ""}">${dataTheme[key] ? dataTheme[key] : key}</p>
                 <ul class="trial_nested-list ${key == 1 ? "active" : ""}">
                   <li class="show-active">
                       <p>Общее</p>

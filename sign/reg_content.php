@@ -28,7 +28,7 @@
             <div class="pers_item">
                 <label>Подтвердите пароль</label>
                 <input type="password" name="pass_conf" placeholder="Подтвердите пароль...">
-                <!-- <span class="text-error text-error_pass_conf">text error</span> -->
+                <span class="text-error text-error_pass_conf">text error</span>
             </div>
             <div class="pers_approval pers_item_txt">
                 <input type="checkbox" required class="visually-hidden" id="pers_approval_checkbox"
