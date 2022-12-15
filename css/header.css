@@ -66,10 +66,6 @@
   align-items: center;
   padding-left: 0;
 }
-.nav_list ul {
-  display: flex; 
-  /* не забыть убрать */
-}
 .nav_list li {
   margin-bottom: 32px;
   padding: 0;
