@@ -9,8 +9,10 @@
 
 
 
-
-
+    $name="ashdashd";
+    $mail="qasffe@sdf.ruswewn";
+    $pass="12345fhgdsDFG";
+    $pass_conf="12345fhgdsDFG";
 
 
     // Создаем массив для сбора ошибок
@@ -55,10 +57,43 @@
       // Сохраняем таблицу
       //$db->query("INSERT INTO `users`( `name`, `mail`, `password`) VALUES('$name','$mail','$hash_pass') ");
       $errors['status']=true;
+
     } else {
       //Возвращать все ошибки
       $errors['status']=false;
     };
-    echo json_encode($errors);
+    if($errors['status'] && authLogin($url . "/auth-check", $mail, $pass)){
+      echo $_SESSION['id'];
+    }else{
+      echo json_encode($errors);
+    }
+
+
+
+    function authLogin($url,$mail,$pass){
+      $ch = curl_init();
+      if(strtolower((substr($url,0,5))=='https')) { // если соединяемся с https
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      }
+      curl_setopt($ch, CURLOPT_URL, $url);
+      // откуда пришли на эту страницу
+      curl_setopt($ch, CURLOPT_REFERER, $url);
+      //cURL будет выводить подробные сообщения о всех производимых действиях
+      curl_setopt($ch, CURLOPT_VERBOSE, 0);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS,"auth_btn=true&mail=".$mail."&pass=".$pass);
+      curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (Windows; U; Windows NT 5.0; En; rv:1.8.0.2) Gecko/20070306 Firefox/1.0.0.4");
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+      //сохранять полученные COOKIE в файл
+      curl_setopt($ch, CURLOPT_COOKIEJAR, dirname(__FILE__) . '/cookies.txt');
+      $result=curl_exec($ch);
+      // Убеждаемся что произошло перенаправление после авторизации
+      //if(strpos($result,"Location: account")===true) die('Login incorrect');
+      curl_close($ch);
+      return $result;
+  }
 
 ?>
