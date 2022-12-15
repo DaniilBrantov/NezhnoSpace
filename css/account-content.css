@@ -1,7 +1,7 @@
 .account_section {
   margin-top: 172px;
 }
-.account_navigation-list {
+/* .account_navigation-list {
   display: flex;
   padding-left: 0;
 }
@@ -20,7 +20,7 @@
 }
 .account_navigation-list li a {
   color: inherit;
-}
+} */
 .account_sections-main {
   width: 100%;
   margin-top: 82px;
@@ -144,6 +144,15 @@
   color: #4b4b4b;
   text-transform: uppercase;
   background-color: #fff;
+  cursor: pointer;
+}
+#account_input-age::-webkit-input-placeholder,
+#account_input-age::-moz-placeholder,
+#account_input-age:-ms-input-placeholder,
+#account_input-age::-ms-input-placeholder, 
+#account_input-age::placeholder {
+  font-size: 11px;
+  color: #4b4b4b;
 }
 #account_personal-name,
 #account_personal-lastName,
@@ -180,17 +189,5 @@
   }
   .account_personal-data {
     max-width: 450px;
-  }
-}
-
-@media screen and (max-width: 720px) {
-  .account_navigation-list {
-    flex-direction: column;
-  }
-  .account_navigation-list li {
-    margin-top: 20px;
-  }
-  .account_navigation-list li:first-child {
-    margin-top: 0;
   }
 }

@@ -1300,20 +1300,5 @@ $("#promocode_btn").click(function (e) {
         )} ${ucFirst(lastName)}`;
       }
     });
-
-    //клики по меню навигации
-    let navigationList = document.querySelectorAll(
-      ".account_navigation-list li"
-    );
-    navigationList.forEach((item) => {
-      item.addEventListener("click", function (e) {
-        navigationList.forEach((li) => {
-          if (li !== item && li.classList.contains("active")) {
-            li.classList.remove("active");
-          }
-        });
-        item.classList.add("active");
-      });
-    });
   }
 })();

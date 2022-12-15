@@ -5,11 +5,6 @@
 
 <div class="account_section">
     <div class="container">
-        <ul class="account_navigation-list">
-            <li class="active account_fullname"><a href="#">Мои данные</a></li>
-            <li><a href="#">Моя подписка</a></li>
-            <li><a href="#">Календарь</a></li>
-        </ul>
         <div class="account_sections-main">
             <div class="account_analytics-container">блок графиков и аналитики</div>
             <form class="account_personal-data">
@@ -42,8 +37,8 @@
                         </div>
                     </div>
                     <div class="account_age-select">
-                        <input type="date" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД.MM.ГГГГ">
+                        <input type="text" id="account_input-age" class="account-input-custom" name="account_input-age"
+                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')" >
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"

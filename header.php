@@ -66,4 +66,13 @@
                     };
                 ?>
         </div>
+        
+        <div class="header_auth">
+            <ul class="account_navigation-list navigation-list_slider">
+                <li class="active account_fullname"><a href="">Мои данные</a></li>
+                <li><a href="">Моя подписка</a></li>
+                <li><a href="">Календарь</a></li>
+                <li><a href="">Дополнительные продукты</a></li>
+            </ul>
+        </div>
     </header>
