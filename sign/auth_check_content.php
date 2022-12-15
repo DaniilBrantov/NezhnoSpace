@@ -1,9 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
-
     //если передана переменная action, «разавторизируем» пользователя
     if($_GET['action'] == "out") out(); 
-
     if (login()){
         $UID = $_SESSION['id'];
         echo json_encode($error);
@@ -13,6 +11,7 @@
             if (count($error) == 0){
                 $UID = $_SESSION['id'];
                 $error['status']=true;
+                $error['uid']=$UID;
                 echo json_encode($error);
             }else{
                 //функция входа на сайт
@@ -21,7 +20,6 @@
             }
         }
     }
-
 
 
 function enter (){ 
@@ -70,8 +68,6 @@ function lastAct($id){
 }
 
 
-
-
 function login () {     
     $db = new SafeMySQL(); 
     ini_set ("session.use_trans_sid", true);   
@@ -81,7 +77,8 @@ function login () {
 
         //если cookie есть, обновляется время их жизни и возвращается true     
         if(isset($_COOKIE['mail']) && isset($_COOKIE['pass'])){           
-            SetCookie("mail", "", time() - 1, '/');            SetCookie("pass","", time() - 1, '/');          
+            SetCookie("mail", "", time() - 1, '/');
+            SetCookie("pass","", time() - 1, '/');          
             setcookie ("mail", $_COOKIE['mail'], time() + 50000, '/');            
             setcookie ("pass", $_COOKIE['pass'], time() + 50000, '/');          
             $id = $_SESSION['id'];          
@@ -126,8 +123,6 @@ function login () {
 }
 
 
-
-
 //Выход из аккаунта
 function out () {
     ini_set ("session.use_trans_sid", true);   
@@ -144,4 +139,5 @@ function out () {
     
     header('Location: http://'.$_SERVER['HTTP_HOST'].'/');
 };
+
 ?>

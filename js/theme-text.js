@@ -39,7 +39,7 @@
       let paragraphs = elem.text.split("  ");
 
       //1 вариант
-      if (elem.text.length > 300 && paragraphs.length > 2) {
+      if (elem.audio && elem.text.length > 300 && paragraphs.length > 2) {
         let firstText, lastText;
 
         //делим обзацы примерно пополам и рубим его по пробелу
@@ -61,9 +61,8 @@
 
         for (let i = 0; i < lastArray.length; i++) {
           text.querySelector(".trial_text-wrap").innerHTML += `
-            <p class='trial_text ${i === 0 ? "trial_text-show" : ""}'>${
-            lastArray[i]
-          }</p>
+            <p class='trial_text ${i === 0 ? "trial_text-show" : ""}'>${lastArray[i]
+            }</p>
           `;
         }
       } else {
