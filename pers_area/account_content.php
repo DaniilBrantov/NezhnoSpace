@@ -6,7 +6,11 @@
 <div class="account_section">
     <div class="container">
         <div class="account_sections-main">
-            <div class="account_analytics-container">блок графиков и аналитики</div>
+            <div class="account_analytics-container">
+                <div>Мой прогресс:</div>
+                <img src="<?php echo get_template_directory_uri(); ?>/images/sapiens.png" />
+                <div class="account_analytics_not-result-text">Пока не готов результат</div>
+            </div>
             <form class="account_personal-data">
                 <div class="account_image-wrap">
                     <img src='' alt="photo" width="" height="" />
@@ -37,8 +41,7 @@
                         </div>
                     </div>
                     <div class="account_age-select">
-                        <input type="text" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')" >
+                    <input placeholder="ДД.ММ.ГГ" class="account-input-custom" type="text" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}" id="account_input-age" name="account_input-age"/>
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"

@@ -103,7 +103,7 @@
   overflow: hidden;
 }
 .header_auth {
-  margin-top: 5px;
+  margin-top: 20px;
 }
 .account_navigation-list {
   display: flex;
@@ -189,7 +189,7 @@
     width: 32px;
   }
   .header_auth {
-    margin-top: 20px;
+    margin-top: 35px;
     margin-left: -40px;
   }
 }
