@@ -47,55 +47,61 @@
 </div>
 
 <?php 
+//Yandex Auth
+	// $client_id = 'd83fbbc9562e49699e2b6748284c4e67'; // Id приложения
+	// $client_secret = '44e3aede6c9e48c5aed44bceb664acc6'; // Пароль приложения
+	// $redirect_uri = 'https://eatintelligent.ru/registration'; // Callback URI
+	// $url = 'https://oauth.yandex.ru/authorize';
+	
+	// $params = array(
+	//     'response_type' => 'code',
+	//     'client_id'     => $client_id,
+	//     'display'       => 'popup'
+	// );
+	// echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) . '">Аутентификация через Yandex</a></p>';
+	// if (isset($_GET['code'])) {
+	//     $result = false;
+	//     $params = array(
+	//         'grant_type'    => 'authorization_code',
+	//         'code'          => $_GET['code'],
+	//         'client_id'     => $client_id,
+	//         'client_secret' => $client_secret
+	//     );
+	    
+	//     $url = 'https://oauth.yandex.ru/token';
+	    
+	//     $curl = curl_init();
+	//     curl_setopt($curl, CURLOPT_URL, $url);
+	//     curl_setopt($curl, CURLOPT_POST, 1);
+	//     curl_setopt($curl, CURLOPT_POSTFIELDS, urldecode(http_build_query($params)));
+	//     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	//     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+	//     $result = curl_exec($curl);
+	//     curl_close($curl);
+	    
+	//     $tokenInfo = json_decode($result, true);
+	//     if (isset($tokenInfo['access_token'])) {
+	//         $params = array(
+	//             'format'       => 'json',
+	//             'oauth_token'  => $tokenInfo['access_token']
+	//         );
+	    
+	//         $userInfo = json_decode(file_get_contents('https://login.yandex.ru/info' . '?' . urldecode(http_build_query($params))), true);
+	//         if (isset($userInfo['id'])) {
+    //             $userInfo = $userInfo;
+	//             $result = true;
+    //             var_dump($userInfo) ;
+	//         }
+	//     }
+	// }
 
 
-//VK Auth
-$vk_url = 'http://oauth.vk.com/authorize';
-$params = array(
-    'client_id'     => $client_id,
-    'redirect_uri'  => $redirect_uri,
-    'response_type' => 'code'
-);
+    //VK Auth
+
+    echo $link = '<p><a href="' . $vk_url . '?' . urldecode(http_build_query($params)) . '">Аутентификация через ВКонтакте</a></p>';
 
 
+    //Mail Auth
+    echo $link = '<p><a href="' . $url . '?' . urldecode(http_build_query($params)) . '">Аутентификация через Mail.ru</a></p>';
 
-echo $link = '<p><a href="' . $vk_url . '?' . urldecode(http_build_query($params)) . '">Аутентификация через ВКонтакте</a></p>';
-
-
-
-if (isset($_GET['code'])) {
-    $result = true;
-    $params = [
-        'client_id' => $client_id,
-        'client_secret' => $client_secret,
-        'code' => $_GET['code'],
-        'redirect_uri' => $redirect_uri
-    ];
-
-    $token = json_decode(file_get_contents('https://oauth.vk.com/access_token' . '?' . urldecode(http_build_query($params))), true);
-
-    if (isset($token['access_token'])) {
-        $params = [
-            'uids' => $token['user_id'],
-            'fields' => 'uid,first_name,last_name,screen_name,sex,bdate,photo_big',
-            'access_token' => $token['access_token'],
-            'v' => '5.101'];
-
-        $userInfo = json_decode(file_get_contents('https://api.vk.com/method/users.get' . '?' . urldecode(http_build_query($params))), true);
-        if (isset($userInfo['response'][0]['id'])) {
-            $userInfo = $userInfo['response'][0];
-            $result = true;
-        }
-    }
-
-    if ($result) {
-        echo "ID пользователя: " . $userInfo['id'] . '<br />';
-        echo "Имя пользователя: " . $userInfo['first_name'] . '<br />';
-        echo "Ссылка на профиль: " . $userInfo['screen_name'] . '<br />';
-        echo "Пол: " . $userInfo['sex'] . '<br />';
-        echo "День Рождения: " . $userInfo['bdate'] . '<br />';
-        echo '<img src="' . $userInfo['photo_big'] . '" />'; echo "<br />";
-
-    }
-}
 ?>

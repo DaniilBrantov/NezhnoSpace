@@ -1,6 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
-    CheckAuth();
+    //CheckAuth();
 ?>
 
 <div class="account_section">
@@ -38,7 +38,8 @@
                     </div>
                     <div class="account_age-select">
                         <input type="text" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')" >
+                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ"
+                            onfocus="(this.type='date')">
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"

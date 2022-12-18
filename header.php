@@ -66,7 +66,7 @@
                     };
                 ?>
         </div>
-        
+        <?php if($_SESSION['id']){ ?>
         <div class="header_auth">
             <ul class="account_navigation-list navigation-list_slider">
                 <li class="active account_fullname"><a href="">Мои данные</a></li>
@@ -75,4 +75,5 @@
                 <li><a href="">Дополнительные продукты</a></li>
             </ul>
         </div>
+        <?php }; ?>
     </header>
