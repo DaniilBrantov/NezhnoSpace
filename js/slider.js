@@ -4,7 +4,7 @@ $(function () {
   const sliderHeader = $(".navigation-list_slider");
 
   function initHeaderSlider() {
-    if ($window.width() < 760 && !hasInitSlider) {
+    if ($window.width() < 670 && !hasInitSlider) {
       sliderHeader.slick({
         infinite: false,
         arrows: false,
@@ -14,15 +14,21 @@ $(function () {
         variableHeight: true,
         responsive: [
             {
-              breakpoint: 500,
+              breakpoint: 520,
               settings: {
                 slidesToShow: 2,
+              },
+            },
+            {
+              breakpoint: 390,
+              settings: {
+                slidesToShow: 1,
               },
             },
           ],
       });
       hasInitSlider = true;
-    } else if ($window.width() > 760 && hasInitSlider) {
+    } else if ($window.width() > 670 && hasInitSlider) {
       sliderHeader.slick("unslick");
       hasInitSlider = false;
     }

@@ -1,39 +1,25 @@
 .account_section {
   margin-top: 172px;
 }
-/* .account_navigation-list {
-  display: flex;
-  padding-left: 0;
-}
-.account_navigation-list li {
-  margin-right: 30px;
-  list-style-type: none;
-  color: var(--black);
-
-  cursor: pointer;
-}
-.account_navigation-list li:last-child {
-  margin-right: 0;
-}
-.account_navigation-list li.active {
-  font-weight: bold;
-}
-.account_navigation-list li a {
-  color: inherit;
-} */
 .account_sections-main {
   width: 100%;
   margin-top: 82px;
   margin-bottom: 64px;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 .account_analytics-container {
   width: 100%;
   max-width: 560px;
-  height: 430px;
-  background-color: #bfcacd;
+  height: max-content;
+}
+.account_analytics-container img {
+  width: 100%;
+}
+.account_analytics_not-result-text {
+  margin-top: -35px;
+  text-align: center;
 }
 .account_personal-data {
   width: 100%;
@@ -48,7 +34,6 @@
   height: 120px;
   background-color: #bfcacd;
   border-radius: 50%;
-  overflow: hidden;
 
   position: relative;
 }
@@ -62,12 +47,22 @@
   color: transparent;
 }
 .account_edit-img {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   position: absolute;
-  bottom: 16px;
-  left: 48px;
+  bottom: 10px;
+  right: 0;
+  background-color: #fff;
   cursor: pointer;
 
   z-index: 10;
+}
+.account_edit-img svg {
+  width: 20px;
 }
 #account_input-img {
   display: none;
@@ -149,10 +144,11 @@
 #account_input-age::-webkit-input-placeholder,
 #account_input-age::-moz-placeholder,
 #account_input-age:-ms-input-placeholder,
-#account_input-age::-ms-input-placeholder, 
+#account_input-age::-ms-input-placeholder,
 #account_input-age::placeholder {
   font-size: 11px;
   color: #4b4b4b;
+  background-color: #fff;
 }
 #account_personal-name,
 #account_personal-lastName,
@@ -185,7 +181,7 @@
     order: 2;
   }
   .account_section {
-    margin-top: 75px;
+    margin-top: 85px;
   }
   .account_personal-data {
     max-width: 450px;
