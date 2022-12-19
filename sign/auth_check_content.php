@@ -1,12 +1,16 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
 
-
+    // $_POST['mail']='gdhdgf@dgh.fg';
+    // $_POST['pass']='aasdasd1223';
+    // $_POST['auth_btn']=true;
 
     //если передана переменная action, «разавторизируем» пользователя
     if($_GET['action'] == "out") out(); 
     if (login()){
         $UID = $_SESSION['id'];
+        $error=[];
+        $error['status']=true;
         echo json_encode($error);
     }else {
         if(isset($_POST['auth_btn'])){
@@ -14,7 +18,7 @@
             if (count($error) == 0){
                 $UID = $_SESSION['id'];
                 $error['status']=true;
-                $error['uid']=$UID;
+                $error['id']=$UID;
                 echo json_encode($error);
             }else{
                 //функция входа на сайт
@@ -74,7 +78,7 @@ function lastAct($id){
 function login () {     
     $db = new SafeMySQL(); 
     ini_set ("session.use_trans_sid", true);   
-    session_start();    
+    session_start();  
 
     if (isset($_SESSION['id'])){
 

@@ -1,6 +1,14 @@
 <?php
-    //session_start();
+    session_start();
     require_once( get_theme_file_path('processing.php') );
+
+
+
+    // $_POST['first_name']='dsfghjhghgf';
+    // $_POST['mail']='hdgf@dgh.fg';
+    // $_POST['pass']='aasdasd1223';
+    // $_POST['pass_conf']='aasdasd1223';
+
     $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
     $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
     $pass=$_POST['pass'];
@@ -9,10 +17,6 @@
 
 
 
-    $name="Test";
-    $mail="qa@sf.ruq";
-    $pass="12345fhgdsDFG";
-    $pass_conf="12345fhgdsDFG";
 
 
     // Создаем массив для сбора ошибок
@@ -53,16 +57,30 @@
     if(empty($errors)) {
       // Хешируем пароль
       $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
+      $activation=md5($mail.time());
+      $reg_date = time(); 
   
       // Сохраняем таблицу
-      $db->query("INSERT INTO `users`( `name`, `mail`, `password`) VALUES('$name','$mail','$hash_pass') ");
+      $db->query("INSERT INTO `users`( `name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
+
+      // include 'smtp/Send_Mail.php';
+      // $to=$mail;
+      // $subject="Подтверждение электронной почты";
+      // $body='Здравствуйте! <br/> <br/> Мы должны убедиться в том, что вы человек. Пожалуйста, подтвердите адрес вашей электронной почты, и можете начать использовать ваш аккаунт на сайте. <br/> <br/> <a href="'.$base_url.'activation/'.$activation.'">'.$base_url.'activation/'.$activation.'</a>';
+
+      // Send_Mail($to,$subject,$body);
+      // $msg= "Регистрация выполнена успешно, пожалуйста, проверьте электронную почту."; 
+      
       $errors['status']=true;
+      // $errors['go_mail']=$msg;
 
     } else {
       //Возвращать все ошибки
       $errors['status']=false;
     };
+    
     if($errors['status']){
+      //cURL запрос из auth. Автоматическая авторизация
       $postData = array(
         'auth' => true,
         'mail' => $mail,
@@ -74,8 +92,14 @@
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       $response = curl_exec($ch);
       curl_close($ch);
-      
-      echo ($response);
+      $response=json_decode($response, true);
+      extract($response);
+      $_SESSION['id']=$response['id'];
+      if(!$_SESSION['id']){
+        $errors['status']=false;
+      }else{
+        echo json_encode($errors);
+      }
     }else{
       echo json_encode($errors);
     }

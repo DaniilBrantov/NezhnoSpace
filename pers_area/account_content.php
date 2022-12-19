@@ -1,6 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
-    //CheckAuth();
+    CheckAuth();
 ?>
 
 <div class="account_section">

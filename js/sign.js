@@ -37,7 +37,7 @@ $("#reg_btn").click(function (e) {
         success: function (data) {
             //Успешно зарегистрорвался
             if (data.status) {
-                console.log(data)
+                window.location.href = 'account';
             }
             //Выводить ошибки
             else {
@@ -81,7 +81,7 @@ $("#auth_btn").click(function (e) {
         data: formData,
         success: function (data) {
             if (data.status) {
-
+                window.location.href = 'account';
             } else {
                 for (let key in data) {
                     if (key !== 'status') {

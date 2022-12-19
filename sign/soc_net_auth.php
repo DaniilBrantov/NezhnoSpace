@@ -68,7 +68,11 @@ require_once( get_theme_file_path('processing.php') );
 
 
 
-
+//VK Auth
+// $client_id = '51504557'; // ID приложения
+// $client_secret = 'fMXAAMClKlXAnhfS37et'; // Защищённый ключ
+// $redirect_uri = $url . "/registration"; // Адрес сайта
+// $vk_url = 'http://oauth.vk.com/authorize';
 //VK Auth
 // $params = array(
 //     'client_id'     => $client_id,
