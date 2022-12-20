@@ -2,10 +2,10 @@
     session_start();
     require_once( get_theme_file_path('processing.php') );
 
-
+    
 
     // $_POST['first_name']='dsfghjhghgf';
-    // $_POST['mail']='hdgf@dgh.fg';
+    // $_POST['mail']='hdqqwgf@dgh.fg';
     // $_POST['pass']='aasdasd1223';
     // $_POST['pass_conf']='aasdasd1223';
 
@@ -63,14 +63,6 @@
       // Сохраняем таблицу
       $db->query("INSERT INTO `users`( `name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
 
-      // include 'smtp/Send_Mail.php';
-      // $to=$mail;
-      // $subject="Подтверждение электронной почты";
-      // $body='Здравствуйте! <br/> <br/> Мы должны убедиться в том, что вы человек. Пожалуйста, подтвердите адрес вашей электронной почты, и можете начать использовать ваш аккаунт на сайте. <br/> <br/> <a href="'.$base_url.'activation/'.$activation.'">'.$base_url.'activation/'.$activation.'</a>';
-
-      // Send_Mail($to,$subject,$body);
-      // $msg= "Регистрация выполнена успешно, пожалуйста, проверьте электронную почту."; 
-      
       $errors['status']=true;
       // $errors['go_mail']=$msg;
 

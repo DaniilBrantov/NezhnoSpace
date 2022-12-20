@@ -37,7 +37,7 @@ $("#reg_btn").click(function (e) {
         success: function (data) {
             //Успешно зарегистрорвался
             if (data.status) {
-                window.location.href = 'account';
+                window.location.href = 'activation';
             }
             //Выводить ошибки
             else {
@@ -88,6 +88,35 @@ $("#auth_btn").click(function (e) {
                         showError(key, data[key]);
                     }
                 }
+            }
+        },
+        error: function (jqxhr, status, errorMsg) {
+            console.log(status, errorMsg);
+        },
+    });
+});
+
+$("#activation_btn").click(function (e) {
+    e.preventDefault();
+    let activation_btn = $('input[name="activation_btn"]').val();
+
+    let formData = new FormData();
+    formData.append("activation_btn", activation_btn);
+
+    //обьект ajax со св-ми ,как было у формы.
+    $.ajax({
+        url: "activation",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success: function (data) {
+            if (data.status) {
+                console.log("Письмо отправлено");
+            } else {
+                console.log("Ошибка! Письмо не отправлено");
             }
         },
         error: function (jqxhr, status, errorMsg) {
