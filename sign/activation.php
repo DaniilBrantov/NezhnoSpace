@@ -9,7 +9,7 @@ require_once( get_theme_file_path('processing.php') );
 require_once( get_theme_file_path('send_mail.php') );
 $msg='';
 if(!empty($_GET['code']) && isset($_GET['code'])){
-    $code=mysql_real_escape_string($_GET['code']);
+    $code=$_GET['code'];
     $c=$db->query("SELECT id FROM users WHERE activation='$code'");
     if($db->numRows($c) > 0){
         $count=$db->query("SELECT id FROM users WHERE activation='$code' and status='0'");
@@ -22,6 +22,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
     }else{
         $msg ="Неверный код активации.";
     }
+    echo $msg;
 }else{
     if($_POST["activation_btn"]){
         $hash=$db->getOne("SELECT activation FROM users WHERE id=?i", $_SESSION['id']); 
