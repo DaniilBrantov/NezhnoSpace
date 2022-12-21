@@ -44,8 +44,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
-  border-bottom: 1px solid #eceeef;
 }
 
 .modal__title {
@@ -91,4 +89,10 @@
   border-top: 1px solid #e9ecef;
   border-bottom-right-radius: 0.3rem;
   border-bottom-left-radius: 0.3rem;
+}
+.success__modal{
+  background-color: #6AFF8B;
+  padding: 20px 30px;
+  border-radius: 15px;
+  font-size: 14px;
 }

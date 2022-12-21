@@ -2,13 +2,6 @@
     session_start();
     require_once( get_theme_file_path('processing.php') );
 
-    
-
-    // $_POST['first_name']='dsfghjhghgf';
-    // $_POST['mail']='hdqqwgf@dgh.fg';
-    // $_POST['pass']='aasdasd1223';
-    // $_POST['pass_conf']='aasdasd1223';
-
     $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
     $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
     $pass=$_POST['pass'];
@@ -87,7 +80,7 @@
       $response=json_decode($response, true);
       extract($response);
       $_SESSION['id']=$response['id'];
-      if(!$_SESSION['id']){
+      if(!$_SESSION['id'] || $_SESSION['id']== NULL){
         $errors['status']=false;
       }else{
         echo json_encode($errors);

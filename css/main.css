@@ -1213,7 +1213,7 @@ section {
   }
   .subscriptions_item {
     position: relative;
-    padding: 226px 32px 0 32px;
+    padding: 206px 32px 20px 32px;
     background-image: url("../images/logo-vector.svg");
     background-position: 15% 25%;
     width: 272px;

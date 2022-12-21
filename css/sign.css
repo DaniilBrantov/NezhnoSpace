@@ -1,9 +1,9 @@
 .authorization {
   background-color: var(--white);
   width: 100vw;
-  height: 100vh;
-  margin-top: 70px;
-  margin-bottom: 30px;
+  height: 85vh;
+  /* margin-top: 70px; */
+  /* margin-bottom: 30px; */
   align-items: center;
   display: grid;
 }
@@ -85,18 +85,6 @@
 .pers_btn button {
   width: 100%;
 }
-.blue_btn {
-  background-color: #421dd8;
-  padding: 16px 32px;
-  border-radius: 15px;
-  color: var(--white);
-  border: none;
-  cursor: pointer;
-  font-family: "Montserrat", sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -151,9 +139,47 @@ input.error {
   opacity: 0;
 }
 
-@media (min-width: 960px) {
-  .authorization {
-    margin-top: 100px;
-    height: auto;
+
+/** Activation */
+.activation{
+  max-width: 600px;
+  background: whitesmoke;
+  border-radius: 20px;
+  padding: 25px;
+  color: #111111;
+  display: grid;
+  gap: 20px;
+  margin: auto;
+}
+.activation_title{
+  font-size: 24px;
+}
+.activation_txt_info{
+  font-size: 13px;
+  color: #545454;
+}
+.activation_msg{
+  max-width: 600px;
+  margin: auto;
+  align-items: center;
+  display: grid;
+  text-align: center;
+  justify-content: center;
+  gap: 40px;
+}
+.activation_msg img{
+  padding: 15px;
+  border-radius: 50%;
+  margin: auto;
+}
+.activation_msg p{
+  font-size: 36px;
+  font-weight: bold;
+}
+
+
+@media (max-width: 600px) {
+  .activation_msg p{
+    font-size: 20px;
   }
 }

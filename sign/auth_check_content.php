@@ -1,9 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
 
-    // $_POST['mail']='gdhdgf@dgh.fg';
-    // $_POST['pass']='aasdasd1223';
-    // $_POST['auth_btn']=true;
 
     //если передана переменная action, «разавторизируем» пользователя
     if($_GET['action'] == "out") out(); 

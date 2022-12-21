@@ -12,9 +12,8 @@ $db = new SafeMySQL();
 
 
 
-
 function CheckAuth(){
-    if (!$_SESSION['id']) {
+    if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
         header('Location: auth');
     }
 };

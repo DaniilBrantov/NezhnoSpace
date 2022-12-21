@@ -105,7 +105,7 @@ $("#activation_btn").click(function (e) {
 
     //обьект ajax со св-ми ,как было у формы.
     $.ajax({
-        url: "activation",
+        url: "activation_check",
         type: "POST",
         dataType: "json",
         processData: false,
@@ -113,10 +113,15 @@ $("#activation_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
+            let btn = document.querySelector('#activation_btn');
+            btn.setAttribute('disabled', true);
+            btn.style.opacity = "0.5";
+            btn.style.cursor = "default";
+
             if (data.status) {
-                console.log("Письмо отправлено");
+                btn.textContent = "Письмо отправлено";
             } else {
-                console.log("Ошибка! Письмо не отправлено");
+                btn.textContent = "Ошибка! Письмо не отправлено";
             }
         },
         error: function (jqxhr, status, errorMsg) {

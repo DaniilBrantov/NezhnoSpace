@@ -28,10 +28,13 @@ function getTimeCodeFromNum(num) {
 
     if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
     return `${String(hours).padStart(2, 0)}:${minutes}:${String(
-      seconds % 60
+        seconds % 60
     ).padStart(2, 0)}`;
-  }
+}
 
+$("#close_notification").click(function (e) {
+    $("#close_notification").closest('div').remove();
+});
 
 //---------КОНЕЦ-------  Подсказки, облегчения, общие функции
 
@@ -483,7 +486,7 @@ $(function () {
 
     if (arrayInput) {
         arrayInput.forEach((input) => {
-            input.addEventListener('focus', function(e) {
+            input.addEventListener('focus', function (e) {
                 if (input.classList.contains('error')) {
                     input.classList.remove('error');
                     input.closest('.pers_item').querySelector('.text-error').style.opacity = '0';

@@ -1,57 +1,33 @@
-<?php
-/**
- * Template Name: activation
- *
+<?php get_header(); 
 
- */
-get_header();
-require_once( get_theme_file_path('processing.php') );
-require_once( get_theme_file_path('send_mail.php') );
-$msg='';
 if(!empty($_GET['code']) && isset($_GET['code'])){
-    $code=mysql_real_escape_string($_GET['code']);
-    $c=$db->query("SELECT id FROM users WHERE activation='$code'");
-    if($db->numRows($c) > 0){
-        $count=$db->query("SELECT id FROM users WHERE activation='$code' and status='0'");
-        if(mysqli_num_rows($count) == 1){
-            $db->query("UPDATE users SET status='1' WHERE activation='$code'");
-            $msg="Ваш аккаунт активирован"; 
-        }else{
-            $msg ="Ваш аккаунт уже активирован, нет необходимости активировать его снова.";
-        }
-    }else{
-        $msg ="Неверный код активации.";
-    }
+    require_once( get_theme_file_path('sign/activation_check.php') );
 }else{
-    if($_POST["activation_btn"]){
-        $hash=$db->getOne("SELECT activation FROM users WHERE id=?i", $_SESSION['id']); 
-        $mail_body='<p style="margin:0;">
-            Пожалуйста, перейдите по ссылке ниже, чтобы активировать свой профиль и получить доступ к нему.
-            </p>
-            <a href="'.$url.'/activation?code='.$hash.'" style="
-                    text-decoration: none;
-            "><button style="
-                background: #421DD8;
-                color: whitesmoke;
-                padding: 12px 22px;
-                border-radius: 8px;
-                border:none;
-                cursor: pointer;
-                font-size: 16px;
-            ">
-                Активировать
-            </button> </a>';
-        $mail_title="Благодарим вас за регистрацию на платформе NezhnoSpace";
-        $mail_subject="Подтверждение электронной почты";
-
-        SendMail('daniil.brantov04@mail.ru', $mail_subject, $mail_body,$mail_title);
-    }else{ ?>
-<form>
-    <button name="activation_btn" id="activation_btn" class="blue_btn" type="submit">Отправить</button>
-</form>
-<?php
-    };
-}
-get_footer();
-
 ?>
+
+<div class="authorization">
+    <form>
+        <div class="activation">
+            <p class="activation_title">
+                Подтверждение почтового адреса
+            </p>
+            <p class="activation_txt">
+                На Ваш почтовый ящик будет отправлено сообщение, содержащее ссылку для подтверждения правильности e-mail
+                адреса. Пожалуйста, перейдите по ссылке для завершения подписки.
+            </p>
+            <div class="activation_btn">
+                <button name="activation_btn" id="activation_btn" class="blue_btn" type="submit">Отправить</button>
+            </div>
+            <p class="activation_txt_info">
+                Если письмо не пришло в течение 15 минут, проверьте папку «Спам». Если письмо вдруг попало в эту папку,
+                откройте письмо, нажмите кнопку «Не спам» и перейдите по ссылке подтверждения. Если же письма нет и в
+                папке
+                «Спам», попробуйте подписаться ещё раз. Возможно, вы ошиблись при вводе адреса.
+            </p>
+        </div>
+    </form>
+</div>
+
+<?php
+};
+get_footer(); ?>
