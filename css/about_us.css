@@ -2,7 +2,7 @@
     display: grid;
     align-items: end;
     grid-template-columns: 1fr 1fr;
-    margin-top: 140px;
+    margin-top: 40px;
     grid-column-gap: 30px;
 }
 .banner_about_img{

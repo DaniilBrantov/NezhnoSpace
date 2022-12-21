@@ -1,5 +1,5 @@
 .header {
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.95);
@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 .menu_close {
-  background-image: url("../images/menu-close.svg");
+  background-image: url("../images/close.svg");
 }
 .header_logo {
   display: flex;

@@ -1,6 +1,6 @@
 (() => {
 
-  const musicList = ["coldplay-paradise"];
+  const musicList = ["theme_1"];
   let index = 0;
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`

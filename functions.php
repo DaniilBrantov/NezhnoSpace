@@ -15,11 +15,6 @@ function load_styles(){
 	);
 	wp_enqueue_style("intlTelInput");
 
-	wp_register_style(
-		"modal",
-		get_template_directory_uri() . "/libs/modal/modal.css"
-	);
-	wp_enqueue_style("modal");
 
 	wp_register_style(
 		"slick",
@@ -47,7 +42,7 @@ function load_styles(){
 
 
 
-	$css_files = ["header", "main" , "blog", "footer", "about_us", 
+	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
 	"page-blog", "404", "documents",
 	"single", "audio", "sign", "account-content"];
 	
@@ -117,7 +112,7 @@ function load_script() /*имя функции произвольное*/
 	);
 	wp_enqueue_script("plyr");
 
-	$js_files=["personal_area", "slider", "functions","menu","sign","theme-text","video-player","player"];
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(

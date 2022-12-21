@@ -49,7 +49,7 @@
             <a href="auth" class="header_user">
                 <img src="<?php getUrl(); ?>/images/user.svg" alt="user">
             </a>
-            <a class="header-btn" href="auth">Старт</a>
+            <a class="header-btn" href="registration">Старт</a>
             <?php
                     }else{
                         wp_nav_menu(array(
@@ -66,7 +66,7 @@
                     };
                 ?>
         </div>
-        <?php if($_SESSION['id']){ ?>
+        <?php if($_SESSION['id'] && $_SESSION['id'] != NULL){ ?>
         <div class="header_auth">
             <ul class="account_navigation-list navigation-list_slider">
                 <li class="active account_fullname"><a href="">Мои данные</a></li>

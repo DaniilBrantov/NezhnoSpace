@@ -95,15 +95,11 @@
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 месяц</span>
                                 <span class="subscriptions_item-price">3000 ₽</span>
-                                <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> <br>
+                                <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span>
+                                <span class="subscriptions_price-month">3000 ₽ / мес.</span>
                             </div>
                         </div>
-                        <form action="<?php paySubscriptionUrl(); ?>" method='post'>
-                            <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
-                            <input type="hidden" value="7" name="sum">
-                            <input type="hidden" value="1" name="rate">
-                            <button type="submit">хочу подписку</button>
-                        </form>
+                        <button type="submit">хочу подписку</button>
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
@@ -116,12 +112,7 @@
                                 <span class="subscriptions_price-month">2500 ₽ / мес.</span>
                             </div>
                         </div>
-                        <form action="<?php paySubscriptionUrl(); ?>" method='post'>
-                            <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
-                            <input type="hidden" value="7" name="sum">
-                            <input type="hidden" value="2" name="rate">
-                            <button type="submit">хочу подписку</button>
-                        </form>
+                        <button type="submit">хочу подписку</button>
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
@@ -134,14 +125,7 @@
                                 <span class="subscriptions_price-month">2084 ₽ / мес.</span>
                             </div>
                         </div>
-                        <form action="<?php echo paySubscriptionUrl(); ?>" method='post'>
-                            <input id="order" type="hidden" value="<?php echo $order; ?>" name="order">
-                            <input type="hidden" value="7" name="sum">
-                            <input type="hidden" value="3" name="rate">
-                            <button type="submit">
-                                хочу подписку
-                            </button>
-                        </form>
+                        <button type="submit">хочу подписку</button>
                     </li>
                 </ul>
                 <p class="ta_center">Пока не готовы начать? <span class="main_learn_more">Узнайте больше о&#160;подписке
