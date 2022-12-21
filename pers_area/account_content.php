@@ -28,7 +28,7 @@
                     <div class="account_gender-select">
                         <div class="account_input-gender-wrapper">
                             <input class="account_input-gender account-input-custom" required="required" type="button"
-                                value="Пол" />
+                                value="Пол" name="account_input-gender"/>
                             <svg width="40" height="16" viewBox="0 0 40 16" fill='none'
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M40 4L24.4472 11.7764C24.1657 11.9172 23.8343 11.9172 23.5528 11.7764L8 4"
@@ -47,13 +47,13 @@
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
-                    required="required" />
+                    required="required" name="account_input-firstName"/>
                 <input id="account_personal-lastName" class="account-input-custom" type="text" placeholder="Фамилия"
-                    required="required" />
+                    required="required" name="account_input-lastName"/>
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
-                    required="required" />
+                    required="required" name="account_input-email"/>
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
-                    required="required" />
+                    required="required" name="account_input-tel"/>
                 <button class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
             </form>
         </div>

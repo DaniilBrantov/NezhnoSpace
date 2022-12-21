@@ -1284,21 +1284,62 @@ $("#promocode_btn").click(function (e) {
 
     btnSave.addEventListener("click", function (e) {
       e.preventDefault();
-      let name = document.querySelector("#account_personal-name").value;
-      let lastName = document.querySelector("#account_personal-lastName").value;
-      if (name.length > 0 || lastName.length > 0) {
-        function ucFirst(str) {
-          if (!str) return str;
 
-          return str[0].toUpperCase() + str.slice(1);
-        }
-        document.querySelector(".account_personal-name").innerText = `${ucFirst(
-          name
-        )} ${ucFirst(lastName)}`;
-        document.querySelector(".account_fullname").innerText = `${ucFirst(
-          name
-        )} ${ucFirst(lastName)}`;
-      }
+      // let name = document.querySelector("#account_personal-name").value;
+      // let lastName = document.querySelector("#account_personal-lastName").value;
+      // if (name.length > 0 || lastName.length > 0) {
+      //   function ucFirst(str) {
+      //     if (!str) return str;
+
+      //     return str[0].toUpperCase() + str.slice(1);
+      //   }
+      //   document.querySelector(".account_personal-name").innerText = `${ucFirst(
+      //     name
+      //   )} ${ucFirst(lastName)}`;
+      //   document.querySelector(".account_fullname").innerText = `${ucFirst(
+      //     name
+      //   )} ${ucFirst(lastName)}`;
+      // }
+
+      let avatar = $('input[name="account_input-img"]').val();
+      let gender = $('input[name="account_input-gender"]').val();
+      let age = $('input[name="account_input-age"]').val();
+      let first_name = $('input[name="account_input-firstName"]').val();
+      let last_name = $('input[name="account_input-lastName"]').val();
+      let email = $('input[name="account_input-email"]').val();
+      let tel = $('input[name="account_input-tel"]').val();
+
+
+      let formData = new FormData();
+      formData.append("avatar", avatar);
+      formData.append("gender", gender);
+      formData.append("age", age);
+      formData.append("first_name", first_name);
+      formData.append("last_name", last_name);
+      formData.append("tel", tel);
+      formData.append("email", email);
+
+      //обьект ajax со св-ми ,как было у формы.
+    $.ajax({
+        url: "account",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success: function (data) {
+            if (data.status) {
+                // window.location.href = 'account';
+                console.log(data)
+            } else {
+                
+            }
+        },
+        error: function (jqxhr, status, errorMsg) {
+            console.log(status, errorMsg);
+        },
+    });
     });
   }
 })();
