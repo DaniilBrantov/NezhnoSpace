@@ -176,7 +176,9 @@ input.error {
   font-size: 36px;
   font-weight: bold;
 }
-
+.reset_password_form{
+  gap: 20px;
+}
 
 @media (max-width: 600px) {
   .activation_msg p{

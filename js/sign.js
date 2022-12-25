@@ -96,6 +96,7 @@ $("#auth_btn").click(function (e) {
     });
 });
 
+//Подтверждение почты
 $("#activation_btn").click(function (e) {
     e.preventDefault();
     let activation_btn = $('input[name="activation_btn"]').val();
@@ -130,3 +131,77 @@ $("#activation_btn").click(function (e) {
     });
 });
 
+
+// Восстановление пароля
+$("#reset_btn").click(function (e) {
+    e.preventDefault();
+    $("input").removeClass("error");
+
+    let mail = $('input[name="mail"]').val();
+    let reset_btn = $('input[name="reset_btn"]').val();
+
+    let formData = new FormData();
+    formData.append("mail", mail);
+    formData.append("reset_btn", reset_btn);
+
+    //обьект ajax со св-ми ,как было у формы.
+    $.ajax({
+        url: "send_link_reset_password",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success: function (data) {
+            if (data) {
+                console.log(data)
+            } else {
+                console.log(data)
+            }
+        },
+        error: function (jqxhr, status, errorMsg) {
+            console.log(status, errorMsg);
+        },
+    });
+});
+
+
+// Смена пароля
+$("#set_pass_btn").click(function (e) {
+    e.preventDefault();
+    $("input").removeClass("error");
+
+    let pass_token = $('input[name="pass_token"]').val();
+    let pass = $('input[name="pass"]').val();
+    let pass_conf = $('input[name="pass_conf"]').val();
+    let set_pass_btn = $('input[name="set_pass_btn"]').val();
+
+
+    let formData = new FormData();
+    formData.append("pass_token", pass_token);
+    formData.append("pass", pass);
+    formData.append("pass_conf", pass_conf);
+    formData.append("set_pass_btn", set_pass_btn);
+
+    //обьект ajax со св-ми ,как было у формы.
+    $.ajax({
+        url: "update_password",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success: function (data) {
+            if (data) {
+                console.log(data)
+            } else {
+                console.log(data)
+            }
+        },
+        error: function (jqxhr, status, errorMsg) {
+            console.log(status, errorMsg);
+        },
+    });
+});

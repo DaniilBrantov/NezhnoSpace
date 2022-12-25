@@ -53,7 +53,6 @@ function enter (){
             return $error;      
         }   
     }else{    
-
         if($_POST['mail'] === ""){
             $error['mail'] = "Вы не ввели email";              
         }
@@ -61,7 +60,6 @@ function enter (){
             $error['pass'] = "Вы не ввели пароль";              
         }
         return $error; 
-
     }
 }
 

@@ -69,12 +69,12 @@ try {
 	$mail->send();
 
 	$mail_errors['status']=true;
-	echo json_encode($mail_errors);
 } catch (Exception $e) {
 	$mail_errors['error_msg'] = "Сообщение не удалось отправить. Ошибка почтовой программы: {$mail->ErrorInfo}";
 	$mail_errors['status']=false;
-	echo json_encode($mail_errors);
-}
+};
+return $mail_errors;
+
 };
 
 
