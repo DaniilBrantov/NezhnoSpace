@@ -100,6 +100,15 @@
       } else {
         document.querySelector(".trial_audio").style.display = "none";
       }
+
+      //скрыть плюс если нет скрытого текста
+      if (document.querySelector('.trial_btn-show')) {
+        if (document.querySelectorAll('.trial_text-wrap .trial_text').length <= 1) {
+          document.querySelector('.trial_btn-show').style.display = 'none';
+        } else {
+          document.querySelector('.trial_btn-show').style.display = '';
+        }
+      }
     }
 
     $.ajax({
@@ -302,15 +311,15 @@
           let hasInitSlider = false;
 
           function initSlider() {
-            if ($window.width() < 450 && !hasInitSlider) {
+            if ($window.width() < 960 && !hasInitSlider) {
               mobileSlider.slick({
                 infinite: false,
-                slidesToShow: 5,
-                slidesToScroll: 5,
+                slidesToShow: 3,
+                slidesToScroll: 1,
               });
               hasInitSlider = true;
               $(".trial_item").css({ marginLeft: "0px" });
-            } else if ($window.width() > 450 && hasInitSlider) {
+            } else if ($window.width() > 960 && hasInitSlider) {
               mobileSlider.slick("unslick");
               hasInitSlider = false;
             }
