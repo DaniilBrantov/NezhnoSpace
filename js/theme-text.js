@@ -307,29 +307,16 @@
             });
           });
           //слайдер тем в мобильной версии
-          const mobileSlider = $(".themes_slider");
-          let hasInitSlider = false;
-
-          function initSlider() {
-            if ($window.width() < 960 && !hasInitSlider) {
-              mobileSlider.slick({
-                infinite: false,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-              });
-              hasInitSlider = true;
-              $(".trial_item").css({ marginLeft: "0px" });
-            } else if ($window.width() > 960 && hasInitSlider) {
-              mobileSlider.slick("unslick");
-              hasInitSlider = false;
-            }
-          }
-
-          initSlider();
-
-          $window.on("resize", function () {
-            initSlider();
+          $('.themes_slider').flickity({
+            draggable: true,
+            freeScroll: true,
+            prevNextButtons: false,
+            pageDots: false,
+            contain: true,
+            imagesLoaded: true,
+            watchCSS: true
           });
+          
         }
       });
   }

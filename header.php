@@ -22,6 +22,7 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="yandex-verification" content="d821d01bf0467793" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
 
 
