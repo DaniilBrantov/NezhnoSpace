@@ -194,8 +194,8 @@ $("#set_pass_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
-            if (data) {
-                console.log(data)
+            if (data === true) {
+                window.location.href = 'auth';
             } else {
                 console.log(data)
             }

@@ -12,18 +12,25 @@ $db = new SafeMySQL();
 
 class Sign{
     //Password
-    public function getValidPass(){
+    public function ErrPass(){
         $pass = func_get_args()[0];
         $check=$this->ValidPass($pass);
-        return $this->SignResult($check);
+        return $check;
+        //return $this->SignResult($check);
     }
-    protected function SignResult($check){
-        if($check==''){
-            return TRUE;
-        }else{
-            return $check;
-        }
+    public function getHashPass($pass){
+        $hash=$this->HashPass($pass);
+        return $hash;
     }
+    public function ErrEmail(){
+        $mail = func_get_args()[0];
+        $check=$this->ValidEmail($mail);
+        return $check;
+        //return $this->SignResult($check);
+    }
+
+
+
     protected function ValidPass($pass){
         if($pass == '') {$res = "Введите пароль";}
         //Недопустимая длина
@@ -32,15 +39,13 @@ class Sign{
         elseif(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,}$/', $pass)){
             $res = "Слабый пароль";
         }else{
-            $res = '';
+            $res = FALSE;
         }
         return $res;
     }
-    //Email
-    public function getValidEmail(){
-        $mail = func_get_args()[0];
-        $check=$this->ValidEmail($mail);
-        return $this->SignResult($check);
+    protected function HashPass($pass){
+        $pass = password_hash($pass, PASSWORD_DEFAULT);
+        return $pass;
     }
     protected function ValidEmail($mail){
         if($mail == '') {
@@ -49,7 +54,7 @@ class Sign{
         elseif (!preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $mail)) {
             $error = 'Неверно введен е-mail';
         }else{
-            $error = '';
+            $error = FALSE;
         }
         return $error;
     }

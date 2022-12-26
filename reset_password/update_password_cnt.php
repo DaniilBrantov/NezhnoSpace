@@ -5,31 +5,41 @@
  
  */
 
-
-
+//  $_POST['set_pass_btn']=true;
+//  $_POST['pass']='12345';
+//  $_POST['pass_token']='4c24dec740988356ce830b5a4fff3a70';
 require_once( get_theme_file_path('processing.php') );
 
     if($_POST['set_pass_btn']){
-        $mail = $db->getOne("SELECT mail FROM users WHERE reset_pass_token=?s",$_POST['pass_token']);
-        $pass=$_POST['pass'];
-
-
-
-$sign = new Sign();
-
-$valid_pass=$sign -> getValidPass($pass);
-echo json_encode($valid_pass);
-        
-
-
-
-
-
-//$db->query("UPDATE users SET password = '$new_pass' WHERE mail=?s",$user_mail);
-        
-
+        $res=update();
+        echo json_encode($res) ;
+    }else{
+        header('Location: reset_password');
     }
 
+function update(){
+    $sign = new Sign();
+    $db = new SafeMySQL();
+    if($mail = $db->getOne("SELECT mail FROM users WHERE reset_pass_token=?s",$_POST['pass_token'])){
+        $pass=$_POST['pass'];
+        $valid_pass=$sign->ErrPass($pass);
+        if(!$valid_pass){
+            if($pass == $_POST['pass_conf']) {
+                $hash=$sign->getHashPass($pass);
+                if($db->query("UPDATE users SET password = '$hash' WHERE mail=?s",$mail )){
+                    return TRUE;
+                }else{
+                    return FALSE;
+                };
+            }else{
+                return "Повторный пароль введен не верно";
+            }
+        }else{
+            return $valid_pass;
+        }
+    }
+    
+}
 
 
 

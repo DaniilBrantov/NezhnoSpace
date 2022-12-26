@@ -16,6 +16,7 @@ if(isset($_GET['token']) && !empty($_GET['token']) && isset($_GET['email']) && !
 function check(){
     $db = new SafeMySQL();
     $token = $_GET['token'];
+    $mail=$_GET['email'];
     if($user_token = $db->getOne("SELECT reset_pass_token FROM users WHERE mail=?s",$_GET['email'])){
         if($token == $user_token){
             get_header(); 
