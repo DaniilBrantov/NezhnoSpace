@@ -51,7 +51,9 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 }else{
     $_POST["activation_btn"]=true;
     if($_POST["activation_btn"]){
-        $hash=$db->getOne("SELECT activation FROM users WHERE id=?i", $_SESSION['id']);
+        $row=$db->getAll("SELECT activation FROM users WHERE id=?i", $_SESSION['id']);
+        $hash=$row['activation'];
+        $mail=$row['mail'];
         $mail_body='<p style="margin:0;">
             Пожалуйста, перейдите по ссылке ниже, чтобы активировать свой профиль и получить доступ к нему.
         </p>

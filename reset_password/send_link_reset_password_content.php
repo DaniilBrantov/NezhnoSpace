@@ -66,7 +66,7 @@
             $mail_title="Восстановление пароля на платформе NezhnoSpace";
             $mail_subject="Восстановление пароля";
 
-            $status = SendMail('daniil.brantov04@mail.ru', $mail_subject, $mail_body,$mail_title)['status'];
+            $status = SendMail($mail, $mail_subject, $mail_body,$mail_title)['status'];
         }else{
             $status = "Ошибка сохранения токена";
         };
