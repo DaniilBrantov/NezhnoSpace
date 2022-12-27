@@ -51,7 +51,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 }else{
     $_POST["activation_btn"]=true;
     if($_POST["activation_btn"]){
-        $row=$db->getAll("SELECT activation FROM users WHERE id=?i", $_SESSION['id']);
+        $row=$db->getAll("SELECT * FROM users WHERE id=?i", $_SESSION['id'])[0];
         $hash=$row['activation'];
         $mail=$row['mail'];
         $mail_body='<p style="margin:0;">
@@ -73,7 +73,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
         $mail_title="Благодарим вас за регистрацию на платформе NezhnoSpace";
         $mail_subject="Подтверждение электронной почты";
 
-        SendMail('daniil.brantov04@mail.ru', $mail_subject, $mail_body,$mail_title);
+        echo json_encode(SendMail('daniil.brantov04@mail.ru', $mail_subject, $mail_body,$mail_title)) ;
     };
 }
 

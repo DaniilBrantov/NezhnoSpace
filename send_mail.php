@@ -68,7 +68,7 @@ try {
 	//$mail->AddAttachment(getcwd() . '/plugins/' . $plugin_name . '.zip', $plugin_name . '.zip'); // добавляем вложение
 	$mail->send();
 
-	$mail_errors['status']=true;
+	$mail_errors=true;
 } catch (Exception $e) {
 	$mail_errors['error_msg'] = "Сообщение не удалось отправить. Ошибка почтовой программы: {$mail->ErrorInfo}";
 	$mail_errors['status']=false;

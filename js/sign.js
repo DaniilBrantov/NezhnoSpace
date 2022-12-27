@@ -119,7 +119,7 @@ $("#activation_btn").click(function (e) {
             btn.style.opacity = "0.5";
             btn.style.cursor = "default";
 
-            if (data.status) {
+            if (data) {
                 btn.textContent = "Письмо отправлено";
             } else {
                 btn.textContent = "Ошибка! Письмо не отправлено";

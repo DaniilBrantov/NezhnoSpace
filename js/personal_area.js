@@ -110,7 +110,6 @@
       //   )} ${ucFirst(lastName)}`;
       // }
 
-      let avatar = $('input[name="account_input-img"]').val();
       let gender = $('input[name="account_input-gender"]').val();
       let age = $('input[name="account_input-age"]').val();
       let first_name = $('input[name="account_input-firstName"]').val();
@@ -120,7 +119,6 @@
 
 
       let formData = new FormData();
-      formData.append("avatar", avatar);
       formData.append("gender", gender);
       formData.append("age", age);
       formData.append("first_name", first_name);
@@ -137,13 +135,8 @@
         contentType: false,
         cache: false,
         data: formData,
-        success: function (data) {
-          if (data.status) {
-            // window.location.href = 'account';
-            console.log(data)
-          } else {
-
-          }
+        success: function (msg) {
+          console.log(msg)
         },
         error: function (jqxhr, status, errorMsg) {
           console.log(status, errorMsg);
@@ -152,3 +145,44 @@
     });
   }
 })();
+
+
+
+
+
+
+$("#js-file").change(function () {
+  if (window.FormData === undefined) {
+    alert('В вашем браузере загрузка файлов не поддерживается');
+  } else {
+    var formData = new FormData();
+    $.each($("#js-file")[0].files, function (key, input) {
+      formData.append('file[]', input);
+    });
+
+    $.ajax({
+      type: 'POST',
+      url: 'account_check',
+      cache: false,
+      contentType: false,
+      processData: false,
+      data: formData,
+      dataType: 'json',
+      success: function (msg) {
+        msg.forEach(function (row) {
+          if (row.error == '') {
+            $('#js-file-list').append(row.data);
+          } else {
+            alert(row.error);
+          }
+        });
+        $("#js-file").val('');
+      }
+    });
+  }
+});
+
+/* Удаление загруженной картинки */
+function remove_img(target) {
+  $(target).parent().remove();
+}
