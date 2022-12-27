@@ -100,6 +100,15 @@
       } else {
         document.querySelector(".trial_audio").style.display = "none";
       }
+
+      //скрыть плюс если нет скрытого текста
+      if (document.querySelector('.trial_btn-show')) {
+        if (document.querySelectorAll('.trial_text-wrap .trial_text').length <= 1) {
+          document.querySelector('.trial_btn-show').style.display = 'none';
+        } else {
+          document.querySelector('.trial_btn-show').style.display = '';
+        }
+      }
     }
 
     $.ajax({
@@ -298,29 +307,16 @@
             });
           });
           //слайдер тем в мобильной версии
-          const mobileSlider = $(".themes_slider");
-          let hasInitSlider = false;
-
-          function initSlider() {
-            if ($window.width() < 450 && !hasInitSlider) {
-              mobileSlider.slick({
-                infinite: false,
-                slidesToShow: 5,
-                slidesToScroll: 5,
-              });
-              hasInitSlider = true;
-              $(".trial_item").css({ marginLeft: "0px" });
-            } else if ($window.width() > 450 && hasInitSlider) {
-              mobileSlider.slick("unslick");
-              hasInitSlider = false;
-            }
-          }
-
-          initSlider();
-
-          $window.on("resize", function () {
-            initSlider();
+          $('.themes_slider').flickity({
+            draggable: true,
+            freeScroll: true,
+            prevNextButtons: false,
+            pageDots: false,
+            contain: true,
+            imagesLoaded: true,
+            watchCSS: true
           });
+          
         }
       });
   }

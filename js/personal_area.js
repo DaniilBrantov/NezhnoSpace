@@ -11,6 +11,7 @@
         fr.addEventListener(
           "load",
           function () {
+            document.querySelector(".account_image-wrap img").style.display = 'block';
             document.querySelector(".account_image-wrap img").src = fr.result;
           },
           false
