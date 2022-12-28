@@ -195,9 +195,19 @@ $("#set_pass_btn").click(function (e) {
         data: formData,
         success: function (data) {
             if (data === true) {
-                window.location.href = 'auth';
+                async function locationHref() {
+                    window.location.href = 'auth';
+                }
+                locationHref()
+                    .then(() => {
+                        alert("Вы успешно сменили пароль");
+                    })
             } else {
-                console.log(data)
+                for (let key in data) {
+                    if (key !== 'status') {
+                        showError(key, data[key]);
+                    }
+                }
             }
         },
         error: function (jqxhr, status, errorMsg) {
