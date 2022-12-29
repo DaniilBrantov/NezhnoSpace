@@ -39,10 +39,24 @@
     videoPlayer.addEventListener(
       "loadeddata",
       () => {
-        document.querySelector(
-          ".duration-video .duration-time-video"
-        ).textContent = getTimeCodeFromNum(videoPlayer.duration);
-        videoPlayer.volume = 1;
+        let duration = getTimeCodeFromNum(videoPlayer.duration);
+        let i = 0;
+
+        while (isNaN(duration)) {
+          duration = videoPlayer.duration;
+          if (i === 10) {
+            document.querySelector(
+              ".duration-video .duration-time-video"
+            ).textContent = "--";
+            break;
+          } else {
+            document.querySelector(
+              ".duration-video .duration-time-video"
+            ).textContent = getTimeCodeFromNum(videoPlayer.duration);
+            videoPlayer.volume = 1;
+          }
+          i++;
+        }
       },
       false
     );
