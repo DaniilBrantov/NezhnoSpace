@@ -54,7 +54,7 @@
                     required="required" name="account_input-email" />
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
                     required="required" name="account_input-tel" />
-                <button class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
+                <button id="upload_btn" class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
             </form>
         </div>
         <div class="account_sections-footer">
@@ -62,84 +62,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-<form method="post" action="save_upload">
-    <h3>Отправить отзыв:</h3>
-    <div class="form-row">
-        <label>Ваше имя:</label>
-        <input type="text" name="name" required>
-    </div>
-    <div class="form-row">
-        <label>Комментарий:</label>
-        <input type="text" name="text" required>
-    </div>
-    <div class="form-row">
-        <label>Изображения:</label>
-        <div class="img-list" id="js-file-list"></div>
-        <input id="js-file" type="file" name="file[]" multiple accept=".jpg,.jpeg,.png,.gif">
-    </div>
-    <div class="form-submit">
-        <input type="submit" name="send" value="Отправить">
-    </div>
-</form>
-
-
-
-<style type="text/css">
-form {
-    display: block;
-    width: 500px;
-    margin: 0 auto;
-}
-
-h3 {
-    margin: 0 0 20px 0;
-}
-
-.form-row {
-    margin-bottom: 15px;
-}
-
-.form-submit {
-    padding-top: 20px;
-    margin-bottom: 10px;
-}
-
-.form-row label {
-    display: block;
-    color: #777;
-    margin-bottom: 5px;
-}
-
-.form-row input[type="text"] {
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-/* Стили для вывода превью */
-.img-item {
-    display: inline-block;
-    margin: 0 20px 20px 0;
-    position: relative;
-    user-select: none;
-}
-
-.img-item img {
-    border: 1px solid #767676;
-}
-
-.img-item a {
-    display: inline-block;
-    background: url(https://snipp.ru/demo/642/remove.png) 0 0 no-repeat;
-    position: absolute;
-    top: -5px;
-    right: -9px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-</style>

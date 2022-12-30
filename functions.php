@@ -170,3 +170,11 @@ echo get_template_directory_uri();
 function paySubscriptionUrl(){
 echo get_site_url() . "/payment";
 };
+function getRandomFileName($path){
+$path = $path ? $path . '/' : '';
+do {
+$name = md5(microtime() . rand(0, 9999));
+$file = $path . $name;
+} while (file_exists($file));
+return $name;
+}

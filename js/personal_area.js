@@ -110,38 +110,46 @@
       //   )} ${ucFirst(lastName)}`;
       // }
 
-      let gender = $('input[name="account_input-gender"]').val();
-      let age = $('input[name="account_input-age"]').val();
-      let first_name = $('input[name="account_input-firstName"]').val();
-      let last_name = $('input[name="account_input-lastName"]').val();
-      let email = $('input[name="account_input-email"]').val();
-      let tel = $('input[name="account_input-tel"]').val();
 
 
-      let formData = new FormData();
-      formData.append("gender", gender);
-      formData.append("age", age);
-      formData.append("first_name", first_name);
-      formData.append("last_name", last_name);
-      formData.append("tel", tel);
-      formData.append("email", email);
 
-      //обьект ajax со св-ми ,как было у формы.
-      $.ajax({
-        url: "account_check",
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: function (msg) {
-          console.log(msg)
-        },
-        error: function (jqxhr, status, errorMsg) {
-          console.log(status, errorMsg);
-        },
-      });
+
+
+
+
+
+      // let gender = $('input[name="account_input-gender"]').val();
+      // let age = $('input[name="account_input-age"]').val();
+      // let first_name = $('input[name="account_input-firstName"]').val();
+      // let last_name = $('input[name="account_input-lastName"]').val();
+      // let email = $('input[name="account_input-email"]').val();
+      // let tel = $('input[name="account_input-tel"]').val();
+
+
+      // let formData = new FormData();
+      // formData.append("gender", gender);
+      // formData.append("age", age);
+      // formData.append("first_name", first_name);
+      // formData.append("last_name", last_name);
+      // formData.append("tel", tel);
+      // formData.append("email", email);
+
+      // //обьект ajax со св-ми ,как было у формы.
+      // $.ajax({
+      //   url: "account_check",
+      //   type: "POST",
+      //   dataType: "json",
+      //   processData: false,
+      //   contentType: false,
+      //   cache: false,
+      //   data: formData,
+      //   success: function (msg) {
+      //     console.log(msg)
+      //   },
+      //   error: function (jqxhr, status, errorMsg) {
+      //     console.log(status, errorMsg);
+      //   },
+      // });
     });
   }
 })();
@@ -150,39 +158,42 @@
 
 
 
-
-$("#js-file").change(function () {
+//Update Uploads
+$("#upload_btn").click(function (e) {
+  e.preventDefault();
+  $("input").removeClass("error");
+  //val()- взять инф-цию с данного эл-нта
   if (window.FormData === undefined) {
     alert('В вашем браузере загрузка файлов не поддерживается');
   } else {
+    let send = $('input[name="account_btn-save"]').val();
+
     var formData = new FormData();
-    $.each($("#js-file")[0].files, function (key, input) {
-      formData.append('file[]', input);
+    formData.append("send", send);
+    $.each($("#account_input-img")[0].files, function (key, input) {
+      formData.append('image', input);
     });
 
+
+    //обьект ajax со св-ми ,как было у формы.
     $.ajax({
-      type: 'POST',
-      url: 'account_check',
-      cache: false,
-      contentType: false,
+      url: "account_check",
+      type: "POST",
+      dataType: "json",
       processData: false,
+      contentType: false,
+      cache: false,
       data: formData,
-      dataType: 'json',
-      success: function (msg) {
-        msg.forEach(function (row) {
-          if (row.error == '') {
-            $('#js-file-list').append(row.data);
-          } else {
-            alert(row.error);
-          }
-        });
-        $("#js-file").val('');
-      }
+      success: function (data) {
+        if (data) {
+          console.log(data)
+        } else {
+          console.log('При загрузке файла произошла неизвестная ошибка')
+        }
+      },
+      error: function (jqxhr, status, errorMsg) {
+        console.log(status, errorMsg);
+      },
     });
   }
 });
-
-/* Удаление загруженной картинки */
-function remove_img(target) {
-  $(target).parent().remove();
-}

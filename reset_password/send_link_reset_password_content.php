@@ -47,7 +47,8 @@
         $token = $db->getOne("SELECT reset_pass_token FROM users WHERE mail=?s",$_POST['mail']);
         
         if($query_update_token && $token){
-            $mail_body='<p style="margin:0;">
+            $mail_body='
+            <p style="margin:0;">
                 Пожалуйста, перейдите по ссылке ниже, чтобы восстановить пароль и получить доступ к нему.
             </p>
             <a href="'.$url.'/set_new_password?email='.$mail.'&token='.$token.'" style="
@@ -66,7 +67,7 @@
             $mail_title="Восстановление пароля на платформе NezhnoSpace";
             $mail_subject="Восстановление пароля";
 
-            $status = SendMail($mail, $mail_subject, $mail_body,$mail_title)['status'];
+            $status = SendMail($mail, $mail_subject, $mail_body,$mail_title);
         }else{
             $status = "Ошибка сохранения токена";
         };
