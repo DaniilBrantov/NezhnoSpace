@@ -1,11 +1,14 @@
 (() => {
-  const musicList = ["coldplay-paradise", "ekstern_type", "emotiog_type"];
+
+  const musicList = ["theme_1"];
   let index = 0;
   const audio = new Audio(
     `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
   );
+  audio.className = 'audio';
+  document.body.append(audio);
   const audioPlayer = document.querySelector(".player");
-  const playBtn = document.querySelector(".play");
+  const playBtn = document.querySelector(".player__box-wrap .play");
   const seekSlider = document.querySelector("#progress.progress");
 
   // const next = document.querySelector(".next");
@@ -142,7 +145,7 @@
       let speedIndexValue;
       if (
         speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) +
-          1 <
+        1 <
         speedList.length
       ) {
         speedIndexValue =
@@ -169,32 +172,21 @@
 
     audio.addEventListener("ended", nextSong);
     function nextSong() {
-      index++;
+      if (musicList.length > 1) {
+        index++;
 
-      if (index > musicList.length - 1) {
-        index = 0;
+        if (index > musicList.length - 1) {
+          index = 0;
+        }
+        audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
+        setTitle(index);
       }
-      audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
-      setTitle(index);
 
       musicPlay();
     }
 
     //audio time
 
-    function getTimeCodeFromNum(num) {
-      let seconds = parseInt(num);
-      let minutes = parseInt(seconds / 60);
-      seconds -= minutes * 60;
-      const hours = parseInt(minutes / 60);
-      minutes -= hours * 60;
-
-      if (hours === 0)
-        return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
-      return `${String(hours).padStart(2, 0)}:${minutes}:${String(
-        seconds % 60
-      ).padStart(2, 0)}`;
-    }
 
     // next.addEventListener('click', () => {
     //   index = getIndex()

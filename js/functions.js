@@ -19,7 +19,22 @@ function ActiveEl(el, active_class) {
     });
 };
 
+function getTimeCodeFromNum(num) {
+    let seconds = parseInt(num);
+    let minutes = parseInt(seconds / 60);
+    seconds -= minutes * 60;
+    const hours = parseInt(minutes / 60);
+    minutes -= hours * 60;
 
+    if (hours === 0) return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+    return `${String(hours).padStart(2, 0)}:${minutes}:${String(
+        seconds % 60
+    ).padStart(2, 0)}`;
+}
+
+$("#close_notification").click(function (e) {
+    $("#close_notification").closest('div').remove();
+});
 
 //---------КОНЕЦ-------  Подсказки, облегчения, общие функции
 
@@ -157,36 +172,6 @@ $('.stage_number').each(function () {
         return val;
     }
 
-});
-
-
-
-
-
-
-
-
-// Look Password
-$('body').on('mousedown', '.password_control', function () {
-    if ($('#pass').attr('type') == 'password') {
-        $(this).addClass('view');
-        $('#pass').attr('type', 'text');
-    } else {
-        $(this).removeClass('view');
-        $('#pass').attr('type', 'password');
-    }
-    return false;
-});
-
-$('body').on('mouseup', '.password_control', function () {
-    if ($('#pass').attr('type') == 'password') {
-        $(this).addClass('view');
-        $('#pass').attr('type', 'text');
-    } else {
-        $(this).removeClass('view');
-        $('#pass').attr('type', 'password');
-    }
-    return false;
 });
 
 
@@ -388,60 +373,6 @@ $(function () {
 });
 
 
-
-// Dropdown
-$(function () {
-    var $window = $(window);
-    if ($window.width() >= 960) {
-        const list = document.querySelector(".trial_list");
-        const elem = document.querySelectorAll(".trial_nested-list");
-        if (elem) {
-            elem.forEach((item) => {
-                if (!item.classList.contains('active')) {
-                    item.style.display = 'none';
-                }
-
-                item.addEventListener('click', function (evt) {
-                    item.children.forEach((el) => el.classList.remove('show-active'));
-                    evt.target.parentNode.classList.add('show-active');
-
-                    if (evt.target instanceof HTMLParagraphElement) {
-                        document.querySelector(".trial_description-title").textContent = evt.target.textContent;
-                    }
-                })
-            })
-        };
-
-        if (list) {
-            list.addEventListener("click", (evt) => {
-                if (evt.target.classList.contains("trial_title")) {
-                    evt.target.classList.toggle("active");
-                    evt.target.parentNode.querySelector('.trial_nested-list').classList.toggle('active');
-                    evt.target.parentNode.querySelector('.trial_nested-list').style.display = '';
-                    document.querySelector(".trial_description-title").textContent = evt.target.parentNode.querySelector(".show-active").textContent;
-
-                    [...document.querySelectorAll(".trial_title")].map((el) => {
-                        if (el !== evt.target) {
-                            el.classList.remove("active");
-                            el.parentNode.querySelector('.trial_nested-list').classList.remove('active');
-                            el.parentNode.querySelector('.trial_nested-list').style.display = 'none';
-                        }
-                    });
-                }
-            });
-        };
-    } else {
-        ActiveEl('trial_title', 'active');
-        ActiveEl('trial_nested-list_mobile p', 'active');
-
-    }
-
-});
-
-
-
-
-
 //TextShow
 
 
@@ -462,7 +393,44 @@ $(function () {
 
 // Intro Anxiety
 
-$(function () { $('.it_bothers_me_item span').click(function () { $(this).addClass($(this).attr("class") !== "intro_txt_active" ? "intro_txt_active" : $(this).removeClass("intro_txt_active")); }); });
+(() => {
+    document.addEventListener('DOMContentLoaded', function () {
+        const anxietyItem = document.querySelectorAll('.it_bothers_me_item span');
+        let anxietyBtn = document.querySelector('.intro_link-wrap');
+        const local = [];
+        const sessionStr = JSON.parse(sessionStorage.getItem('anxiety'));
+
+        if (sessionStr) {
+            sessionStr.forEach((arr) => {
+                local.push(arr);
+            })
+        }
+
+        anxietyItem.forEach((item) => {
+            local.forEach((arr) => {
+                if (arr === item.textContent) item.classList.add('intro_txt_active');
+            });
+
+            item.addEventListener('click', function () {
+                item.classList.toggle('intro_txt_active');
+
+                if (item.classList.contains('intro_txt_active')) {
+                    local.push(item.textContent);
+                } else {
+                    local.forEach((arr) => {
+                        if (arr === item.textContent) local.splice(local.indexOf(arr), 1);
+                    })
+                }
+            })
+        })
+
+        if (anxietyBtn) {
+            document.querySelector('.intro_link-wrap').addEventListener('click', function (e) {
+                sessionStorage.setItem('anxiety', JSON.stringify(local))
+            })
+        }
+    })
+})();
 
 //Header Navigation Active
 
@@ -472,4 +440,58 @@ $(function () {
     nav_href.forEach((el) => { el.href === url ? el.classList.add("nav_active") : el.classList.remove("nav_active") })
 });
 
+//проверка нажатого чекбокса на странице регистрации
+(() => {
+    document.addEventListener('DOMContentLoaded', function () {
+        const persApprovalCheckbox = document.querySelector("#pers_approval_checkbox");
+        let btnSubmit = document.querySelector('.pers_btn .blue_btn');
 
+        function changeBtn(opacity, bool, cursor) {
+            btnSubmit.style.opacity = opacity;
+            btnSubmit.disabled = bool;
+            btnSubmit.style.cursor = cursor;
+        }
+
+        if (persApprovalCheckbox) {
+            changeBtn('0.5', true, 'default');
+
+            persApprovalCheckbox.addEventListener("change", function () {
+                if (this.checked) {
+                    changeBtn('1', false, 'pointer');
+                } else {
+                    changeBtn('0.5', true, 'default');
+                }
+            })
+        }
+    })
+})();
+
+// Show Password
+$(function () {
+    $('.pass_eye').click(function () {
+        if ($('.pers_input input').attr('type') == 'password') {
+            $(this).addClass('close_eye');
+            $('.pers_input input').attr('type', 'text');
+        } else {
+            $(this).removeClass('close_eye');
+            $('.pers_input input').attr('type', 'password');
+        }
+        return false;
+    });
+});
+
+//скрытие ошибки на странице регистрации/авторизации после нажатия на инпут
+(() => {
+    let arrayInput = document.querySelectorAll('.pers_item input');
+
+    if (arrayInput) {
+        arrayInput.forEach((input) => {
+            input.addEventListener('focus', function (e) {
+                if (input.classList.contains('error')) {
+                    input.classList.remove('error');
+                    input.closest('.pers_item').querySelector('.text-error').style.opacity = '0';
+                }
+            })
+        })
+    }
+})();

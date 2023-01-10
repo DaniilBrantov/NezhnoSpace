@@ -15,11 +15,6 @@ function load_styles(){
 	);
 	wp_enqueue_style("intlTelInput");
 
-	wp_register_style(
-		"modal",
-		get_template_directory_uri() . "/libs/modal/modal.css"
-	);
-	wp_enqueue_style("modal");
 
 	wp_register_style(
 		"slick",
@@ -47,14 +42,14 @@ function load_styles(){
 
 
 
-	$css_files = ["header", "main" , "blog", "companies", "footer", "about_us",
-	"services", "page-blog", "contacts", "form", "404", "cours-ei", "documents",
-	"single", "personal_area", "audio"];
+	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
+	"page-blog", "404", "documents",
+	"single", "audio", "sign", "account-content"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
 			$css_files[$i],
-			get_template_directory_uri() . "/css/" . $css_files[$i] . ".css"
+			get_template_directory_uri() . "/css/" . $css_files[$i] . ".css?"
 		);
 		wp_enqueue_style($css_files[$i]);
 	}
@@ -117,27 +112,15 @@ function load_script() /*имя функции произвольное*/
 	);
 	wp_enqueue_script("plyr");
 
-	/* player */
-	wp_register_script(
-		"player",
-		get_template_directory_uri() . "/js/player.js", 
-		array("my_jquery"),
-		null,
-		true
-	);
-	wp_enqueue_script("player");
-
-
-	$js_files=["personal_area", "slider", "main",
-		"functions", "text-show", "video","menu"];
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
 			$js_files[$i],
-			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js", 
+			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js?" . time(), 
 			array("my_jquery"),
 			null,
-			false
+			true
 		);
 		wp_enqueue_script($js_files[$i]);
 	}
@@ -179,11 +162,19 @@ return $src;
 
 
 
-
 /** -------PHP/WP Functions------ **/
+
 function getUrl(){
 echo get_template_directory_uri();
 };
 function paySubscriptionUrl(){
 echo get_site_url() . "/payment";
 };
+function getRandomFileName($path){
+$path = $path ? $path . '/' : '';
+do {
+$name = md5(microtime() . rand(0, 9999));
+$file = $path . $name;
+} while (file_exists($file));
+return $name;
+}

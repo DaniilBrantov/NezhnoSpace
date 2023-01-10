@@ -7,28 +7,21 @@ Autor: brantov
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
 
 :root {
-  --white: #f5f5f7;
-  --black:#1d1d1f;
+  --white: #fff;
+  --black:#000;
+  --blue: #421DD8;
+  --link: #3F3176;
 
-  --pink:#D026CC;
-  --purple:#473A92;
-  --turquoise:#26A7D0;
-  
-  --grey:#D9D9D9;
-  --violet:#BFA4CE;
-  --light_violet: #EFE1F0;
-  --dark_violet:#7264AA;
-  --blue:#8D9ACE;
-  --brown:#917286;
-  --violet_2:#B796BC;
-  
+  --main_1: #7264AA;
+  --main_2: #BFA4CE;
+  --main_3: #EFE1F0;
+  --main_4: #8D9ACE;
+  --main_5: #917286;
 }
-
 html {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-
 *,
 *::before,
 *::after {
@@ -45,7 +38,6 @@ body {
   scroll-behavior: smooth;
   min-width: 320px;
   overflow-x:hidden;
-
 }
 .container {
   max-width: 1184px;
@@ -61,46 +53,16 @@ h1,h2,h3,h4,h5{
   font-weight: 400;
   margin: 0;
 }
-h1{
-  font-size: 60px;
-}
-h2{
-  font-size: 48px;
-}
-h3{
-  font-size: 32px;
-}
-h4{
-  font-size: 24px;
-}
-h5{
-  font-size: 18px;
-}
-p{
-  margin: 0;
-  margin-top: 20px;
-}
-.bold_txt{
-  font-weight: 600;
-}
-.white_txt{
-  color: var(--white);
-}
-.txt18{
-  font-size: 18px;
-}
-.txt13{
-  font-size: 18px;
-}
-.link12{
-  font-size: 12px;
-}
-.mt_200{
-  margin-top: 200px;
-}
-.ta_center{
-  text-align: center;
-}
+h1{font-size: 60px;}
+h2{font-size: 48px;}
+h3{font-size: 32px;}
+h4{font-size: 24px;}
+h5{font-size: 18px;}
+p{margin: 0;}
+.bold_txt{font-weight: 600;}
+.white_txt{color: var(--white);}
+.mt_100{margin-top: 100px;}
+.ta_center{text-align: center;}
 .grid_gap_2em{
   display: grid;
   grid-row-gap: 2em;
@@ -109,11 +71,22 @@ ul{
   margin: 0;
   padding-left: 20px;
 }
-.m_auto{
-  margin: auto;
-}
 .none{
   display: none;
+}
+
+/* Buttons */
+
+.blue_btn{
+  background-color: #421DD8;
+  padding: 16px 32px;
+  border-radius: 15px;
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 
@@ -125,7 +98,7 @@ ul{
   }
 }
 @media screen and (max-width: 1200px) {
-  .mt_200{
-    margin-top: 50px;
+  .mt_100{
+    margin-top: 32px;
   }
 }

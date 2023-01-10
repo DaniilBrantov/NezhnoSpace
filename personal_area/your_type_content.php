@@ -77,62 +77,18 @@ if($_POST["answer"] || $_POST["form_name"]){
                     // $email->isSMTP();
                     // $email->Host = 'smtp.yandex.ru';
                     // $email->SMTPAuth = true;                              
-                    // $email->Username = 'support@eatintelligent.ru'; 
-                    // $email->Password = 'Eat123Intelligent123';
+                    // $email->Username = 'yourmail@yandex.ru'; 
+                    // $email->Password = '***';
                     // $email->SMTPSecure = 'ssl';
                     // $email->Port = 465; 
 
-                    // $email->setFrom('support@eatintelligent.ru');
+                    // $email->setFrom('yourmail@yandex.ru');
                     // $email->addAddress($user_mail);    
                     // $email->isHTML(true);                                 
 
-                    $email->Subject = 'Курс по Психологии питания и пищевому поведению';
+                    $email->Subject = 'Тема';
                     if($_POST["user_mail"]){
-                    $email->Body    =  '
-                    
-                        <div style="
-                        background: #1C1C1C;
-                        color: whitesmoke;
-                        padding: 30px;
-                        margin: 30px;
-                        border-radius: 20px;
-                        margin: 30px auto;
-                        max-width: 500px;"
-                        >
-                            
-                            <h2>
-                                Ты уже прошла голландский опросник пищевого поведения и готова двигаться дальше.
-                            </h2>  
-                            <p>Вот всё,что тебе нужно, чтобы попасть в твой личный кабинет, ждем тебя там :</p>
-                            <span style="font-weight:bold;">логин:</span><span style="margin: 50px; font-size: 20px;"><a href="/compose?To='.$user_mail.'" style=" color: whitesmoke; text-decoration:none;">'.$user_mail.'</a></span><br><br>
-                            <span style="font-weight:bold;">пароль:</span><span style="margin: 50px; font-size: 20px;">'.$password.'</span>
-                            <p>Вот ссылка на твой индивидуальный маршрут : </p>
-                            <div style="margin: 50px 0px;">
-                                <a href="https://nezhno.space/first-stage-individual" style="
-                                    color: whitesmoke;
-                                    text-decoration: navajowhite;
-                                    padding: 15px 30px;
-                                    border: 2px solid whitesmoke;
-                                    border-radius: 50px;
-                                ">Индивидуальный Маршрут</a>
-                            </div>
-                            <p?>Мы ждем тебя на онлайн занятие с психологом, основательницей проекта, где ты сможешь
-четко сформулировать свой запрос по работе с пищевым поведением и принятием своего тела.</p>
-
-<p>Подключайся по ссылке </p>
-<h3>25 апреля <span style="font-size:15px">в 19:00</span></h3>
-</p>
-<div style="margin: 50px 0px;">
-    <a href="https://online.bizon365.ru/room/127192/Eatintelligent-online-meeting" style="
-                                    color: whitesmoke;
-                                    text-decoration: navajowhite;
-                                    padding: 15px 30px;
-                                    border: 2px solid whitesmoke;
-                                    border-radius: 50px;
-                                ">Перейти</a>
-</div>
-</div>
-';
+                    $email->Body    =  'HI!';
 }else{
 $email->Body = '
 
