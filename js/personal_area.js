@@ -166,9 +166,21 @@ $("#upload_btn").click(function (e) {
   if (window.FormData === undefined) {
     alert('В вашем браузере загрузка файлов не поддерживается');
   } else {
+    let gender = $('input[name="account_input-gender"]').val();
+    let age = $('input[name="account_input-age"]').val();
+    let first_name = $('input[name="account_input-firstName"]').val();
+    let last_name = $('input[name="account_input-lastName"]').val();
+    let email = $('input[name="account_input-email"]').val();
+    let tel = $('input[name="account_input-tel"]').val();
     let send = $('input[name="account_btn-save"]').val();
 
     var formData = new FormData();
+    formData.append("gender", gender);
+    formData.append("age", age);
+    formData.append("first_name", first_name);
+    formData.append("last_name", last_name);
+    formData.append("tel", tel);
+    formData.append("email", email);
     formData.append("send", send);
     $.each($("#account_input-img")[0].files, function (key, input) {
       formData.append('image', input);
@@ -188,7 +200,7 @@ $("#upload_btn").click(function (e) {
         if (data) {
           console.log(data)
         } else {
-          console.log('При загрузке файла произошла неизвестная ошибка')
+          console.log('При загрузке произошла неизвестная ошибка')
         }
       },
       error: function (jqxhr, status, errorMsg) {

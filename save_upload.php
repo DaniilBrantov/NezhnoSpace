@@ -57,23 +57,23 @@ function saveUpload($file,$MB,$img_width,$img_height){
 		
 			// Сократим .jpeg до .jpg
 			$format = str_replace('jpeg', 'jpg', $extension);
+			$img = $name . $format;
 		
 			//Переместим картинку с новым именем и расширением в папку /uploads
-			if (!move_uploaded_file($fileTmpName, 'wp-content/uploads/permanent/' . $name . $format)) {
+			if (!move_uploaded_file($fileTmpName, 'wp-content/uploads/permanent/' . $img)) {
 				$returnMessage='При записи изображения на диск произошла ошибка.';
 			}
-			//Загрузка названия картинки в БД
-			if(!$db->query("UPDATE users SET avatar =?s WHERE id=?i", $name, $_SESSION['id'])){
-				$returnMessage = 'Произошёл сбой при загрузке картинки.';
-			}
 		}
-	}else{
-		$returnMessage='Загрузите картинку';
 	};
 	//Возвращаем ответ
+	$res=[];
 	if($returnMessage){
-		return $returnMessage;
+		$res['status']=false;
+		$res['msg'] = $returnMessage;
 	}else{
-		return true;
+		$res['status']=true;
+		$res['image']=$img;
 	}
+	return $res;
+
 };

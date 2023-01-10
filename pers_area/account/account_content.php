@@ -1,6 +1,19 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     CheckAuth();
+    $user_data=$db->getAll("SELECT * FROM users WHERE id=?i", $_SESSION['id'])[0];
+    if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
+        $user_avatar='wp-content/uploads/permanent/'.$user_data['avatar'];
+    }else{
+        $user_avatar='';
+    }
+    if($user_data['sex']==1){
+        $sex='Мужской';
+    }elseif($user_data['sex']==2){
+        $sex='Женский';
+    }else{
+        $sex='Пол';
+    }
 ?>
 
 <div class="account_section">
@@ -13,7 +26,7 @@
             </div>
             <form class="account_personal-data">
                 <div class="account_image-wrap">
-                    <img src='' alt="photo" width="" height="" />
+                    <img src='<?php echo $user_avatar; ?>' alt="photo" width="" height="" />
                     <label class="account_edit-img" for="account_input-img">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -28,7 +41,7 @@
                     <div class="account_gender-select">
                         <div class="account_input-gender-wrapper">
                             <input class="account_input-gender account-input-custom" required="required" type="button"
-                                value="Пол" name="account_input-gender" />
+                                value="<?php echo $sex; ?>" name="account_input-gender" />
                             <svg width="40" height="16" viewBox="0 0 40 16" fill='none'
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path d="M40 4L24.4472 11.7764C24.1657 11.9172 23.8343 11.9172 23.5528 11.7764L8 4"
@@ -42,18 +55,18 @@
                     </div>
                     <div class="account_age-select">
                         <input type="text" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ"
-                            onfocus="(this.type='date')">
+                            value="<?php echo $user_data['age']; ?>" min="1900-01-01" max="2022-12-31"
+                            required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')">
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
-                    required="required" name="account_input-firstName" />
+                    required="required" name="account_input-firstName" value="<?php echo $user_data['name']; ?>" />
                 <input id="account_personal-lastName" class="account-input-custom" type="text" placeholder="Фамилия"
-                    required="required" name="account_input-lastName" />
+                    required="required" name="account_input-lastName" value="<?php echo $user_data['surname']; ?>" />
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
-                    required="required" name="account_input-email" />
+                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" />
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
-                    required="required" name="account_input-tel" />
+                    required="required" name="account_input-tel" value="<?php echo $user_data['telephone']; ?>" />
                 <button id="upload_btn" class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
             </form>
         </div>
