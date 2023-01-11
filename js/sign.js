@@ -194,21 +194,22 @@ $("#set_pass_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
-            if (data === true) {
-                async function locationHref() {
-                    window.location.href = 'auth';
-                }
-                locationHref()
-                    .then(() => {
-                        alert("Вы успешно сменили пароль");
-                    })
-            } else {
-                for (let key in data) {
-                    if (key !== 'status') {
-                        showError(key, data[key]);
-                    }
-                }
-            }
+            console.log(data)
+            // if (data === true) {
+            //     async function locationHref() {
+            //         window.location.href = 'auth';
+            //     }
+            //     locationHref()
+            //         .then(() => {
+            //             //alert("Вы успешно сменили пароль");
+            //         })
+            // } else {
+            //     for (let key in data) {
+            //         if (key !== 'status') {
+            //             showError(key, data[key]);
+            //         }
+            //     }
+            // }
         },
         error: function (jqxhr, status, errorMsg) {
             console.log(status, errorMsg);

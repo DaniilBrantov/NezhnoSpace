@@ -44,7 +44,7 @@ function load_styles(){
 
 	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
 	"page-blog", "404", "documents",
-	"single", "audio", "sign", "account-content"];
+	"single", "audio", "sign", "account-content","pers_area"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
@@ -177,4 +177,39 @@ $name = md5(microtime() . rand(0, 9999));
 $file = $path . $name;
 } while (file_exists($file));
 return $name;
+}
+
+//Daily Practice
+function DailyPractice($id){
+$out='';
+$post=get_post($id);
+$out.='<div class="daily_practice">
+    <div class="daily_practice_img">
+        '. get_the_post_thumbnail($id, 'ppthmb') .'
+    </div>
+    <div class="daily_practice_cnt">
+        <div class="daily_practice_title">
+            '. $post->post_title .'
+        </div>
+        <div class="daily_practice_description">
+            '. trimCntWords(get_the_excerpt($post->ID), 20, '...') .'
+        </div>
+    </div>
+</div>';
+echo $out;
+}
+function trimCntChars($txt,$count, $after) {
+if (mb_strlen($txt) > $count) $txt = mb_substr($txt,0,$count);
+else $after = '';
+return $txt . $after;
+}
+
+function trimCntWords($txt,$count, $after) {
+$words = explode(' ', $txt);
+if (count($words) > $count) {
+array_splice($words, $count);
+$txt = implode(' ', $words);
+}
+else $after = '';
+return $txt . $after;
 }
