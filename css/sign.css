@@ -177,7 +177,7 @@ input.error {
   font-weight: bold;
 }
 .reset_password_form{
-  gap: 20px;
+  gap: 5px;
 }
 
 @media (max-width: 600px) {

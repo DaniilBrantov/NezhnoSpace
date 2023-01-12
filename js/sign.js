@@ -154,10 +154,12 @@ $("#reset_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
-            if (data) {
-                console.log(data)
+            if (data === true) {
+                document.querySelector('.reset_password_form.authorization_form').innerHTML = `
+                    <span>Письмо было отправлено на введенный email адрес. Пожалуйста, проверьте Вашу почту!</span>
+                `;
             } else {
-                console.log(data)
+                showError('mail', data);
             }
         },
         error: function (jqxhr, status, errorMsg) {
