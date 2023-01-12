@@ -55,8 +55,14 @@
                     </div>
                     <div class="account_age-select">
                         <input type="text" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="<?php echo $user_data['age']; ?>" min="1900-01-01" max="2022-12-31"
-                            required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')">
+                            value="<?php 
+                            if ($user_data['age'] == '0000-00-00') {
+                                echo '';
+                            } else {
+                                echo $user_data['age']; 
+                            };
+                            ?>" min="1900-01-01" max="2022-12-31"
+                            required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')">
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
@@ -66,8 +72,15 @@
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
                     required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" />
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
-                    required="required" name="account_input-tel" value="<?php echo $user_data['telephone']; ?>" />
+                    required="required" name="account_input-tel" value="<?php 
+                    if ($user_data['telephone'] == '0') {
+                        echo '';
+                    } else {
+                        echo $user_data['telephone']; 
+                    };
+                    ?>" />
                 <button id="upload_btn" class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
+                <span id='account-info-block' class='showInfo'>info upload text</span>
             </form>
         </div>
         <div class="account_sections-footer">

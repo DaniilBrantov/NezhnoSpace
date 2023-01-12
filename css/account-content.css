@@ -163,6 +163,10 @@
 }
 .account_btn-save {
 }
+#account-info-block {
+  margin-top: 10px;
+  opacity: 0;
+}
 .account_sections-footer {
   width: 100%;
   margin-bottom: 80px;

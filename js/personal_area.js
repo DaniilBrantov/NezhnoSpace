@@ -1,6 +1,33 @@
 (() => {
   let inputImgAvatar = document.querySelector("#account_input-img");
   let dropboxGender = document.querySelector(".account_input-gender-wrapper");
+  const arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
+
+  arrayInput.forEach((input) => {
+    function ucFirst(str) {
+      if (!str) return str;
+
+      return str[0].toUpperCase() + str.slice(1);
+    }
+
+    if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
+      input.value = ucFirst(input.value);
+    }
+
+    if (sessionStorage.getItem(input.id)) {
+      document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
+    }
+
+    if (input.id === 'account_input-age') {
+      if (input.value !== '') {
+        input.type = 'date';
+      }
+    }
+
+    input.addEventListener('input', (e) => {
+      sessionStorage.setItem(input.id, input.value);
+    });
+  });
 
   if (inputImgAvatar) {
     //смена аватарки в профиле
@@ -97,11 +124,11 @@
       // let name = document.querySelector("#account_personal-name").value;
       // let lastName = document.querySelector("#account_personal-lastName").value;
       // if (name.length > 0 || lastName.length > 0) {
-      //   function ucFirst(str) {
-      //     if (!str) return str;
+        // function ucFirst(str) {
+        //   if (!str) return str;
 
-      //     return str[0].toUpperCase() + str.slice(1);
-      //   }
+        //   return str[0].toUpperCase() + str.slice(1);
+        // }
       //   document.querySelector(".account_personal-name").innerText = `${ucFirst(
       //     name
       //   )} ${ucFirst(lastName)}`;
@@ -109,54 +136,18 @@
       //     name
       //   )} ${ucFirst(lastName)}`;
       // }
-
-
-
-
-
-
-
-
-
-      // let gender = $('input[name="account_input-gender"]').val();
-      // let age = $('input[name="account_input-age"]').val();
-      // let first_name = $('input[name="account_input-firstName"]').val();
-      // let last_name = $('input[name="account_input-lastName"]').val();
-      // let email = $('input[name="account_input-email"]').val();
-      // let tel = $('input[name="account_input-tel"]').val();
-
-
-      // let formData = new FormData();
-      // formData.append("gender", gender);
-      // formData.append("age", age);
-      // formData.append("first_name", first_name);
-      // formData.append("last_name", last_name);
-      // formData.append("tel", tel);
-      // formData.append("email", email);
-
-      // //обьект ajax со св-ми ,как было у формы.
-      // $.ajax({
-      //   url: "account_check",
-      //   type: "POST",
-      //   dataType: "json",
-      //   processData: false,
-      //   contentType: false,
-      //   cache: false,
-      //   data: formData,
-      //   success: function (msg) {
-      //     console.log(msg)
-      //   },
-      //   error: function (jqxhr, status, errorMsg) {
-      //     console.log(status, errorMsg);
-      //   },
-      // });
     });
   }
 })();
 
+//функция показа информации о состоянии отправляемых данных
+function uploadInfoShow(opacity, color, text) {
+  let infoBlockUpload = document.querySelector('#account-info-block');
 
-
-
+  infoBlockUpload.style.opacity = opacity;
+  infoBlockUpload.style.color = color;
+  infoBlockUpload.textContent = text;
+}
 
 //Update Uploads
 $("#upload_btn").click(function (e) {
@@ -186,7 +177,6 @@ $("#upload_btn").click(function (e) {
       formData.append('image', input);
     });
 
-
     //обьект ajax со св-ми ,как было у формы.
     $.ajax({
       url: "account_check",
@@ -198,10 +188,12 @@ $("#upload_btn").click(function (e) {
       data: formData,
       success: function (data) {
         if (data) {
-          console.log(data)
+          uploadInfoShow(1, 'green', 'Данные успешно сохранены!');
         } else {
-          console.log('При загрузке произошла неизвестная ошибка')
+          uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
         }
+        setTimeout(() => uploadInfoShow(0, '', 'upload'), 3000);
+        sessionStorage.clear();
       },
       error: function (jqxhr, status, errorMsg) {
         console.log(status, errorMsg);
