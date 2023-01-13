@@ -2,6 +2,7 @@
   background-color: var(--white);
   width: 100vw;
   height: 85vh;
+  min-height: 650px;
   /* margin-top: 70px; */
   /* margin-bottom: 30px; */
   align-items: center;

@@ -1,33 +1,39 @@
 (() => {
   let inputImgAvatar = document.querySelector("#account_input-img");
   let dropboxGender = document.querySelector(".account_input-gender-wrapper");
-  const arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
+  let arrayInput;
 
-  arrayInput.forEach((input) => {
-    function ucFirst(str) {
-      if (!str) return str;
+  if (document.querySelector('.account_personal-data')) {
+    arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
+  }
 
-      return str[0].toUpperCase() + str.slice(1);
-    }
-
-    if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
-      input.value = ucFirst(input.value);
-    }
-
-    if (sessionStorage.getItem(input.id)) {
-      document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
-    }
-
-    if (input.id === 'account_input-age') {
-      if (input.value !== '') {
-        input.type = 'date';
+  if (arrayInput) {
+    arrayInput.forEach((input) => {
+      function ucFirst(str) {
+        if (!str) return str;
+  
+        return str[0].toUpperCase() + str.slice(1);
       }
-    }
-
-    input.addEventListener('input', (e) => {
-      sessionStorage.setItem(input.id, input.value);
+  
+      if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
+        input.value = ucFirst(input.value);
+      }
+  
+      if (sessionStorage.getItem(input.id)) {
+        document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
+      }
+  
+      if (input.id === 'account_input-age') {
+        if (input.value !== '') {
+          input.type = 'date';
+        }
+      }
+  
+      input.addEventListener('input', (e) => {
+        sessionStorage.setItem(input.id, input.value);
+      });
     });
-  });
+  }
 
   if (inputImgAvatar) {
     //смена аватарки в профиле
