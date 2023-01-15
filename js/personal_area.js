@@ -11,24 +11,24 @@
     arrayInput.forEach((input) => {
       function ucFirst(str) {
         if (!str) return str;
-  
+
         return str[0].toUpperCase() + str.slice(1);
       }
-  
+
       if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
         input.value = ucFirst(input.value);
       }
-  
+
       if (sessionStorage.getItem(input.id)) {
         document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
       }
-  
+
       if (input.id === 'account_input-age') {
         if (input.value !== '') {
           input.type = 'date';
         }
       }
-  
+
       input.addEventListener('input', (e) => {
         sessionStorage.setItem(input.id, input.value);
       });
@@ -124,25 +124,6 @@
     //клик по кнопке сохранить
     let btnSave = document.querySelector(".account_btn-save");
 
-    btnSave.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      // let name = document.querySelector("#account_personal-name").value;
-      // let lastName = document.querySelector("#account_personal-lastName").value;
-      // if (name.length > 0 || lastName.length > 0) {
-        // function ucFirst(str) {
-        //   if (!str) return str;
-
-        //   return str[0].toUpperCase() + str.slice(1);
-        // }
-      //   document.querySelector(".account_personal-name").innerText = `${ucFirst(
-      //     name
-      //   )} ${ucFirst(lastName)}`;
-      //   document.querySelector(".account_fullname").innerText = `${ucFirst(
-      //     name
-      //   )} ${ucFirst(lastName)}`;
-      // }
-    });
   }
 })();
 
@@ -207,3 +188,5 @@ $("#upload_btn").click(function (e) {
     });
   }
 });
+
+

@@ -164,6 +164,11 @@ return $src;
 
 /** -------PHP/WP Functions------ **/
 
+function CheckAuth(){
+if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
+header('Location: auth');
+}
+};
 function getUrl(){
 echo get_template_directory_uri();
 };
@@ -225,3 +230,47 @@ mt_rand( 0, 0x3fff ) | 0x8000,
 mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 );
 }
+
+//Создать платёж
+
+function createNewPayment($price,$description){
+
+
+//Отправка платежных данных
+$data = array(
+'amount' => array(
+'value' => $price,
+'currency' => 'RUB',
+),
+'payment_method_data' => array(
+'type' => 'sberbank',
+'phone' => '79506276012',
+),
+'capture' => true,
+'confirmation' => array(
+'type' => 'embedded',
+),
+'description' => $description,
+'metadata' => array(
+'order_id' => 1,
+)
+);
+
+//CURL запрос
+$data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
+$ch = curl_init('https://api.yookassa.ru/v3/payments');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_USERPWD, YOOKASSA_CONNECTION);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+$res = curl_exec($ch);
+curl_close($ch);
+
+$res = json_decode($res, true);
+$res= $res['confirmation']['confirmation_token'];
+echo $res;
+};

@@ -25,6 +25,7 @@
     "node-sass": "^7.0.3",
     "react-router-dom": "^6.4.1",
     "simplex-noise": "^4.0.0",
-    "survey-jquery": "^1.9.50"
+    "survey-jquery": "^1.9.50",
+    "yookassa": "^0.1.1"
   }
 }

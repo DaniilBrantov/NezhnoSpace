@@ -60,12 +60,6 @@ class Sign{
     }
 }
 
-function CheckAuth(){
-    if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
-        header('Location: auth');
-    }
-};
-
 function GetResponseFromDB($condition, $db_func){
     if($condition){
         echo json_encode($db_func);
