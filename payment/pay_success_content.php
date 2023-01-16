@@ -4,7 +4,7 @@ require_once( get_theme_file_path('processing.php') );
 
 $order_id = $_GET['orderId'];
 
-//4276 4200 3013 0206
+
 
 $ch = curl_init('https://api.yookassa.ru/v3/payments/' . $order_id);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
