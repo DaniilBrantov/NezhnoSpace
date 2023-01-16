@@ -233,18 +233,12 @@ mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
 
 //Создать платёж
 
-function createNewPayment($price,$description){
-
-
+function createWidgetPayment($price,$description){
 //Отправка платежных данных
 $data = array(
 'amount' => array(
 'value' => $price,
 'currency' => 'RUB',
-),
-'payment_method_data' => array(
-'type' => 'sberbank',
-'phone' => '79506276012',
 ),
 'capture' => true,
 'confirmation' => array(
@@ -273,4 +267,89 @@ curl_close($ch);
 $res = json_decode($res, true);
 $res= $res['confirmation']['confirmation_token'];
 echo $res;
+};
+
+
+
+function createPagePayment($price,$description){
+//Отправка платежных данных
+$data = array(
+'amount' => array(
+'value' => $price,
+'currency' => 'RUB',
+),
+'payment_method_data' => array(
+'type' => 'bank_card',
+),
+// 'payment_method_data' => array(
+// 'type' => 'bank_card',
+// 'card' => array(
+// 'cardholder' => $card_holder,
+// 'csc' => $cvn,
+// 'expiry_month' => $expiry_month,
+// 'expiry_year' => $expiry_year,
+// 'number' => $number,
+// ),
+// ),
+'capture' => true,
+'confirmation' => array(
+'type' => 'redirect',
+'return_url' => 'https://nezhno.space/pay_success',
+),
+'description' => $description,
+'save_payment_method' => true,
+'metadata' => array(
+'order_id' => 1,
+)
+);
+
+$data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
+$ch = curl_init('https://api.yookassa.ru/v3/payments');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_USERPWD, YOOKASSA_CONNECTION);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+$res = curl_exec($ch);
+curl_close($ch);
+
+$res = json_decode($res, true);
+header('Location: ' . $res['confirmation']['confirmation_url'], true, 301);
+
+exit();
+};
+
+
+function Autopay($pay_id,$description){
+$data=array(
+'amount' => array(
+'value' => 2.0,
+'currency' => 'RUB',
+),
+'capture' => true,
+'payment_method_id' => $pay_id,
+'description' => $description,
+);
+
+
+$data = json_encode($data, JSON_UNESCAPED_UNICODE);
+
+$ch = curl_init('https://api.yookassa.ru/v3/payments');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_setopt($ch, CURLOPT_USERPWD, YOOKASSA_CONNECTION);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+$res = curl_exec($ch);
+curl_close($ch);
+
+$res = json_decode($res, true);
+//header('Location: ' . $res['confirmation']['confirmation_url'], true, 301);
+var_dump($res);
+//exit();
 };
