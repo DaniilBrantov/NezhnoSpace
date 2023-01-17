@@ -2,21 +2,27 @@
   let inputImgAvatar = document.querySelector("#account_input-img");
   let dropboxGender = document.querySelector(".account_input-gender-wrapper");
   let arrayInput;
-
+  
   if (document.querySelector('.account_personal-data')) {
     arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
-  }
 
-  if (arrayInput) {
     arrayInput.forEach((input) => {
-      function ucFirst(str) {
-        if (!str) return str;
+      function setCapitalLetter(str, elem) {
+        if(str == "") return false; 
+        str = str[0].toUpperCase() + str.substring(1,str.length);
+        elem.value = str;
+      }
+      if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
+        setCapitalLetter(input.value, input);
   
-        return str[0].toUpperCase() + str.slice(1);
+        input.addEventListener('keydown', function() {
+          setCapitalLetter(input.value, input);
+        })
       }
   
-      if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
-        input.value = ucFirst(input.value);
+      if (input.id === 'account_personal-tel') {
+        let tel = document.querySelector('#account_personal-tel');
+        tel.value = `+${tel.value[0]} (${tel.value[1]}${tel.value[2]}${tel.value[3]}) ${tel.value[4]}${tel.value[5]}${tel.value[6]}-${tel.value[7]}${tel.value[8]}-${tel.value[9]}${tel.value[10]}`;
       }
   
       if (sessionStorage.getItem(input.id)) {
