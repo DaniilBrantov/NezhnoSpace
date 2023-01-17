@@ -5,7 +5,7 @@
   
   if (document.querySelector('.account_personal-data')) {
     arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
-
+    
     arrayInput.forEach((input) => {
       function setCapitalLetter(str, elem) {
         if(str == "") return false; 
@@ -24,17 +24,17 @@
         let tel = document.querySelector('#account_personal-tel');
         tel.value = `+${tel.value[0]} (${tel.value[1]}${tel.value[2]}${tel.value[3]}) ${tel.value[4]}${tel.value[5]}${tel.value[6]}-${tel.value[7]}${tel.value[8]}-${tel.value[9]}${tel.value[10]}`;
       }
-  
+
       if (sessionStorage.getItem(input.id)) {
         document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
       }
-  
+
       if (input.id === 'account_input-age') {
         if (input.value !== '') {
           input.type = 'date';
         }
       }
-  
+
       input.addEventListener('input', (e) => {
         sessionStorage.setItem(input.id, input.value);
       });
@@ -130,25 +130,6 @@
     //клик по кнопке сохранить
     let btnSave = document.querySelector(".account_btn-save");
 
-    btnSave.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      // let name = document.querySelector("#account_personal-name").value;
-      // let lastName = document.querySelector("#account_personal-lastName").value;
-      // if (name.length > 0 || lastName.length > 0) {
-        // function ucFirst(str) {
-        //   if (!str) return str;
-
-        //   return str[0].toUpperCase() + str.slice(1);
-        // }
-      //   document.querySelector(".account_personal-name").innerText = `${ucFirst(
-      //     name
-      //   )} ${ucFirst(lastName)}`;
-      //   document.querySelector(".account_fullname").innerText = `${ucFirst(
-      //     name
-      //   )} ${ucFirst(lastName)}`;
-      // }
-    });
   }
 })();
 
@@ -213,3 +194,5 @@ $("#upload_btn").click(function (e) {
     });
   }
 });
+
+
