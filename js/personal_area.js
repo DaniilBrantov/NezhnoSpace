@@ -189,7 +189,7 @@ $("#upload_btn").click(function (e) {
         sessionStorage.clear();
       },
       error: function (jqxhr, status, errorMsg) {
-        console.log(status, errorMsg);
+        uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
       },
     });
   }

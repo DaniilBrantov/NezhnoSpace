@@ -44,4 +44,9 @@
             <a href="auth">Войти</a>
         </div>
     </div>
+    <div class="authorization_window-error">
+        <span>window error</span>
+        <button class="blue_btn authorization_window-error_btn">ок</button>
+    </div>
 </div>
+

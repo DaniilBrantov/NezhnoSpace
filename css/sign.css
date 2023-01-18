@@ -180,6 +180,27 @@ input.error {
 .reset_password_form{
   gap: 5px;
 }
+.authorization_window-error {
+  width: 300px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  box-shadow: 0 0 40px rgba(101, 112, 160, 0.553);
+  padding: 20px;
+  border-radius: 7px;
+  border: 1px solid #000;
+  background-color: #fff;
+
+  display: none;
+  flex-direction: column;
+}
+.authorization_window-error span {
+  padding-bottom: 10px;
+  text-align: center;
+}
 
 @media (max-width: 600px) {
   .activation_msg p{
