@@ -154,6 +154,7 @@ if ( strpos( $src, 'ver=' ) )
 $src = remove_query_arg( 'ver', $src );
 return $src;
 }
+
 /** убираем версии показа ДВИЖКА из исходного кода, при подключении css и jquery **/
 
 
@@ -184,24 +185,78 @@ $file = $path . $name;
 return $name;
 }
 
-//Daily Practice
-function DailyPractice($id){
-$out='';
-$post=get_post($id);
-$out.='<div class="daily_practice">
-    <div class="daily_practice_img">
-        '. get_the_post_thumbnail($id, 'ppthmb') .'
-    </div>
-    <div class="daily_practice_cnt">
-        <div class="daily_practice_title">
-            '. $post->post_title .'
-        </div>
-        <div class="daily_practice_description">
-            '. trimCntWords(get_the_excerpt($post->ID), 20, '...') .'
-        </div>
-    </div>
-</div>';
-echo $out;
+//Количество дней между датами
+function countDaysBetweenDates($d1, $d2){
+$d1_ts = strtotime($d1);
+$d2_ts = strtotime($d2);
+$seconds = abs($d1_ts - $d2_ts);
+return floor($seconds / 86400);
+}
+
+
+//Вывод всей записей из конкретной категории
+function CategoryData($category){
+if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
+$res=[];
+$i=1;
+while (have_posts()) : the_post();
+$res[$i] = subscriptionData(get_the_ID()) ;
+$i+=1;
+endwhile;
+endif;
+return ($res);
+wp_reset_query();
+};
+
+//Сегодняшняя ежедневнвя практика
+function TodayPractice($payment_days){
+if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
+$daily_practice=CategoryData(45);
+$id = $daily_practice[$payment_days]['id'];
+
+if(!empty($id) || isset($id) || $id !== NULL || $payment_days>1){
+$result=subscriptionData($id);
+}else{
+$result=subscriptionData(913);
+}
+}else{
+$result=subscriptionData(913);
+};
+return $result;
+}
+
+//Проверка оплаты
+function checkPayment(){
+
+$db = new SafeMySQL();
+$user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
+$status=$user_data['pay_status'];
+
+if($status && !empty($status) || isset($status) || $status !== NULL){
+if($status==='succeeded'){
+return TRUE;
+}else{return FALSE;}
+}else{return FALSE;}
+}
+
+//Вывод данных из конкретной записи
+function subscriptionData($id){
+$post = get_post($id);
+
+$res=[
+'id' => $post->ID,
+'date' => $post->post_date,
+'excerpt' => $post->post_excerpt,
+'title' => $post->post_title,
+'content' => $post->post_content,
+'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' )
+];
+if(checkPayment()){
+$res['link'] = $post->post_name;
+$res['tag'] =get_the_tag_list('<li>','</li>
+<li>','</li>', $post->ID );
+}
+return $res;
 }
 function trimCntChars($txt,$count, $after) {
 if (mb_strlen($txt) > $count) $txt = mb_substr($txt,0,$count);
@@ -209,6 +264,7 @@ else $after = '';
 return $txt . $after;
 }
 
+//Сокращение текста до конкретного кол-ва
 function trimCntWords($txt,$count, $after) {
 $words = explode(' ', $txt);
 if (count($words) > $count) {
@@ -220,59 +276,13 @@ return $txt . $after;
 }
 
 
-//Generate a key
-function gen_uuid() {
-return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-mt_rand( 0, 0xffff ),
-mt_rand( 0, 0x0fff ) | 0x4000,
-mt_rand( 0, 0x3fff ) | 0x8000,
-mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-);
-}
 
 //Создать платёж
 
-function createWidgetPayment($price,$description){
-//Отправка платежных данных
-$data = array(
-'amount' => array(
-'value' => $price,
-'currency' => 'RUB',
-),
-'capture' => true,
-'confirmation' => array(
-'type' => 'embedded',
-),
-'description' => $description,
-'metadata' => array(
-'order_id' => 1,
-)
-);
-
-//CURL запрос
-$data = json_encode($data, JSON_UNESCAPED_UNICODE);
-
-$ch = curl_init('https://api.yookassa.ru/v3/payments');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, CURLOPT_USERPWD, YOOKASSA_CONNECTION);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-$res = curl_exec($ch);
-curl_close($ch);
-
-$res = json_decode($res, true);
-$res= $res['confirmation']['confirmation_token'];
-echo $res;
-};
 
 
-
+//Создание платежных данных
 function createPagePayment($price,$description){
-//Отправка платежных данных
 $data = array(
 'amount' => array(
 'value' => $price,
@@ -281,16 +291,6 @@ $data = array(
 'payment_method_data' => array(
 'type' => 'bank_card',
 ),
-// 'payment_method_data' => array(
-// 'type' => 'bank_card',
-// 'card' => array(
-// 'cardholder' => $card_holder,
-// 'csc' => $cvn,
-// 'expiry_month' => $expiry_month,
-// 'expiry_year' => $expiry_year,
-// 'number' => $number,
-// ),
-// ),
 'capture' => true,
 'confirmation' => array(
 'type' => 'redirect',
@@ -302,54 +302,33 @@ $data = array(
 'order_id' => 1,
 )
 );
-
-$data = json_encode($data, JSON_UNESCAPED_UNICODE);
-
-$ch = curl_init('https://api.yookassa.ru/v3/payments');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, CURLOPT_USERPWD, YOOKASSA_CONNECTION);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-$res = curl_exec($ch);
-curl_close($ch);
-
-$res = json_decode($res, true);
-header('Location: ' . $res['confirmation']['confirmation_url'], true, 301);
-
-exit();
+return $data;
 };
 
 
-function Autopay($pay_id,$description){
+//Автоплатёж
+function Autopay($pay_id,$price,$description){
 $data=array(
 'amount' => array(
 'value' => 2.0,
 'currency' => 'RUB',
 ),
 'capture' => true,
-'payment_method_id' => $pay_id,
-'description' => $description,
+'payment_method_id' => '2b59e547-000f-5000-a000-1e50e827dccb',
+'description' => 'Заказ №105',
 );
+return $data;
+};
 
 
-$data = json_encode($data, JSON_UNESCAPED_UNICODE);
-
-$ch = curl_init('https://api.yookassa.ru/v3/payments');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, CURLOPT_USERPWD, YOOKASSA_CONNECTION);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-$res = curl_exec($ch);
-curl_close($ch);
-
-$res = json_decode($res, true);
-//header('Location: ' . $res['confirmation']['confirmation_url'], true, 301);
-var_dump($res);
-//exit();
+//Подключение к кассе
+function connectionPayment($data){
+$client = new \YooKassa\Client();
+//$set_auth=$client->setAuth('924292', 'live_K6zxD3oLhzUTmDPpr8If3fc2F5VlY6Ocmt8N8mJMek4');
+$set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+$payment = $client->createPayment(
+$data,
+uniqid('', true)
+);
+return $payment;
 };

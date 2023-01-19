@@ -1,33 +1,49 @@
 <?php
-session_start();
+//4276420030130206
+//2202203215223233
 require_once( get_theme_file_path('processing.php') );
+require __DIR__ . '/../libs/yookassa/autoload.php';
+use YooKassa\Client;
 
-$order_id = $_GET['orderId'];
+
+$order_id = $_POST['orderId'];
+var_dump(getPaymentData($order_id)) ;
+
+//Получение данных оплаты
+function getPaymentData($order_id){
+    $client = new \YooKassa\Client();
+    $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+    $params = array(
+        'limit' => 1,
+    );
+    $payments = $client->getPayments($params);
+    return ($payments["items"][0]['id']);
+};
 
 
-
-$ch = curl_init('https://api.yookassa.ru/v3/payments/' . $order_id);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_USERPWD, '924292:live_K6zxD3oLhzUTmDPpr8If3fc2F5VlY6Ocmt8N8mJMek4');
-curl_setopt($ch, CURLOPT_HEADER, false);
-curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Idempotence-Key: ' . gen_uuid()));
-$res = curl_exec($ch);
-curl_close($ch);
-
-$res = json_decode($res, true);
-var_dump($res['items'][0]['payment_method']);
-$status=$res['items'][0]['status'];
-if($status==='succeeded'){
-    if($db->query("UPDATE users SET pay_status=?s WHERE id=?i",$status,$_SESSION['id'])){
-        echo 'Успех!';
-    }else{
-        echo 'Ошибка при отправке данных на сервер';
-    }
-}elseif($status==='pending'){
-    //header('Location: subscription');
-}else{
+// $res = json_decode($res, true);
+// $payment_method_id=$res['items'][0]['payment_method']['id'];
+// $status=$res['items'][0]['status'];
+// $payment_data=$res["items"][0]["created_at"];
+// if($status==='succeeded'){
+//     if($db->query("UPDATE users SET pay_status=?s, payment_method=?s, payment_data=?s WHERE id=?i", $status, $payment_method_id, $payment_data, $_SESSION['id'])){
+//         var_dump ($res["items"][0]["created_at"]);
+//     }else{
+//         echo 'Ошибка при отправке данных на сервер';
+//     }
+// }elseif($status==='pending'){
+//     //header('Location: subscription');
+// }else{
     
-}
+// };
 
-?>
+
+
+
+
+//Autopay('2b59da25-000f-5000-a000-19ffc7c976cd','AutopayT');
+
+
+
+
+    ?>

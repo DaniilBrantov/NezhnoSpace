@@ -51,7 +51,7 @@
       // Хешируем пароль
       $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
       $activation=md5($mail.time());
-      $reg_date = time(); 
+      $reg_date = date(); 
   
       // Сохраняем таблицу
       $db->query("INSERT INTO `users`( `name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
