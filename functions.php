@@ -155,6 +155,31 @@ $src = remove_query_arg( 'ver', $src );
 return $src;
 }
 
+add_action( 'init', 'true_register_cpt' );
+
+function true_register_cpt() {
+
+$args = array(
+'labels' => array(
+'name' => 'Подписка', // основное название во множественном числе
+'singular_name' => 'Подписка', // название единичной записи
+'add_new' => 'Добавить урок',
+'add_new_item' => 'Добавить новый урок', // на странице добавления записи
+'new_item' => 'Новый урок',
+'view_item' => 'Просмотр урока', // текст кнопки просмотра записи на сайте (если поддерживается типом)
+'attributes' => 'Свойства подписок', // Название для метабокса атрибутов записи. WordPress 4.7+
+'featured_image' => 'Изображение авиабилета',
+'set_featured_image' => 'Установить изображение авиабилета',
+'remove_featured_image' => 'Удалить изображение авиабилета',
+'use_featured_image' => 'Использовать как изображение авиабилета',
+),
+'public' => true,
+'menu_icon' => 'dashicons-admin-site-alt'
+);
+register_post_type( 'subscription', $args );
+}
+
+
 /** убираем версии показа ДВИЖКА из исходного кода, при подключении css и jquery **/
 
 
@@ -165,17 +190,21 @@ return $src;
 
 /** -------PHP/WP Functions------ **/
 
+//Проверка авторизации
 function CheckAuth(){
 if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
 header('Location: auth');
 }
 };
+//Путь до папки
 function getUrl(){
 echo get_template_directory_uri();
 };
+//Ссылка на оплату
 function paySubscriptionUrl(){
 echo get_site_url() . "/payment";
 };
+//Рандомное имя папки через mb5
 function getRandomFileName($path){
 $path = $path ? $path . '/' : '';
 do {
@@ -185,6 +214,8 @@ $file = $path . $name;
 return $name;
 }
 
+
+
 //Количество дней между датами
 function countDaysBetweenDates($d1, $d2){
 $d1_ts = strtotime($d1);
@@ -193,14 +224,18 @@ $seconds = abs($d1_ts - $d2_ts);
 return floor($seconds / 86400);
 }
 
-
 //Вывод всей записей из конкретной категории
-function CategoryData($category){
+function CategoryData($open_posts,$category){
 if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
+$open_posts=ceil($open_posts);
 $res=[];
 $i=1;
 while (have_posts()) : the_post();
 $res[$i] = subscriptionData(get_the_ID()) ;
+if($open_posts >= $i || $res[$i]['id']===1){
+$res[$i]['status']=TRUE;
+}else{$res[$i]['status']=FALSE;}
+
 $i+=1;
 endwhile;
 endif;
@@ -210,8 +245,9 @@ wp_reset_query();
 
 //Сегодняшняя ежедневнвя практика
 function TodayPractice($payment_days){
+if(checkPayment()){
 if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
-$daily_practice=CategoryData(45);
+$daily_practice=CategoryData($payment_days,45);
 $id = $daily_practice[$payment_days]['id'];
 
 if(!empty($id) || isset($id) || $id !== NULL || $payment_days>1){
@@ -223,6 +259,8 @@ $result=subscriptionData(913);
 $result=subscriptionData(913);
 };
 return $result;
+}
+
 }
 
 //Проверка оплаты
@@ -239,7 +277,7 @@ return TRUE;
 }else{return FALSE;}
 }
 
-//Вывод данных из конкретной записи
+//Данные из конкретной записи
 function subscriptionData($id){
 $post = get_post($id);
 
@@ -258,6 +296,8 @@ $res['tag'] =get_the_tag_list('<li>','</li>
 }
 return $res;
 }
+
+//Вывод конкретного кол-ва знаков в тексте
 function trimCntChars($txt,$count, $after) {
 if (mb_strlen($txt) > $count) $txt = mb_substr($txt,0,$count);
 else $after = '';
@@ -274,6 +314,10 @@ $txt = implode(' ', $words);
 else $after = '';
 return $txt . $after;
 }
+
+
+
+
 
 
 

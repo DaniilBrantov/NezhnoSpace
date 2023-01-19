@@ -6,36 +6,34 @@
     $payment_date =$user_data['payment_data'];
     $today = date("Y-m-d H:i:s");
     $payment_days=countDaysBetweenDates($today, $payment_date);
+    $open_main_posts=$payment_days/7;
+
+// Вывод конкретной записи
+// var_dump($daily_practices[1]);
+
+// Сегодняшняя практика
+$today_practice=TodayPractice($payment_days);
+
+// Ежедневные практики
+$daily_practices=CategoryData($payment_days+1,45);
+
+//Рекомендательная система
+$recommendations=CategoryData($open_main_posts,46);
+
+//Тема месяца
+$month_theme=CategoryData($open_main_posts,47);
+
+
+    var_dump($today_practice);?><br><br><?php
+    var_dump($daily_practices);?><br><br><?php
+    var_dump($recommendations);?><br><br><?php
+    var_dump($month_theme);?><br><br><?php
 
 
 
 
 
-    if(checkPayment()){
-        echo ('Пользователь подписан');
-    }else{
-        echo ('Пользователь НЕ подписан!');
-    }
-    ?><br><br><?php
 
-    if(checkPayment()){
-        echo 'Еж. Практика на сегодня-------';
-        var_dump(TodayPractice($payment_days));
-        ?><br><br><?php
-    };
-
-    
-    echo 'Все еж. практики--------';
-    var_dump(CategoryData(45));
-    ?><br><br><?php
-    echo 'Данные конкретной записи. В дизайне это "описание"------';
-    var_dump(subscriptionData(913));
-    ?><br><br><?php
-    echo 'Все Реки--------';
-    var_dump(CategoryData(46));
-    ?><br><br><?php
-    echo 'Весь общий материал--------';
-    var_dump(CategoryData(47));
 
 
 ?>
