@@ -168,13 +168,8 @@ $args = array(
 'new_item' => 'Новый урок',
 'view_item' => 'Просмотр урока', // текст кнопки просмотра записи на сайте (если поддерживается типом)
 'attributes' => 'Свойства подписок', // Название для метабокса атрибутов записи. WordPress 4.7+
-'featured_image' => 'Изображение авиабилета',
-'set_featured_image' => 'Установить изображение авиабилета',
-'remove_featured_image' => 'Удалить изображение авиабилета',
-'use_featured_image' => 'Использовать как изображение авиабилета',
-),
-'public' => true,
 'menu_icon' => 'dashicons-admin-site-alt'
+)
 );
 register_post_type( 'subscription', $args );
 }
@@ -216,33 +211,6 @@ return $name;
 
 
 
-//Количество дней между датами
-function countDaysBetweenDates($d1, $d2){
-$d1_ts = strtotime($d1);
-$d2_ts = strtotime($d2);
-$seconds = abs($d1_ts - $d2_ts);
-return floor($seconds / 86400);
-}
-
-//Вывод всей записей из конкретной категории
-function CategoryData($open_posts,$category){
-if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
-$open_posts=ceil($open_posts);
-$res=[];
-$i=1;
-while (have_posts()) : the_post();
-$res[$i] = subscriptionData(get_the_ID()) ;
-if($open_posts >= $i || $res[$i]['id']===1){
-$res[$i]['status']=TRUE;
-}else{$res[$i]['status']=FALSE;}
-
-$i+=1;
-endwhile;
-endif;
-return ($res);
-wp_reset_query();
-};
-
 //Сегодняшняя ежедневнвя практика
 function TodayPractice($payment_days){
 if(checkPayment()){
@@ -260,18 +228,35 @@ $result=subscriptionData(913);
 };
 return $result;
 }
-
 }
+
+//Вывод всех записей из конкретной категории
+function CategoryData($open_posts,$category){
+if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
+$open_posts=ceil($open_posts);
+$res=[];
+$i=1;
+while (have_posts()) : the_post();
+$res[$i] = subscriptionData(get_the_ID()) ;
+if($open_posts >= $i || $res[$i]['id']===1 || $res[$i]['id']===0){
+$res[$i]['status']=TRUE;
+}else{$res[$i]['status']=FALSE;}
+$i+=1;
+endwhile;
+endif;
+return ($res);
+wp_reset_query();
+};
+
 
 //Проверка оплаты
 function checkPayment(){
 
 $db = new SafeMySQL();
-$user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
-$status=$user_data['pay_status'];
+$status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
 
 if($status && !empty($status) || isset($status) || $status !== NULL){
-if($status==='succeeded'){
+if($status==='2'){
 return TRUE;
 }else{return FALSE;}
 }else{return FALSE;}
@@ -295,6 +280,14 @@ $res['tag'] =get_the_tag_list('<li>','</li>
 <li>','</li>', $post->ID );
 }
 return $res;
+}
+
+//Количество дней между датами
+function countDaysBetweenDates($d1, $d2){
+$d1_ts = strtotime($d1);
+$d2_ts = strtotime($d2);
+$seconds = abs($d1_ts - $d2_ts);
+return floor($seconds / 86400);
 }
 
 //Вывод конкретного кол-ва знаков в тексте
@@ -376,3 +369,12 @@ uniqid('', true)
 );
 return $payment;
 };
+
+//Получение данных оплаты
+function getPaymentInformation($paymentId){
+$client = new \YooKassa\Client();
+$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+//$client->setAuth('924292', 'live_K6zxD3oLhzUTmDPpr8If3fc2F5VlY6Ocmt8N8mJMek4');
+$payment = $client->getPaymentInfo($paymentId);
+return $payment;
+}
