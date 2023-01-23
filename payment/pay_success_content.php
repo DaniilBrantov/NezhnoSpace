@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-//4276420030130206
-//2202203215223233
 require_once( get_theme_file_path('processing.php') );
 require __DIR__ . '/../libs/yookassa/autoload.php';
 use YooKassa\Client;

@@ -155,24 +155,128 @@ $src = remove_query_arg( 'ver', $src );
 return $src;
 }
 
-add_action( 'init', 'true_register_cpt' );
 
-function true_register_cpt() {
 
-$args = array(
-'labels' => array(
-'name' => 'Подписка', // основное название во множественном числе
-'singular_name' => 'Подписка', // название единичной записи
-'add_new' => 'Добавить урок',
-'add_new_item' => 'Добавить новый урок', // на странице добавления записи
-'new_item' => 'Новый урок',
-'view_item' => 'Просмотр урока', // текст кнопки просмотра записи на сайте (если поддерживается типом)
-'attributes' => 'Свойства подписок', // Название для метабокса атрибутов записи. WordPress 4.7+
-'menu_icon' => 'dashicons-admin-site-alt'
-)
-);
-register_post_type( 'subscription', $args );
+
+
+
+
+
+
+add_filter( 'rwmb_meta_boxes', 'your_prefix_register_meta_boxes' );
+
+function your_prefix_register_meta_boxes( $meta_boxes ) {
+$prefix = '';
+
+$meta_boxes[] = [
+'title' => esc_html__( 'Untitled Field Group', 'online-generator' ),
+'id' => 'untitled',
+'context' => 'normal',
+'fields' => [
+[
+'type' => 'taxonomy_advanced',
+'name' => esc_html__( 'Taxonomy Advanced', 'online-generator' ),
+'id' => $prefix . 'taxonomy_advanced_1hkihzoz14l',
+'taxonomy' => 'category',
+'field_type' => 'select_advanced',
+],
+[
+'type' => 'fieldset_text',
+'name' => esc_html__( 'Fieldset Text', 'online-generator' ),
+'id' => $prefix . 'fieldset_text_6uyt1tqfwbt',
+],
+[
+'type' => 'button',
+'name' => esc_html__( 'Button', 'online-generator' ),
+'id' => $prefix . 'button_1y8e62v3akpj',
+],
+],
+];
+
+return $meta_boxes;
 }
+
+
+
+function create_account(){
+$_POST['first_name']='Dabr123';
+$_POST['pass']='Dabr123';
+$_POST['mail']='dabr@mail.ru';
+
+$user = ( isset($_POST['first_name']) ? $_POST['first_name'] : '' );
+$pass = ( isset($_POST['pass']) ? $_POST['pass'] : '' );
+$email = ( isset($_POST['mail']) ? $_POST['mail'] : '' );
+
+if ( !username_exists( $user ) && !email_exists( $email ) ) {
+$user_id = wp_create_user( $user, $pass, $email );
+if( !is_wp_error($user_id) ) {
+$errors['pass'] = "ok";
+$user = new WP_User( $user_id );
+$user->set_role( 'contributor' );
+//Redirect
+wp_redirect( 'auth' );
+exit;
+} else {
+$error_code = array_key_first( $user_id->errors );
+$error_message = $user_id->errors[$error_code][0];
+
+}
+}else{
+$error_code = array_key_first( $user_id->errors );
+$error_message = $user_id->errors[$error_code][0];
+}
+return $error_code;
+}
+
+
+
+
+
+
+
+
+add_filter( 'manage_users_columns', 'bbloomer_add_new_user_column' );
+function bbloomer_add_new_user_column( $columns ) {
+$columns = [
+'username'=>'Ник',
+'role'=>'Роль',
+'email'=>'Email',
+'age'=>'Возраст',
+'sex'=>'Пол',
+'service'=>'Услуга',
+'telephone'=>'Телефон',
+'date_payment'=>'Дата покупки',
+];
+return $columns;
+}
+
+add_filter( 'manage_users_custom_column', 'bbloomer_add_new_user_column_content', 10, 3 );
+function bbloomer_add_new_user_column_content( $content, $column, $user_id ) {
+$customer = new WC_Customer( $user_id );
+
+if ( 'avatar_url' === $column ) {$content = $customer->get_avatar_url();}
+if( 'surname' === $column ){$content = $customer->get_last_name();}
+if( 'name' === $column ){$content = $customer->get_first_name();}
+//if( 'telephone' === $column ){$content = $customer->get_phone();}
+if( 'email' === $column ){$content = $customer->get_email();}
+if( 'username' === $column ){$content = $customer->get_username();}
+if( 'role' === $column ){$content = $customer->get_role();}
+return $content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /** убираем версии показа ДВИЖКА из исходного кода, при подключении css и jquery **/
@@ -218,7 +322,7 @@ if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
 $daily_practice=CategoryData($payment_days,45);
 $id = $daily_practice[$payment_days]['id'];
 
-if(!empty($id) || isset($id) || $id !== NULL || $payment_days>1){
+if(!empty($id) && isset($id) && $id !== NULL && $payment_days>1){
 $result=subscriptionData($id);
 }else{
 $result=subscriptionData(913);
@@ -255,7 +359,7 @@ function checkPayment(){
 $db = new SafeMySQL();
 $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
 
-if($status && !empty($status) || isset($status) || $status !== NULL){
+if($status && !empty($status) && isset($status) && $status !== NULL){
 if($status==='2'){
 return TRUE;
 }else{return FALSE;}
@@ -361,7 +465,7 @@ return $data;
 //Подключение к кассе
 function connectionPayment($data){
 $client = new \YooKassa\Client();
-//$set_auth=$client->setAuth('924292', 'live_K6zxD3oLhzUTmDPpr8If3fc2F5VlY6Ocmt8N8mJMek4');
+//$set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
 $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
 $payment = $client->createPayment(
 $data,
@@ -373,8 +477,8 @@ return $payment;
 //Получение данных оплаты
 function getPaymentInformation($paymentId){
 $client = new \YooKassa\Client();
+// $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
 $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
-//$client->setAuth('924292', 'live_K6zxD3oLhzUTmDPpr8If3fc2F5VlY6Ocmt8N8mJMek4');
 $payment = $client->getPaymentInfo($paymentId);
 return $payment;
 }

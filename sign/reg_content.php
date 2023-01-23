@@ -49,4 +49,3 @@
         <button class="blue_btn authorization_window-error_btn">ок</button>
     </div>
 </div>
-

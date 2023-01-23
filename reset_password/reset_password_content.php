@@ -1,3 +1,4 @@
+
 <div class="authorization">
     <div class="reg_auth">
         <form class="reset_password_form authorization_form">
