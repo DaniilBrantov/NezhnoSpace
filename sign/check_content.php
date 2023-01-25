@@ -1,18 +1,71 @@
 <?php
     //session_start();
     require_once( get_theme_file_path('processing.php') );
-    require_once( get_theme_file_path('functions.php') );
+    
+
+    $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
+    $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
+    $pass=$_POST['pass'];
+    $pass_conf=$_POST['pass_conf'];
+    $checkbox=$_POST['approval_check'];
+
+$user_validation = new UserValidationErrors();
+$errors=[];
+
+if($user_validation->getName($name)){
+    $errors['first_name']=$user_validation->getName($name);
+}
+if($user_validation->MatchingPasswords($pass, $pass_conf)){
+    $errors['pass_conf']=$user_validation->MatchingPasswords($pass, $pass_conf);
+}
+if($user_validation->getCoincidenceUser($mail)){
+    $errors['mail']=$user_validation->getCoincidenceUser($mail);
+}
+if($user_validation->getPassword($pass)){
+    $errors['pass']=$user_validation->getPassword($pass);
+}
+if(!vb_reg_new_user()){
+    $errors['first_name']=vb_reg_new_user();
+}
+
+if(empty($errors)){
+    // Хешируем пароль
+    $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
+    $activation=md5($mail.time());
+    $reg_date = date(); 
+
+    // Сохраняем таблицу
+    $db->query("INSERT INTO `users`( `name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
+
+    //cURL запрос из auth. Автоматическая авторизация
+    $postData = array(
+        'auth' => true,
+        'mail' => $mail,
+        'pass' => $pass,
+        'auth_btn' => true
+    );
+    $ch = curl_init($url.'/auth-check');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $response=json_decode($response, true);
+    extract($response);
+    $_SESSION['id']=$response['id'];
+    if($_SESSION['id'] || $_SESSION['id']!== NULL){
+        $errors['status']=true;
+    }else{
+        $errors['status']=false;
+    }
+}else{
+    $errors['status']=false;
+
+};
+echo json_encode($errors);
 
 
-var_dump(create_account()) ;
 
 
-
-    // $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
-    // $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
-    // $pass=$_POST['pass'];
-    // $pass_conf=$_POST['pass_conf'];
-    // $checkbox=$_POST['approval_check'];
 
 
 
@@ -21,9 +74,6 @@ var_dump(create_account()) ;
     // // Создаем массив для сбора ошибок
     // $errors=[];
 
-    // //Name
-    // if($name == '') {$errors['first_name'] = "Введите Имя";}
-    // elseif (mb_strlen($name) < 3 || mb_strlen($name) > 50){$errors['first_name'] = "Недопустимая длина имени";}
     
     // //Email
     // if($mail == '') {$errors['mail'] = "Введите Email";}

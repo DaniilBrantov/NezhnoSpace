@@ -21,6 +21,7 @@ $("#reg_btn").click(function (e) {
     e.preventDefault();
     $(`input`).removeClass("error");
     //val()- взять инф-цию с данного эл-нта
+    var reg_nonce = $('#vb_new_user_nonce').val();
     var first_name = $('input[name="first_name"]').val();
     var mail = $('input[name="mail"]').val();
     var pass = $('input[name="pass"]').val();
@@ -28,6 +29,7 @@ $("#reg_btn").click(function (e) {
     var approval_check = $('input[name="approval_check"]').val();
 
     var formData = new FormData();
+    formData.append("nonce", reg_nonce);
     formData.append("first_name", first_name);
     formData.append("mail", mail);
     formData.append("pass", pass);
@@ -52,7 +54,7 @@ $("#reg_btn").click(function (e) {
             else {
                 for (let key in data) {
                     if (key !== 'status') {
-                        console.log(key, data[key])
+                        //console.log(key, data[key])
                         showError(key, data[key]);
                     }
                 }
