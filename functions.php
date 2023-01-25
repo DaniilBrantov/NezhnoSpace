@@ -44,7 +44,7 @@ function load_styles(){
 
 	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
 	"page-blog", "404", "documents",
-	"single", "audio", "sign", "account-content","pers_area"];
+	"single", "audio", "sign", "account-content","pers_area", "subscription"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
@@ -112,7 +112,7 @@ function load_script() /*имя функции произвольное*/
 	);
 	wp_enqueue_script("plyr");
 
-	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player"];
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
@@ -380,8 +380,8 @@ $res=[
 ];
 if(checkPayment()){
 $res['link'] = $post->post_name;
-$res['tag'] =get_the_tag_list('<li>','</li>
-<li>','</li>', $post->ID );
+$res['tag'] =get_the_tag_list('<li>#','</li>
+<li>#','</li>', $post->ID );
 }
 return $res;
 }

@@ -1,0 +1,512 @@
+.subcscription_container {
+ margin-bottom: 32px;
+}
+.subcscription_calendar {
+  box-sizing: content-box;
+  width: 187px;
+  height: max-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.subcscription_calendar .subcscription_title {
+  margin-top: 0!important;
+  margin-bottom: 0!important;
+  padding-left: 0;
+}
+.daily-practice_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: relative;
+}
+.daily-practice_img-wrapper {
+  width: 100%;
+  height: 229px;
+  background-color: #bfcacd;
+  border-radius: 20px;
+
+  position: relative;
+  flex-shrink: 0;
+}
+.daily-practice_img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: none;
+
+  /* border-radius: 20px; */
+}
+.daily-practice_img-span {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 10px 8px;
+
+  background: rgba(29, 29, 29, 0.3);
+  -webkit-backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
+
+  border-radius: 16px;
+
+  font-family: 'Ubuntu Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.15;
+  color: #FFFFFF;
+}
+.daily-practice_text-wrapper {
+  padding: 30px 0;
+  /* padding: 30px 0;
+  margin-left: 0; */
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.daily-practice_progressbar-wrp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.daily-practice_progressbar-txt {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000000;
+}
+.daily-practice_progressbar {
+  display: flex;
+  align-items: center;
+}
+.daily-practice_progress-bar {
+	background-color: #DDE1F3;
+	border-radius: 5px;
+	/* margin: 15px; */
+  margin-left: 6px;
+	height: 16px;
+	width: 226px;
+	max-width: 100%;
+}
+
+.daily-practice_progress {
+	background: #421DD8;
+	border-radius: 5px;
+	height: 16px;
+	width: 0;
+	transition: width 0.5s ease-in;
+}
+.daily-practice_text {
+  margin-top: 16px;
+}
+.daily-practice_subtitle {
+  /* font-weight: 400; */
+  font-size: 25px;
+  line-height: 1.16;
+  color: #000000;
+}
+.daily-practice_content {
+  margin-top: 8px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+
+  color: #111111;
+}
+.daily-practice_btn-more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  /* -webkit-filter: drop-shadow(0px 3px 15px rgba(17, 17, 17, 0.25)); */
+  box-shadow: 0px 3px 15px rgba(17, 17, 17, 0.25);
+
+  background-image: url("../images/black_arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50%;
+  cursor: pointer;
+  z-index: 1;
+}
+
+
+
+
+.daily_practices_slider {
+  /* padding-left: 9%; */
+  margin: 32px auto 0;
+  /* margin-right: 32px; */
+  
+}
+.flickity-viewport {
+  overflow: visible!important;
+}
+.subcscription_block-slide {
+  margin-right: 32px;
+  display: block;
+  width: max-content;
+}
+.subcscription_block-slide:first-child,
+.subcscription_title,
+.subcscription_calendar {
+  padding-left: 16px;
+}
+.subcscription_block-slide:last-child {
+  margin-right: 0;
+}
+.blockSub-slide_wrapper-img {
+  width: 267px;
+  height: 171px;
+  /* outline: 5px #dde1f3 solid; */
+  background-color: #bfcacd;
+  border-radius: 10px;
+
+  position: relative;
+
+  outline: none;/*  убрать при клике */
+}
+.blockSub-slide_img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: none;
+
+  border-radius: 10px;
+}
+.blockSub-slide_after {
+  background-color: #dde1f3;
+  position: absolute;
+  bottom: -70px;
+  width: 208px;
+  height: 70px;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%);
+
+  display: none;/*  убрать при клике */
+}
+.blockSub-slide_before {/*  убрать при клике */
+  position: absolute;
+
+  background: linear-gradient(0deg, rgba(17, 17, 17, 0.6), rgba(17, 17, 17, 0.6));
+  border-radius: 10px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  /* display: none;  */ 
+  /* добавить при клике */
+}
+.blockSub-slide_before_svg {
+  display: flex;
+}
+.blockSub-slide_before_svgMusic,
+.blockSub-slide_before_svgBook {
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+  padding: 6px;
+  
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
+
+  border-radius: 35px;
+}
+.blockSub-slide_before_svgMusic svg,
+.blockSub-slide_before_svgBook svg {
+  width: 100%;
+  height: auto;
+}
+.blockSub-slide_before_time {
+  width: max-content;
+  padding: 4px 8px;
+
+  background: rgba(29, 29, 29, 0.3);
+  -webkit-backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(2.5px);
+  border-radius: 22px;
+
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #E3E3E3;
+}
+.blockSub-slide_before_svgLock {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.blockSub-slide_before_data {
+  margin-top: 6px;
+  font-family: 'Ubuntu Condensed';
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.15;
+  color: #FDFDFD;
+}
+.subcscription_title-slide {
+  margin-top: 10px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #111111;
+
+  /* display: none;  */ 
+  /* добавить при клике */
+}
+.blockSub-slide-more {
+  width: 267px;
+  height: 171px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.blockSub-slide-more span {
+  margin-top: 20px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #111111;
+  text-transform: uppercase;
+    /* display: none;  */ 
+  /* добавить при клике */
+}
+.subcscription_title {
+  margin-top: 32px;
+  margin-bottom: 15px;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  text-transform: none;
+
+  color:  #111111;
+}
+
+.daily_practices_addition,
+.recommendations_addition,
+.month-theme_addition {
+  margin-top: 17px;
+  background-color: #dde1f3;
+
+  display: none;/*  убрать при клике */
+}
+.addition_wrapper {
+  padding: 19px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.addition_text {
+  width: 100%;
+  max-width: 580px;
+}
+.addition_title {
+  font-family: 'Montserrat';
+  font-weight: 700;
+  text-transform: none;
+  font-size: 31px;
+  line-height: 1.22;
+  color: #111111;
+}
+.addition_tags {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+
+  cursor: pointer;
+}
+.addition_tags li{
+  margin-top: 10px;
+  list-style-type: none;
+  margin-right: 16px;
+  padding: 6px 12px;
+  
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #DEDEDE!important;
+
+  background: #586CBF;
+  border-radius: 23px;
+}
+.addition_tags li a {
+  color: inherit;
+}
+.addition_tags li:last-child {
+  margin-right: 0;
+}
+.addition_audio {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+.addition_audio svg {
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+.addition_subtitle-audio {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #000000;
+}
+.addition_materials {
+  margin-top: 16px;
+  display: flex;
+  align-items: flex-start;
+}
+.addition_materials svg {
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+.addition_subtitle-materials {
+  text-transform: none;
+  font-weight: 600;
+}
+.addition_subtitle-materials,
+.addition_description {
+  font-family: 'Montserrat';
+  font-size: 16px;
+  line-height: 1.25;
+  
+  color: #111111;
+}
+.addition_description {
+  margin-top: 5px;
+  display: block;
+}
+.addition_btn {
+  margin-top: 32px;
+  display: block;
+  width: max-content;
+  padding: 14px 18px;
+}
+.addition_image {
+  width: 543px;
+  height: 289px;
+
+  background-color: #bfcacd;
+  border-radius: 20px;
+
+  position: relative;
+
+  /* flex-shrink: 0; */
+}
+.addition_image img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border: none;
+
+  border-radius: 20px;
+}
+.addition_image-befor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: linear-gradient(0deg, rgba(17, 17, 17, 0.6), rgba(17, 17, 17, 0.6));
+
+  border-radius: 20px;
+}
+@media screen and (min-width: 768px) {
+  .addition_image {
+    min-width: 420px;
+  }
+}
+@media screen and (min-width: 960px) {
+  .subcscription_block-slide:first-child,
+  .subcscription_title,
+  .subcscription_calendar {
+    padding-left: 3%;
+  }
+  .addition_wrapper,
+  .daily-practice_wrapper {
+    padding-left: 3%;
+    padding-right: 5%;
+  }
+  .daily-practice_img {
+    border-radius: 20px;
+  }
+  .daily-practice_text-wrapper {
+    margin-left: 0;
+  }
+  .daily-practice_btn-more {
+    right: 5%;
+  }
+
+}
+@media screen and (min-width: 1200px) {
+  .subcscription_block-slide:first-child,
+  .subcscription_title,
+  .subcscription_calendar {
+    padding-left: 9%;
+  }
+  .addition_wrapper,
+  .daily-practice_wrapper {
+    padding-left: 9%;
+    padding-right: 11%;
+  }
+  .daily-practice_wrapper {
+    flex-direction: row;
+  }
+  .daily-practice_img-wrapper {
+    width: 576px;
+  }
+  .daily-practice_text-wrapper {
+    margin-left: 32px;
+    padding: 0;
+  }
+  .daily-practice_btn-more {
+    right: 11%;
+  }
+  .addition_image {
+    flex-shrink: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .addition_wrapper {
+    flex-direction: column;
+  }
+  .addition_image {
+    display: none;
+  }
+}
+@media screen and (max-width: 450px) {
+  .daily_practices_slider {
+    /* width: 50%; half-width */
+    /* padding-left: 3%; */
+  }
+  
+}
