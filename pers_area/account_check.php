@@ -7,8 +7,8 @@
 session_start();
 require_once( get_theme_file_path('processing.php') );
 require_once( get_theme_file_path('save_upload.php') );
+$user_err=new UserValidationErrors();
 
- //echo $_SESSION['id'];
 
 $user_data=[
 	'gender' => $_POST['gender'],
@@ -19,15 +19,15 @@ $user_data=[
 	'email' => $_POST['email']
 ];
 
-// $_POST['send']=true;
-// $user_data=[
-// 	'gender' => 'Мужской',
-// 	'age' => $_POST['age'],
-// 	'first_name' => 'Dabr',
-// 	'last_name' => 'Dabr',
-// 	'tel' => preg_replace("/[^0-9]/", '', $_POST['tel']),
-// 	'email' => 'dsa@dsg.ru'
-// ];
+$_POST['send']=true;
+$user_data=[
+	'gender' => 'Мужской',
+	'age' => $_POST['age'],
+	'first_name' => 'Dabr',
+	'last_name' => 'Dabr',
+	'tel' => preg_replace("/[^0-9]/", '', 79506276012),
+	'email' => 'dsa@dsg.ru'
+];
 
 if($_POST['send']){
 	$errors=[];
@@ -54,22 +54,23 @@ if($_POST['send']){
 	}
 	//Telephone
 	if(isset($user_data['tel']) && !empty($user_data['tel'])){
-		if(preg_match("/^[0-9]{11,11}+$/", $user_data['tel'])){
-			$first = substr($user_data['tel'], "0",1);
-			if($first != 7){
-				$errors['tel'] = "Некорректный номер телефона";
-			}else{
-				//Загрузка параметра в БД
-				if(!$db->query("UPDATE users SET telephone =?i WHERE id=?i", $user_data['tel'], $_SESSION['id'])){
-					$errors['tel'] = 'Произошёл сбой при загрузке';
-				}
+		$tel_err=$user_err->getTelephone($user_data['email']);
+		if($errors['tel'] = $tel_err){
+			//Загрузка параметра в БД
+			if(!$db->query("UPDATE users SET telephone =?i WHERE id=?i", $val, $_SESSION['id'])){
+				$errors['tel'] = 'Произошёл сбой при загрузке';
 			}
-		}else{
-			$errors['tel'] = "Телефон задан в неверном формате";
 		}
-		
 	}
 	//First Name & Last Name
+	if(!$user_err->getName($user_data['first_name'])){
+		//Загрузка параметра в БД
+		if(!$db->query("UPDATE users SET surname =?s WHERE id=?i", $user_data['first_name'], $_SESSION['id'])){
+			$errors['first_name'] = 'Произошёл сбой при загрузке';
+		}
+	}else{
+		
+	}
 	if(isset($user_data['first_name']) && !empty($user_data['first_name'])){
 		if (mb_strlen($user_data['first_name']) < 3 || mb_strlen($user_data['first_name']) > 50){$errors['first_name'] = "Недопустимая длина имени";}
 		else{
@@ -89,8 +90,7 @@ if($_POST['send']){
 		}
 	}
 	//Email
-	$sign=new Sign();
-	$email_err=$sign->ErrEmail($user_data['email']);
+	$email_err=$user_err->getEmail($user_data['email']);
 	if($email_err){
 		$errors['email'] = $email_err;
 	}else{

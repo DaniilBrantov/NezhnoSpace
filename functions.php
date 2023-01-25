@@ -159,82 +159,6 @@ return $src;
 
 
 
-
-
-
-
-add_filter( 'rwmb_meta_boxes', 'your_prefix_register_meta_boxes' );
-
-function your_prefix_register_meta_boxes( $meta_boxes ) {
-$prefix = '';
-
-$meta_boxes[] = [
-'title' => esc_html__( 'Untitled Field Group', 'online-generator' ),
-'id' => 'untitled',
-'context' => 'normal',
-'fields' => [
-[
-'type' => 'taxonomy_advanced',
-'name' => esc_html__( 'Taxonomy Advanced', 'online-generator' ),
-'id' => $prefix . 'taxonomy_advanced_1hkihzoz14l',
-'taxonomy' => 'category',
-'field_type' => 'select_advanced',
-],
-[
-'type' => 'fieldset_text',
-'name' => esc_html__( 'Fieldset Text', 'online-generator' ),
-'id' => $prefix . 'fieldset_text_6uyt1tqfwbt',
-],
-[
-'type' => 'button',
-'name' => esc_html__( 'Button', 'online-generator' ),
-'id' => $prefix . 'button_1y8e62v3akpj',
-],
-],
-];
-
-return $meta_boxes;
-}
-
-
-
-function create_account(){
-$_POST['first_name']='Dabr123';
-$_POST['pass']='Dabr123';
-$_POST['mail']='dabr@mail.ru';
-
-$user = ( isset($_POST['first_name']) ? $_POST['first_name'] : '' );
-$pass = ( isset($_POST['pass']) ? $_POST['pass'] : '' );
-$email = ( isset($_POST['mail']) ? $_POST['mail'] : '' );
-
-if ( !username_exists( $user ) && !email_exists( $email ) ) {
-$user_id = wp_create_user( $user, $pass, $email );
-if( !is_wp_error($user_id) ) {
-$errors['pass'] = "ok";
-$user = new WP_User( $user_id );
-$user->set_role( 'contributor' );
-//Redirect
-wp_redirect( 'auth' );
-exit;
-} else {
-$error_code = array_key_first( $user_id->errors );
-$error_message = $user_id->errors[$error_code][0];
-
-}
-}else{
-$error_code = array_key_first( $user_id->errors );
-$error_message = $user_id->errors[$error_code][0];
-}
-return $error_code;
-}
-
-
-
-
-
-
-
-
 add_filter( 'manage_users_columns', 'bbloomer_add_new_user_column' );
 function bbloomer_add_new_user_column( $columns ) {
 $columns = [
@@ -482,3 +406,43 @@ $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
 $payment = $client->getPaymentInfo($paymentId);
 return $payment;
 }
+
+
+
+/**
+* New User registration
+*
+*/
+function vb_reg_new_user() {
+
+// Verify nonce
+if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ))
+return( 'Ooops, something went wrong, please try again later.' );
+
+// Post values
+$password = $_POST['pass'];
+$email = $_POST['mail'];
+$name = $_POST['first_name'];
+
+$userdata = array(
+'user_login' => $email,
+'user_pass' => $password,
+'user_email' => $email,
+'first_name' => $name,
+);
+
+$user_id = wp_insert_user( $userdata ) ;
+
+// Return
+if( !is_wp_error($user_id) ) {
+//$user_id = wp_update_user(array('ID' => $user_id, 'description' => $about)); //add description-about
+return '1';
+} else {
+return $user_id->get_error_message();
+}
+die();
+
+}
+
+add_action('wp_ajax_register_user', 'vb_reg_new_user');
+add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');

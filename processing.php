@@ -9,56 +9,93 @@ require_once 'config/connect.php';
 //session_start(); 
 $db = new SafeMySQL();
 
-
-class Sign{
-    //Password
-    public function ErrPass(){
-        $pass = func_get_args()[0];
-        $check=$this->ValidPass($pass);
-        return $check;
-        //return $this->SignResult($check);
+class UserValidationErrors
+{
+    public function getName($val)
+    {	
+        return $this->FieldLength($val, "Введите Имя");
     }
-    public function getHashPass($pass){
-        $hash=$this->HashPass($pass);
-        return $hash;
+    public function getSurname($val)
+    {	
+        return $this->FieldLength($val, "Введите Фамилию");
     }
-    public function ErrEmail(){
-        $mail = func_get_args()[0];
-        $check=$this->ValidEmail($mail);
-        return $check;
-        //return $this->SignResult($check);
-    }
-
-
-
-    protected function ValidPass($pass){
-        if($pass == '') {$res = "Введите пароль";}
-        //Недопустимая длина
-        elseif (mb_strlen($pass) < 8){$res = "Недопустимая длина пароля";}
-        //Проверка пароля
-        elseif(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,}$/', $pass)){
-            $res = "Слабый пароль";
+    public function MatchingPasswords($pass, $pass_conf){
+        if($pass === $pass_conf) {
+            return 0;
         }else{
-            $res = FALSE;
+            return "Повторный пароль введен не верно!";
         }
-        return $res;
     }
-    protected function HashPass($pass){
-        $pass = password_hash($pass, PASSWORD_DEFAULT);
-        return $pass;
-    }
-    protected function ValidEmail($mail){
-        if($mail == '') {
-            $error = "Введите Email";
-        }
-        elseif (!preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $mail)) {
-            $error = 'Неверно введен е-mail';
+    public function getCoincidenceUser($val){
+        if(!$this->getEmail($val)){
+            return $this->CoincidenceUser($val);
         }else{
-            $error = FALSE;
+            return $this->getEmail($val);
         }
-        return $error;
     }
-}
+    public function getEmail($val)
+    {	
+        $field_lenght=$this->FieldLength($val, "Введите Email");
+        if($field_lenght === 0){
+            if(preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $val)){
+                return $field_lenght;
+            }else{
+                return 'Неверно введен е-mail';
+            }
+        }else{
+            return $field_lenght;
+        }
+    }
+    public function getPassword($val)
+    {
+        $field_lenght=$this->FieldLength($val, "Введите Пароль");
+        if($field_lenght === 0){
+            if(!preg_match('/^\S*(?=\S{8,30})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $val)){
+                return "Слабый пароль";
+            }else{ 
+                return $field_lenght; 
+            }
+        }else{
+            return $field_lenght;
+        }
+    }
+    public function getTelephone($val)
+    {
+        if(preg_match("/^[0-9]{11,11}+$/", $val)){
+			$first = substr($val, "0",1);
+			if($first != 7){
+				return "Некорректный номер телефона";
+			}else{
+                return 0;
+			}
+		}else{
+			return"Телефон задан в неверном формате";
+		}
+    }
+    protected function FieldLength($full_name, $error)
+    {
+        if($full_name == '') {
+            return $error;
+        }elseif (mb_strlen($full_name) < 3 || mb_strlen($full_name) > 50){
+            $error = "Недопустимая длина";
+            return $error;
+        }else{
+            return 0;
+        }
+    }
+    protected function CoincidenceUser($val)
+    {
+        $db = new SafeMySQL();
+        //$check_user=$db->query("SELECT user_email FROM wp_users WHERE user_email=?s", $val
+        if($check_user=$db->query("SELECT mail FROM users WHERE mail=?s", $val)){
+            if($db->numRows($check_user)>0){
+                return 'Такой пользователь уже существует';
+            }else{
+                return $field_lenght;
+            }
+        }else{return "Произошла неизвестная ошибка";}
+    }
+};
 
 function GetResponseFromDB($condition, $db_func){
     if($condition){
