@@ -398,7 +398,7 @@ uniqid('', true)
 return $payment;
 };
 
-//Получение данных оплаты
+// Получение данных оплаты
 function getPaymentInformation($paymentId){
 $client = new \YooKassa\Client();
 // $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
@@ -407,6 +407,23 @@ $payment = $client->getPaymentInfo($paymentId);
 return $payment;
 }
 
+//Обновление и проверка параметра пользователя
+function updateData($update_data,$data_validation,$db_column,$err){
+if(isset($update_data) && !empty($update_data)){
+if($data_validation === 0){
+$db = new SafeMySQL();
+if(!$db->query("UPDATE users SET $db_column=?s WHERE id=?i", $update_data, $_SESSION['id'])){
+$errors[$err] = 'Произошёл сбой при загрузке';
+}else{
+$errors=[];
+}
+}else{
+$errors[$err]=$data_validation;
+}
+}
+$errors=[];
+return $errors;
+}
 
 
 /**

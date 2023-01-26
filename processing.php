@@ -72,6 +72,18 @@ class UserValidationErrors
 			return"Телефон задан в неверном формате";
 		}
     }
+    public function getAge($val)
+    {
+        if( time() > strtotime($val) ){
+            if (time() < strtotime('+18 years', strtotime($val))) {
+                return "Вам меньше 18 лет";
+            } else {
+                return 0;
+            }
+        }else{
+            return "Введите свою дату рождения";
+        }
+    }
     protected function FieldLength($full_name, $error)
     {
         if($full_name == '') {

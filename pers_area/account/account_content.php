@@ -61,8 +61,9 @@
                             } else {
                                 echo $user_data['age']; 
                             };
-                            ?>" min="1900-01-01" max="2022-12-31"
-                            required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')" onblur="(this.value == '' ? this.type='text' : this.type='date')">
+                            ?>" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ"
+                            onfocus="(this.type='date')"
+                            onblur="(this.value == '' ? this.type='text' : this.type='date')">
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
