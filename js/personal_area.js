@@ -181,7 +181,7 @@ $("#upload_btn").click(function (e) {
 
     //обьект ajax со св-ми ,как было у формы.
     $.ajax({
-      url: "http://127.0.0.1/nezhno/account/account_check",
+      url: "account_check",
       type: "POST",
       dataType: "json",
       processData: false,
