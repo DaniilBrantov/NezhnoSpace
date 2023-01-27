@@ -1,5 +1,7 @@
 .subcscription_container {
  margin-bottom: 32px;
+ width: 100vw;
+ overflow: hidden;
 }
 .subcscription_calendar {
   box-sizing: content-box;
@@ -17,7 +19,6 @@
 .daily-practice_wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   position: relative;
 }

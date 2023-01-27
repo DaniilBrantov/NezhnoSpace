@@ -72,8 +72,8 @@
         <div class="header_auth">
             <ul class="account_navigation-list navigation-list_slider">
                 <li class="active account_fullname"><a href="account">Мои данные</a></li>
-                <li><a href="subscription">Моя подписка</a></li>
-                <li><a href="">Календарь</a></li>
+                <li class="account_subscription"><a href="subscription">Моя подписка</a></li>
+                <li class="account_calendar"><a href="">Календарь</a></li>
             </ul>
         </div>
         <?php }; ?>

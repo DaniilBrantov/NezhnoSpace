@@ -1,7 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     CheckAuth();
-
     $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     $payment_date =$user_data['payment_date'];
     $today = date("Y-m-d H:i:s");
@@ -73,8 +72,8 @@ $month_theme=CategoryData($open_main_posts,47);
         <div class="daily-practice_wrapper">
             <a class="daily-practice_img-wrapper" href="">
                 <img class="daily-practice_img"
-                    src="<?php echo get_template_directory_uri()  ?>/images/daily-practice.png" alt="">
-                <span class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></span>
+                    src="<?php echo (empty($today_practice['image_url']) ? $daily_practices[1]['image_url'] : $today_practice['image_url']);?>" alt="">
+                <span class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? $daily_practices[1]['title'] : $today_practice['title']);?></span>
             </a>
             <div class="daily-practice_text-wrapper">
                 <!-- <div class="daily-practice_progressbar-wrp">
@@ -87,10 +86,8 @@ $month_theme=CategoryData($open_main_posts,47);
                     </div>
                 </div> -->
                 <div class="daily-practice_text">
-                    <h4 class="daily-practice_subtitle"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></h4>
-                    <div class="daily-practice_content"><?php echo (empty($today_practice['content']) ? 'Less is more (”меньше значит больше”) - принцип, которым мы руководствовались при создании
-                        подписки. На наш взгляд, этот принцип - ключ к внутренней гармонии. Это здоровый и очень
-                        органичный минимализм: только главное и ничего лишнего...': $today_practice['content']);?>
+                    <h4 class="daily-practice_subtitle"><?php echo (empty($today_practice['title']) ? $daily_practices[1]['title'] : $today_practice['title']);?></h4>
+                    <div class="daily-practice_content"><?php echo (empty($today_practice["content"]) ? trimCntWords($daily_practices[1]["content"],30, '...') : trimCntWords($today_practice["content"],30, '...'));?>
                     </div>
                 </div>
             </div>
@@ -161,7 +158,7 @@ $month_theme=CategoryData($open_main_posts,47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo $row["content"]; ?></span>
+                        <span class="addition_description"><?php echo trimCntWords($row["content"],30, '...'); ?></span>
                     </div>
                 </div>
                 <a href="" class="blue_btn addition_btn">Перейти</a>
@@ -239,7 +236,7 @@ $month_theme=CategoryData($open_main_posts,47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo $rec["content"]; ?></span>
+                        <span class="addition_description"><?php echo trimCntWords($rec["content"],30, '...'); ?></span>
                     </div>
                 </div>
                 <a href="" class="blue_btn addition_btn">Перейти</a>
@@ -318,7 +315,7 @@ $month_theme=CategoryData($open_main_posts,47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo $month["content"]; ?></span>
+                        <span class="addition_description"><?php echo trimCntWords($month["content"],30, '...'); ?></span>
                     </div>
                 </div>
                 <a href="" class="blue_btn addition_btn">Перейти</a>
