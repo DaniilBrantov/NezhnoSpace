@@ -145,6 +145,7 @@
 }
 .flickity-viewport {
   overflow: visible!important;
+  cursor: pointer!important;
 }
 .subcscription_block-slide {
   margin-right: 32px;
