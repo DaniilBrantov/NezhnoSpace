@@ -260,15 +260,19 @@ return $result;
 
 //Вывод всех записей из конкретной категории
 function CategoryData($open_posts,$category){
+
 if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
 $open_posts=ceil($open_posts);
 $res=[];
 $i=1;
 while (have_posts()) : the_post();
 $res[$i] = subscriptionData(get_the_ID()) ;
-if($open_posts >= $i || $res[$i]['id']===1 || $res[$i]['id']===0){
+if(checkPayment()){
+if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
 $res[$i]['status']=TRUE;
 }else{$res[$i]['status']=FALSE;}
+};
+
 $i+=1;
 endwhile;
 endif;
@@ -314,10 +318,15 @@ return $res;
 
 //Количество дней между датами
 function countDaysBetweenDates($d1, $d2){
+if( $d2!=="0000-00-00 00:00:00" ){
 $d1_ts = strtotime($d1);
 $d2_ts = strtotime($d2);
 $seconds = abs($d1_ts - $d2_ts);
 return floor($seconds / 86400);
+}else{
+return 0;
+}
+
 }
 
 //Вывод конкретного кол-ва знаков в тексте
