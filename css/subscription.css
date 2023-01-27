@@ -97,7 +97,7 @@
 	transition: width 0.5s ease-in;
 }
 .daily-practice_text {
-  margin-top: 16px;
+  /* margin-top: 16px; */
 }
 .daily-practice_subtitle {
   /* font-weight: 400; */
@@ -145,6 +145,7 @@
 }
 .flickity-viewport {
   overflow: visible!important;
+  cursor: pointer!important;
 }
 .subcscription_block-slide {
   margin-right: 32px;

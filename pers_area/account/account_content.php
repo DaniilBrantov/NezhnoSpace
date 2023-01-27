@@ -5,7 +5,7 @@
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
         $user_avatar='wp-content/uploads/permanent/'.$user_data['avatar'];
     }else{
-        $user_avatar='';
+    $user_avatar='';
     }
     if($user_data['sex']==1){
         $sex='Мужской';
@@ -64,14 +64,18 @@
                             ?>" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ"
                             onfocus="(this.type='date')"
                             onblur="(this.value == '' ? this.type='text' : this.type='date')">
+                        <span class="text-error text-error_account_input-age">text error</span>
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
                     required="required" name="account_input-firstName" value="<?php echo $user_data['name']; ?>" />
+                <span class="text-error text-error_account_input-firstName">text error</span>
                 <input id="account_personal-lastName" class="account-input-custom" type="text" placeholder="Фамилия"
                     required="required" name="account_input-lastName" value="<?php echo $user_data['surname']; ?>" />
+                <span class="text-error text-error_account_input-lastName">text error</span>
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
                     required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" />
+                <span class="text-error text-error_account_input-email">text error</span>
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
                     required="required" name="account_input-tel" value="<?php 
                     if ($user_data['telephone'] == '0') {
@@ -80,6 +84,7 @@
                         echo $user_data['telephone']; 
                     };
                     ?>" />
+                <span class="text-error text-error_account_input-tel">text error</span>
                 <button id="upload_btn" class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
                 <span id='account-info-block' class='showInfo'>info upload text</span>
             </form>

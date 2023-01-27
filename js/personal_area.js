@@ -1,3 +1,12 @@
+const hideError = (val) => {
+  document.querySelector(`input[name=${val}]`).addEventListener('focus', function (e) { 
+    if (document.querySelector(`input[name=${val}]`).classList.contains('error')) {
+      document.querySelector(`input[name=${val}]`).classList.remove('error');
+      document.querySelector(`.text-error_${val}`).style.opacity = '0';
+    }
+  })
+};
+
 (() => {
   let inputImgAvatar = document.querySelector("#account_input-img");
   let dropboxGender = document.querySelector(".account_input-gender-wrapper");
@@ -172,7 +181,7 @@ $("#upload_btn").click(function (e) {
 
     //обьект ajax со св-ми ,как было у формы.
     $.ajax({
-      url: "account_check",
+      url: "http://127.0.0.1/nezhno/account/account_check",
       type: "POST",
       dataType: "json",
       processData: false,
@@ -180,13 +189,26 @@ $("#upload_btn").click(function (e) {
       cache: false,
       data: formData,
       success: function (data) {
-        if (data) {
+        console.log(data)
+        if (data === 'true') {
           uploadInfoShow(1, 'green', 'Данные успешно сохранены!');
+          sessionStorage.clear();
         } else {
-          uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
+          for (let key in data) {
+            if (key !== 'status') {
+              let val;
+              if (key === 'first_name') {
+                val = `account_input-firstName`;
+              } else if (key === 'last_name') {
+                val = `account_input-lastName`;
+              } else {
+                val = `account_input-${key}`;
+              }
+              showError(val, data[key]);
+              hideError(val);
+            }
+          }
         }
-        setTimeout(() => uploadInfoShow(0, '', 'upload'), 3000);
-        sessionStorage.clear();
       },
       error: function (jqxhr, status, errorMsg) {
         uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
@@ -196,3 +218,4 @@ $("#upload_btn").click(function (e) {
 });
 
 
+//скрытие ошибки на странице аккаунта после нажатия на инпут
