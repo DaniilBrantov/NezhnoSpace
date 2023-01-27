@@ -16,10 +16,10 @@
 
 // Сегодняшняя практика
 // Если оплаты нет, тогда выводит NULL
-$today_practice=TodayPractice($payment_days);
+$today_practice=TodayPractice($payment_days+1);
 
 // Ежедневные практики
-$daily_practices=CategoryData($payment_days+1,45);
+$daily_practices=CategoryData($payment_days,45);
 
 // Рекомендательная система
 $recommendations=CategoryData($open_main_posts,46);
@@ -53,10 +53,11 @@ $month_theme=CategoryData($open_main_posts,47);
 // var_dump (get_post_meta(946, 'month_count', true));
 // var_dump (get_post_meta(946, 'price', true));?>
 <?php
-    // var_dump($today_practice);
-    // var_dump($daily_practices);
-    // var_dump($recommendations);
-    // var_dump($month_theme);
+// var_dump($open_main_posts);
+    //  var_dump($today_practice);
+    //   var_dump($daily_practices);
+    //  var_dump($recommendations);
+    //  var_dump($month_theme);
 ?>
 
 <div class="subcscription_container">
@@ -74,7 +75,8 @@ $month_theme=CategoryData($open_main_posts,47);
             <a class="daily-practice_img-wrapper" href="">
                 <img class="daily-practice_img"
                     src="<?php echo get_template_directory_uri()  ?>/images/daily-practice.png" alt="">
-                <span class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></span>
+                <span
+                    class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></span>
             </a>
             <div class="daily-practice_text-wrapper">
                 <!-- <div class="daily-practice_progressbar-wrp">
@@ -87,7 +89,9 @@ $month_theme=CategoryData($open_main_posts,47);
                     </div>
                 </div> -->
                 <div class="daily-practice_text">
-                    <h4 class="daily-practice_subtitle"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></h4>
+                    <h4 class="daily-practice_subtitle">
+                        <?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?>
+                    </h4>
                     <div class="daily-practice_content"><?php echo (empty($today_practice['content']) ? 'Less is more (”меньше значит больше”) - принцип, которым мы руководствовались при создании
                         подписки. На наш взгляд, этот принцип - ключ к внутренней гармонии. Это здоровый и очень
                         органичный минимализм: только главное и ничего лишнего...': $today_practice['content']);?>
