@@ -1,45 +1,32 @@
 (() => {
   document.addEventListener('DOMContentLoaded', function() {
-    $('.daily_practices_slider').flickity({
-      draggable: true,
-      freeScroll: true,
-      prevNextButtons: false,
-      pageDots: false,
-      contain: true,
-      imagesLoaded: true,
-      // для бесконечной прокрутки
-      // wrapAround: true 
- 
-    });
-    $('.recommendations_slider').flickity({
-      draggable: true,
-      freeScroll: true,
-      prevNextButtons: false,
-      pageDots: false,
-      contain: true,
-      imagesLoaded: true,
-      // для бесконечной прокрутки
-      // wrapAround: true 
- 
-    });
-    $('.month-theme_slider').flickity({
-      draggable: true,
-      freeScroll: true,
-      prevNextButtons: false,
-      pageDots: false,
-      contain: true,
-      imagesLoaded: true,
-      // для бесконечной прокрутки
-      // wrapAround: true 
- 
-    });
+    let slidersInit = [
+      $('.daily_practices_slider'),
+      $('.recommendations_slider'),
+      $('.month-theme_slider'),
+    ];
+
+    slidersInit.forEach((slider) => {
+      slider.flickity({
+        draggable: true,
+        freeScroll: true,
+        contain: true,
+        prevNextButtons: false,
+        pageDots: false,
+        contain: true,
+        cellAlign: 'left',
+        imagesLoaded: true,
+        // для бесконечной прокрутки
+        // wrapAround: true 
+      });
+    })
 
     //progress-bar
-    const progress_bars = document.querySelectorAll('.daily-practice_progress');
-    progress_bars.forEach(bar => {
-      const { size } = bar.dataset;
-      bar.style.width = `${size}%`
-    });
+    // const progress_bars = document.querySelectorAll('.daily-practice_progress');
+    // progress_bars.forEach(bar => {
+    //   const { size } = bar.dataset;
+    //   bar.style.width = `${size}%`
+    // });
 
     function changeAddition(slide, addition, outline, visible, notvisible) {
       // slide.classList.toggle('slideActive');
@@ -62,101 +49,71 @@
       })
     }
 
-    let dailyPracticesSlide = document.querySelectorAll('.daily_practices_slide');
-    let dailyPracticesAddition = document.querySelectorAll('.daily_practices_addition');
+    const arraySliders = [
+      {
+        slider: document.querySelectorAll('.daily_practices_slide'),
+        addition: document.querySelectorAll('.daily_practices_addition')
+      },
+      {
+        slider: document.querySelectorAll('.recommendations_slide'),
+        addition: document.querySelectorAll('.recommendations_addition')
+      },
+      {
+        slider: document.querySelectorAll('.month-theme_slide'),
+        addition: document.querySelectorAll('.month-theme_addition')
+      },
+    ];
 
-    dailyPracticesSlide.forEach((slide) => {
-      slide.addEventListener('click', (e) => {
-        dailyPracticesAddition.forEach((addition) => {
-          if (addition.getAttribute('addition-key') === slide.getAttribute('key')) {
-            slide.classList.toggle('slideActiveSubscription');
+    arraySliders.forEach((obj) => {
+      let objSlider = obj.slider;
+      let objAddition = obj.addition;
 
-            //скрыть подробности у других, если было открыто
-            dailyPracticesSlide.forEach((active) => {
-              if (active.classList.contains('slideActiveSubscription') && active !== slide) {
-                active.classList.remove('slideActiveSubscription');
-                
-                changeAddition(active, addition, 'none', 'none', 'block');
-                findAddition(dailyPracticesAddition, active);
+      //открытие и закрытие подробностей при клике на слайд
+      objSlider.forEach((slide) => {
+        slide.addEventListener('click', (e) => {
+          objAddition.forEach((addition) => {
+            if (addition.getAttribute('addition-key') === slide.getAttribute('key')) {
+              slide.classList.toggle('slideActiveSubscription');
+
+              //скрыть подробности у других, если было открыто
+              objSlider.forEach((active) => {
+                if (active.classList.contains('slideActiveSubscription') && active !== slide) {
+                  active.classList.remove('slideActiveSubscription');
+                  
+                  changeAddition(active, addition, 'none', 'none', 'block');
+                  findAddition(objAddition, active);
+                }
+              })
+
+              if (slide.classList.contains('slideActiveSubscription')) {//показать подробности
+                changeAddition(slide, addition, '5px #dde1f3 solid', 'block', 'none');
+              } else { //скрыть подробности
+                slide.classList.remove('slideActiveSubscription');
+                changeAddition(slide, addition, 'none', 'none', 'block');
+                findAddition(objAddition, slide);
               }
-            })
-
-            if (slide.classList.contains('slideActiveSubscription')) {//показать подробности
-              changeAddition(slide, addition, '5px #dde1f3 solid', 'block', 'none');
-            } else { //скрыть подробности
-              slide.classList.remove('slideActiveSubscription');
-              changeAddition(slide, addition, 'none', 'none', 'block');
-              findAddition(dailyPracticesAddition, slide);
             }
-          }
+          })
         })
-      })
+      });
+
+      //проверка, доступна ли тема для пользователя
+      objAddition.forEach((addition) => {
+        if (addition.getAttribute('status') === 'false') {
+          addition.querySelector('.addition_image').innerHTML += `<div class="addition_image-befor">
+          <div class="blockSub-slide_before_svgLock">
+            <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
+            </svg>
+            <div class="blockSub-slide_before_data">27 октября</div>
+          </div>
+          </div>`;
+          addition.querySelector('.addition_btn').style.display = 'none';
+        }
+      });
     })
 
-    let recommendationsSlide = document.querySelectorAll('.recommendations_slide');
-    let recommendationsAddition = document.querySelectorAll('.recommendations_addition');
-
-    recommendationsSlide.forEach((slide) => {
-      slide.addEventListener('click', (e) => {
-        recommendationsAddition.forEach((addition) => {
-          if (addition.getAttribute('addition-key') === slide.getAttribute('key')) {
-            slide.classList.toggle('slideActiveSubscription');
-
-            //скрыть подробности у других, если было открыто
-            recommendationsSlide.forEach((active) => {
-              if (active.classList.contains('slideActiveSubscription') && active !== slide) {
-                active.classList.remove('slideActiveSubscription');
-                
-                changeAddition(active, addition, 'none', 'none', 'block');
-                findAddition(recommendationsAddition, active);
-              }
-            })
-
-            if (slide.classList.contains('slideActiveSubscription')) {//показать подробности
-              changeAddition(slide, addition, '5px #dde1f3 solid', 'block', 'none');
-            } else { //скрыть подробности
-              slide.classList.remove('slideActiveSubscription');
-              changeAddition(slide, addition, 'none', 'none', 'block');
-              findAddition(recommendationsAddition, slide);
-            }
-          }
-        })
-      })
-    })
-
-    let monthThemeSlide = document.querySelectorAll('.month-theme_slide');
-    let monthThemeAddition = document.querySelectorAll('.month-theme_addition');
-
-    monthThemeSlide.forEach((slide) => {
-      slide.addEventListener('click', (e) => {
-        monthThemeAddition.forEach((addition) => {
-          if (addition.getAttribute('addition-key') === slide.getAttribute('key')) {
-            slide.classList.toggle('slideActiveSubscription');
-
-            //скрыть подробности у других, если было открыто
-            monthThemeSlide.forEach((active) => {
-              if (active.classList.contains('slideActiveSubscription') && active !== slide) {
-                active.classList.remove('slideActiveSubscription');
-                
-                changeAddition(active, addition, 'none', 'none', 'block');
-                findAddition(monthThemeAddition, active);
-              }
-            })
-
-            if (slide.classList.contains('slideActiveSubscription')) {//показать подробности
-              changeAddition(slide, addition, '5px #dde1f3 solid', 'block', 'none');
-            } else { //скрыть подробности
-              slide.classList.remove('slideActiveSubscription');
-              changeAddition(slide, addition, 'none', 'none', 'block');
-              findAddition(monthThemeAddition, slide);
-            }
-          }
-        })
-      })
-    })
-
-
-    //false/true
+    //смена стилей, если тема недоступна
     const slideBefor = document.querySelectorAll('.blockSub-slide_before');
 
     slideBefor.forEach((befor) => {
@@ -187,47 +144,5 @@
       </div>`;
       }
     })
-
-    dailyPracticesAddition.forEach((addition) => {
-      if (addition.getAttribute('status') === 'false') {
-        addition.querySelector('.addition_image').innerHTML += `<div class="addition_image-befor">
-        <div class="blockSub-slide_before_svgLock">
-          <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
-          </svg>
-          <div class="blockSub-slide_before_data">27 октября</div>
-        </div>
-        </div>`;
-        addition.querySelector('.addition_btn').style.display = 'none';
-      }
-    });
-
-    recommendationsAddition.forEach((addition) => {
-      if (addition.getAttribute('status') === 'false') {
-        addition.querySelector('.addition_image').innerHTML += `<div class="addition_image-befor">
-        <div class="blockSub-slide_before_svgLock">
-          <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
-          </svg>
-          <div class="blockSub-slide_before_data">27 октября</div>
-        </div>
-        </div>`;
-        addition.querySelector('.addition_btn').style.display = 'none';
-      }
-    });
-
-    monthThemeAddition.forEach((addition) => {
-      if (addition.getAttribute('status') === 'false') {
-        addition.querySelector('.addition_image').innerHTML += `<div class="addition_image-befor">
-        <div class="blockSub-slide_before_svgLock">
-          <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
-          </svg>
-          <div class="blockSub-slide_before_data">27 октября</div>
-        </div>
-        </div>`;
-        addition.querySelector('.addition_btn').style.display = 'none';
-      }
-    });
   })
 })();
