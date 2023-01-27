@@ -61,24 +61,22 @@ $month_theme=CategoryData($open_main_posts,47);
 ?>
 
 <div class="subcscription_container">
-  <div class="subcscription_calendar">
+  <!-- <div class="subcscription_calendar">
     <h3 class="subcscription_title">Календарь</h3>
-    <!-- <span class="subcscription_container">Календарь</span> -->
     <svg width="40" height="16" viewBox="0 0 40 16" fill='none' xmlns="http://www.w3.org/2000/svg">
       <path d="M40 4L24.4472 11.7764C24.1657 11.9172 23.8343 11.9172 23.5528 11.7764L8 4" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
-  </div>
+  </div> -->
   <h3 class="subcscription_title">Программа</h3>
-  <!-- <span>Программа</span> -->
 <h3 class="subcscription_title">Ежедневные практики</h3>
   <section class="daily-practice">
     <div class="daily-practice_wrapper">
       <div class="daily-practice_img-wrapper">
         <img class="daily-practice_img" src="<?php echo get_template_directory_uri()  ?>/images/daily-practice.png" alt="">
-        <span class="daily-practice_img-span">Качество жизни. Подкаст</span>
+        <span class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></span>
       </div>
       <div class="daily-practice_text-wrapper">
-        <div class="daily-practice_progressbar-wrp">
+        <!-- <div class="daily-practice_progressbar-wrp">
           <span class="daily-practice_progressbar-txt">Продолжить изучать</span>
           <div class="daily-practice_progressbar">
             <span>10/100</span>
@@ -86,11 +84,10 @@ $month_theme=CategoryData($open_main_posts,47);
 	            <div data-size="10" class="daily-practice_progress"></div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="daily-practice_text">
-          <h4 class="daily-practice_subtitle">Чао, Белла! Добро пожаловать в ...</h4>
-          <div class="daily-practice_content">
-            Less is more (”меньше значит больше”) - принцип, которым мы руководствовались при создании подписки. На наш взгляд, этот принцип - ключ к внутренней гармонии. Это здоровый и очень органичный минимализм: только главное и ничего лишнего...
+          <h4 class="daily-practice_subtitle"><?php echo (empty($today_practice['title']) ? 'Качество жизни. Подкаст': $today_practice['title']);?></h4>
+          <div class="daily-practice_content"><?php echo (empty($today_practice['content']) ? ' Less is more (”меньше значит больше”) - принцип, которым мы руководствовались при создании подписки. На наш взгляд, этот принцип - ключ к внутренней гармонии. Это здоровый и очень органичный минимализм: только главное и ничего лишнего...': $today_practice['content']);?>
           </div>
         </div>
       </div>
