@@ -300,7 +300,9 @@ $res=[
 'excerpt' => $post->post_excerpt,
 'title' => $post->post_title,
 'content' => $post->post_content,
-'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' )
+'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
+'audio' => get_post_meta($post->ID, 'audio', true),
+'lesson_time' => get_post_meta($post->ID, 'lesson_time', true)
 ];
 if(checkPayment()){
 $res['link'] = $post->post_name;
@@ -375,12 +377,12 @@ return $data;
 function Autopay($pay_id,$price,$description){
 $data=array(
 'amount' => array(
-'value' => 2.0,
+'value' => $price,
 'currency' => 'RUB',
 ),
 'capture' => true,
-'payment_method_id' => '2b59e547-000f-5000-a000-1e50e827dccb',
-'description' => 'Заказ №105',
+'payment_method_id' => $pay_id,
+'description' => $description,
 );
 return $data;
 };
@@ -463,3 +465,24 @@ die();
 
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
+
+
+//Save Payment
+function SavePayment($paymentId){
+if($paymentId){
+$payment_info=getPaymentInformation($paymentId);
+if($payment_info){
+if($payment_info["status"]==='succeeded'){
+$payment_date=(array)($payment_info["created_at"]);
+$db = new SafeMySQL();
+if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s WHERE
+id=?i", 2,
+$_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $payment_date["date"],
+$_SESSION['id'])){
+$answer = true;
+}
+}
+}
+}
+return (isset($answer) );
+}

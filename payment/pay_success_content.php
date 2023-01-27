@@ -8,20 +8,12 @@ use YooKassa\Client;
 
 $paymentId=$_SESSION["payment"]["id"];
 
-//Save Payment
-    if($paymentId){
-        $payment_info=getPaymentInformation($paymentId);
-        if($payment_info){
-            if($payment_info["status"]==='succeeded'){
-                $payment_date=(array)($payment_info["created_at"]);
-                if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s WHERE id=?i", 2, $_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $_SESSION['id'])){
-                    $answer = true;
-                }
-            }
-        }
-    }
-    
-var_dump(isset($answer) );
+if(SavePayment($paymentId)){
+    echo "Платёж успешно завершён";
+}else{
+    echo "Что то пошло не так. Попробовать снова?";
+}
+
 
 
 

@@ -1,7 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     CheckAuth();
-    $user_data=$db->getAll("SELECT * FROM users WHERE id=?i", $_SESSION['id'])[0];
+    $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
         $user_avatar='wp-content/uploads/permanent/'.$user_data['avatar'];
     }else{
