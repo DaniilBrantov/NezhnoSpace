@@ -159,9 +159,13 @@
 #account_personal-tel,
 .account_btn-save {
   width: 100%;
-  margin-top: 16px;
+  margin-top: 3px;
 }
 .account_btn-save {
+}
+#account-info-block {
+  margin-top: 10px;
+  opacity: 0;
 }
 .account_sections-footer {
   width: 100%;

@@ -4,6 +4,15 @@ const showError = (value, textError) => {
     document.querySelector(`.text-error_${value}`).innerText = textError;
 }
 
+const showModalError = () => {
+    document.querySelector('.authorization_window-error').style.display = 'flex';
+    document.querySelector('.authorization_window-error span').innerText = 'При загрузке произошла неизвестная ошибка! Пожалуйста, попробуйте позже.';
+
+    document.querySelector('.authorization_window-error_btn').addEventListener('click', function () {
+        document.querySelector('.authorization_window-error').style.display = 'none';
+    }, false);
+}
+
 //Регистрация
 
 $("#reg_btn").click(function (e) {
@@ -12,6 +21,7 @@ $("#reg_btn").click(function (e) {
     e.preventDefault();
     $(`input`).removeClass("error");
     //val()- взять инф-цию с данного эл-нта
+    var reg_nonce = $('#vb_new_user_nonce').val();
     var first_name = $('input[name="first_name"]').val();
     var mail = $('input[name="mail"]').val();
     var pass = $('input[name="pass"]').val();
@@ -19,6 +29,7 @@ $("#reg_btn").click(function (e) {
     var approval_check = $('input[name="approval_check"]').val();
 
     var formData = new FormData();
+    formData.append("nonce", reg_nonce);
     formData.append("first_name", first_name);
     formData.append("mail", mail);
     formData.append("pass", pass);
@@ -43,14 +54,14 @@ $("#reg_btn").click(function (e) {
             else {
                 for (let key in data) {
                     if (key !== 'status') {
-                        console.log(key, data[key])
+                        //console.log(key, data[key])
                         showError(key, data[key]);
                     }
                 }
             }
         },
         error: function (jqxhr, status, errorMsg) {
-            console.log(status, errorMsg);
+            showModalError();
         },
     });
 });
@@ -91,7 +102,7 @@ $("#auth_btn").click(function (e) {
             }
         },
         error: function (jqxhr, status, errorMsg) {
-            console.log(status, errorMsg);
+            showModalError();
         },
     });
 });
@@ -154,10 +165,12 @@ $("#reset_btn").click(function (e) {
         cache: false,
         data: formData,
         success: function (data) {
-            if (data) {
-                console.log(data)
+            if (data === true) {
+                document.querySelector('.reset_password_form.authorization_form').innerHTML = `
+                    <span>Письмо было отправлено на введенный email адрес. Пожалуйста, проверьте Вашу почту!</span>
+                `;
             } else {
-                console.log(data)
+                showError('mail', data);
             }
         },
         error: function (jqxhr, status, errorMsg) {
@@ -195,18 +208,15 @@ $("#set_pass_btn").click(function (e) {
         data: formData,
         success: function (data) {
             if (data === true) {
-                async function locationHref() {
-                    window.location.href = 'auth';
-                }
-                locationHref()
-                    .then(() => {
-                        alert("Вы успешно сменили пароль");
-                    })
+                document.querySelector('.authorization_form').innerHTML = `
+                    <span>Вы успешно сменили пароль</span>
+                `;
+                setTimeout(() => window.location.href = 'auth', 3000);
             } else {
-                for (let key in data) {
-                    if (key !== 'status') {
-                        showError(key, data[key]);
-                    }
+                if (data === 'Повторный пароль введен не верно') {
+                    showError('pass_conf', data);
+                } else {
+                    showError('pass', data);
                 }
             }
         },

@@ -480,6 +480,23 @@ $(function () {
     });
 });
 
+//выделение активного подзаголовка в header
+(() => {
+    if (document.querySelector('.header_auth')) {
+        if (document.location.pathname.includes('account')) {
+            document.querySelector('.account_navigation-list .account_subscription').classList.remove('active');
+            document.querySelector('.account_navigation-list .account_fullname').classList.add('active');
+        } 
+        if (document.location.pathname.includes('subscription')) {
+            document.querySelector('.account_navigation-list .account_fullname').classList.remove('active');
+            document.querySelector('.account_navigation-list .account_subscription').classList.add('active');
+        } else {
+            document.querySelector('.account_navigation-list .account_subscription').classList.remove('active');
+            document.querySelector('.account_navigation-list .account_fullname').classList.add('active');
+        }
+    }
+})();
+
 //скрытие ошибки на странице регистрации/авторизации после нажатия на инпут
 (() => {
     let arrayInput = document.querySelectorAll('.pers_item input');

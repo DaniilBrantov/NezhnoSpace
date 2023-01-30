@@ -35,6 +35,7 @@
                     name="approval_check">
                 <label for="pers_approval_checkbox">Я соглашаюсь с условиями публичной оферты</label>
             </div>
+            <?php wp_nonce_field('vb_new_user','vb_new_user_nonce', true, true ); ?>
             <div class="pers_btn">
                 <button id="reg_btn" class="blue_btn" type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
             </div>
@@ -43,5 +44,9 @@
             <p>Есть аккаунт?</p>
             <a href="auth">Войти</a>
         </div>
+    </div>
+    <div class="authorization_window-error">
+        <span>window error</span>
+        <button class="blue_btn authorization_window-error_btn">ок</button>
     </div>
 </div>

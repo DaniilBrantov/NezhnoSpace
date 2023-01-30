@@ -1,11 +1,11 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     CheckAuth();
-    $user_data=$db->getAll("SELECT * FROM users WHERE id=?i", $_SESSION['id'])[0];
+    $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
         $user_avatar='wp-content/uploads/permanent/'.$user_data['avatar'];
     }else{
-        $user_avatar='';
+    $user_avatar='';
     }
     if($user_data['sex']==1){
         $sex='Мужской';
@@ -36,6 +36,7 @@
                     </label>
                     <input type="file" name="account_input-img" id="account_input-img" />
                 </div>
+                <span class="text-error text-error_account_input-img">text error</span>
                 <span class="account_personal-name">Мои данные</span>
                 <div class="account_wrap-gender-age">
                     <div class="account_gender-select">
@@ -55,19 +56,38 @@
                     </div>
                     <div class="account_age-select">
                         <input type="text" id="account_input-age" class="account-input-custom" name="account_input-age"
-                            value="<?php echo $user_data['age']; ?>" min="1900-01-01" max="2022-12-31"
-                            required="required" placeholder="ДД . ММ . ГГГГ" onfocus="(this.type='date')">
+                            value="<?php 
+                            if ($user_data['age'] == '0000-00-00') {
+                                echo '';
+                            } else {
+                                echo $user_data['age']; 
+                            };
+                            ?>" min="1900-01-01" max="2022-12-31" required="required" placeholder="ДД . ММ . ГГГГ"
+                            onfocus="(this.type='date')"
+                            onblur="(this.value == '' ? this.type='text' : this.type='date')">
+                        <span class="text-error text-error_account_input-age">text error</span>
                     </div>
                 </div>
                 <input id="account_personal-name" class="account-input-custom" type="text" placeholder="Имя"
                     required="required" name="account_input-firstName" value="<?php echo $user_data['name']; ?>" />
+                <span class="text-error text-error_account_input-firstName">text error</span>
                 <input id="account_personal-lastName" class="account-input-custom" type="text" placeholder="Фамилия"
                     required="required" name="account_input-lastName" value="<?php echo $user_data['surname']; ?>" />
+                <span class="text-error text-error_account_input-lastName">text error</span>
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
                     required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" />
+                <span class="text-error text-error_account_input-email">text error</span>
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
-                    required="required" name="account_input-tel" value="<?php echo $user_data['telephone']; ?>" />
+                    required="required" name="account_input-tel" value="<?php 
+                    if ($user_data['telephone'] == '0') {
+                        echo '';
+                    } else {
+                        echo $user_data['telephone']; 
+                    };
+                    ?>" />
+                <span class="text-error text-error_account_input-tel">text error</span>
                 <button id="upload_btn" class="account_btn-save blue_btn" name="account_btn-save">Сохранить</button>
+                <span id='account-info-block' class='showInfo'>info upload text</span>
             </form>
         </div>
         <div class="account_sections-footer">

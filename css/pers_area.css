@@ -1,0 +1,16 @@
+.daily_practice_img{
+    position: relative;
+    overflow: hidden;
+    width: 555px;
+    height: 228px;
+    border-radius: 10px;
+}
+.daily_practice_img img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 555px;
+    height: 228px;
+    object-fit: cover;
+}
