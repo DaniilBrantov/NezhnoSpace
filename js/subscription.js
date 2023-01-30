@@ -16,8 +16,6 @@
         contain: true,
         cellAlign: 'left',
         imagesLoaded: true,
-        // для бесконечной прокрутки
-        // wrapAround: true 
       });
     })
 
@@ -119,13 +117,13 @@
     let timeLesson = '';
 
     slideBefor.forEach((befor) => {
+      lessonTime.forEach((time) => {
+        if (time.previousElementSibling === befor) {
+          timeLesson = time.textContent;
+          time.style.display = 'none';
+        }
+      })
       if (befor.getAttribute('status') === 'true') {
-        lessonTime.forEach((time) => {
-          if (time.previousElementSibling === befor) {
-            timeLesson = time.textContent;
-            time.style.display = 'none';
-          }
-        })
         befor.innerHTML += `<div class="blockSub-slide_before_svg">
         <div class="blockSub-slide_before_svgMusic">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,8 +140,8 @@
           </svg>
         </div>
         </div>
-        <div class="blockSub-slide_before_time">${timeLesson === '' ? '20 мин' : timeLesson}</div>`;
-      } else {
+        ${timeLesson.length > 0 ? `<div class="blockSub-slide_before_time">${timeLesson}</div>` : ''}
+      `;} else {
         befor.innerHTML += `<div class="blockSub-slide_before_svgLock">
         <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
