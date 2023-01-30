@@ -1,11 +1,11 @@
 const hideError = (val) => {
-  document.querySelector(`input[name=${val}]`).addEventListener('focus', function (e) { 
+  document.querySelector(`input[name=${val}]`).addEventListener('focus', function (e) {
     if (document.querySelector(`input[name=${val}]`).classList.contains('error')) {
       document.querySelector(`input[name=${val}]`).classList.remove('error');
       document.querySelector(`.text-error_${val}`).style.opacity = '0';
     }
   })
-  document.querySelector(`input[name=${val}]`).addEventListener('change', function (e) { 
+  document.querySelector(`input[name=${val}]`).addEventListener('change', function (e) {
     if (document.querySelector(`input[name=${val}]`).classList.contains('error')) {
       document.querySelector(`input[name=${val}]`).classList.remove('error');
       document.querySelector(`.text-error_${val}`).style.opacity = '0';
@@ -18,24 +18,24 @@ const hideError = (val) => {
   let inputImgAvatar = document.querySelector("#account_input-img");
   let dropboxGender = document.querySelector(".account_input-gender-wrapper");
   let arrayInput;
-  
+
   if (document.querySelector('.account_personal-data')) {
     arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
-    
+
     arrayInput.forEach((input) => {
       function setCapitalLetter(str, elem) {
-        if(str == "") return false; 
-        str = str[0].toUpperCase() + str.substring(1,str.length);
+        if (str == "") return false;
+        str = str[0].toUpperCase() + str.substring(1, str.length);
         elem.value = str;
       }
       if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
         setCapitalLetter(input.value, input);
-  
-        input.addEventListener('keydown', function() {
+
+        input.addEventListener('keydown', function () {
           setCapitalLetter(input.value, input);
         })
       }
-  
+
       if (input.id === 'account_personal-tel') {
         let tel = document.querySelector('#account_personal-tel');
         tel.value = `+${tel.value[0]} (${tel.value[1]}${tel.value[2]}${tel.value[3]}) ${tel.value[4]}${tel.value[5]}${tel.value[6]}-${tel.value[7]}${tel.value[8]}-${tel.value[9]}${tel.value[10]}`;
@@ -199,7 +199,8 @@ $("#upload_btn").click(function (e) {
       cache: false,
       data: formData,
       success: function (data) {
-        if (data === 'true') {
+
+        if (data.status === 'true') {
           uploadInfoShow(1, 'green', 'Данные успешно сохранены!');
           sessionStorage.clear();
         } else {

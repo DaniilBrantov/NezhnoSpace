@@ -431,8 +431,10 @@ $errors=[];
 }else{
 $errors[$err]=$data_validation;
 }
-}
+}else{
 $errors=[];
+}
+
 return $errors;
 }
 
@@ -480,6 +482,7 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 function SavePayment($paymentId){
 if($paymentId){
 $payment_info=getPaymentInformation($paymentId);
+$id=$_SESSION['id'];
 if($payment_info){
 if($payment_info["status"]==='succeeded'){
 $payment_date=(array)($payment_info["created_at"]);
@@ -487,7 +490,7 @@ $db = new SafeMySQL();
 if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s WHERE
 id=?i", 2,
 $_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $payment_date["date"],
-$_SESSION['id'])){
+$id)){
 $answer = true;
 }
 }

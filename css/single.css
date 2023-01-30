@@ -8,8 +8,29 @@
 }
 .single_cnt{
     color: var(--black);
-    line-height: 1.4;
-    text-align: justify;
+    font-size: 15px;
+    /* text-align: justify; */
+}
+.single_title, .single h2{
+    font-size: 39px;
+    font-weight: bolder;
+    font-family: 'Montserrat', sans-serif;
+}
+.single h3 span{
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: 'Montserrat', sans-serif;
+    line-height: normal;
+
+}
+.single_cnt h3{
+    margin: 32px 0 16px;
+    line-height: normal;
+
+
+}
+.single_cnt p{
+    margin-bottom: 10px;
 }
 .single_cnt a{
     color: #343434;
@@ -19,7 +40,6 @@
 }
 .wrapper_single{
     background: var(--white);
-    padding: 80px 0;
 }
 .wp-playlist-light{
     float: left;
@@ -95,19 +115,31 @@
     .single_cnt{
         padding: 32px;
     }
-    .wrapper_single{
+    /* .wrapper_single{
         padding: 70px 0;
-    }
+    } */
 }
 @media screen and (max-width: 500px) {
-    .single_main_img img{
-        top: -150px;
+    .wrapper_single{
+        margin-top: 20px;
+    }
+    .btn_back{
+        position: absolute;
     }
     .single_cnt{
         position: relative;
-        top: -150px;
     }
-    .single_cnt h1{
-        font-size: 24px;
+    .single_title, .single h2{
+        font-size: 25px;
+        font-weight: bolder;
+        font-family: 'Montserrat', sans-serif;
     }
+    .single h3 span{
+        font-size: 20px;
+
+    }
+    .single_cnt h3{
+        margin-top: 20px;
+    }
+
 }

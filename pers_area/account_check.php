@@ -9,7 +9,6 @@ require_once( get_theme_file_path('processing.php') );
 require_once( get_theme_file_path('save_upload.php') );
 $user_err=new UserValidationErrors();
 
-
 $user_data=[
 	'gender' => $_POST['gender'],
 	'age' => $_POST['age'],
@@ -70,9 +69,10 @@ if(isset($_FILES['image']) && !empty($_FILES['image'])){
 
 // Bring out errors
 if(empty($validation_array)){
-	echo json_encode(true);
+	$validation_array['status']=true;
 }else{
 	$validation_array['status']=false;
-	echo json_encode ($validation_array);
 }
+echo json_encode ($validation_array);
+
 ?>
