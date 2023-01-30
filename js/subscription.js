@@ -122,7 +122,7 @@
           timeLesson = time.textContent;
           time.style.display = 'none';
         }
-      })
+      });
       if (befor.getAttribute('status') === 'true') {
         befor.innerHTML += `<div class="blockSub-slide_before_svg">
         <div class="blockSub-slide_before_svgMusic">
