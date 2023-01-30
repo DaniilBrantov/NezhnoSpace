@@ -119,13 +119,13 @@
     let timeLesson = '';
 
     slideBefor.forEach((befor) => {
+      lessonTime.forEach((time) => {
+        if (time.previousElementSibling === befor) {
+          timeLesson = time.textContent;
+          time.style.display = 'none';
+        }
+      });
       if (befor.getAttribute('status') === 'true') {
-        lessonTime.forEach((time) => {
-          if (time.previousElementSibling === befor) {
-            timeLesson = time.textContent;
-            time.style.display = 'none';
-          }
-        })
         befor.innerHTML += `<div class="blockSub-slide_before_svg">
         <div class="blockSub-slide_before_svgMusic">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
