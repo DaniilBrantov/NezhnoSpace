@@ -73,7 +73,7 @@ $month_theme=CategoryData($open_main_posts,47);
     <h3 class="subcscription_title">Ежедневные практики</h3>
     <section class="daily-practice">
         <div class="daily-practice_wrapper">
-            <a class="daily-practice_img-wrapper" href="">
+            <a class="daily-practice_img-wrapper" href="subscription_lesson?post=<?php echo $today_practice['id']; ?>">
                 <img class="daily-practice_img"
                     src="<?php echo (empty($today_practice['image_url']) ? $daily_practices[1]['image_url'] : $today_practice['image_url']);?>"
                     alt="">
@@ -99,7 +99,7 @@ $month_theme=CategoryData($open_main_posts,47);
                     </div>
                 </div>
             </div>
-            <a class="daily-practice_btn-more" href=""></a>
+            <a class="daily-practice_btn-more" href="subscription_lesson?post=<?php echo $today_practice['id']; ?>"></a>
         </div>
     </section>
 
@@ -123,7 +123,7 @@ $month_theme=CategoryData($open_main_posts,47);
         <?php 
       };
     ?>
-        <a id="" class="subcscription_block-slide blockSub-slide-more" href="">
+        <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=45">
             <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
             <span>Смотреть все</span>
         </a>
@@ -172,7 +172,7 @@ $month_theme=CategoryData($open_main_posts,47);
                         <span class="addition_description"><?php echo trimCntWords($row["content"],30, '...'); ?></span>
                     </div>
                 </div>
-                <a href="" class="blue_btn addition_btn">Перейти</a>
+                <a href="subscription_lesson?post=<?php echo $row['id']; ?>" class="blue_btn addition_btn">Перейти</a>
             </div>
             <div class="addition_image">
                 <img src="<?php echo $row["image_url"]; ?>" width="543" class="" />
@@ -204,7 +204,7 @@ $month_theme=CategoryData($open_main_posts,47);
         <?php 
       };
     ?>
-        <a id="" class="subcscription_block-slide blockSub-slide-more" href="">
+        <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=46">
             <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
             <span>Смотреть все</span>
         </a>
@@ -253,7 +253,7 @@ $month_theme=CategoryData($open_main_posts,47);
                         <span class="addition_description"><?php echo trimCntWords($rec["content"],30, '...'); ?></span>
                     </div>
                 </div>
-                <a href="" class="blue_btn addition_btn">Перейти</a>
+                <a href="subscription_lesson?post=<?php echo $rec['id']; ?>" class="blue_btn addition_btn">Перейти</a>
             </div>
             <div class="addition_image">
                 <img src="<?php echo $rec["image_url"]; ?>" width="543" class="" />
@@ -286,7 +286,7 @@ $month_theme=CategoryData($open_main_posts,47);
         <?php 
       };
     ?>
-        <a id="" class="subcscription_block-slide blockSub-slide-more" href="">
+        <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=47">
             <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
             <span>Смотреть все</span>
         </a>
@@ -336,7 +336,7 @@ $month_theme=CategoryData($open_main_posts,47);
                             class="addition_description"><?php echo trimCntWords($month["content"],30, '...'); ?></span>
                     </div>
                 </div>
-                <a href="" class="blue_btn addition_btn">Перейти</a>
+                <a href="subscription_lesson?post=<?php echo $month['id']; ?>" class="blue_btn addition_btn">Перейти</a>
             </div>
             <div class="addition_image">
                 <img src="<?php echo $month["image_url"]; ?>" width="543" class="" />

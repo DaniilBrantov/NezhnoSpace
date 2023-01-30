@@ -37,22 +37,26 @@ if($get_id>$subcsription_less){
     <div class="subscription_lesson">
         <h1><?php echo $sub_less_audio; ?></h1>
         <?php if($get_id==1 || $get_id==4 || $get_id==5 || $get_id==8){ ?>
-            <div class="audio_cont">
-                <audio id="audio" controls preload="none">
-                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $sub_less_audio; ?>.mp3" type="audio/mpeg">
-                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $sub_less_audio; ?>.mp3" type="audio/ogg">
-                    Ваш Браузер не поддерживает данный формат audio.
-                </audio>
-            </div>
+        <div class="audio_cont">
+            <audio id="audio" controls preload="none">
+                <source
+                    src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $sub_less_audio; ?>.mp3"
+                    type="audio/mpeg">
+                <source
+                    src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $sub_less_audio; ?>.mp3"
+                    type="audio/ogg">
+                Ваш Браузер не поддерживает данный формат audio.
+            </audio>
+        </div>
         <?php }else if ($get_id==2 || $get_id==3 || $get_id==6 || $get_id==7) {  ?>
-                <?php if($get_id==2){
+        <?php if($get_id==2){
                     echo '<a class="read_btn" href="/kachestvo-zhizni">Читать</a>';
                 }elseif($get_id==3 || $get_id==7){
                     echo '<a class="read_btn" href="'. get_template_directory_uri() .'/personal_area/pdf_files/'. $sub_less_audio .'.pdf" download>Читать</a>';
                 }else{
                     echo '<a class="read_btn" href="/bespokojstvo-stress-i-trevoga">Читать</a>';
                 }; ?>
-            </a>
-            <?php };  ?>
+        </a>
+        <?php };  ?>
     </div>
 </div>

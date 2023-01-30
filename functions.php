@@ -312,6 +312,8 @@ if(checkPayment()){
 $res['link'] = $post->post_name;
 $res['tag'] =get_the_tag_list('<li>#','</li>
 <li>#','</li>', $post->ID );
+}else{
+$res['status']=FALSE;
 }
 return $res;
 }
@@ -497,4 +499,40 @@ $answer = true;
 }
 }
 return (isset($answer) );
+}
+
+// Получить данные записи для вывода на страницу. С проверкой оплаты
+function getSubscriptionLesson($get_id, $open_posts){
+$cat = (array)(get_the_category($get_id)[0]);
+$cat_ID=$cat["cat_ID"];
+$category_data=CategoryData($open_posts, $cat_ID);
+
+foreach($category_data as $el){
+if($el['id'] === $get_id){
+$category_el=$el;
+}
+}
+if($category_el["status"] === true){
+return $category_el;
+}else{
+header('Location: subscription');
+}
+}
+
+//Открытые посты
+function openPosts($get_id, $payment_date){
+$cat = (array)(get_the_category($get_id)[0]);
+$cat_ID=$cat["cat_ID"];
+$today = date("Y-m-d H:i:s");
+$payment_days=countDaysBetweenDates($today, $payment_date);
+if($cat_ID === 45){
+$open_posts=$payment_days;
+}elseif($cat_ID === 46){
+$open_posts=999;
+}elseif($cat_ID === 47){
+$open_posts=$payment_days/7;
+
+}
+$open_posts=ceil($open_posts);
+return $open_posts;
 }
