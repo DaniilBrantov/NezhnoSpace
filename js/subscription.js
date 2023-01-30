@@ -115,9 +115,17 @@
 
     //смена стилей, если тема недоступна
     const slideBefor = document.querySelectorAll('.blockSub-slide_before');
+    const lessonTime = document.querySelectorAll('#blockSub_lesson-time');
+    let timeLesson = '';
 
     slideBefor.forEach((befor) => {
       if (befor.getAttribute('status') === 'true') {
+        lessonTime.forEach((time) => {
+          if (time.previousElementSibling === befor) {
+            timeLesson = time.textContent;
+            time.style.display = 'none';
+          }
+        })
         befor.innerHTML += `<div class="blockSub-slide_before_svg">
         <div class="blockSub-slide_before_svgMusic">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +142,7 @@
           </svg>
         </div>
         </div>
-        <div class="blockSub-slide_before_time">20 мин</div>`;
+        <div class="blockSub-slide_before_time">${timeLesson === '' ? '20 мин' : timeLesson}</div>`;
       } else {
         befor.innerHTML += `<div class="blockSub-slide_before_svgLock">
         <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">

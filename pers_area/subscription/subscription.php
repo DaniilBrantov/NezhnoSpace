@@ -10,6 +10,8 @@
     $six_month=945;
     $twelve_month=946;
 
+
+
 // Вывод конкретной записи
 // var_dump($daily_practices[1]);
 
@@ -108,6 +110,7 @@ $month_theme=CategoryData($open_main_posts,47);
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
                 </div>
+                <div id='blockSub_lesson-time'><?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $row["title"]; ?></div>
         </div>
@@ -144,7 +147,7 @@ $month_theme=CategoryData($open_main_posts,47);
                             d="M19 11V10C19 8.14348 18.2625 6.36305 16.9498 5.05029C15.637 3.73754 13.8565 3 12 3C10.1435 3 8.36305 3.73754 7.05029 5.05029C5.73754 6.36305 5 8.14348 5 10V11"
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="addition_subtitle-audio"><?php echo $row["excerpt"]; ?></span>
+                    <span class="addition_subtitle-audio"><?php echo (empty($row["audio"]) ? 'name audio' : $row["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -186,6 +189,7 @@ $month_theme=CategoryData($open_main_posts,47);
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($rec["status"]) ? 'true' : 'false'); ?>">
                 </div>
+                <div id='blockSub_lesson-time'><?php echo (empty($rec["lesson_time"]) ? '' : $rec["lesson_time"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $rec["title"]; ?></div>
         </div>
@@ -222,7 +226,7 @@ $month_theme=CategoryData($open_main_posts,47);
                             d="M19 11V10C19 8.14348 18.2625 6.36305 16.9498 5.05029C15.637 3.73754 13.8565 3 12 3C10.1435 3 8.36305 3.73754 7.05029 5.05029C5.73754 6.36305 5 8.14348 5 10V11"
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="addition_subtitle-audio"><?php echo $rec["excerpt"]; ?></span>
+                    <span class="addition_subtitle-audio"><?php echo (empty($rec["audio"]) ? 'name audio' : $rec["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -265,6 +269,7 @@ $month_theme=CategoryData($open_main_posts,47);
                 <div class="blockSub-slide_before"
                     status="<?php echo (boolval($month["status"]) ? 'true' : 'false'); ?>">
                 </div>
+                <div id='blockSub_lesson-time'><?php echo (empty($month["lesson_time"]) ? '' : $month["lesson_time"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $month["title"]; ?></div>
         </div>
@@ -301,7 +306,7 @@ $month_theme=CategoryData($open_main_posts,47);
                             d="M19 11V10C19 8.14348 18.2625 6.36305 16.9498 5.05029C15.637 3.73754 13.8565 3 12 3C10.1435 3 8.36305 3.73754 7.05029 5.05029C5.73754 6.36305 5 8.14348 5 10V11"
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="addition_subtitle-audio"><?php echo $month["excerpt"]; ?></span>
+                    <span class="addition_subtitle-audio"><?php echo (empty($month["audio"]) ? 'name audio' : $month["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">

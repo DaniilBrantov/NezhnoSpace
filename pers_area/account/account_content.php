@@ -36,6 +36,7 @@
                     </label>
                     <input type="file" name="account_input-img" id="account_input-img" />
                 </div>
+                <span class="text-error text-error_account_input-img">text error</span>
                 <span class="account_personal-name">Мои данные</span>
                 <div class="account_wrap-gender-age">
                     <div class="account_gender-select">

@@ -5,6 +5,13 @@ const hideError = (val) => {
       document.querySelector(`.text-error_${val}`).style.opacity = '0';
     }
   })
+  document.querySelector(`input[name=${val}]`).addEventListener('change', function (e) { 
+    if (document.querySelector(`input[name=${val}]`).classList.contains('error')) {
+      document.querySelector(`input[name=${val}]`).classList.remove('error');
+      document.querySelector(`.text-error_${val}`).style.opacity = '0';
+      document.querySelector(`.text-error_${val}`).textContent = 'error';
+    }
+  })
 };
 
 (() => {
@@ -35,6 +42,9 @@ const hideError = (val) => {
       }
 
       if (sessionStorage.getItem(input.id)) {
+        if (input.id === 'account_input-img') {
+          sessionStorage.removeItem('account_input-img');
+        };
         document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
       }
 
@@ -200,6 +210,8 @@ $("#upload_btn").click(function (e) {
                 val = `account_input-firstName`;
               } else if (key === 'last_name') {
                 val = `account_input-lastName`;
+              } else if (key === 'image') {
+                val = `account_input-img`;
               } else {
                 val = `account_input-${key}`;
               }
