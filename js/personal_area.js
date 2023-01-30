@@ -199,7 +199,7 @@ $("#upload_btn").click(function (e) {
       cache: false,
       data: formData,
       success: function (data) {
-        if (typeof data === "boolean") {
+        if (data.status === true) {
           uploadInfoShow(1, 'green', 'Данные успешно сохранены!');
           sessionStorage.clear();
         } else {
