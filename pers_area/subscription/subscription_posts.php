@@ -8,9 +8,9 @@
     $payment_days=countDaysBetweenDates($today, $payment_date);
     $open_main_posts=$payment_days/7;
 
-    if( !checkPayment() || !$get_id || empty(CategoryData($payment_days,$get_id))){
+    if( !checkPayment() || !$get_id || empty(CategoryData(openPosts( $payment_date, '', $get_id ),$get_id))){
         header('Location: subscription');
     };
 
-var_dump(CategoryData($payment_days,$get_id));
+var_dump(CategoryData(openPosts( $payment_date, '', $get_id ),$get_id));
 ?>

@@ -20,13 +20,13 @@
 $today_practice=TodayPractice($payment_days+1);
 
 // Ежедневные практики
-$daily_practices=CategoryData($payment_days,45);
+$daily_practices=CategoryData(openPosts($payment_date, '', 45),45);
 
 // Рекомендательная система
-$recommendations=CategoryData($open_main_posts,46);
+$recommendations=CategoryData(openPosts($payment_date, '', 46),46);
 
 // Тема месяца
-$month_theme=CategoryData($open_main_posts,47);
+$month_theme=CategoryData(openPosts($payment_date, '', 47),47);
 // Выбор услуги
 ?>
 <!-- <form action="payment" method="post">

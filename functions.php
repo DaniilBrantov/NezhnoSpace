@@ -520,9 +520,12 @@ header('Location: subscription');
 }
 
 //Открытые посты
-function openPosts($get_id, $payment_date){
+function openPosts($payment_date, $get_id, $category){
 $cat = (array)(get_the_category($get_id)[0]);
 $cat_ID=$cat["cat_ID"];
+if($category){
+$cat_ID=$category;
+}
 $today = date("Y-m-d H:i:s");
 $payment_days=countDaysBetweenDates($today, $payment_date);
 if($cat_ID === 45){
