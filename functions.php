@@ -195,14 +195,6 @@ return $content;
 
 
 
-
-
-
-
-
-
-
-
 /** убираем версии показа ДВИЖКА из исходного кода, при подключении css и jquery **/
 
 
@@ -213,7 +205,12 @@ return $content;
 
 /** -------PHP/WP Functions------ **/
 
+//Дефолтное время по МСК
+date_default_timezone_set("Europe/Moscow");
+
+
 //Проверка авторизации
+
 function CheckAuth(){
 if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
 header('Location: auth');
@@ -270,7 +267,10 @@ $res[$i] = subscriptionData(get_the_ID()) ;
 if(checkPayment()){
 if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
 $res[$i]['status']=TRUE;
-}else{$res[$i]['status']=FALSE;}
+}else{
+$res[$i]['status']=FALSE;
+$res[$i]['next_post_date']=getNextPostDate($open_posts);
+}
 };
 
 $i+=1;
@@ -279,7 +279,6 @@ endif;
 return ($res);
 wp_reset_query();
 };
-
 
 //Проверка оплаты
 function checkPayment(){
@@ -324,11 +323,18 @@ if( $d2!=="0000-00-00 00:00:00" ){
 $d1_ts = strtotime($d1);
 $d2_ts = strtotime($d2);
 $seconds = abs($d1_ts - $d2_ts);
-return floor($seconds / 86400);
+return ceil($seconds / 86400);
 }else{
 return 0;
 }
+}
 
+//Дата открытия поста
+function getNextPostDate($open_posts){
+$days=6 - $open_posts -7;
+$next_post_date="+". $days ." day";
+$next_post_date = strtotime($next_post_date, time());
+return(date("d.m.Y",$next_post_date));
 }
 
 //Вывод конкретного кол-ва знаков в тексте
@@ -534,8 +540,28 @@ $open_posts=$payment_days;
 $open_posts=999;
 }elseif($cat_ID === 47){
 $open_posts=$payment_days/7;
-
 }
-$open_posts=ceil($open_posts);
 return $open_posts;
 }
+
+
+//Проверка промокода
+function checkPromocode($promo){
+$db = new SafeMySQL();
+
+if($promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo)){
+if( $promo === $promo_data['promo'] ){
+if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
+    $error['status'] = true;
+    $error['sale'] = $promo_data['sale'];
+    }
+    }else{
+    $error['status'] = false;
+    $error['msg'] = "Неверный промокод!";
+    }
+    }else{
+    $error['status'] = false;
+    $error['msg'] = "Неверный промокод!";
+    }
+    return $error;
+    }

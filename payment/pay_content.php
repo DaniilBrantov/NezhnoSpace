@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set("Europe/Moscow");
 require_once( get_theme_file_path('processing.php') );
 require __DIR__ . '/../libs/yookassa/autoload.php';
 use YooKassa\Client;
@@ -14,7 +14,6 @@ for($i = 0; $i < count($user_id); $i++){
     $description=$mail . ' Продлил услугу на ' . $service_month .'месяц(ев)';
     $count_month='+'.$service_month.' month';
     $next_payment_date=strtotime($count_month, strtotime($user_data['payment_date']));
-
     if($_GET['autopay']==="turn_off"){
         if($db->query("UPDATE users SET payment_method=?s WHERE id=?i AND status=2", '', $_SESSION["id"])){
             echo "Вы отписались от nezhno space! Вам ещё доступны материалы оплаченного месяца";
@@ -27,7 +26,7 @@ for($i = 0; $i < count($user_id); $i++){
                 if(time() >= strtotime('-1 days', $next_payment_date)){
                     echo ('Письмо оповещение об оплате через 24ч');
                 }else{
-                    echo 'Оплата: '.date('d M Y H:i:s',$next_payment_date) ;
+                    echo 'Оплата для '. $user_data["mail"] .': '.date('d M Y H:i:s',$next_payment_date) ;
                 }
             }else{
                 if($user_data["payment_method"] && !empty($user_data["payment_method"]) && isset($user_data["payment_method"]) && $user_data["payment_method"]!==NULL){

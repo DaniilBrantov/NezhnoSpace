@@ -9,7 +9,7 @@ $payment_date =$user_data['payment_date'];
 if( !checkPayment() || !$get_id){
     header('Location: subscription');
 };
-$post_data = getSubscriptionLesson($get_id, openPosts($payment_date, $get_id, ''));
+$post_data = getSubscriptionLesson($get_id, ceil(openPosts($payment_date, $get_id, '')));
 
 
 

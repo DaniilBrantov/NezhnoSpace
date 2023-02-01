@@ -3,13 +3,15 @@
     CheckAuth();
     $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     $payment_date =$user_data['payment_date'];
-    $today = date("Y-m-d H:i:s");
-    $payment_days=countDaysBetweenDates($today, $payment_date);
-    $open_main_posts=$payment_days/7;
+    $payment_days=countDaysBetweenDates(date("Y-m-d H:i:s"), $payment_date);
     $one_month=944;
     $six_month=945;
     $twelve_month=946;
 
+
+    //Вывод даты след. поста
+    // echo getNextPostDate($payment_days);
+    // var_dump($month_theme);
 
 
 // Вывод конкретной записи
@@ -20,13 +22,15 @@
 $today_practice=TodayPractice($payment_days+1);
 
 // Ежедневные практики
-$daily_practices=CategoryData(openPosts($payment_date, '', 45),45);
+$daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
 
 // Рекомендательная система
-$recommendations=CategoryData(openPosts($payment_date, '', 46),46);
+$recommendations=CategoryData(ceil(openPosts($payment_date, '', 46)),46);
 
 // Тема месяца
-$month_theme=CategoryData(openPosts($payment_date, '', 47),47);
+$month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
+
+
 // Выбор услуги
 ?>
 <!-- <form action="payment" method="post">

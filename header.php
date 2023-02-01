@@ -10,19 +10,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Нежно</title>
 
-    <link rel="nezhno_icon_180" sizes="180x180" href="<?php getUrl(); ?>/favicon/nezhno_icon_180x180.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php getUrl(); ?>/favicon/nezhno_icon_32x32.png">
-    <!-- <link rel="icon" type="image/png" sizes="16x16" href="<?php getUrl(); ?>/favicon/nezhno_icon_16x16.png"> -->
-    <link rel="manifest" href="<?php getUrl(); ?>/favicon/site.webmanifest">
-    <link rel="mask-icon" href="<?php getUrl(); ?>/favicon/nezhno_icon_1280x1280.svg" color="#5bbad5">
+    <!-- <link type="image/x-icon" rel="shortcut icon" href="…/nezhno_icon.ico"> -->
+    <link type="image/png" sizes="16x16" rel="icon" href="<? getUrl(); ?>favicon/nezhno_icon_16x16.png">
+    <link type="image/png" sizes="32x32" rel="icon" href="<? getUrl(); ?>favicon/nezhno_icon_32x32.png">
+    <link type="image/png" sizes="96x96" rel="icon" href="<? getUrl(); ?>favicon/nezhno_icon_96x96.png">
+    <link type="image/png" sizes="120x120" rel="icon" href="<? getUrl(); ?>favicon/nezhno_icon_120x120.png">
+    <link type="image/png" sizes="192x192" rel="icon" href="<? getUrl(); ?>favicon/nezhno_icon_192x192.png">
 
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
+    <!-- IOS -->
+    <link sizes="57x57" rel="apple-touch-icon" href="…/apple-touch-icon-57x57.png">
+    <link sizes="60x60" rel="apple-touch-icon" href="…/apple-touch-icon-60x60.png">
+    <link sizes="72x72" rel="apple-touch-icon" href="…/apple-touch-icon-72x72.png">
+    <link sizes="76x76" rel="apple-touch-icon" href="…/apple-touch-icon-76x76.png">
+    <link sizes="114x114" rel="apple-touch-icon" href="…/apple-touch-icon-114x114.png">
+    <link sizes="120x120" rel="apple-touch-icon" href="…/apple-touch-icon-120x120.png">
+    <link sizes="144x144" rel="apple-touch-icon" href="…/apple-touch-icon-144x144.png">
+    <link sizes="152x152" rel="apple-touch-icon" href="…/apple-touch-icon-152x152.png">
+    <link sizes="180x180" rel="apple-touch-icon" href="…/apple-touch-icon-180x180.png">
 
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <!-- MacOS -->
+    <link color="#e52037" rel="mask-icon" href="…/safari-pinned-tab.svg">
+
+    <!-- Windows -->
+    <meta name="msapplication-TileImage" content="…/mstile-144x144.png">
+    <meta name="msapplication-square70x70logo" content="…/mstile-70x70.png">
+    <meta name="msapplication-square150x150logo" content="…/mstile-150x150.png">
+    <meta name="msapplication-wide310x150logo" content="…/mstile-310x310.png">
+    <meta name="msapplication-square310x310logo" content="…/mstile-310x150.png">
+
+
+    <meta name="msapplication-TileColor" content="#D1E4FF">
+    <meta name="theme-color" content="#F2F2F2">
     <meta name="yandex-verification" content="d821d01bf0467793" />
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css" />
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
 
 
@@ -73,7 +92,7 @@
             <ul class="account_navigation-list navigation-list_slider">
                 <li class="active account_fullname"><a href="account">Мои данные</a></li>
                 <li class="account_subscription"><a href="subscription">Моя подписка</a></li>
-                <li class="account_calendar"><a href="">Календарь</a></li>
+                <!-- <li class="account_calendar"><a href="">Календарь</a></li> -->
             </ul>
         </div>
         <?php }; ?>

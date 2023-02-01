@@ -1,7 +1,6 @@
 <?php
-CheckAuth();
 
-if(checkPayment()){
+if (checkPayment() || !$_SESSION['id'] || $_SESSION['id']==NULL) {
     header('Location: subscription');
     die();
 }
@@ -22,14 +21,13 @@ if(!get_post_meta($service_id, 'month_count', true) || !get_post_meta($service_i
     $mail = $db->getOne("SELECT mail FROM users WHERE id=?i",$_SESSION['id']);
 
 //Promocode
-$promo="sale";
-$sale=20;
-$last_date="2023-02-17";
-if($_GET['promo']===$promo){
-    if(date("Y-m-d") < $last_date){
-        $price=$price-($price/100*$sale);
+if( $_POST['promo'] ){
+    $promo=$_POST['promo'];
+    if(checkPromocode($promo)['status']){
+        $price= $price-($price / 100 * checkPromocode($promo)['sale']);
     }
 }
+
 
 
     $payment_result=connectionPayment(createPagePayment($price, $description));
