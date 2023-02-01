@@ -1,0 +1,363 @@
+/* payment-banner */
+.account_payment-banner {
+  padding-top: 0!important;
+  padding-bottom: 20px;
+  max-width: 880px;
+  margin: auto;
+}
+.subscription_payment-banner_background {
+  background: rgba(102, 102, 102, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+
+  z-index: 900;
+
+  display: none;
+}
+.subscription_payment-banner {
+  max-width: 1184px;
+  max-height: 891px;
+  width: 90vw;
+  height: 98vh;
+  text-align: center;
+  padding: 127px 120px;
+  border: none;
+  box-shadow: 0px 6px 20px rgba(17, 17, 17, 0.25);
+  border-radius: 32px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: #fff;
+
+  z-index: 900;
+}
+.pay-banner_btnClose {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background-image: url('../images/close.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+
+  cursor: pointer;
+  position: absolute;
+  right: 48px;
+  top: 40px;
+}
+.pay-banner_content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.pay-banner_promocode-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pay-banner_promocode-title {
+  font-size: 32px;
+}
+.pay-banner_promocode-input-wrap {
+  max-width: 440px;
+  min-width: 350px;
+  width: 100%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.pay-banner_promocode-input {
+  width: 100%;
+  padding: 15px 25px;
+  border: 1px solid #421DD8;
+  border-radius: 10px;
+}
+.pay-banner_promocode-input::-webkit-input-placeholder,
+.pay-banner_promocode-input::-moz-placeholder,
+.pay-banner_promocode-input:-ms-input-placeholder,
+.pay-banner_promocode-input::-ms-input-placeholder,
+.pay-banner_promocode-input::placeholder {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: uppercase;
+  color: #4B4B4B;
+}
+.pay-banner_promocode-btn-wrap {
+  max-width: 272px;
+  width: 100%;
+}
+.pay-banner_promocode-btn {
+  width: 100%;
+}
+.pay-banner_options-slider:after {
+  content: '';
+  display: none;
+}
+#pay-banner_options-slide2 {
+  border-radius: 45px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+#pay-banner_options-slide2:hover {
+  box-shadow: none;
+}
+.pay-banner_options-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  
+  padding-left: 0;
+  list-style-type: none;
+}
+.pay-banner_option-container {
+  max-width: 270px;
+  height: 100%;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.2);
+
+  border: 2.5px solid #8D9ACE;
+  border-radius: 45px;
+
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pay-banner_option-container:hover {
+  box-shadow: 0 0 20px rgba(141, 154, 206, 0.5);
+}
+.pay-banner_option-stroke {
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: linear-gradient(to right, #7264AA 50%, #8D9ACE 50%);
+  border-radius: 2px;
+}
+.pay-banner_option-container:hover .pay-banner_option-stroke {
+  background: linear-gradient(to right, #8D9ACE 50%, #7264AA 50%);
+}
+.pay-banner_option-content {
+  margin-top: 48px;
+  text-align: start;
+}
+.pay-banner_option-icon {
+  width: 100px;
+  height: 100px;
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.pay-banner_option:first-child .pay-banner_option-icon {
+  background-image: url('../images/logo-vector.svg');
+}
+.pay-banner_option:nth-child(2) .pay-banner_option-icon {
+  background-image: url('../images/logo-vector7264AA.svg');
+}
+.pay-banner_option:nth-child(3) .pay-banner_option-icon {
+  background-image: url('../images/logo-vectorBFA4CE.svg');
+}
+.pay-banner_option-title,
+.pay-banner_option-price {
+  margin-top: 30px;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+.pay-banner_option-title {
+  color: #111111;
+}
+.pay-banner_option-text {
+  margin-top: 14px;
+}
+.pay-banner_option-duration {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.22;
+  letter-spacing: 0.01em;
+  color: #111111;
+}
+.pay-banner_option-price {
+  margin-top: 9px;
+  color: #000000;
+}
+.pay-banner_option-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+.pay-banner_option-list li {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #000000;
+  list-style-type: none;
+}
+.pay-banner_option-list li {
+  margin-top: 6px;
+}
+.pay-banner_option-button {
+  margin-top: 40px;
+  width: 100%;
+  padding: 13px 15px;
+  background-image: url('../images/white_arrow.svg');
+  background-size: 10%;
+  background-repeat: no-repeat;
+  background-position: 95% center;
+
+  background-color: #7264aa;
+  border: 2px solid #7264aa;
+  border-radius: 15px;
+
+  text-align: left;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  cursor: pointer;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.pay-banner_option-container:hover .pay-banner_option-button {
+  opacity: 1;
+}
+@media screen and (max-width: 1200px) {
+  .subscription_payment-banner {
+    padding-top: 70px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  .pay-banner_option {
+    margin-right: 5px;
+  }
+  .pay-banner_option:last-child {
+    margin-right: 0;
+  }
+
+}
+@media screen and (max-width: 960px) {
+  .subscription_payment-banner {
+    padding: 50px;
+  }
+  .pay-banner_promocode-wrap {
+    flex-wrap: wrap;
+  }
+  .pay-banner_promocode-input-wrap {
+    max-width: 348px;
+    min-width: 100px;
+    width: 100%;
+    margin-right: 0;
+  }
+  .pay-banner_promocode-btn-wrap {
+    margin-top: 10px;
+    max-width: 700px;
+    width: 100%;
+  }
+  .account_payment-banner .pay-banner_title {
+    margin-bottom: 10px;
+  }
+  #pay-banner_options-slide2 {
+    border-radius: 25px;
+  }
+  .pay-banner_option {
+    margin-right: 20px;
+  }
+  .pay-banner_option:last-child {
+    margin-right: 0;
+  }
+  .pay-banner_option-container {
+    padding: 15px;
+    border-radius: 25px;
+  }
+  .pay-banner_option-container:hover {
+    box-shadow: none;
+  }
+  .pay-banner_option-content {
+    margin-top: 20px;
+  }
+  .pay-banner_option-stroke {
+    display: none;
+  }
+  .pay-banner_option-icon {
+    width: 70px;
+    height: 70px;
+    background-size: 70px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pay-banner_option-title {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .pay-banner_option-button {
+    opacity: 1;
+    margin-top: 35px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    background-image: none;
+  }
+}
+@media (max-width: 860px) {
+  .pay-banner_options-slider:after {
+    content: 'flickity';
+    display: none; 
+  }
+  #pay-banner_options-slide2 {
+    box-shadow: none;
+  }
+  .pay-banner_options-wrap {
+    display: block;
+    overflow: hidden;
+  }
+  .pay-banner_option-container {
+    max-width: 205px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .subscription_payment-banner {
+    padding: 25px 40px 70px;
+  }
+  .pay-banner_promocode-title {
+    font-size: 24px;
+  }
+  .pay-banner_promocode-input-wrap {
+    max-width: 700px;
+    margin-top: 10px;
+    margin-left: 0;
+  }
+  .pay-banner_promocode-input {
+    padding: 13px 18px;
+  }
+  .pay-banner_promocode-btn {
+    padding: 13px 18px;
+  }
+  .pay-banner_btnClose {
+    right: 25px;
+    top: 25px;
+  }
+}
+@media (max-width: 450px) {
+  .subscription_payment-banner {
+    margin-top: 10px;
+  }
+  .pay-banner_option-button {
+    font-size: 11px;
+  }
+}

@@ -82,7 +82,6 @@
                   findAddition(objAddition, active);
                 }
               })
-
               if (slide.classList.contains('slideActiveSubscription')) {//показать подробности
                 changeAddition(slide, addition, '5px #dde1f3 solid', 'block', 'none');
               } else { //скрыть подробности
@@ -106,7 +105,24 @@
             <div class="blockSub-slide_before_data">27 октября</div>
           </div>
           </div>`;
-          addition.querySelector('.addition_btn').style.display = 'none';
+          addition.querySelector('.addition_btn').innerText = 'Оформить подписку';
+          //открыть баннер оплаты
+          addition.querySelector('.addition_btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.subscription_payment-banner_background').style.display = 'block';
+            $('.subscription_payment-banner .pay-banner_options-slider').flickity({
+              draggable: true,
+              cellAlign: 'center',
+              freeScroll: true,
+              prevNextButtons: false,
+              pageDots: false,
+              initialIndex: 1,
+              watchCSS: true
+            });
+            if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+              document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+            }
+          })
         }
       });
     })

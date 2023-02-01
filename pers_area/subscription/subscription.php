@@ -351,3 +351,25 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
   };
 ?>
 </div>
+
+
+
+<section class='subscription_payment-banner_background'>
+  <div id='payment-banner' class='subscription_payment-banner pay-banner'>
+    <button class='pay-banner_btnClose' type='button'></button>
+    <div class='pay-banner_content'>
+        <div class='pay-banner_promocode-wrap'>
+            <h4 class='pay-banner_promocode-title'>Промокод</h4>
+            <div class='pay-banner_promocode-input-wrap'>
+                <input class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+            </div>
+            <div class='pay-banner_promocode-btn-wrap'>
+                <button class='blue_btn pay-banner_promocode-btn' type='button'>Использовать</button>
+            </div>
+        </div>
+        <h4 class='pay-banner_title'>Оформить подписку:</h4>
+        <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+        </ul>
+    </div>
+  </div>
+</section>

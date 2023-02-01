@@ -229,4 +229,21 @@ $("#upload_btn").click(function (e) {
 });
 
 
-//скрытие ошибки на странице аккаунта после нажатия на инпут
+(() => {
+  document.addEventListener('DOMContentLoaded', function() {
+    $('.account_payment-banner .pay-banner_options-slider').flickity({
+      draggable: true,
+      cellAlign: 'center',
+      freeScroll: true,
+      prevNextButtons: false,
+      pageDots: false,
+      initialIndex: 1,
+      watchCSS: true
+    });
+    if (document.querySelector('.account_payment-banner .pay-banner_options-slider')) {
+      if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+        document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+      }
+    }
+  })
+})();
