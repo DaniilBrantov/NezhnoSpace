@@ -8,7 +8,7 @@
   opacity: 0;
   z-index: -1;
   pointer-events: none;
-  transition: opacity0 .2s ease-in;
+  transition: opacity0 0.2s ease-in;
 }
 
 .modal__content {
@@ -90,8 +90,8 @@
   border-bottom-right-radius: 0.3rem;
   border-bottom-left-radius: 0.3rem;
 }
-.success__modal{
-  background-color: #6AFF8B;
+.success__modal {
+  background-color: #6aff8b;
   padding: 20px 30px;
   border-radius: 15px;
   font-size: 14px;

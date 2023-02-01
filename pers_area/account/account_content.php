@@ -90,8 +90,16 @@
                 <span id='account-info-block' class='showInfo'>info upload text</span>
             </form>
         </div>
-        <div class="account_sections-footer">
-            Пока не готовы начать? <a>Отменить&nbspподписку Нежно&nbspSpace</a>
+
+        <div id='payment-banner' class='account_payment-banner pay-banner'>
+            <div class='pay-banner_content'>
+                <h4 class='pay-banner_title'>Оформить подписку:</h4>
+                <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+                </ul>
+            </div>
         </div>
+        <!-- <div class="account_sections-footer">
+            Пока не готовы начать? <a>Отменить&nbspподписку Нежно&nbspSpace</a>
+        </div> -->
     </div>
 </div>
