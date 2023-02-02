@@ -553,7 +553,7 @@ if($promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo))
 if( $promo === $promo_data['promo'] ){
 if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
     $error['status'] = true;
-    $error['sale'] = $promo_data['sale'];
+    $error['promo'] = $promo_data['promo'];
     }
     }else{
     $error['status'] = false;

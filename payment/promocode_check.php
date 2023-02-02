@@ -14,7 +14,9 @@ if($_POST['promo_btn']){
         $promo=$_POST['promo'];
         echo json_encode(checkPromocode($promo));
     }else{
-        echo json_encode("Введите промокод!");
+        $err["status"]=false;
+        $err["msg"]="Введите промокод!";
+        echo json_encode($err);
     }
 }
 

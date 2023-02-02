@@ -19,8 +19,8 @@
 
   const sliderPayment = document.querySelector('.pay-banner_options-wrap');
   if (sliderPayment) {
-      for (let option in optionsPayment) {
-        sliderPayment.innerHTML += `
+    for (let option in optionsPayment) {
+      sliderPayment.innerHTML += `
           <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
             <div class='pay-banner_option-container'>
                 <span class='pay-banner_option-stroke'></span>
@@ -38,11 +38,11 @@
             </div>
           </li>
         `;
-        let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
-        optionsPayment[option].list.forEach(item => {
-          payList.innerHTML += `<li>${item}</li>`;
-        })
-      };
+      let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
+      optionsPayment[option].list.forEach(item => {
+        payList.innerHTML += `<li>${item}</li>`;
+      })
+    };
   }
 
   function adaptiveHeightBanner() {
@@ -71,11 +71,52 @@
     adaptiveHeightBanner();
   });
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     //закрытие баннера
-    document.querySelector('.pay-banner_btnClose').addEventListener('click', function(e) {
+    document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
       e.preventDefault();
       document.querySelector('.subscription_payment-banner_background').style.display = 'none';
     })
   })
 })();
+
+
+
+//Отправка данных и проверка их на стороне сервера
+
+$(".pay-banner_promocode-btn").click(function (e) {
+  e.preventDefault();
+  $(`input`).removeClass("error");
+  var promo_btn = $('input[name="promo_btn"]').val();
+  var promo = $('input[name="promo"]').val();
+
+  var formData = new FormData();
+  formData.append("promo_btn", promo_btn);
+  formData.append("promo", promo);
+
+  $.ajax({
+    url: "promocode_check",
+    type: "POST",
+    dataType: "json",
+    processData: false,
+    contentType: false,
+    cache: false,
+    data: formData,
+    success: function (data) {
+      if (data.status) {
+        console.log(data);
+      }
+      else {
+        for (let key in data) {
+          if (key !== 'status') {
+            //console.log(key, data[key])
+            showError(key, data[key]);
+          }
+        }
+      }
+    },
+    error: function (jqxhr, status, errorMsg) {
+      showModalError();
+    },
+  });
+});
