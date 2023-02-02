@@ -262,6 +262,7 @@ if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' 
 $open_posts=ceil($open_posts);
 $res=[];
 $i=1;
+$close_posts=1;
 while (have_posts()) : the_post();
 $res[$i] = subscriptionData(get_the_ID()) ;
 if(checkPayment()){
@@ -269,7 +270,9 @@ if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
 $res[$i]['status']=TRUE;
 }else{
 $res[$i]['status']=FALSE;
-$res[$i]['next_post_date']=getNextPostDate($open_posts);
+
+$res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
+$close_posts++;
 }
 };
 
@@ -330,11 +333,28 @@ return 0;
 }
 
 //Дата открытия поста
-function getNextPostDate($open_posts){
-$days=6 - $open_posts -7;
+function getNextPostDate($open_posts, $close_posts,$category){
+if($category===45 || $category===46){
+$days = 6 - $open_posts-7;
+if($close_posts){
+$days=1*$close_posts;
+}
+}if($category===47){
+$days = 6 - $open_posts-7;
+if($close_posts){
+$days=$days+7*$close_posts;
+}
+}
+
 $next_post_date="+". $days ." day";
 $next_post_date = strtotime($next_post_date, time());
-return(date("d.m.Y",$next_post_date));
+$date = date("d.m.Y",$next_post_date);
+$date = new DateTime($date);
+$intlFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+$intlFormatter->setPattern('MMMM');
+$ru_format=date_format($date, 'd'). ' '. $intlFormatter->format($date);
+
+return($ru_format);
 }
 
 //Вывод конкретного кол-ва знаков в тексте

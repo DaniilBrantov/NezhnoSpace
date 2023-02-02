@@ -9,13 +9,12 @@
     $twelve_month=946;
 
 
-    //Вывод даты след. поста
-    // echo getNextPostDate($payment_days);
-    // var_dump($month_theme);
-
 
 // Вывод конкретной записи
 // var_dump($daily_practices[1]);
+
+//$month_theme['3']['next_post_date'];
+
 
 // Сегодняшняя практика
 // Если оплаты нет, тогда выводит NULL
@@ -29,6 +28,7 @@ $recommendations=CategoryData(ceil(openPosts($payment_date, '', 46)),46);
 
 // Тема месяца
 $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
+
 
 
 // Выбор услуги
