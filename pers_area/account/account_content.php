@@ -91,15 +91,29 @@
             </form>
         </div>
 
-        <div id='payment-banner' class='account_payment-banner pay-banner'>
-            <div class='pay-banner_content'>
-                <h4 class='pay-banner_title'>Оформить подписку:</h4>
-                <ul class='pay-banner_options-wrap pay-banner_options-slider'>
-                </ul>
+        <?php if (checkPayment()) { ?>
+            <div class="account_sections-footer">
+                Пока не готовы начать? <a>Отменить&nbspподписку Нежно&nbspSpace</a>
+            </div>    
+        <?php } else { ?>
+            <div id='payment-banner' class='account_payment-banner pay-banner'>
+                <div class='pay-banner_content'>
+                    <form class='pay-banner_promocode-wrap'>
+                        <h4 class='pay-banner_promocode-title'>Промокод</h4>
+                        <div class='pay-banner_promocode-input-wrap'>
+                            <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+                            <span class="text-error text-error_promo">text error</span>
+                        </div>
+                        <div class='pay-banner_promocode-btn-wrap'>
+                            <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'
+                                type='button'>Использовать</button>
+                        </div>
+                    </form>
+                    <h4 class='pay-banner_title'>Оформить подписку:</h4>
+                    <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <!-- <div class="account_sections-footer">
-            Пока не готовы начать? <a>Отменить&nbspподписку Нежно&nbspSpace</a>
-        </div> -->
+        <?php  }; ?>
     </div>
 </div>

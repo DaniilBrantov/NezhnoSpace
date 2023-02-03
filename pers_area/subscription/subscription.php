@@ -65,7 +65,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
     //  var_dump($month_theme);
 ?>
 
-<div class="subcscription_container">
+<div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
     <!-- <div class="subcscription_calendar">
         <h3 class="subcscription_title">Календарь</h3>
         <svg width="40" height="16" viewBox="0 0 40 16" fill='none' xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +109,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
 
 
     <section class="daily_practices_slider">
-        <?php 
+    <?php 
       foreach ($daily_practices as $row) { 
     ?>
         <div id="" class="subcscription_block-slide blockSub-slide daily_practices_slide"
@@ -119,8 +119,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'><?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"]);?>
-                </div>
+                <div id='blockSub_lesson-time'><?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'><?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $row["title"]; ?></div>
         </div>
@@ -134,8 +134,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
     </section>
 
     <?php 
-    foreach ($daily_practices as $row) { 
-?>
+        foreach ($daily_practices as $row) { 
+    ?>
     <section id="" class="daily_practices_addition addition"
         addition-key="<?php echo array_search($row, $daily_practices); ?>"
         status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
@@ -200,8 +200,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($rec["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'><?php echo (empty($rec["lesson_time"]) ? '' : $rec["lesson_time"]);?>
-                </div>
+                <div id='blockSub_lesson-time'><?php echo (empty($rec["lesson_time"]) ? '' : $rec["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'><?php echo (empty($rec["next_post_date"]) ? 'скоро' : $rec["next_post_date"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $rec["title"]; ?></div>
         </div>
@@ -282,9 +282,10 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div class="blockSub-slide_before"
                     status="<?php echo (boolval($month["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'>
-                    <?php echo (empty($month["lesson_time"]) ? '' : $month["lesson_time"].' минут');?></div>
+                <div id='blockSub_lesson-time'><?php echo (empty($month["lesson_time"]) ? '' : $month["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'><?php echo (empty($month["next_post_date"]) ? 'скоро' : $month["next_post_date"]);?></div>
             </div>
+            
             <div class="subcscription_title-slide"><?php echo $month["title"]; ?></div>
         </div>
         <?php 
@@ -362,6 +363,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <h4 class='pay-banner_promocode-title'>Промокод</h4>
                 <div class='pay-banner_promocode-input-wrap'>
                     <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+                    <span class="text-error text-error_promo">text error</span>
                 </div>
                 <div class='pay-banner_promocode-btn-wrap'>
                     <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'

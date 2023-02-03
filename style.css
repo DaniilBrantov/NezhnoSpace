@@ -94,6 +94,10 @@ ul{
   text-transform: uppercase;
 }
 
+.flickity-enabled:focus {
+  outline: none;
+}
+
 
 
 @media screen and (max-width: 1200px) {

@@ -34,7 +34,7 @@
                         </ul>
                         </div>
                 </div>
-                <button class='pay-banner_option-button'>Хочу подписку</button>
+                <a class='pay-banner_option-button' href='payment'>Хочу подписку</a>
             </div>
           </li>
         `;
@@ -65,18 +65,19 @@
     }
   }
 
-  adaptiveHeightBanner();
-
   window.addEventListener('resize', (e) => {
     adaptiveHeightBanner();
   });
 
   document.addEventListener('DOMContentLoaded', function () {
+    adaptiveHeightBanner();
     //закрытие баннера
-    document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector('.subscription_payment-banner_background').style.display = 'none';
-    })
+    if (document.querySelector('.pay-banner_btnClose')) {
+      document.querySelector('.pay-banner_btnClose').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('.subscription_payment-banner_background').style.display = 'none';
+      })
+    }
   })
 })();
 
@@ -104,19 +105,47 @@ $(".pay-banner_promocode-btn").click(function (e) {
     data: formData,
     success: function (data) {
       if (data.status) {
-        console.log(data);
+        promocodeSucces(data['promo']);
       }
       else {
         for (let key in data) {
           if (key !== 'status') {
-            //console.log(key, data[key])
-            showError(key, data[key]);
+            console.log(key, data[key])
+            showError('promo', data[key]);
+            hideError('promo');
           }
         }
       }
     },
     error: function (jqxhr, status, errorMsg) {
-      showModalError();
+      showError('promo', "Произошла непредвиденная ошибка");
+      hideError('promo');
     },
   });
+
+  function promocodeSucces() {
+    let formData = new FormData();
+    formData.append("promo", data['promo']);
+  
+    $.ajax({
+      url: "payment",
+      type: "POST",
+      dataType: "json",
+      processData: false,
+      contentType: false,
+      cache: false,
+      data: formData,
+      success: function (data) {
+        if (data) {
+          window.location.href = 'payment';
+        }
+        else {
+          console.log(data);
+        }
+      },
+      error: function (jqxhr, status, errorMsg) {
+        // console.log(errorMsg)
+      },
+    });
+  }
 });

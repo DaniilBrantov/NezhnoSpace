@@ -38,6 +38,9 @@
       slide.querySelector('.subcscription_title-slide').style.display = notvisible;
       // document.querySelector('.blockSub-slide-more span').style.display = notvisible;
       addition.style.display = visible;
+      if (addition.querySelector('.blockSub-slide_before_data')) {
+        addition.querySelector('.blockSub-slide_before_data').textContent = slide.querySelector('.blockSub-slide_before_data').textContent;
+      }
     }
     function findAddition(addition, slide) {
       addition.forEach((elem) => {
@@ -102,27 +105,31 @@
             <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
             </svg>
-            <div class="blockSub-slide_before_data">27 октября</div>
+            <div class="blockSub-slide_before_data"></div>
           </div>
           </div>`;
-          addition.querySelector('.addition_btn').innerText = 'Оформить подписку';
-          //открыть баннер оплаты
-          addition.querySelector('.addition_btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('.subscription_payment-banner_background').style.display = 'block';
-            $('.subscription_payment-banner .pay-banner_options-slider').flickity({
-              draggable: true,
-              cellAlign: 'center',
-              freeScroll: true,
-              prevNextButtons: false,
-              pageDots: false,
-              initialIndex: 1,
-              watchCSS: true
-            });
-            if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
-              document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
-            }
-          })
+          if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
+            addition.querySelector('.addition_btn').innerText = 'Оформить подписку';
+            //открыть баннер оплаты
+            addition.querySelector('.addition_btn').addEventListener('click', function(e) {
+              e.preventDefault();
+              document.querySelector('.subscription_payment-banner_background').style.display = 'block';
+              $('.subscription_payment-banner .pay-banner_options-slider').flickity({
+                draggable: true,
+                cellAlign: 'center',
+                freeScroll: true,
+                prevNextButtons: false,
+                pageDots: false,
+                initialIndex: 1,
+                watchCSS: true
+              });
+              if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+                document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+              }
+            })
+          } else {
+            addition.querySelector('.addition_btn').style.display = 'none';
+          }
         }
       });
     })
@@ -130,13 +137,25 @@
     //смена стилей, если тема недоступна
     const slideBefor = document.querySelectorAll('.blockSub-slide_before');
     const lessonTime = document.querySelectorAll('#blockSub_lesson-time');
+    const nextOpenDates = document.querySelectorAll('#blockSub_next-post-date');
     let timeLesson = '';
+    let nextOpenDate = '';
 
     slideBefor.forEach((befor) => {
       lessonTime.forEach((time) => {
         if (time.previousElementSibling === befor) {
           timeLesson = time.textContent;
           time.style.display = 'none';
+        }
+      });
+      nextOpenDates.forEach((day) => {
+        if (day.closest('.blockSub-slide_wrapper-img').querySelector('.blockSub-slide_before') === befor) {
+          if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
+            nextOpenDate = '';
+          } else {
+            nextOpenDate = day.textContent;
+          }
+          day.style.display = 'none';
         }
       });
       if (befor.getAttribute('status') === 'true') {
@@ -156,13 +175,13 @@
           </svg>
         </div>
         </div>
-        ${timeLesson.length > 0 ? `<div class="blockSub-slide_before_time">${timeLesson}</div>` : ''}
+        ${timeLesson.trim().length > 0 ? `<div class="blockSub-slide_before_time">${timeLesson.trim()}</div>` : ''}
       `;} else {
         befor.innerHTML += `<div class="blockSub-slide_before_svgLock">
         <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
         </svg>
-        <div class="blockSub-slide_before_data">27 октября</div>
+        <div class="blockSub-slide_before_data">${nextOpenDate.trim()}</div>
       </div>`;
       }
     })

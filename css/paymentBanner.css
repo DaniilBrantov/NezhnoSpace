@@ -24,7 +24,7 @@
   width: 90vw;
   height: 98vh;
   text-align: center;
-  padding: 127px 120px;
+  padding: 115px 120px;
   border: none;
   box-shadow: 0px 6px 20px rgba(17, 17, 17, 0.25);
   border-radius: 32px;
@@ -73,12 +73,22 @@
   width: 100%;
   margin-left: 15px;
   margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+}
+.pay-banner_promocode-input-wrap .text-error_promo {
+  margin-top: 3px;
 }
 .pay-banner_promocode-input {
   width: 100%;
   padding: 15px 25px;
   border: 1px solid #421DD8;
   border-radius: 10px;
+}
+.pay-banner_promocode-input:focus {
+  outline: none;
+  box-shadow: 0px 1px 5px rgba(141, 154, 206, 0.5);
 }
 .pay-banner_promocode-input::-webkit-input-placeholder,
 .pay-banner_promocode-input::-moz-placeholder,
@@ -251,7 +261,7 @@
 }
 @media screen and (max-width: 960px) {
   .subscription_payment-banner {
-    padding: 50px;
+    padding: 50px 50px 10px;
   }
   .pay-banner_promocode-wrap {
     flex-wrap: wrap;
@@ -311,6 +321,7 @@
     padding-bottom: 15px;
     text-align: center;
     background-image: none;
+    font-size: 11px;
   }
 }
 @media (max-width: 860px) {
@@ -325,6 +336,9 @@
     display: block;
     overflow: hidden;
   }
+  .pay-banner_options-wrap .flickity-slider {
+    height: 100%;
+  }
   .pay-banner_option-container {
     max-width: 205px;
   }
@@ -332,7 +346,7 @@
 
 @media screen and (max-width: 768px) {
   .subscription_payment-banner {
-    padding: 25px 40px 70px;
+    padding: 25px 40px 10px;
   }
   .pay-banner_promocode-title {
     font-size: 24px;
@@ -358,6 +372,8 @@
     margin-top: 10px;
   }
   .pay-banner_option-button {
-    font-size: 11px;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
 }
+
