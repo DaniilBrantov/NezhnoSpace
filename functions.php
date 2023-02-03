@@ -209,6 +209,8 @@ return $content;
 date_default_timezone_set("Europe/Moscow");
 
 
+
+
 //Проверка авторизации
 
 function CheckAuth(){

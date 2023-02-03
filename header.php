@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нежно</title>
+    <title><?php wp_title("", true); ?></title>
     <meta name="yandex-verification" content="d821d01bf0467793" />
     <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
     <?php wp_head(); ?>

@@ -73,7 +73,7 @@
     adaptiveHeightBanner();
     //закрытие баннера
     if (document.querySelector('.pay-banner_btnClose')) {
-      document.querySelector('.pay-banner_btnClose').addEventListener('click', function(e) {
+      document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
         e.preventDefault();
         document.querySelector('.subscription_payment-banner_background').style.display = 'none';
       })
@@ -126,7 +126,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
   function promocodeSucces() {
     let formData = new FormData();
     formData.append("promo", data['promo']);
-  
+
     $.ajax({
       url: "payment",
       type: "POST",

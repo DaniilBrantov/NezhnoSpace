@@ -1,4 +1,5 @@
 <?php
+$post=(int)$_GET['post'];
 
 require_once( get_theme_file_path('processing.php') );
 CheckAuth();
