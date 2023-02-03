@@ -123,9 +123,9 @@ $(".pay-banner_promocode-btn").click(function (e) {
     },
   });
 
-  function promocodeSucces() {
+  function promocodeSucces(data) {
     let formData = new FormData();
-    formData.append("promo", data['promo']);
+    formData.append("promo", data);
   
     $.ajax({
       url: "payment",
