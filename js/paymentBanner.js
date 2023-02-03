@@ -105,12 +105,11 @@ $(".pay-banner_promocode-btn").click(function (e) {
     data: formData,
     success: function (data) {
       if (data.status) {
-        promocodeSucces(data['promo']);
-      }
-      else {
+        document.querySelector('.promocode_duble').value = promo;
+        document.querySelector('.post-promocode-payment').click();
+      } else {
         for (let key in data) {
           if (key !== 'status') {
-            console.log(key, data[key])
             showError('promo', data[key]);
             hideError('promo');
           }
@@ -121,31 +120,9 @@ $(".pay-banner_promocode-btn").click(function (e) {
       showError('promo', "Произошла непредвиденная ошибка");
       hideError('promo');
     },
+  }).then((data) => {
+    if (data.status) {
+      window.location.href = 'payment';
+    }
   });
-
-  function promocodeSucces(data) {
-    let formData = new FormData();
-    formData.append("promo", data['promo']);
-
-    $.ajax({
-      url: "payment",
-      type: "POST",
-      dataType: "json",
-      processData: false,
-      contentType: false,
-      cache: false,
-      data: formData,
-      success: function (data) {
-        if (data) {
-          window.location.href = 'payment';
-        }
-        else {
-          console.log(data);
-        }
-      },
-      error: function (jqxhr, status, errorMsg) {
-        // console.log(errorMsg)
-      },
-    });
-  }
 });

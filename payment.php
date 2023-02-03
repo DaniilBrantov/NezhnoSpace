@@ -13,5 +13,9 @@ use YooKassa\Client;
 
 get_header();
 require_once "payment/payment_content.php";
+// $promo = "";
+// if(isset($_POST["[promocode]"])){
+//   $promo = $_POST["promocode"];
+// }
 get_footer();
 ?>
