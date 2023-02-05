@@ -43,7 +43,7 @@ function load_styles(){
 
 
 	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
-	"page-blog", "404", "documents",
+	"page-blog", "404", "documents", "subscription_lesson",
 	"single", "audio", "sign", "account-content","pers_area", "subscription", "paymentBanner"];
 	
 	for($i=0; $i < count($css_files); $i++){

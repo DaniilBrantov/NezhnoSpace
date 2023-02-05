@@ -1,5 +1,5 @@
 (() => {
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     let slidersInit = [
       $('.daily_practices_slider'),
       $('.recommendations_slider'),
@@ -80,7 +80,7 @@
               objSlider.forEach((active) => {
                 if (active.classList.contains('slideActiveSubscription') && active !== slide) {
                   active.classList.remove('slideActiveSubscription');
-                  
+
                   changeAddition(active, addition, 'none', 'none', 'block');
                   findAddition(objAddition, active);
                 }
@@ -111,7 +111,7 @@
           if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
             addition.querySelector('.addition_btn').innerText = 'Оформить подписку';
             //открыть баннер оплаты
-            addition.querySelector('.addition_btn').addEventListener('click', function(e) {
+            addition.querySelector('.addition_btn').addEventListener('click', function (e) {
               e.preventDefault();
               document.querySelector('.subscription_payment-banner_background').style.display = 'block';
               $('.subscription_payment-banner .pay-banner_options-slider').flickity({
@@ -176,7 +176,8 @@
         </div>
         </div>
         ${timeLesson.trim().length > 0 ? `<div class="blockSub-slide_before_time">${timeLesson.trim()}</div>` : ''}
-      `;} else {
+      `;
+      } else {
         befor.innerHTML += `<div class="blockSub-slide_before_svgLock">
         <svg width="41" height="47" viewBox="0 0 41 47" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M36.6071 20.5625H34.4107V13.9531C34.4107 6.26055 28.1692 0 20.5 0C12.8308 0 6.58929 6.26055 6.58929 13.9531V20.5625H4.39286C1.96763 20.5625 0 22.5361 0 24.9688V42.5938C0 45.0264 1.96763 47 4.39286 47H36.6071C39.0324 47 41 45.0264 41 42.5938V24.9688C41 22.5361 39.0324 20.5625 36.6071 20.5625ZM27.0893 20.5625H13.9107V13.9531C13.9107 10.3088 16.8667 7.34375 20.5 7.34375C24.1333 7.34375 27.0893 10.3088 27.0893 13.9531V20.5625Z" fill="#FDFDFD"/>
@@ -184,6 +185,27 @@
         <div class="blockSub-slide_before_data">${nextOpenDate.trim()}</div>
       </div>`;
       }
-    })
+    });
+
+
+    //Subscription Lesson
+
+    let listTxt = document.body.querySelectorAll('.sub_less_cnt ol li');
+    listTxt.forEach((list) => {
+      let list_txt = list.innerHTML;
+      let count = list_txt.indexOf('.');
+      let list_title = list_txt.substring(0, count);
+      let list_cnt = list_txt.substring(count + 1, list_txt.lenght).trim();
+
+      list.textContent = list_title;
+
+      let p_list_cnt = document.createElement("p");
+      p_list_cnt.textContent = list_cnt;
+      list.after(p_list_cnt);
+
+      console.log(list_title);
+      console.log(list_cnt);
+    });
+
   })
 })();
