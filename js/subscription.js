@@ -63,6 +63,10 @@
         slider: document.querySelectorAll('.month-theme_slide'),
         addition: document.querySelectorAll('.month-theme_addition')
       },
+      {
+        slider: document.querySelectorAll('.subscriptions-post'),
+        addition: document.querySelectorAll('.subscriptions-posts_addition')
+      },
     ];
 
     arraySliders.forEach((obj) => {
@@ -186,6 +190,47 @@
       </div>`;
       }
     });
+
+    //subscription_posts
+    function positionAddiction() {
+      document.querySelectorAll('.subscriptions-posts .subscriptions-post').forEach((post) => {
+        let key = post.getAttribute('key');
+        let { top } = post.getBoundingClientRect();
+        document.querySelectorAll('.subscriptions-posts_addition').forEach((addition) => {
+          if (addition.getAttribute('addition-key') === key) {
+            addition.style.top = top + 210 + 'px';
+          }
+        })
+      })
+    };
+
+    if (document.querySelector('.subscriptions-posts')) {
+      document.addEventListener('scroll', function() {
+        positionAddiction();
+      })
+ 
+      document.querySelectorAll('.subscriptions-posts .subscriptions-post').forEach((elem) => {
+        elem.addEventListener('click', function () {
+          document.querySelectorAll('.subscriptions-posts .subscriptions-post').forEach((post) => {
+            post.style.marginBottom = '0';
+          });
+          let key = elem.getAttribute('key');
+          document.querySelectorAll('.subscriptions-posts_addition').forEach((addition) => {
+            if (addition.getAttribute('addition-key') === key) {
+              if (window.getComputedStyle(addition).display === 'none') {
+                elem.style.marginBottom = '0';
+              } else {
+                let heightAddition = window.getComputedStyle(addition).height;
+                let ind = heightAddition.indexOf('p');
+                heightAddition = heightAddition.slice(0, ind);
+                elem.style.marginBottom = Number(heightAddition) + 60 + 'px';
+              }
+            }
+          })
+          positionAddiction();
+        })
+      })
+    }
 
 
     //Subscription Lesson

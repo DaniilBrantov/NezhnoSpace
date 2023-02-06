@@ -310,9 +310,7 @@
   color:  #111111;
 }
 
-.daily_practices_addition,
-.recommendations_addition,
-.month-theme_addition {
+.addition {
   margin-top: 17px;
   background-color: #dde1f3;
 
@@ -442,6 +440,28 @@
 
   border-radius: 20px;
 }
+
+.subscriptions-posts {
+  max-width: 1600px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, calc(100%/3));
+  justify-items: center;
+}
+
+.subscriptions-posts_addition {
+  position: fixed;
+  width: 100vw;
+}
+.subscriptions-posts .subcscription_block-slide {
+  margin-right: 0!important;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.subscriptions-posts .subcscription_block-slide:first-child {
+  padding-left: 0!important;
+}
 @media screen and (min-width: 768px) {
   .addition_image {
     min-width: 420px;
@@ -496,6 +516,15 @@
   .addition_image {
     flex-shrink: 0;
   }
+
+  .subscriptions-posts {
+    grid-template-columns: repeat(4, calc(100%/4));
+  }
+}
+@media screen and (max-width: 850px) {
+  .subscriptions-posts {
+    grid-template-columns: repeat(1, calc(100%));
+  }
 }
 @media screen and (max-width: 768px) {
   .addition_wrapper {
@@ -505,14 +534,6 @@
     display: none;
   }
 }
-@media screen and (max-width: 450px) {
-  .daily_practices_slider {
-    /* width: 50%; half-width */
-    /* padding-left: 3%; */
-  }
-  
-}
-
 .promocode-post {
   display: none;
 }

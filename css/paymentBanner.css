@@ -351,6 +351,9 @@
   .pay-banner_promocode-title {
     font-size: 24px;
   }
+  .pay-banner_promocode-wrap {
+    max-width: 460px;
+  }
   .pay-banner_promocode-input-wrap {
     max-width: 700px;
     margin-top: 10px;

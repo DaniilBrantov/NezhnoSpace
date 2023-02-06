@@ -40,7 +40,7 @@
                 <form action="payment" method='post'>
                   <input type="hidden" value="${optionsPayment[option].value}" name="payment_id">
                   <input type="hidden" value="" name="payment_promo" class='post-promocode-payment'>
-                  <button name="pay-banner_option-button" type="submit">хочу подписку</button>
+                  <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
                 </form>
             </div>
           </li>
