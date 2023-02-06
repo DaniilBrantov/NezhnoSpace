@@ -3,16 +3,19 @@
     1: {
       duration: '1 месяц',
       price: '500 ₽ / мес.',
+      value: '944',
       list: ['первые 7 дней за 7 ₽']
     },
     2: {
       duration: '6 месяцев',
       price: '3600 ₽',
+      value: '945',
       list: ['первые 7 дней за 7 ₽', '600 ₽ / мес.']
     },
     3: {
       duration: '1 год',
       price: '6000 ₽',
+      value: '946',
       list: ['первые 7 дней за 7 ₽', '500 ₽ / мес.']
     }
   };
@@ -34,7 +37,11 @@
                         </ul>
                         </div>
                 </div>
-                <a class='pay-banner_option-button' href='payment'>Хочу подписку</a>
+                <form action="payment" method='post'>
+                  <input type="hidden" value="${optionsPayment[option].value}" name="payment_id">
+                  <input type="hidden" value="" name="payment_promo" class='post-promocode-payment'>
+                  <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
+                </form>
             </div>
           </li>
         `;
@@ -105,8 +112,12 @@ $(".pay-banner_promocode-btn").click(function (e) {
     data: formData,
     success: function (data) {
       if (data.status) {
-        document.querySelector('.promocode_duble').value = promo;
-        document.querySelector('.post-promocode-payment').click();
+        showError('promo', "Промокод применён успешно. Выберите вариант подписки");
+        document.querySelector('.pay-banner_promocode-input.error').style.borderColor = 'green';
+        document.querySelector('.pay-banner_promocode-input.error').style.outline = '1px solid green';
+        document.querySelector('.pay-banner_promocode-input-wrap .text-error_promo').style.color = 'green';
+        hideError('promo');
+        document.querySelector('.post-promocode-payment').value = promo;
       } else {
         for (let key in data) {
           if (key !== 'status') {

@@ -173,7 +173,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo trimCntWords($row["content"],30, '...'); ?></span>
+                        <span class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
                     </div>
                 </div>
                 <a href="subscription_lesson?post=<?php echo $row['id']; ?>" class="blue_btn addition_btn">Перейти</a>
@@ -254,7 +254,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo trimCntWords($rec["content"],30, '...'); ?></span>
+                        <span class="addition_description"><?php echo (empty($rec["excerpt"]) ? trimCntWords($rec["content"],30, '...') : $rec["excerpt"]); ?></span>
                     </div>
                 </div>
                 <a href="subscription_lesson?post=<?php echo $rec['id']; ?>" class="blue_btn addition_btn">Перейти</a>
@@ -338,7 +338,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
                         <span
-                            class="addition_description"><?php echo trimCntWords($month["content"],30, '...'); ?></span>
+                            class="addition_description"><?php echo (empty($month["excerpt"]) ? trimCntWords($month["content"],30, '...') : $month["excerpt"]); ?></span>
                     </div>
                 </div>
                 <a href="subscription_lesson?post=<?php echo $month['id']; ?>" class="blue_btn addition_btn">Перейти</a>
@@ -376,8 +376,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
         </div>
     </div>
 
-    <form action="payment.php" method="POST" class='promocode-post'>
+    <!-- <form action="payment.php" method="POST" class='promocode-post'>
         <input type="text" name="promocode" class='promocode_duble'/>
         <button type='submit' class='post-promocode-payment'></button>
-    </form>
+    </form> -->
 </section>
