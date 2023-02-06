@@ -117,7 +117,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
         document.querySelector('.pay-banner_promocode-input.error').style.outline = '1px solid green';
         document.querySelector('.pay-banner_promocode-input-wrap .text-error_promo').style.color = 'green';
         hideError('promo');
-        document.querySelector('.post-promocode-payment').value = promo;
+        document.querySelectorAll('.post-promocode-payment').forEach((input) => input.value = promo);
       } else {
         for (let key in data) {
           if (key !== 'status') {
