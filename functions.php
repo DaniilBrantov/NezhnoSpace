@@ -314,8 +314,8 @@ $res=[
 ];
 if(checkPayment()){
 $res['link'] = $post->post_name;
-$res['tag'] =get_the_tag_list('<li>#','</li>
-<li>#','</li>', $post->ID );
+$res['tag'] =get_the_tag_list('<li>','</li>
+<li>','</li>', $post->ID );
 }else{
 $res['status']=FALSE;
 }

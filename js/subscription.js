@@ -189,23 +189,20 @@
 
 
     //Subscription Lesson
+    if (window.innerWidth > 900) {
+      let listTxt = document.body.querySelectorAll('.sub_less_cnt ol li');
+      listTxt.forEach((list) => {
+        let list_txt = list.innerHTML;
+        let count = list_txt.indexOf('.');
+        let list_title = list_txt.substring(0, count);
+        let list_cnt = list_txt.substring(count + 1, list_txt.lenght).trim();
 
-    let listTxt = document.body.querySelectorAll('.sub_less_cnt ol li');
-    listTxt.forEach((list) => {
-      let list_txt = list.innerHTML;
-      let count = list_txt.indexOf('.');
-      let list_title = list_txt.substring(0, count);
-      let list_cnt = list_txt.substring(count + 1, list_txt.lenght).trim();
+        list.textContent = list_title;
 
-      list.textContent = list_title;
-
-      let p_list_cnt = document.createElement("p");
-      p_list_cnt.textContent = list_cnt;
-      list.after(p_list_cnt);
-
-      console.log(list_title);
-      console.log(list_cnt);
-    });
-
+        let p_list_cnt = document.createElement("p");
+        p_list_cnt.textContent = list_cnt;
+        list.after(p_list_cnt);
+      });
+    };
   })
 })();

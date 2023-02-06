@@ -5,7 +5,59 @@
 }
 .sub_container{
     width: 880px;
-    margin: auto;
+    margin: 0 auto;
+}
+.sub_banner_cnt{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.sub_less_title{
+    color: var(--white);
+    background-color: #00000030;
+    backdrop-filter: blur(5px);
+    padding: 11px 16px;
+    border-radius: 16px;
+}
+.sub_less_title h3{
+    font-weight: bold !important;
+}
+.sub_banner_cnt ul{
+    display: flex;
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+.sub_banner_cnt ul li a{
+    color: var(--white);
+    background-color: #00000030;
+    backdrop-filter: blur(5px);
+    padding: 11px 16px;
+    border-radius: 16px;
+    font-weight: 500;
+    margin: 0 8px;
+}
+.sub_less_banner{
+    background-color: #ccc;
+    height: 427px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+.sub_less_banner:before {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(#0000, #00000060);
+
 }
 .sub_less_cnt p{
     align-items: center;
@@ -23,17 +75,16 @@
 }
 .sub_less_cnt ol li{
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 36px;
 }
 .sub_less_cnt ol li::marker{
     font-size: 32px;
-    font-weight: 800;
+    font-weight: 500;
 }
 .sub_less_cnt ul li{
     list-style-type:none
 }
-
 .sub_less_cnt ul li::before{
     content: "";
     position: relative;
@@ -58,4 +109,57 @@
 }
 .sub_less_cnt ol p{
 margin: 8px 0;
+}
+.sub_less_tag{
+    display: flex;
+    align-items: flex-end;
+}
+
+@media screen and (max-width: 900px) {
+    .sub_less{
+        width: 80%;
+        margin: auto;
+    }
+    .sub_container {
+        width: 100%;
+    }
+    .sub_less_banner{
+        height: 300px;
+        border-radius: 15px;
+    }
+    .sub_less_banner::before{
+        display: none;
+    }
+    .sub_less_cnt p{
+        display: grid;
+    }
+    .sub_less_cnt p img{
+        width: 100%;
+    }
+    .sub_less_cnt ol {
+        width: 100%;
+        padding-left: 30px;
+    }
+    .sub_less_cnt ol li::marker {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--white);
+    }
+    .sub_less_cnt ol li {
+        font-size: 13px;
+        font-weight: 400;
+        margin-top: 15px;
+    }
+    .sub_less_cnt ol li::before {
+        width: 20px;
+        height: 20px;
+        background: var(--main_1);
+        left: -20px;
+        top: 18px;
+        border-radius: 5px;
+        z-index: -1;
+    }
+    .sub_less_cnt ul li::before {
+        height: 10px;
+    }
 }
