@@ -376,8 +376,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
         </div>
     </div>
 
-    <form action="payment.php" method="POST" class='promocode-post'>
+    <!-- <form action="payment.php" method="POST" class='promocode-post'>
         <input type="text" name="promocode" class='promocode_duble'/>
         <button type='submit' class='post-promocode-payment'></button>
-    </form>
+    </form> -->
 </section>
