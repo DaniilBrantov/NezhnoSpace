@@ -133,7 +133,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
     },
   }).then((data) => {
     if (data.status) {
-      window.location.href = 'payment';
+      //window.location.href = 'payment';
     }
   });
 });
