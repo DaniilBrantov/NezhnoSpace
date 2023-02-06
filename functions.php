@@ -576,6 +576,7 @@ if( $promo === $promo_data['promo'] ){
 if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
     $error['status'] = true;
     $error['promo'] = $promo_data['promo'];
+	$error['sale'] = $promo_data['sale'];
     }
     }else{
     $error['status'] = false;
