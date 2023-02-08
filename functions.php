@@ -430,8 +430,8 @@ return $data;
 //Подключение к кассе
 function connectionPayment($data){
 $client = new \YooKassa\Client();
-//$set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
-$set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+$set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+// $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
 $payment = $client->createPayment(
 $data,
 uniqid('', true)
@@ -442,8 +442,8 @@ return $payment;
 // Получение данных оплаты
 function getPaymentInformation($paymentId){
 $client = new \YooKassa\Client();
-// $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
-$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+// $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
 $payment = $client->getPaymentInfo($paymentId);
 return $payment;
 }
@@ -588,34 +588,30 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
     }
     return $error;
     }
-	
-	//Вывод последнего изображения из поста
-	function LastPostImage() {
-		global $post, $posts;
-		$first_img = '';
-		ob_start();
-		ob_end_clean();
-		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-		$first_img = end($matches [1]);
-	  
-		if(empty($first_img)){
-	  return false;
-		}
-		return $first_img;
-	  }
 
-			//Вывод первого изображения из поста
-	function firstPostImage() {
-		global $post, $posts;
-		$first_img = '';
-		ob_start();
-		ob_end_clean();
-		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+    //Вывод последнего изображения из поста
+    function LastPostImage($post) {
+    //global $post, $posts;
+    $last_img = '';
+    $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+        $last_img = end($matches [1]);
 
-		$first_img = reset($matches [1]);
-	  
-		if(empty($first_img) || $output == 1){
-	  return false;
-		}
-		return $first_img;
-	  }
+        if(empty($last_img)){
+        return false;
+        }
+        return $last_img;
+        }
+
+        //Вывод первого изображения из поста
+        function firstPostImage($post) {
+        //global $post, $posts;
+        $first_img = '';
+        $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+
+            $first_img = reset($matches [1]);
+
+            if(empty($first_img) || $output == 1){
+            return false;
+            }
+            return $first_img;
+            }

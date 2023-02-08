@@ -18,7 +18,7 @@
     <h3 class="subcscription_title">Программа</h3>
 
     <section class="subscriptions-posts">
-    <?php 
+        <?php 
       foreach ($categories as $row) { 
     ?>
         <div id="" class="subcscription_block-slide blockSub-slide subscriptions-post"
@@ -28,8 +28,10 @@
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'><?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
-                <div id='blockSub_next-post-date'><?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
+                <div id='blockSub_lesson-time'>
+                    <?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'>
+                    <?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $row["title"]; ?></div>
         </div>
@@ -78,7 +80,8 @@
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
+                        <span
+                            class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
                     </div>
                 </div>
                 <a href="subscription_lesson?post=<?php echo $row['id']; ?>" class="blue_btn addition_btn">Перейти</a>
