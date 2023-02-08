@@ -15,7 +15,7 @@ $id = get_the_ID($get_id);
 $thumb_id = get_post_thumbnail_id();
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
 
-$daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
+$month_theme=CategoryData(ceil(openPosts($payment_date, '', 47))47);
 ?>
 
 <div class="sub_less">
@@ -167,10 +167,10 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
     <h3 class="subcscription_title">Общий материал</h3>
     <section class="daily_practices_slider">
         <?php 
-        foreach ($daily_practices as $row) { 
+        foreach ($month_theme as $row) { 
         ?>
             <div id="" class="subcscription_block-slide blockSub-slide daily_practices_slide"
-                key="<?php echo array_search($row, $daily_practices); ?>">
+                key="<?php echo array_search($row, $month_theme); ?>">
                 <div class="blockSub-slide_wrapper-img">
                     <img id="" class="blockSub-slide_img" src="<?php echo $row["image_url"]; ?>" width="267" />
                     <div class="blockSub-slide_after"></div>
@@ -191,10 +191,10 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
         </section>
 
         <?php 
-            foreach ($daily_practices as $row) { 
+            foreach ($month_theme as $row) { 
         ?>
         <section id="" class="daily_practices_addition addition"
-            addition-key="<?php echo array_search($row, $daily_practices); ?>"
+            addition-key="<?php echo array_search($row, $month_theme); ?>"
             status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
             <div class="addition_wrapper">
                 <div class="addition_text">

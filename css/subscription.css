@@ -442,7 +442,7 @@
 }
 
 .subscriptions-posts {
-  max-width: 1600px;
+  max-width: 1184px;
   margin: auto;
   display: grid;
   grid-template-columns: repeat(3, calc(100%/3));
@@ -455,7 +455,7 @@
 }
 .subscriptions-posts .subcscription_block-slide {
   margin-right: 0!important;
-  margin-top: 10px;
+  margin-top: 32px;
   cursor: pointer;
 }
 
