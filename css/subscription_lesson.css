@@ -192,7 +192,8 @@ margin: 8px 0;
   
     border-radius: 209px;
   }
-  .wp-block-audio {
+  .wp-block-audio,
+  .wp-audio-shortcode {
     display: none;
   }
   .player_title_text {

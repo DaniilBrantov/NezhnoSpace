@@ -1,20 +1,21 @@
 <?php
+$post=(int)$_GET['post'];
+
 require_once( get_theme_file_path('processing.php') );
 CheckAuth();
-$post_id=(int)$_GET['post'];
+$get_id=(int)$_GET['post'];
 //$get_id=918;
 $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
 $payment_date =$user_data['payment_date'];
-if( !checkPayment() || !$post_id){
+if( !checkPayment() || !$get_id){
     header('Location: subscription');
 };
-$post_data = getSubscriptionLesson($post_id, ceil(openPosts($payment_date, $post_id, '')));
-
-var_dump($post_id);
-
-$thumb_id = get_post_thumbnail_id($post_id);
+$post_data = getSubscriptionLesson($get_id, ceil(openPosts($payment_date, $get_id, '')));
+$id = get_the_ID($get_id);
+$thumb_id = get_post_thumbnail_id();
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
-$daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
+
+$month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)), 47);
 ?>
 
 <div class="sub_less">
@@ -22,7 +23,7 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
         <div class="sub_banner_cnt sub_container ">
             <div class="sub_less_title basic">
                 <h3 style="text-transform: none;">
-                    <?php echo get_the_title($post_id); ?>
+                    <?php echo get_the_title(); ?>
                 </h3>
             </div>
             <div class="sub_less_tag">
@@ -38,26 +39,26 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
         <div class="sub_less_cnt">
             <div class='sub_less__firstParagraph'>
                 <div class='sub_less__firstParagraph-wrpImg'>
-                    <img class='sub_less__firstParagraph-img' src='<?php echo firstPostImage($post_id); ?>'
-                        style='display: <?php echo (boolval(firstPostImage($post_id)) ? 'block' : 'none'); ?>' />
+                    <img class='sub_less__firstParagraph-img' src='<?php echo firstPostImage($id); ?>'
+                        style='display: <?php echo (boolval(firstPostImage($id)) ? 'block' : 'none'); ?>' />
                     <div class='sub_less__firstParagraph-befor'
-                        style='display: <?php echo (boolval(firstPostImage($post_id)) ? 'none' : 'block'); ?>'></div>
+                        style='display: <?php echo (boolval(firstPostImage($id)) ? 'none' : 'block'); ?>'></div>
                 </div>
-                <p class='sub_less__firstParagraph-p'></p>
+                <p class='sub_less__firstParagraph-p'>d</p>
             </div>
-            <p><?php echo get_the_content($post_id); ?></p>
+            <p><?php the_content(); ?></p>
 
 
             <div class='sub_less__img-collage img-collage'
-                style='display: <?php echo (boolval(LastPostImage($post_id)) ? 'flex' : 'none'); ?>'>
+                style='display: <?php echo (boolval(LastPostImage($id)) ? 'flex' : 'none'); ?>'>
                 <div class='img-collage_wrp'>
-                    <img class='img-collage_img' src='<?php echo LastPostImage($post_id); ?>' />
+                    <img class='img-collage_img' src='<?php echo LastPostImage($id); ?>' />
                 </div>
                 <div class='img-collage_wrp'>
-                    <img class='img-collage_img' src='<?php echo LastPostImage($post_id); ?>' />
+                    <img class='img-collage_img' src='<?php echo LastPostImage($id); ?>' />
                 </div>
                 <div class='img-collage_wrp'>
-                    <img class='img-collage_img' src='<?php echo LastPostImage($post_id); ?>' />
+                    <img class='img-collage_img' src='<?php echo LastPostImage($id); ?>' />
                 </div>
             </div>
             <div class="trial_audio">
@@ -169,10 +170,10 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
     <h3 class="subcscription_title">Общий материал</h3>
     <section class="daily_practices_slider">
         <?php 
-        foreach ($daily_practices as $row) { 
+        foreach ($month_theme as $row) { 
         ?>
         <div id="" class="subcscription_block-slide blockSub-slide daily_practices_slide"
-            key="<?php echo array_search($row, $daily_practices); ?>">
+            key="<?php echo array_search($row, $month_theme); ?>">
             <div class="blockSub-slide_wrapper-img">
                 <img id="" class="blockSub-slide_img" src="<?php echo $row["image_url"]; ?>" width="267" />
                 <div class="blockSub-slide_after"></div>
@@ -195,10 +196,10 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
     </section>
 
     <?php 
-            foreach ($daily_practices as $row) { 
+            foreach ($month_theme as $row) { 
         ?>
     <section id="" class="daily_practices_addition addition"
-        addition-key="<?php echo array_search($row, $daily_practices); ?>"
+        addition-key="<?php echo array_search($row, $month_theme); ?>"
         status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
         <div class="addition_wrapper">
             <div class="addition_text">
