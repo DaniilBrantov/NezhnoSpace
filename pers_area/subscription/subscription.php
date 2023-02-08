@@ -24,7 +24,8 @@ $today_practice=TodayPractice($payment_days);
 $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
 
 // Рекомендательная система
-$recommendations=CategoryData(ceil(openPosts($payment_date, '', 46)),46);
+$recommendations=[CategoryData(ceil(openPosts($payment_date, '', 46)),46)][0];
+shuffle($recommendations);
 
 // Тема месяца
 $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
@@ -109,7 +110,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
 
 
     <section class="daily_practices_slider">
-    <?php 
+        <?php 
       foreach ($daily_practices as $row) { 
     ?>
         <div id="" class="subcscription_block-slide blockSub-slide daily_practices_slide"
@@ -119,8 +120,10 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'><?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
-                <div id='blockSub_next-post-date'><?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
+                <div id='blockSub_lesson-time'>
+                    <?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'>
+                    <?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $row["title"]; ?></div>
         </div>
@@ -173,7 +176,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
+                        <span
+                            class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
                     </div>
                 </div>
                 <a href="subscription_lesson?post=<?php echo $row['id']; ?>" class="blue_btn addition_btn">Перейти</a>
@@ -200,8 +204,10 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($rec["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'><?php echo (empty($rec["lesson_time"]) ? '' : $rec["lesson_time"].' минут');?></div>
-                <div id='blockSub_next-post-date'><?php echo (empty($rec["next_post_date"]) ? 'скоро' : $rec["next_post_date"]);?></div>
+                <div id='blockSub_lesson-time'>
+                    <?php echo (empty($rec["lesson_time"]) ? '' : $rec["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'>
+                    <?php echo (empty($rec["next_post_date"]) ? 'скоро' : $rec["next_post_date"]);?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo $rec["title"]; ?></div>
         </div>
@@ -254,7 +260,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     </svg>
                     <div>
                         <h4 class="addition_subtitle-materials">Материалы</h4>
-                        <span class="addition_description"><?php echo (empty($rec["excerpt"]) ? trimCntWords($rec["content"],30, '...') : $rec["excerpt"]); ?></span>
+                        <span
+                            class="addition_description"><?php echo (empty($rec["excerpt"]) ? trimCntWords($rec["content"],30, '...') : $rec["excerpt"]); ?></span>
                     </div>
                 </div>
                 <a href="subscription_lesson?post=<?php echo $rec['id']; ?>" class="blue_btn addition_btn">Перейти</a>
@@ -282,10 +289,12 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div class="blockSub-slide_before"
                     status="<?php echo (boolval($month["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'><?php echo (empty($month["lesson_time"]) ? '' : $month["lesson_time"].' минут');?></div>
-                <div id='blockSub_next-post-date'><?php echo (empty($month["next_post_date"]) ? 'скоро' : $month["next_post_date"]);?></div>
+                <div id='blockSub_lesson-time'>
+                    <?php echo (empty($month["lesson_time"]) ? '' : $month["lesson_time"].' минут');?></div>
+                <div id='blockSub_next-post-date'>
+                    <?php echo (empty($month["next_post_date"]) ? 'скоро' : $month["next_post_date"]);?></div>
             </div>
-            
+
             <div class="subcscription_title-slide"><?php echo $month["title"]; ?></div>
         </div>
         <?php 
