@@ -28,10 +28,11 @@ $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
                 <ul>
                     <?php echo $post_data['tag']; ?>
                 </ul>
-
             </div>
         </div>
     </div>
+    <h1 class='sub_less__mobile-title'>Title</h1>
+
     <div class="sub_container">
         <div class="sub_less_cnt">
             <p><?php the_content(); ?></p>
@@ -123,7 +124,7 @@ $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
                     </div>
                 </div>
             </div>
-            <div class="trial_text-wrap"></div>
+            <!-- <div class="trial_text-wrap"></div>
             <button class="trial_btn-show">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -133,7 +134,7 @@ $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
                         d="M18.0562 17.0562L6.67175 5.67175C6.30075 5.30075 5.69925 5.30075 5.32825 5.67175L5.25754 5.74246C4.88654 6.11346 4.88654 6.71497 5.25754 7.08597L16.642 18.4704C17.013 18.8414 17.6145 18.8414 17.9855 18.4704L18.0562 18.3997C18.4272 18.0287 18.4272 17.4272 18.0562 17.0562Z"
                         fill="#421dd8" />
                 </svg>
-            </button>
+            </button> -->
 
 
 

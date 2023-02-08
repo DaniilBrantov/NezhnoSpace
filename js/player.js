@@ -23,6 +23,19 @@
   const info = document.querySelector(".info");
 
   if (audioPlayer) {
+    //Subscription Lesson
+    if (document.location.pathname.includes('subscription_lesson')) {
+      if (document.querySelector('.wp-block-audio')) {
+        audio.src = document.querySelector('audio').src;
+        if (document.querySelector('.wp-block-audio .wp-element-caption')) {
+          document.querySelector('.player_title_text').textContent = document.querySelector('.wp-block-audio .wp-element-caption').textContent;
+        }
+      } else {
+        document.querySelector('.trial_audio').style.display = 'none';
+      }
+      
+    }
+
     //progress audio (google chrome)
     const setSliderMax = () => {
       seekSlider.max = Math.floor(audio.duration);
@@ -101,15 +114,17 @@
 
     //audio title
 
-    function setTitle(index) {
-      document.getElementById("player_title_text").textContent =
-        musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1);
-    }
+    if (!document.location.pathname.includes('subscription_lesson')) {
+      function setTitle(index) {
+        document.getElementById("player_title_text").textContent =
+          musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1);
+      }
 
-    setTitle(index);
+      setTitle(index);
 
-    function getIndex() {
-      return musicList.findIndex((el) => audio.src.includes(el));
+      function getIndex() {
+        return musicList.findIndex((el) => audio.src.includes(el));
+      }
     }
 
     seekSlider.addEventListener("change", () => {

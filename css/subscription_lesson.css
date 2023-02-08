@@ -28,6 +28,7 @@
     margin-bottom: 10px;
 }
 .sub_banner_cnt ul li a{
+    display: block;
     color: var(--white);
     background-color: #00000030;
     backdrop-filter: blur(5px);
@@ -59,6 +60,21 @@
 	background: linear-gradient(#0000, #00000060);
 
 }
+.sub_less__mobile-title {
+    width: 100%;
+    margin-top: 21px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+
+    color: #181818;
+    text-align: center;
+    text-transform: none;
+
+    display: none;
+}
 .sub_less_cnt p{
     align-items: center;
     display: flex;
@@ -83,17 +99,19 @@
     font-weight: 500;
 }
 .sub_less_cnt ul li{
-    list-style-type:none
+    position: relative;
+    list-style-type:none;
 }
 .sub_less_cnt ul li::before{
     content: "";
-    position: relative;
+    position: absolute;
     display: block;
     width: 30px;
     height: 4px;
     background: var(--main_1);
     left: -50px;
-    top: 12px;
+    top: 50%;
+    transform: translate(0, -50%);
     border-radius: 10px;
 }
 .sub_less_cnt ol li::before{
@@ -114,7 +132,42 @@ margin: 8px 0;
     display: flex;
     align-items: flex-end;
 }
-
+.wp-block-group__inner-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.is-layout-constrained .wp-block-group {
+    width: 100%;
+}
+.wp-block-group__inner-container .wp-block-image {
+    width: 200px;
+    height: 155px;
+    background-color: #bfcacd;
+    border-radius: 209px;
+  
+    position: relative;
+}
+.wp-block-group__inner-container .wp-block-image:nth-child(2) {
+    width: 272px;
+    height: 211px;
+}
+.wp-block-group__inner-container .wp-block-image img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border: none;
+  
+    border-radius: 209px;
+  }
+  .wp-block-audio {
+    display: none;
+  }
+  .player_title_text {
+    justify-content: center;
+    text-align: center;
+  }
 @media screen and (max-width: 900px) {
     .sub_less{
         width: 80%;
@@ -126,9 +179,36 @@ margin: 8px 0;
     .sub_less_banner{
         height: 300px;
         border-radius: 15px;
+
+        align-items: flex-start;
     }
     .sub_less_banner::before{
         display: none;
+    }
+    .sub_less_title {
+        display: none;
+    }
+    .sub_less_tag ul{
+        height: max-content;
+        width: 100%;
+        flex-wrap: wrap;
+
+        margin-top: 17px;
+    }
+    .sub_less_tag ul li {
+        height: max-content;
+    }
+    .sub_less__mobile-title {
+        display: block;
+    }
+    .sub_banner_cnt ul li a{
+        color: var(--black);
+        background-color: #EBE6FF;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 500;
+        margin: 5px 5px 0;
     }
     .sub_less_cnt p{
         display: grid;
@@ -139,6 +219,8 @@ margin: 8px 0;
     .sub_less_cnt ol {
         width: 100%;
         padding-left: 30px;
+
+        list-style: none;
     }
     .sub_less_cnt ol li::marker {
         font-size: 13px;
@@ -149,17 +231,55 @@ margin: 8px 0;
         font-size: 13px;
         font-weight: 400;
         margin-top: 15px;
+
+        position: relative;
+        
+        counter-increment: item;
     }
     .sub_less_cnt ol li::before {
+        position: absolute;
+        content: counter(item);
         width: 20px;
         height: 20px;
         background: var(--main_1);
-        left: -20px;
-        top: 18px;
+        left: -30px;
+        top: 50%;
+        transform: translate(0, -50%);
         border-radius: 5px;
         z-index: -1;
+
+        font-size: 13px;
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sub_less_cnt ul li {
+        font-size: 13px;
+        margin-top: 15px;
+    }
+    .sub_less_cnt ul li:first-child {
+        margin-top: 0;
     }
     .sub_less_cnt ul li::before {
         height: 10px;
+    }
+    .wp-block-group__inner-container {
+        justify-content: center;
+    }
+    .wp-block-group__inner-container .wp-block-image:nth-child(2) {
+        width: 100%;
+        height: auto;
+    }
+    .wp-block-group__inner-container .wp-block-image {
+        /* width: 280px; */
+        /* width: 100%;
+        height: auto; */
+        /* height: 164px; */
+        margin-top: 40px;
+        border-radius: 15px;
+    }
+    .wp-block-group__inner-container .wp-block-image img {
+        border-radius: 15px;
     }
 }

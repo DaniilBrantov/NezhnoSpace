@@ -249,5 +249,39 @@
         list.after(p_list_cnt);
       });
     };
+
+    if (document.querySelector('.sub_less__mobile-title')) {
+      document.querySelector('.sub_less__mobile-title').innerText = document.querySelector('.sub_less_title h3').textContent;
+    }
+    
+
+    window.addEventListener('resize', function() {
+      adaptiveSubscriptionLesson();
+    })
+
+    adaptiveSubscriptionLesson();
+
+    function adaptiveSubscriptionLesson() {
+      let wrapImage = document.querySelectorAll('.wp-block-group__inner-container');
+        wrapImage.forEach((wrap) => {
+          if(wrap.querySelectorAll('.wp-block-image')) {
+            if ((wrap.querySelectorAll('.wp-block-image')).length == 3) {
+              if (document.body.clientWidth <= 900) {
+                wrap.querySelectorAll('.wp-block-image')[0].style.display = wrap.querySelectorAll('.wp-block-image')[2].style.display = 'none';
+              } else {
+                wrap.querySelectorAll('.wp-block-image')[0].style.display = wrap.querySelectorAll('.wp-block-image')[2].style.display = 'block';
+              }
+            }
+          }
+        })
+    }
+
+    if (document.querySelectorAll('.sub_less_tag ul li')) {
+      document.querySelectorAll('.sub_less_tag ul li').forEach((li) => {
+        let a = li.innerHTML.replace('#', '');
+        li.innerHTML = '';
+        li.innerHTML += a;
+      })
+    }
   })
 })();
