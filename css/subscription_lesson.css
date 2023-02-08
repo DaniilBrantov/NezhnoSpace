@@ -1,7 +1,7 @@
 .sub_less_cnt p img{
     border-radius: 15px;
-    width: 272px;
-    object-fit:cover;
+    /* width: 272px;
+    object-fit:cover; */
 }
 .sub_container{
     width: 880px;
