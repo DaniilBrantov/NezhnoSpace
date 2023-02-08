@@ -603,3 +603,19 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
 		}
 		return $first_img;
 	  }
+
+			//Вывод первого изображения из поста
+	function firstPostImage() {
+		global $post, $posts;
+		$first_img = '';
+		ob_start();
+		ob_end_clean();
+		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+
+		$first_img = reset($matches [1]);
+	  
+		if(empty($first_img) || $output == 1){
+	  return false;
+		}
+		return $first_img;
+	  }
