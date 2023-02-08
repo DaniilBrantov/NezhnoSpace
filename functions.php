@@ -576,7 +576,7 @@ if( $promo === $promo_data['promo'] ){
 if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
     $error['status'] = true;
     $error['promo'] = $promo_data['promo'];
-	$error['sale'] = $promo_data['sale'];
+    $error['sale'] = $promo_data['sale'];
     }
     }else{
     $error['status'] = false;
@@ -588,3 +588,18 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
     }
     return $error;
     }
+	
+	//Вывод последнего изображения из поста
+	function LastPostImage() {
+		global $post, $posts;
+		$first_img = '';
+		ob_start();
+		ob_end_clean();
+		$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+		$first_img = end($matches [1]);
+	  
+		if(empty($first_img)){
+	  return false;
+		}
+		return $first_img;
+	  }
