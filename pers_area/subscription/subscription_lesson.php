@@ -42,15 +42,6 @@ echo $post->post_content;
 
     <div class="sub_container">
         <div class="sub_less_cnt">
-            <div class='sub_less__firstParagraph'>
-                <div class='sub_less__firstParagraph-wrpImg'>
-                    <img class='sub_less__firstParagraph-img' src='<?php echo firstPostImage($id); ?>'
-                        style='display: <?php echo (boolval(firstPostImage($id)) ? 'block' : 'none'); ?>' />
-                    <div class='sub_less__firstParagraph-befor'
-                        style='display: <?php echo (boolval(firstPostImage($id)) ? 'none' : 'block'); ?>'></div>
-                </div>
-                <p class='sub_less__firstParagraph-p'>d</p>
-            </div>
             <p><?php echo $post->post_content; ?></p>
 
 

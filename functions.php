@@ -601,17 +601,3 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
         }
         return $last_img;
         }
-
-        //Вывод первого изображения из поста
-        function firstPostImage($post) {
-        //global $post, $posts;
-        $first_img = '';
-        $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
-
-            $first_img = reset($matches [1]);
-
-            if(empty($first_img) || $output == 1){
-            return false;
-            }
-            return $first_img;
-            }

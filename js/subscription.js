@@ -280,23 +280,27 @@
       })
     }
 
-    if (document.querySelector('.sub_less_cnt')) {
-      let arrayParagraph = [];
-      for (const child of document.querySelector('.sub_less_cnt').children) {
-        if (child.tagName === 'P') {
-          arrayParagraph.push(child);
-        }
-      }
-      let text;
-      if (arrayParagraph[0].lenght > 1) {
-        text = arrayParagraph[0].textContent;
-      } else {
-        arrayParagraph[0].style.display = 'none';
-        text = arrayParagraph[1].textContent;
-      }
-      document.querySelector('.sub_less__firstParagraph-p').innerText = text;
-      arrayParagraph[1].style.display = 'none';
-    }
+    let firstParagraph = document.querySelector('.sub_less_cnt').children[0];
 
+    if (document.querySelector('.sub_less_cnt')) {
+      if (firstParagraph.children.length > 0) {
+        if (firstParagraph.children[0].tagName == 'IMG') {
+        firstParagraph.children[0].style.width = '272px';
+        firstParagraph.children[0].style.borderRadius = '15px';
+        firstParagraph.children[0].style.marginRight = '32px';
+        // firstParagraph.style.display = 'flex';
+        // firstParagraph.style.alignItems = 'center';
+        firstParagraph.children[0].style.float = 'left';
+        }
+      } else {
+        let div = document.createElement('div');
+        div.className = "sub_less__firstParagraph-befor";
+        div.innerHTML = '';
+        firstParagraph.prepend(div);
+        
+        // firstParagraph.style.display = 'flex';
+        // firstParagraph.style.alignItems = 'center';
+      }
+    }
   })
 })();
