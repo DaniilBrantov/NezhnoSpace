@@ -290,13 +290,13 @@
         firstParagraph.children[0].style.marginRight = '32px';
         // firstParagraph.style.display = 'flex';
         // firstParagraph.style.alignItems = 'center';
-        firstParagraph.children[0].style.float = 'left';
+//         firstParagraph.children[0].style.float = 'left';
         }
       } else {
-        let div = document.createElement('div');
-        div.className = "sub_less__firstParagraph-befor";
-        div.innerHTML = '';
-        firstParagraph.prepend(div);
+//         let div = document.createElement('div');
+//         div.className = "sub_less__firstParagraph-befor";
+//         div.innerHTML = '';
+//         firstParagraph.prepend(div);
         
         // firstParagraph.style.display = 'flex';
         // firstParagraph.style.alignItems = 'center';
