@@ -262,12 +262,14 @@
     adaptiveSubscriptionLesson();
 
     function adaptiveSubscriptionLesson() {
-      let wrapImage = document.querySelectorAll('.img-collage_wrp');
-      if (wrapImage.length !== 0) {
-        if (document.body.clientWidth <= 900) {
-          wrapImage[0].style.display = wrapImage[2].style.display = 'none';
-        } else {
-          wrapImage[0].style.display = wrapImage[2].style.display = 'block';
+      if (document.querySelectorAll('.img-collage_wrp').length !== 0) {
+        let wrapImage = document.querySelectorAll('.img-collage_wrp');
+        if (wrapImage.length !== 0) {
+          if (document.body.clientWidth <= 900) {
+            wrapImage[0].style.display = wrapImage[2].style.display = 'none';
+          } else {
+            wrapImage[0].style.display = wrapImage[2].style.display = 'block';
+          }
         }
       }
     }
