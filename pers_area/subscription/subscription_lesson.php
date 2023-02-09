@@ -1,3 +1,8 @@
+<?php //the_post(918); ?>
+<h1><?php //the_title() ?></h1>
+<?php //the_content() ?>
+
+
 <?php
 $post=(int)$_GET['post'];
 
@@ -19,16 +24,13 @@ $id = $post->ID;
 
 $thumb_id = get_post_thumbnail_id( $id );
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
-
-echo $post->post_content;
 ?>
-
 <div class="sub_less">
     <div style='background-image: url("<?php echo $src; ?>");' class="sub_less_banner">
         <div class="sub_banner_cnt sub_container ">
             <div class="sub_less_title basic">
                 <h3 style="text-transform: none;">
-                    <?php echo $post->post_title; ?>
+                    <?php the_title(); ?>
                 </h3>
             </div>
             <div class="sub_less_tag">
@@ -42,7 +44,7 @@ echo $post->post_content;
 
     <div class="sub_container">
         <div class="sub_less_cnt">
-            <p><?php echo $post->post_content; ?></p>
+            <p><?php the_content(); ?></p>
 
 
             <div class='sub_less__img-collage img-collage'
