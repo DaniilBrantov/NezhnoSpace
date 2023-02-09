@@ -4,18 +4,23 @@ $post=(int)$_GET['post'];
 require_once( get_theme_file_path('processing.php') );
 CheckAuth();
 $get_id=(int)$_GET['post'];
-//$get_id=918;
-$user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
-$payment_date =$user_data['payment_date'];
+
 if( !checkPayment() || !$get_id){
     header('Location: subscription');
 };
+$user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
+$payment_date =$user_data['payment_date'];
 $post_data = getSubscriptionLesson($get_id, ceil(openPosts($payment_date, $get_id, '')));
-$id = get_the_ID($get_id);
-$thumb_id = get_post_thumbnail_id();
+$month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)), 47);
+
+
+$post = get_post($get_id);
+$id = $post->ID;
+
+$thumb_id = get_post_thumbnail_id( $id );
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
 
-$month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)), 47);
+echo $post->post_content;
 ?>
 
 <div class="sub_less">
@@ -23,7 +28,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)), 47);
         <div class="sub_banner_cnt sub_container ">
             <div class="sub_less_title basic">
                 <h3 style="text-transform: none;">
-                    <?php echo get_the_title(); ?>
+                    <?php echo $post->post_title; ?>
                 </h3>
             </div>
             <div class="sub_less_tag">
@@ -46,7 +51,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)), 47);
                 </div>
                 <p class='sub_less__firstParagraph-p'>d</p>
             </div>
-            <p><?php the_content(); ?></p>
+            <p><?php echo $post->post_content; ?></p>
 
 
             <div class='sub_less__img-collage img-collage'

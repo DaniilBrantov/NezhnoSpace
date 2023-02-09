@@ -205,10 +205,10 @@
     };
 
     if (document.querySelector('.subscriptions-posts')) {
-      document.addEventListener('scroll', function() {
+      document.addEventListener('scroll', function () {
         positionAddiction();
       })
- 
+
       document.querySelectorAll('.subscriptions-posts .subscriptions-post').forEach((elem) => {
         elem.addEventListener('click', function () {
           document.querySelectorAll('.subscriptions-posts .subscriptions-post').forEach((post) => {
@@ -253,9 +253,9 @@
     if (document.querySelector('.sub_less__mobile-title')) {
       document.querySelector('.sub_less__mobile-title').innerText = document.querySelector('.sub_less_title h3').textContent;
     }
-    
 
-    window.addEventListener('resize', function() {
+
+    window.addEventListener('resize', function () {
       adaptiveSubscriptionLesson();
     })
 
@@ -297,6 +297,6 @@
       document.querySelector('.sub_less__firstParagraph-p').innerText = text;
       arrayParagraph[1].style.display = 'none';
     }
-    
+
   })
 })();
