@@ -77,8 +77,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
     <h3 class="subcscription_title">Ежедневные практики</h3>
     <section class="daily-practice">
         <div class="daily-practice_wrapper">
-            <a class="daily-practice_img-wrapper"
-                href="<?php echo (empty(get_permalink($row['id'])) ? get_permalink($row['id']) : get_permalink(913));?>">
+            <a class="daily-practice_img-wrapper" href="<?php echo $row['id']; ?>">
                 <img class="daily-practice_img"
                     src="<?php echo (empty($today_practice['image_url']) ? $daily_practices[1]['image_url'] : $today_practice['image_url']);?>"
                     alt="">
@@ -100,7 +99,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                         <?php echo (empty($today_practice['title']) ? $daily_practices[1]['title'] : $today_practice['title']);?>
                     </h4>
                     <div class="daily-practice_content">
-                        <?php echo (empty($today_practice["content"]) ? trimCntWords($daily_practices[1]["content"],30, '...') : trimCntWords($today_practice["content"],30, '...'));?>
+                        <?php echo (empty($today_practice["excerpt"]) ? trimCntWords($daily_practices[1]["excerpt"],30, '...') : trimCntWords($today_practice["excerpt"],30, '...'));?>
                     </div>
                 </div>
             </div>
