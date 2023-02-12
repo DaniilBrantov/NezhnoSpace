@@ -49,7 +49,7 @@ function load_styles(){
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
 			$css_files[$i],
-			get_template_directory_uri() . "/css/" . $css_files[$i] . ".css?"
+			get_template_directory_uri() . "/assets/css/" . $css_files[$i] . ".css?"
 		);
 		wp_enqueue_style($css_files[$i]);
 	}
@@ -117,7 +117,7 @@ function load_script() /*имя функции произвольное*/
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
 			$js_files[$i],
-			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js?" . time(), 
+			get_template_directory_uri() . "/assets/js/" . $js_files[$i] . ".js?" . time(), 
 			array("my_jquery"),
 			null,
 			true
