@@ -30,6 +30,7 @@
         // audio.src = document.querySelector('.wp-audio-shortcode').querySelector('a').textContent;
         audio.src = document.querySelector('.wp-audio-shortcode').querySelector('source').src;
         document.querySelector('.wp-audio-shortcode').style.display = 'none!important';
+        document.querySelector('.wp-audio-shortcode').classList.add('hidden');
       } else {
         if (document.querySelector('.trial_audio')) {
           document.querySelector('.trial_audio').style.display = 'none';
