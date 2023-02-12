@@ -20,7 +20,7 @@
             <button class="header_btn"></button>
             <div class="header_logo">
                 <a href="/">
-                    <img src="<?php getUrl(); ?>/images/logo.svg" alt="">
+                    <img src="<?php img('logo.svg') ?>" alt="">
                 </a>
             </div>
             <nav class="nav header_nav">
@@ -43,12 +43,12 @@
                     };
             if(!$_SESSION['id']){ ?>
             <a href="auth" class="header_user">
-                <img src="<?php getUrl(); ?>/images/user.svg" alt="user">
+                <img src="<?php img('user.svg') ?>" alt="user">
             </a>
             <a class="header-btn" href="registration">Старт</a>
             <?php }else{ ?>
             <a href="auth" class="header_user">
-                <img src="<?php getUrl(); ?>/images/user.svg" alt="user">
+                <img src="<?php img('user.svg') ?>" alt="user">
             </a>
             <a class="header-btn" href="auth-check?action=out">Выйти</a>
 

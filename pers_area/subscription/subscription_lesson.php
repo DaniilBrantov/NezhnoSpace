@@ -184,7 +184,7 @@ $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
         };
         ?>
         <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=45">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
+            <img src="<?php img('black_arrow.svg') ?>" width="30" />
             <span>Смотреть все</span>
         </a>
     </section>

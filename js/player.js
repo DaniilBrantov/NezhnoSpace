@@ -3,7 +3,7 @@
   const musicList = ["theme_1"];
   let index = 0;
   const audio = new Audio(
-    `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`
+    `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`
   );
   audio.className = 'audio';
   document.body.append(audio);

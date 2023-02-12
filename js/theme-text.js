@@ -96,7 +96,7 @@
           elem.audioTitle;
         document.querySelector(
           "audio"
-        ).src = `wp-content/themes/my-theme/audio/${elem.audio}.mp3`;
+        ).src = `wp-content/themes/my-theme/assets/audio/${elem.audio}.mp3`;
       } else {
         document.querySelector(".trial_audio").style.display = "none";
       }

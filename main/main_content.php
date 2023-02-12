@@ -145,8 +145,8 @@
     </section>
     <section class="about">
         <picture class="about__image">
-            <source media="(min-width: 960px)" srcset="<?php getUrl() ?>/images/photo.png">
-            <img src="<?php getUrl() ?>/images/photo-mobile.png" alt="photo mobile">
+            <source media="(min-width: 960px)" srcset="<?php img('photo.png') ?>">
+            <img src="<?php img('photo-mobile.png') ?>" alt="photo mobile">
         </picture>
         <div class="about_wrap">
             <h2 class="about_title">Мы здесь, чтобы ты&#160;прошла свой путь нежно</h2>
@@ -278,7 +278,7 @@
                     <source src="/videos/gone.mp4" type="video/mp4" />
                 </video> -->
                 <video id="video-player" class='video-player' poster="<?php getUrl(); ?>/videos/preview.png">
-                    <source src="<?php getUrl(); ?>/videos/home.mp4" type="video/mp4" />
+                    <source src="<?php getUrl(); ?>/assets/videos/home.mp4" type="video/mp4" />
                 </video>
                 <div class='video-controls'>
                     <div class="video-controls_btns">

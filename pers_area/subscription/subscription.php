@@ -77,7 +77,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
     <h3 class="subcscription_title">Ежедневные практики</h3>
     <section class="daily-practice">
         <div class="daily-practice_wrapper">
-            <a class="daily-practice_img-wrapper" href="<?php echo get_permalink($row['id']); ?>">
+            <a class="daily-practice_img-wrapper"
+                href="<?php echo (empty(get_permalink($row['id'])) ? get_permalink($row['id']) : get_permalink(913));?>">
                 <img class="daily-practice_img"
                     src="<?php echo (empty($today_practice['image_url']) ? $daily_practices[1]['image_url'] : $today_practice['image_url']);?>"
                     alt="">
@@ -103,7 +104,8 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     </div>
                 </div>
             </div>
-            <a class="daily-practice_btn-more" href="<?php echo get_permalink($row['id']); ?>"></a>
+            <a class="daily-practice_btn-more"
+                href="<?php echo (empty(get_permalink($row['id'])) ? get_permalink($row['id']) : get_permalink(913));?>"></a>
         </div>
     </section>
 
@@ -130,7 +132,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
       };
     ?>
         <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=45">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
+            <img src="<?php img('black_arrow.svg') ?>" width="30" />
             <span>Смотреть все</span>
         </a>
     </section>
@@ -214,7 +216,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
       };
     ?>
         <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=46">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
+            <img src="<?php img('black_arrow.svg') ?>" width="30" />
             <span>Смотреть все</span>
         </a>
     </section>
@@ -300,7 +302,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
       };
     ?>
         <a id="" class="subcscription_block-slide blockSub-slide-more" href="subscription_posts?id=47">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/black_arrow.svg" width="30" />
+            <img src="<?php img('black_arrow.svg') ?>" width="30" />
             <span>Смотреть все</span>
         </a>
     </section>
