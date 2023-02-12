@@ -1,8 +1,3 @@
-<?php //the_post(918); ?>
-<h1><?php //the_title() ?></h1>
-<?php //the_content() ?>
-
-
 <?php
 $post=(int)$_GET['post'];
 
@@ -24,6 +19,7 @@ $id = $post->ID;
 
 $thumb_id = get_post_thumbnail_id( $id );
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
+
 ?>
 <div class="sub_less">
     <div style='background-image: url("<?php echo $src; ?>");' class="sub_less_banner">

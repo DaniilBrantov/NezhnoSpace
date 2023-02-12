@@ -9,7 +9,6 @@
     $twelve_month=946;
 
 
-
 // Вывод конкретной записи
 // var_dump($daily_practices[1]);
 
