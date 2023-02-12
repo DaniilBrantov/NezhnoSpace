@@ -39,7 +39,9 @@
       // document.querySelector('.blockSub-slide-more span').style.display = notvisible;
       addition.style.display = visible;
       if (addition.querySelector('.blockSub-slide_before_data')) {
-        addition.querySelector('.blockSub-slide_before_data').textContent = slide.querySelector('.blockSub-slide_before_data').textContent;
+        if (slide.querySelector('.blockSub-slide_before_data')) {
+          addition.querySelector('.blockSub-slide_before_data').textContent = slide.querySelector('.blockSub-slide_before_data').textContent;
+        }
       }
     }
     function findAddition(addition, slide) {
