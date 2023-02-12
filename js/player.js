@@ -23,20 +23,19 @@
   const info = document.querySelector(".info");
 
   if (audioPlayer) {
+    
     //Subscription Lesson
-    if (document.location.pathname.includes('subscription_lesson')) {
-      if (document.querySelector('.wp-block-audio')) {
-        audio.src = document.querySelector('audio').src;
-        if (document.querySelector('.wp-block-audio .wp-element-caption')) {
-          document.querySelector('.player_title_text').textContent = document.querySelector('.wp-block-audio .wp-element-caption').textContent;
-        }
-      } if (document.querySelector('.wp-audio-shortcode')) {
-        audio.src = document.querySelector('audio').querySelector('a').textContent;
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.querySelector('.wp-audio-shortcode')) {
+        // audio.src = document.querySelector('.wp-audio-shortcode').querySelector('a').textContent;
+        audio.src = document.querySelector('.wp-audio-shortcode').querySelector('source').src;
+        document.querySelector('.wp-audio-shortcode').style.display = 'none!important';
       } else {
-        document.querySelector('.trial_audio').style.display = 'none';
+        if (document.querySelector('.trial_audio')) {
+          document.querySelector('.trial_audio').style.display = 'none';
+        }
       }
-      
-    }
+    })
 
     //progress audio (google chrome)
     const setSliderMax = () => {
