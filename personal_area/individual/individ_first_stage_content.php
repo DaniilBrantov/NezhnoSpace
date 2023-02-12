@@ -18,7 +18,8 @@
         </h1>
         <hr>
         <div class="stage_youtube">
-        <iframe src="<?php echo $video; ?>" title="Ciao, bella!" width="900" height="600" frameborder="0" allowfullscreen></iframe>
+            <iframe src="<?php echo $video; ?>" title="Ciao, bella!" width="900" height="600" frameborder="0"
+                allowfullscreen></iframe>
         </div>
     </div>
 </div>
@@ -27,9 +28,10 @@
     <div class="first_stage_container">
         <div class="free_access">
             <div class="free_access_cnt">
-                    <p>
-                        <span>Бесплатный доступ</span>  к первому этапу и <br> индивидуальному маршруту у тебя <br> будет на <span>14 дней</span> .
-                    </p>
+                <p>
+                    <span>Бесплатный доступ</span> к первому этапу и <br> индивидуальному маршруту у тебя <br> будет на
+                    <span>14 дней</span> .
+                </p>
             </div>
         </div>
         <div class="begining_your_sebor"></div>
@@ -37,7 +39,7 @@
         <div class="your_sebor">
             <div class="your_sebor_title">
                 <p>
-                    
+
                 </p>
             </div>
             <div class="your_sebor_cnt">
@@ -49,12 +51,13 @@
                         <hr>
                         <div class="your_sebor_txt">
                             <p>
-                            <span>Ты получишь 4 материала по теме месяца:</span>  
+                                <span>Ты получишь 4 материала по теме месяца:</span>
                             <p>1. Психообразование: подкаст.</p>
                             <p>2. Статья от приглашенного специалиста.</p>
                             <p>3. Гайд: подборка книг, фильмов и проектов.</p>
                             <p>4. Терапия: тесты и упражнения.</p>
-                            <p><span class="doing_this">Оформи подписку.</span> Посмотри на важные контексты жизни, которые влияют на твои отношения с собой и миром.</p>
+                            <p><span class="doing_this">Оформи подписку.</span> Посмотри на важные контексты жизни,
+                                которые влияют на твои отношения с собой и миром.</p>
                             </p>
                         </div>
                         <div class="your_sebor_price">
@@ -97,8 +100,8 @@
                         </div>
                     </div> -->
                 </div>
-                
-                
+
+
             </div>
         </div>
         <div class="end_your_sebor"></div>
@@ -112,8 +115,10 @@
             </h2>
             <div class="audio_cont practice_audio">
                 <audio id="audio" controls preload="none">
-                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $audio; ?>" type="audio/mpeg">
-                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $audio; ?>" type="audio/ogg">
+                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $audio; ?>"
+                        type="audio/mpeg">
+                    <source src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $audio; ?>"
+                        type="audio/ogg">
                     Ваш Браузер не поддерживает данный формат audio.
                 </audio>
             </div>
@@ -135,26 +140,26 @@
                         </li>
                         <li>
                             <p>
-                            <?php echo $txt[2]; ?>
+                                <?php echo $txt[2]; ?>
                             </p>
                         </li>
                         <li>
                             <p>
-                            <?php echo $txt[3]; ?>
+                                <?php echo $txt[3]; ?>
                             </p>
                         </li>
                         <li>
                             <p>
-                            <?php echo $txt[4]; ?>
+                                <?php echo $txt[4]; ?>
                             </p>
                         </li>
                     </ul>
                 </div>
             </div>
-            
+
         </div>
         <div class="practice_img">
-            <img src="<?php echo get_template_directory_uri(); ?>/images/<?php echo $image; ?>" alt="">
+            <img src="<?php img($image) ?>" alt="">
         </div>
     </div>
 </div>
@@ -165,36 +170,19 @@
                 <div class="subscr_cours_cnt">
                     <div class="subscr_cours_txt">
                         <h2>Подписка</h2>
-                        <p>Оформи Подписку. Посмотри на важные контексты жизни, которые влияют на твои отношения с собой и миром.</p>
+                        <p>Оформи Подписку. Посмотри на важные контексты жизни, которые влияют на твои отношения с собой
+                            и миром.</p>
                     </div>
                     <div class="general_btn subscr_cours_btn">
                         <a href="subscription">
                             <button onclick="forYouTxt_3()" id="our_trainings_btn_3">
-                                <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
+                                <img src="<?php img('account_arrow.svg') ?>" alt="">
                             </button>
                         </a>
-                        
+
                     </div>
                 </div>
             </div>
-            <!-- <div class="subscr_cours_item cours_item_link">
-                <div class="subscr_cours_cnt">
-                    <div class="subscr_cours_txt">
-                        <h2>Курс</h2>
-                        <p>Пройди Курс. Погрузись глубоко в причины твоих нарушений пищевого поведения и реши проблему комплексно.</p>
-                    </div>
-                    <div class="general_btn subscr_cours_btn">
-                        <form action="https://nezhno.space/payment" method='post'>
-                                <input type="hidden" value="2" name="order">
-                                <input type="hidden" value="7000" name="sum">
-                                <button id="our_trainings_btn_3">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/images/account_arrow.svg" alt="">
-                                </button>
-                        </form>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>
-

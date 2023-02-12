@@ -148,7 +148,7 @@ echo '
         <div class="general_btn">
             <a href="first-stage-individual">
                 <button>
-                    <img src="'. get_template_directory_uri() .'/images/account_arrow.svg" alt="">
+                    <img src="'. img('account_arrow.svg')  .'" alt="">
                 </button>
             </a>
         </div>

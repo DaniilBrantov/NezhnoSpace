@@ -40,10 +40,10 @@ if($get_id>$subcsription_less){
         <div class="audio_cont">
             <audio id="audio" controls preload="none">
                 <source
-                    src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $sub_less_audio; ?>.mp3"
+                    src="<?php echo get_template_directory_uri(); ?>/assets/audio/<?php echo $sub_less_audio; ?>.mp3"
                     type="audio/mpeg">
                 <source
-                    src="<?php echo get_template_directory_uri(); ?>/personal_area/audio/<?php echo $sub_less_audio; ?>.mp3"
+                    src="<?php echo get_template_directory_uri(); ?>/assets/audio/<?php echo $sub_less_audio; ?>.mp3"
                     type="audio/ogg">
                 Ваш Браузер не поддерживает данный формат audio.
             </audio>

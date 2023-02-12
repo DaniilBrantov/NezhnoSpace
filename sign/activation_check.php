@@ -29,7 +29,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 
         echo '<div class="authorization">
             <div class="activation_msg">
-                <img style="background: #6AFF8B;" src="'.get_template_directory_uri().'/images/check.svg" alt="Закрыть">
+                <img style="background: #6AFF8B;" src="'.img('check.svg').'" alt="Закрыть">
                 <p>'.$data['msg'].'</p>
                 <a href="account"><button class="blue_btn">Продолжить</button></a> 
             </div>
@@ -42,7 +42,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 
         echo '<div class="authorization">
             <div class="activation_msg">
-                <img style="background: #FF6262;" src="'.get_template_directory_uri().'/images/close.svg" alt="Закрыть">
+                <img style="background: #FF6262;" src="'. img('close.svg').'" alt="Закрыть">
                 <p>'.$data['msg'].'</p>
                 <a href="activation"><button class="blue_btn">Вернуться назад</button></a> 
             </div>

@@ -218,6 +218,13 @@ if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
 header('Location: auth');
 }
 };
+
+// Путь к картинке:
+// img('arrow.png');
+function img($img){
+echo get_template_directory_uri()."/assets/images/". $img;
+}
+
 //Путь до папки
 function getUrl(){
 echo get_template_directory_uri();

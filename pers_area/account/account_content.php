@@ -21,7 +21,7 @@
         <div class="account_sections-main">
             <div class="account_analytics-container">
                 <div>Мой прогресс:</div>
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sapiens.png" />
+                <img src="<?php img('sapiens.png') ?>" />
                 <div class="account_analytics_not-result-text">Пока не готов результат</div>
             </div>
             <form class="account_personal-data">
@@ -92,28 +92,28 @@
         </div>
 
         <?php if (checkPayment()) { ?>
-            <div class="account_sections-footer">
-                Пока не готовы начать? <a>Отменить&nbspподписку Нежно&nbspSpace</a>
-            </div>    
+        <div class="account_sections-footer">
+            Пока не готовы начать? <a href="pay?autopay=turn_off">Отменить&nbspподписку Нежно&nbspSpace</a>
+        </div>
         <?php } else { ?>
-            <div id='payment-banner' class='account_payment-banner pay-banner'>
-                <div class='pay-banner_content'>
-                    <form class='pay-banner_promocode-wrap'>
-                        <h4 class='pay-banner_promocode-title'>Промокод</h4>
-                        <div class='pay-banner_promocode-input-wrap'>
-                            <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
-                            <span class="text-error text-error_promo">text error</span>
-                        </div>
-                        <div class='pay-banner_promocode-btn-wrap'>
-                            <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'
-                                type='button'>Использовать</button>
-                        </div>
-                    </form>
-                    <h4 class='pay-banner_title'>Оформить подписку:</h4>
-                    <ul class='pay-banner_options-wrap pay-banner_options-slider'>
-                    </ul>
-                </div>
+        <div id='payment-banner' class='account_payment-banner pay-banner'>
+            <div class='pay-banner_content'>
+                <form class='pay-banner_promocode-wrap'>
+                    <h4 class='pay-banner_promocode-title'>Промокод</h4>
+                    <div class='pay-banner_promocode-input-wrap'>
+                        <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+                        <span class="text-error text-error_promo">text error</span>
+                    </div>
+                    <div class='pay-banner_promocode-btn-wrap'>
+                        <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'
+                            type='button'>Использовать</button>
+                    </div>
+                </form>
+                <h4 class='pay-banner_title'>Оформить подписку:</h4>
+                <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+                </ul>
             </div>
+        </div>
         <?php  }; ?>
     </div>
 </div>
