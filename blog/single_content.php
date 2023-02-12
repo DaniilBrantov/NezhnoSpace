@@ -259,7 +259,7 @@ if( $cat_slug === "blogs"){
                             class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
                     </div>
                 </div>
-                <a href="subscription_lesson?post=<?php echo $row['id']; ?>" class="blue_btn addition_btn">Перейти</a>
+                <a href="<?php echo get_permalink($row['id']); ?>" class="blue_btn addition_btn">Перейти</a>
             </div>
             <div class="addition_image">
                 <img src="<?php echo $row["image_url"]; ?>" width="543" class="" />
