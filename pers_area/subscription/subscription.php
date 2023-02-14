@@ -265,7 +265,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             class="addition_description"><?php echo (empty($rec["excerpt"]) ? trimCntWords($rec["content"],30, '...') : $rec["excerpt"]); ?></span>
                     </div>
                 </div>
-                <a href="<?php echo get_permalink($row['id']); ?>" class="blue_btn addition_btn">Перейти</a>
+                <a href="<?php echo get_permalink($rec['id']); ?>" class="blue_btn addition_btn">Перейти</a>
             </div>
             <div class="addition_image">
                 <img src="<?php echo $rec["image_url"]; ?>" width="543" class="" />
@@ -351,7 +351,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             class="addition_description"><?php echo (empty($month["excerpt"]) ? trimCntWords($month["content"],30, '...') : $month["excerpt"]); ?></span>
                     </div>
                 </div>
-                <a href="<?php echo get_permalink($row['id']); ?>" class="blue_btn addition_btn">Перейти</a>
+                <a href="<?php echo get_permalink($month['id']); ?>" class="blue_btn addition_btn">Перейти</a>
             </div>
             <div class="addition_image">
                 <img src="<?php echo $month["image_url"]; ?>" width="543" class="" />

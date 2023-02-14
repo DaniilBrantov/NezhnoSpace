@@ -1,7 +1,11 @@
-.sub_less_cnt p img{
+.sub_less_cnt p img, .sub_less img, .wp-block-cover{
     border-radius: 15px;
     /* width: 272px;
     object-fit:cover; */
+}
+.sub_less figure img{
+    margin: auto;
+    display: flex;
 }
 .sub_container{
     width: 880px;
@@ -203,9 +207,9 @@ margin: 8px 0;
     justify-content: center;
     text-align: center;
   }
-  figure {
+  /* figure {
     display: none;
-  }
+  } */
 @media screen and (max-width: 900px) {
     .sub_less{
         width: 80%;
