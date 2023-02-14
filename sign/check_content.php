@@ -1,7 +1,12 @@
 <?php
     //session_start();
     require_once( get_theme_file_path('processing.php') );
+    session_start();
     
+    // $_POST['first_name']="daniil";
+    // $_POST['mail']="ilt@msil.gqrh";
+    // $_POST['pass']="Genius2018DR!";
+    // $_POST['pass_conf']="Genius2018DR!";
 
     $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
     $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
@@ -32,7 +37,7 @@ if(empty($errors)){
     // Хешируем пароль
     $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
     $activation=md5($mail.time());
-    $reg_date = date(); 
+    $reg_date = date("Y-m-d H:i:s");    
 
     // Сохраняем таблицу
     $db->query("INSERT INTO `users`( `name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
@@ -51,18 +56,20 @@ if(empty($errors)){
     curl_close($ch);
     $response=json_decode($response, true);
     extract($response);
+
     $_SESSION['id']=$response['id'];
-    if($_SESSION['id'] || $_SESSION['id']!== NULL){
+    if($_SESSION['id'] && $_SESSION['id']!== NULL){
         $errors['status']=true;
     }else{
         $errors['status']=false;
+        $errors['mail']='Произошла неизвестная ошибка';
     }
 }else{
     $errors['status']=false;
+    $errors['mail']='Произошла неизвестная ошибка';
 
 };
 echo json_encode($errors);
-
 
 
 

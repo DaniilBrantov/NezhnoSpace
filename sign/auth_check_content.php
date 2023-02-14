@@ -1,7 +1,5 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
-
-
     //если передана переменная action, «разавторизируем» пользователя
     if($_GET['action'] == "out") out(); 
     if (login()){
