@@ -461,6 +461,12 @@
 .subscriptions-posts .subcscription_block-slide:first-child {
   padding-left: 0!important;
 }
+.tags {
+  margin: 16px 9% 32px;
+}
+.tags_cnt a{
+  color: var(--black);
+}
 @media screen and (min-width: 768px) {
   .addition_image {
     min-width: 420px;

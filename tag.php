@@ -1,28 +1,26 @@
-<?php
-    require_once( get_theme_file_path('processing.php') );
-    CheckAuth();
-    $get_id=(int)$_GET['id'];
-    $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
-    $payment_date =$user_data['payment_date'];
+<?php /*
+Template Name: Tag Archive
+*/ 
 
-    if( !checkPayment() || !$get_id || empty(CategoryData(openPosts( $payment_date, '', $get_id ),$get_id))){
-        header('Location: subscription');
-    };
-    $categories=CategoryData(ceil(openPosts( $payment_date, '', $get_id )),$get_id);
+require_once( get_theme_file_path('processing.php') );
+get_header();
+$user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
+$payment_date =$user_data['payment_date'];
 
-
+//wp_tag_cloud('smallest=12&largest=36&number=1500&format=flat&separator=|&orderby=name');
+$tag_posts=tagPosts($payment_date);
 ?>
 
 
 <div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
-    <h3 class="subcscription_title">Программа</h3>
+    <h3 class="subcscription_title"><?php single_tag_title(); ?></h3>
 
     <section class="subscriptions-posts">
         <?php 
-      foreach ($categories as $row) { 
+    foreach ($tag_posts as $row) { 
     ?>
         <div id="" class="subcscription_block-slide blockSub-slide subscriptions-post"
-            key="<?php echo array_search($row, $categories); ?>">
+            key="<?php echo array_search($row, $tag_posts); ?>">
             <div class="blockSub-slide_wrapper-img">
                 <img id="" class="blockSub-slide_img" src="<?php echo $row["image_url"]; ?>" width="267" />
                 <div class="blockSub-slide_after"></div>
@@ -41,10 +39,10 @@
     </section>
 
     <?php 
-        foreach ($categories as $row) { 
+        foreach ($tag_posts as $row) { 
     ?>
     <section id="" class="subscriptions-posts_addition addition"
-        addition-key="<?php echo array_search($row, $categories); ?>"
+        addition-key="<?php echo array_search($row, $tag_posts); ?>"
         status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
         <div class="addition_wrapper">
             <div class="addition_text">
@@ -95,3 +93,13 @@
   };
 ?>
 </div>
+<h3 class="subcscription_title">Смотреть также</h3>
+<div class="tags">
+    <div class="tags_cnt">
+        <?php
+            wp_tag_cloud('smallest=12&largest=36&number=1500&format=flat&separator= &orderby=name');
+        ?>
+    </div>
+</div>
+
+<?php get_footer(); ?>

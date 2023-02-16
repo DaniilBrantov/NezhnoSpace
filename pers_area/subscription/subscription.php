@@ -25,6 +25,7 @@ $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
 // Рекомендательная система
 $recommendations=[CategoryData(ceil(openPosts($payment_date, '', 46)),46)][0];
 shuffle($recommendations);
+$recommendations = array_slice($recommendations, 0, 7);
 
 // Тема месяца
 $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
@@ -126,7 +127,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div id='blockSub_next-post-date'>
                     <?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
             </div>
-            <div class="subcscription_title-slide"><?php echo $row["title"]; ?></div>
+            <div class="subcscription_title-slide"><?php echo trimCntChars($row["title"], 32, '...'); ?></div>
         </div>
         <?php 
       };
@@ -162,7 +163,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span
-                        class="addition_subtitle-audio"><?php echo (empty($row["audio"]) ? 'name audio' : $row["audio"]);?></span>
+                        class="addition_subtitle-audio"><?php echo (empty($row["audio"]) ? '' : $row["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -176,7 +177,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             stroke-linejoin="round" />
                     </svg>
                     <div>
-                        <h4 class="addition_subtitle-materials">Материалы</h4>
+                        <h4 class="addition_subtitle-materials">Описание</h4>
                         <span
                             class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
                     </div>
@@ -210,7 +211,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                 <div id='blockSub_next-post-date'>
                     <?php echo (empty($rec["next_post_date"]) ? 'скоро' : $rec["next_post_date"]);?></div>
             </div>
-            <div class="subcscription_title-slide"><?php echo $rec["title"]; ?></div>
+            <div class="subcscription_title-slide"><?php echo trimCntChars($rec["title"], 30, '...'); ?></div>
         </div>
         <?php 
       };
@@ -246,7 +247,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span
-                        class="addition_subtitle-audio"><?php echo (empty($rec["audio"]) ? 'name audio' : $rec["audio"]);?></span>
+                        class="addition_subtitle-audio"><?php echo (empty($rec["audio"]) ? '' : $rec["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -260,7 +261,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             stroke-linejoin="round" />
                     </svg>
                     <div>
-                        <h4 class="addition_subtitle-materials">Материалы</h4>
+                        <h4 class="addition_subtitle-materials">Описание</h4>
                         <span
                             class="addition_description"><?php echo (empty($rec["excerpt"]) ? trimCntWords($rec["content"],30, '...') : $rec["excerpt"]); ?></span>
                     </div>
@@ -296,7 +297,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     <?php echo (empty($month["next_post_date"]) ? 'скоро' : $month["next_post_date"]);?></div>
             </div>
 
-            <div class="subcscription_title-slide"><?php echo $month["title"]; ?></div>
+            <div class="subcscription_title-slide"><?php echo trimCntChars($month["title"], 30, '...') ; ?></div>
         </div>
         <?php 
       };
@@ -332,7 +333,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span
-                        class="addition_subtitle-audio"><?php echo (empty($month["audio"]) ? 'name audio' : $month["audio"]);?></span>
+                        class="addition_subtitle-audio"><?php echo (empty($month["audio"]) ? '' : $month["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -346,7 +347,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                             stroke-linejoin="round" />
                     </svg>
                     <div>
-                        <h4 class="addition_subtitle-materials">Материалы</h4>
+                        <h4 class="addition_subtitle-materials">Описание</h4>
                         <span
                             class="addition_description"><?php echo (empty($month["excerpt"]) ? trimCntWords($month["content"],30, '...') : $month["excerpt"]); ?></span>
                     </div>

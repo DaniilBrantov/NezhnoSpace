@@ -48,7 +48,7 @@ $("#reg_btn").click(function (e) {
         success: function (data) {
             //Успешно зарегистрорвался
             if (data.status) {
-                window.location.href = 'activation';
+                window.location.href = 'subscription';
             }
             //Выводить ошибки
             else {

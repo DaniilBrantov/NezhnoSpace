@@ -159,34 +159,34 @@ return $src;
 
 
 
-add_filter( 'manage_users_columns', 'bbloomer_add_new_user_column' );
-function bbloomer_add_new_user_column( $columns ) {
-$columns = [
-'username'=>'Ник',
-'role'=>'Роль',
-'email'=>'Email',
-'age'=>'Возраст',
-'sex'=>'Пол',
-'service'=>'Услуга',
-'telephone'=>'Телефон',
-'date_payment'=>'Дата покупки',
-];
-return $columns;
-}
+// add_filter( 'manage_users_columns', 'bbloomer_add_new_user_column' );
+// function bbloomer_add_new_user_column( $columns ) {
+// $columns = [
+// 'username'=>'Ник',
+// 'role'=>'Роль',
+// 'email'=>'Email',
+// 'age'=>'Возраст',
+// 'sex'=>'Пол',
+// 'service'=>'Услуга',
+// 'telephone'=>'Телефон',
+// 'date_payment'=>'Дата покупки',
+// ];
+// return $columns;
+// }
 
-add_filter( 'manage_users_custom_column', 'bbloomer_add_new_user_column_content', 10, 3 );
-function bbloomer_add_new_user_column_content( $content, $column, $user_id ) {
-$customer = new WC_Customer( $user_id );
+// add_filter( 'manage_users_custom_column', 'bbloomer_add_new_user_column_content', 10, 3 );
+// function bbloomer_add_new_user_column_content( $content, $column, $user_id ) {
+// $customer = new WC_Customer( $user_id );
 
-if ( 'avatar_url' === $column ) {$content = $customer->get_avatar_url();}
-if( 'surname' === $column ){$content = $customer->get_last_name();}
-if( 'name' === $column ){$content = $customer->get_first_name();}
-//if( 'telephone' === $column ){$content = $customer->get_phone();}
-if( 'email' === $column ){$content = $customer->get_email();}
-if( 'username' === $column ){$content = $customer->get_username();}
-if( 'role' === $column ){$content = $customer->get_role();}
-return $content;
-}
+// if ( 'avatar_url' === $column ) {$content = $customer->get_avatar_url();}
+// if( 'surname' === $column ){$content = $customer->get_last_name();}
+// if( 'name' === $column ){$content = $customer->get_first_name();}
+// //if( 'telephone' === $column ){$content = $customer->get_phone();}
+// if( 'email' === $column ){$content = $customer->get_email();}
+// if( 'username' === $column ){$content = $customer->get_username();}
+// if( 'role' === $column ){$content = $customer->get_role();}
+// return $content;
+// }
 
 
 
@@ -607,4 +607,30 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
         return false;
         }
         return $last_img;
+        }
+
+        //Вывод постов под конкретным тэгом
+        function tagPosts($payment_date){
+        if (have_posts()) :
+        $res=[];
+        $i=1;
+        $close_posts=1;
+        while (have_posts()) : the_post();
+        $cat_id=get_the_category()[0]->cat_ID;
+        $open_posts=ceil(openPosts( $payment_date, '', $cat_id ));
+        $res[$i] = subscriptionData(get_the_ID()) ;
+        if(checkPayment()){
+        if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
+        $res[$i]['status']=TRUE;
+        }else{
+        $res[$i]['status']=FALSE;
+
+        $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
+        $close_posts++;
+        }
+        };
+        $i+=1;
+        endwhile;
+        return $res;
+        endif;
         }

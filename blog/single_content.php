@@ -1,6 +1,5 @@
 <?php 
 require_once( get_theme_file_path('processing.php') );
-
 global $post;
 $cat_data = get_the_category( $post->ID )[0];
 $cat_slug=$cat_data->slug;
@@ -202,9 +201,9 @@ if( $cat_slug === "blogs"){
                 <div id='blockSub_lesson-time'>
                     <?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
                 <div id='blockSub_next-post-date'>
-                    <?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
+                    <?php echo (empty($row["next_post_date"]) ? '' : $row["next_post_date"]);?></div>
             </div>
-            <div class="subcscription_title-slide"><?php echo $row["title"]; ?></div>
+            <div class="subcscription_title-slide"><?php echo trimCntChars($row["title"], 30, '...') ; ?></div>
         </div>
         <?php 
         };
@@ -240,7 +239,7 @@ if( $cat_slug === "blogs"){
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <span
-                        class="addition_subtitle-audio"><?php echo (empty($row["audio"]) ? 'name audio' : $row["audio"]);?></span>
+                        class="addition_subtitle-audio"><?php echo (empty($row["audio"]) ? '' : $row["audio"]);?></span>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -254,7 +253,7 @@ if( $cat_slug === "blogs"){
                             stroke-linejoin="round" />
                     </svg>
                     <div>
-                        <h4 class="addition_subtitle-materials">Материалы</h4>
+                        <h4 class="addition_subtitle-materials">Описание</h4>
                         <span
                             class="addition_description"><?php echo (empty($row["excerpt"]) ? trimCntWords($row["content"],30, '...') : $row["excerpt"]); ?></span>
                     </div>
