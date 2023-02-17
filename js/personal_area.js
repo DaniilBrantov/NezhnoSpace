@@ -247,3 +247,33 @@ $("#upload_btn").click(function (e) {
     }
   })
 })();
+
+//уточнение отписки 
+(() => {
+  if (document.querySelector('.account_sections-footer')) {
+    document.querySelector('.account_sections-footer .account_bth_payment-off').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_banner_background').style.display = 'block';
+    })
+  }
+  if (document.querySelector('#payment-off_banner')) {
+    document.querySelector('.account_payment-off_yes').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_banner .pay-banner_title').innerText = 'Вы отписались от подписки Нежно Space!';
+      document.querySelector('.account_payment-off_buttons').style.justifyContent = 'center';
+      document.querySelector('.account_payment-off_buttons').innerHTML = `<button class='blue_btn'>ок</button>`;
+      document.querySelector('.account_payment-off_buttons .blue_btn').style.maxWidth = '272px';
+      document.querySelector('.pay-banner_text').style.display = 'block';
+      
+      window.open(window.location + 'pay?autopay=turn_off', '_blank');
+
+      document.querySelector('.account_payment-off_buttons .blue_btn').addEventListener('click', function() {
+        document.querySelector('.account_payment-off_banner_background').style.display = 'none';
+      })
+    })
+    document.querySelector('.account_payment-off_no').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_banner_background').style.display = 'none';
+    })
+    document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_banner_background').style.display = 'none';
+    })
+  }
+})();

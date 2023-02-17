@@ -177,9 +177,89 @@
   text-align: center;
   line-height: 1.2;
 }
-.account_sections-footer a {
+.account_sections-footer .account_bth_payment-off {
   color: #3f3176;
   cursor: pointer;
+}
+
+.account_payment-off_banner_background {
+  background: rgba(102, 102, 102, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+
+  z-index: 900;
+
+  display: none;
+}
+.payment-off_banner {
+  max-width: 1184px;
+  max-height: 891px;
+  width: 90vw;
+  height: max-content;
+  text-align: center;
+  padding: 115px 120px;
+  border: none;
+  box-shadow: 0px 6px 20px rgba(17, 17, 17, 0.25);
+  border-radius: 32px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: #fff;
+
+  z-index: 900;
+}
+.account_payment-off_buttons {
+  margin-top: 31px;
+  max-width: 462px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.account_payment-off_button {
+  padding: 16px 32px;
+  width: 207px;
+  text-align: center;
+  
+  background: #E3E3E3;
+  border: none;
+  border-radius: 15px;
+
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  color: #313131;
+
+  cursor: pointer;
+}
+.account_payment-off_button:hover {
+  color: #fff;
+  background-color: #421DD8;
+}
+.pay-banner_text {
+  margin-top: 16px;
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+
+  color: #323232;
+
+  display: none;
+}
+.pay-banner_text .pay-banner_text-date {
+  color: #462A81;
+}
+.account_payment-off_buttons .blue_btn {
+  width: 272px;
 }
 @media screen and (max-width: 960px) {
   .account_sections-main {
@@ -196,5 +276,25 @@
   }
   .account_personal-data {
     max-width: 450px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .payment-off_banner {
+    padding: 50px 30px;
+
+  }
+  .account_payment-off_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .account_payment-off_button {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .payment-off_banner .pay-banner_title {
+    font-size: 24px;
+  }
+  .account_payment-off_buttons .blue_btn {
+    width: 100%!important;
   }
 }

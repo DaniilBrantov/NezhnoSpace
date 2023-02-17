@@ -40,6 +40,13 @@ function load_styles(){
 	);
 	wp_enqueue_style("plyr");
 
+	//flickity libs
+	wp_register_style(
+		"flickity",
+		get_template_directory_uri() . "/libs/flickity/flickity.min.css"
+	);
+	wp_enqueue_style("flickity");
+
 
 
 	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
@@ -111,6 +118,16 @@ function load_script() /*имя функции произвольное*/
 		false
 	);
 	wp_enqueue_script("plyr");
+
+		/* flickity libs */
+		wp_register_script(
+			"flickity-js",
+			get_template_directory_uri() . "/libs/flickity/flickity.pkgd.min.js", 
+			array("my_jquery"),
+			null,
+			false
+		);
+		wp_enqueue_script("flickity-js");
 
 	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription", "paymentBanner"];
 	

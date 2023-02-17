@@ -26,7 +26,14 @@
     
     //Subscription Lesson
     document.addEventListener('DOMContentLoaded', function() {
-      if (document.querySelector('.wp-audio-shortcode')) {
+      if (document.querySelector('.wp-block-audio')) {
+        audio.src = document.querySelector('.wp-block-audio audio').src;
+        document.querySelector('.wp-block-audio').style.display = 'none!important';
+        document.querySelector('.wp-block-audio').classList.add('hidden');
+        document.querySelector('.trial_audio .title').classList.add('hidden');
+        document.querySelector('.trial_audio').style.marginTop = '40px';
+
+      } else if (document.querySelector('.wp-audio-shortcode')) {
         // audio.src = document.querySelector('.wp-audio-shortcode').querySelector('a').textContent;
         audio.src = document.querySelector('.wp-audio-shortcode').querySelector('source').src;
         document.querySelector('.wp-audio-shortcode').style.display = 'none!important';

@@ -79,15 +79,45 @@
   document.addEventListener('DOMContentLoaded', function () {
     adaptiveHeightBanner();
     //закрытие баннера
-    if (document.querySelector('.pay-banner_btnClose')) {
+    if (document.querySelector('.subscription_payment-banner .pay-banner_btnClose')) {
       document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
         e.preventDefault();
         document.querySelector('.subscription_payment-banner_background').style.display = 'none';
       })
     }
+
+    //инициализация слайдера во всплывающем банере
+    if (document.querySelector('.subscription_payment-banner_background')) {
+      $('.subscription_payment-banner .pay-banner_options-slider').flickity({
+        draggable: true,
+        cellAlign: 'center',
+        freeScroll: true,
+        prevNextButtons: false,
+        pageDots: false,
+        initialIndex: 1,
+        watchCSS: true
+      });
+    }
+
+    //открытие баннера при клике на today_practice
+    if (document.querySelector('.daily-practice_img-wrapper')) {
+      let arr = [];
+      arr.push(document.querySelector('.daily-practice_img-wrapper'));
+      arr.push(document.querySelector('.daily-practice_btn-more'));
+      arr.forEach((item) => {
+        item.addEventListener('click', function (e) {
+          if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
+            e.preventDefault();
+            document.querySelector('.subscription_payment-banner_background').style.display = 'block';
+            if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+              document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+            }
+          }
+        })
+      })
+    }
   })
 })();
-
 
 
 //Отправка данных и проверка их на стороне сервера

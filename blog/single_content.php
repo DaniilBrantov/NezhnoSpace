@@ -198,10 +198,12 @@ if( $cat_slug === "blogs"){
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div id='blockSub_lesson-time'>
+                <div class='blockSub_lesson-time'>
                     <?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
-                <div id='blockSub_next-post-date'>
+                <div class='blockSub_next-post-date'>
                     <?php echo (empty($row["next_post_date"]) ? '' : $row["next_post_date"]);?></div>
+                <div class='blockSub_audio hidden'>
+                    <?php echo (empty($row["audio"]) ? '' : 'true');?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo trimCntChars($row["title"], 30, '...') ; ?></div>
         </div>
@@ -227,6 +229,7 @@ if( $cat_slug === "blogs"){
                     <?php echo $row["tag"]; ?>
                 </ul>
                 <div class="addition_audio">
+                <?php if (!empty($row["audio"])) { ?>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M17 13C17 12.4696 17.2107 11.9609 17.5858 11.5858C17.9609 11.2107 18.4696 11 19 11C19.5304 11 20.0392 11.2107 20.4142 11.5858C20.7893 11.9609 21 12.4696 21 13V18.9999C21 19.5303 20.7893 20.0391 20.4142 20.4142C20.0392 20.7893 19.5304 20.9999 19 20.9999C18.4696 20.9999 17.9609 20.7893 17.5858 20.4142C17.2107 20.0391 17 19.5303 17 18.9999V13Z"
@@ -238,8 +241,8 @@ if( $cat_slug === "blogs"){
                             d="M19 11V10C19 8.14348 18.2625 6.36305 16.9498 5.05029C15.637 3.73754 13.8565 3 12 3C10.1435 3 8.36305 3.73754 7.05029 5.05029C5.73754 6.36305 5 8.14348 5 10V11"
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span
-                        class="addition_subtitle-audio"><?php echo (empty($row["audio"]) ? '' : $row["audio"]);?></span>
+                        <span class="addition_subtitle-audio"><?php echo $row["audio"]?></span>
+                    <?php };?>
                 </div>
                 <div class="addition_materials">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -273,3 +276,31 @@ if( $cat_slug === "blogs"){
 <?php 
     };
 ?>
+
+
+<section class='subscription_payment-banner_background'>
+    <div id='payment-banner' class='subscription_payment-banner pay-banner'>
+        <button class='pay-banner_btnClose' type='button'></button>
+        <div class='pay-banner_content'>
+            <form class='pay-banner_promocode-wrap'>
+                <h4 class='pay-banner_promocode-title'>Промокод</h4>
+                <div class='pay-banner_promocode-input-wrap'>
+                    <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+                    <span class="text-error text-error_promo">text error</span>
+                </div>
+                <div class='pay-banner_promocode-btn-wrap'>
+                    <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'
+                        type='button'>Использовать</button>
+                </div>
+            </form>
+            <h4 class='pay-banner_title'>Оформить подписку:</h4>
+            <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+            </ul>
+        </div>
+    </div>
+
+    <!-- <form action="payment.php" method="POST" class='promocode-post'>
+        <input type="text" name="promocode" class='promocode_duble'/>
+        <button type='submit' class='post-promocode-payment'></button>
+    </form> -->
+</section>
