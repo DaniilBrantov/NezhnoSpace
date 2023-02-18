@@ -20,38 +20,6 @@
     }
   };
 
-  const sliderPayment = document.querySelector('.pay-banner_options-wrap');
-  if (sliderPayment) {
-    for (let option in optionsPayment) {
-      sliderPayment.innerHTML += `
-          <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
-            <div class='pay-banner_option-container'>
-                <span class='pay-banner_option-stroke'></span>
-                <div class='pay-banner_option-content'>
-                    <div class='pay-banner_option-icon'></div>
-                        <p class='pay-banner_option-title'>Начни заботится о&nbspсебе с&nbspНежно</p>
-                        <div class='pay-banner_option-text'>
-                        <p class='pay-banner_option-duration'>${optionsPayment[option].duration}</p>
-                        <p class='pay-banner_option-price'>${optionsPayment[option].price}</p>
-                        <ul class='pay-banner_option-list'>
-                        </ul>
-                        </div>
-                </div>
-                <form action="payment" method='post'>
-                  <input type="hidden" value="${optionsPayment[option].value}" name="payment_id">
-                  <input type="hidden" value="" name="promo" class='post-promocode-payment'>
-                  <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
-                </form>
-            </div>
-          </li>
-        `;
-      let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
-      optionsPayment[option].list.forEach(item => {
-        payList.innerHTML += `<li>${item}</li>`;
-      })
-    };
-  }
-
   function adaptiveHeightBanner() {
     if (document.querySelector('#payment-banner')) {
       if (document.querySelector('#payment-banner').clientHeight <= 780) {
@@ -77,6 +45,37 @@
   });
 
   document.addEventListener('DOMContentLoaded', function () {
+    const sliderPayment = document.querySelector('.pay-banner_options-wrap');
+    if (sliderPayment) {
+      for (let option in optionsPayment) {
+        sliderPayment.innerHTML += `
+            <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
+              <div class='pay-banner_option-container'>
+                  <span class='pay-banner_option-stroke'></span>
+                  <div class='pay-banner_option-content'>
+                      <div class='pay-banner_option-icon'></div>
+                          <p class='pay-banner_option-title'>Начни заботится о&nbspсебе с&nbspНежно</p>
+                          <div class='pay-banner_option-text'>
+                          <p class='pay-banner_option-duration'>${optionsPayment[option].duration}</p>
+                          <p class='pay-banner_option-price'>${optionsPayment[option].price}</p>
+                          <ul class='pay-banner_option-list'>
+                          </ul>
+                          </div>
+                  </div>
+                  <form action="payment" method='post'>
+                    <input type="hidden" value="${optionsPayment[option].value}" name="payment_id">
+                    <input type="hidden" value="" name="promo" class='post-promocode-payment'>
+                    <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
+                  </form>
+              </div>
+            </li>
+          `;
+        let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
+        optionsPayment[option].list.forEach(item => {
+          payList.innerHTML += `<li>${item}</li>`;
+        })
+      };
+    }
     adaptiveHeightBanner();
     //закрытие баннера
     if (document.querySelector('.subscription_payment-banner .pay-banner_btnClose')) {
@@ -101,20 +100,23 @@
 
     //открытие баннера при клике на today_practice
     if (document.querySelector('.daily-practice_img-wrapper')) {
-      let arr = [];
-      arr.push(document.querySelector('.daily-practice_img-wrapper'));
-      arr.push(document.querySelector('.daily-practice_btn-more'));
-      arr.forEach((item) => {
-        item.addEventListener('click', function (e) {
-          if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
+      if (document.querySelector('.subcscription_container').dataset.statusPayment == 'false') {
+        let arr = [];
+        arr.push(document.querySelector('.daily-practice_img-wrapper'));
+        arr.push(document.querySelector('.daily-practice_btn-more'));
+        arr.forEach((item) => {
+          item.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector('.subscription_payment-banner_background').style.display = 'block';
-            if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
-              document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+            if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
+              e.preventDefault();
+              document.querySelector('.subscription_payment-banner_background').style.display = 'block';
+              if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+                document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+              }
             }
-          }
+          })
         })
-      })
+      }
     }
   })
 })();
