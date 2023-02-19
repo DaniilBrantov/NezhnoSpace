@@ -47,10 +47,10 @@
             </a>
             <a class="header-btn" href="registration">Старт</a>
             <?php }else{ ?>
-            <a href="auth" class="header_user">
+            <a href="https://nezhno.space/auth" class="header_user">
                 <img src="<?php img('user.svg') ?>" alt="user">
             </a>
-            <a class="header-btn" href="auth-check?action=out">Выйти</a>
+            <a class="header-btn" href="https://nezhno.space/auth-check?action=out">Выйти</a>
 
         </div>
         <div class="header_auth">

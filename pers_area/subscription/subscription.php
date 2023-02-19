@@ -80,9 +80,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
         <div class="daily-practice_wrapper">
             <a class="daily-practice_img-wrapper"
                 href="<?php echo (!empty(get_permalink($today_practice['id'])) ? get_permalink($today_practice['id']) : get_permalink(913));?>">
-                <img class="daily-practice_img"
-                    src="<?php echo (empty($today_practice['image_url']) ? $daily_practices[1]['image_url'] : $today_practice['image_url']);?>"
-                    alt="">
+                <img class="daily-practice_img" src="<?php echo $today_practice['image_url'];?>" alt="">
                 <span
                     class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? $daily_practices[1]['title'] : $today_practice['title']);?></span>
             </a>
@@ -153,7 +151,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     <?php echo $row["tag"]; ?>
                 </ul>
                 <div class="addition_audio">
-                <?php if (!empty($row["audio"])) { ?>
+                    <?php if (!empty($row["audio"])) { ?>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M17 13C17 12.4696 17.2107 11.9609 17.5858 11.5858C17.9609 11.2107 18.4696 11 19 11C19.5304 11 20.0392 11.2107 20.4142 11.5858C20.7893 11.9609 21 12.4696 21 13V18.9999C21 19.5303 20.7893 20.0391 20.4142 20.4142C20.0392 20.7893 19.5304 20.9999 19 20.9999C18.4696 20.9999 17.9609 20.7893 17.5858 20.4142C17.2107 20.0391 17 19.5303 17 18.9999V13Z"
@@ -240,7 +238,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     <?php echo $rec["tag"]; ?>
                 </ul>
                 <div class="addition_audio">
-                <?php if (!empty($rec["audio"])) { ?>
+                    <?php if (!empty($rec["audio"])) { ?>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M17 13C17 12.4696 17.2107 11.9609 17.5858 11.5858C17.9609 11.2107 18.4696 11 19 11C19.5304 11 20.0392 11.2107 20.4142 11.5858C20.7893 11.9609 21 12.4696 21 13V18.9999C21 19.5303 20.7893 20.0391 20.4142 20.4142C20.0392 20.7893 19.5304 20.9999 19 20.9999C18.4696 20.9999 17.9609 20.7893 17.5858 20.4142C17.2107 20.0391 17 19.5303 17 18.9999V13Z"
@@ -329,7 +327,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
                     <?php echo $month["tag"]; ?>
                 </ul>
                 <div class="addition_audio">
-                <?php if (!empty($month["audio"])) { ?>
+                    <?php if (!empty($month["audio"])) { ?>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M17 13C17 12.4696 17.2107 11.9609 17.5858 11.5858C17.9609 11.2107 18.4696 11 19 11C19.5304 11 20.0392 11.2107 20.4142 11.5858C20.7893 11.9609 21 12.4696 21 13V18.9999C21 19.5303 20.7893 20.0391 20.4142 20.4142C20.0392 20.7893 19.5304 20.9999 19 20.9999C18.4696 20.9999 17.9609 20.7893 17.5858 20.4142C17.2107 20.0391 17 19.5303 17 18.9999V13Z"

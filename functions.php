@@ -333,7 +333,7 @@ $res=[
 'title' => $post->post_title,
 'content' => $post->post_content,
 'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
-'audio' => get_post_meta($post->ID, 'audio', true),
+'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
 'lesson_time' => get_post_meta($post->ID, 'lesson_time', true)
 ];
 if(checkPayment()){
