@@ -27,7 +27,7 @@ $tag_posts=tagPosts($payment_date );
                 <div class='blockSub_lesson-time'>
                     <?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
                 <div class='blockSub_next-post-date'>
-                    <?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
+                    <?php echo (empty($row["next_post_date"]) ? '' : $row["next_post_date"]);?></div>
                 <div class='blockSub_audio hidden'>
                     <?php echo (empty($row["audio"]) ? '' : 'true');?></div>
             </div>
