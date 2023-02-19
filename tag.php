@@ -63,7 +63,7 @@ $tag_posts=tagPosts($payment_date );
                             d="M19 11V10C19 8.14348 18.2625 6.36305 16.9498 5.05029C15.637 3.73754 13.8565 3 12 3C10.1435 3 8.36305 3.73754 7.05029 5.05029C5.73754 6.36305 5 8.14348 5 10V11"
                             stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span class="addition_subtitle-audio"><?php echo $row["audio"]?></span>
+                    <span class="addition_subtitle-audio"></span>
                     <?php };?>
                 </div>
                 <div class="addition_materials">
