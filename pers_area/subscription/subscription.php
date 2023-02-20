@@ -61,7 +61,7 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
 <?php
 // var_dump($open_main_posts);
     //  var_dump($today_practice);
-    //   var_dump($daily_practices);
+    //  var_dump($daily_practices);
     //  var_dump($recommendations);
     //  var_dump($month_theme);
 ?>

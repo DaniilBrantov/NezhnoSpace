@@ -290,7 +290,7 @@ $res=[];
 $i=1;
 $close_posts=1;
 while (have_posts()) : the_post();
-$res[$i] = subscriptionData(get_the_ID()) ;
+$res[$i] = subscriptionData(get_the_ID());
 if(checkPayment()){
 if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
 $res[$i]['status']=TRUE;
@@ -302,12 +302,17 @@ $close_posts++;
 }
 };
 
+if($res[$i]['exception']==='1'){
+$res[$i]['status']=TRUE;
+}
+
 $i+=1;
 endwhile;
 endif;
 return ($res);
 wp_reset_query();
 };
+
 
 //Проверка оплаты
 function checkPayment(){
@@ -334,14 +339,19 @@ $res=[
 'content' => $post->post_content,
 'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
 'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
-'lesson_time' => get_post_meta($post->ID, 'lesson_time', true)
+'lesson_time' => get_post_meta($post->ID, 'reading_time', true),
+'exception' => get_post_meta($post->ID, 'open_posts_exception', true)
 ];
 if(checkPayment()){
 $res['link'] = $post->post_name;
 $res['tag'] =get_the_tag_list('<li>','</li>
 <li>','</li>', $post->ID );
 }else{
+if($res['exception']==='1'){
+$res['status']=TRUE;
+}else{
 $res['status']=FALSE;
+}
 }
 return $res;
 }
@@ -594,13 +604,16 @@ return $open_posts;
 //Проверка промокода
 function checkPromocode($promo){
 $db = new SafeMySQL();
-
-if($promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo)){
+$promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
+if($promo_data){
 if( $promo === $promo_data['promo'] ){
 if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
     $error['status'] = true;
     $error['promo'] = $promo_data['promo'];
     $error['sale'] = $promo_data['sale'];
+    }else{
+    $error['status'] = false;
+    $error['msg'] = "Данный промокод не доступен!";
     }
     }else{
     $error['status'] = false;

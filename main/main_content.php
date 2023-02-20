@@ -95,7 +95,7 @@
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 месяц</span>
                                 <span class="subscriptions_item-price">3000 ₽</span>
-                                <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span>
+                                <!-- <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> -->
                                 <span class="subscriptions_price-month">3000 ₽ / мес.</span>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">6 месяцев</span>
                                 <span class="subscriptions_item-price">15000 ₽</span>
-                                <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span>
+                                <!-- <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> -->
                                 <span class="subscriptions_price-month">2500 ₽ / мес.</span>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 год</span>
                                 <span class="subscriptions_item-price">25000 ₽</span>
-                                <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span>
+                                <!-- <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> -->
                                 <span class="subscriptions_price-month">2084 ₽ / мес.</span>
                             </div>
                         </div>

@@ -30,14 +30,6 @@ if( $_POST['promo'] ){
 
 
 
-//TEST
-
-$price=1;
-
-//TEST
-
-
-
     $payment_result=connectionPayment(createPagePayment($price, $description));
     $payment_url=$payment_result['confirmation']['confirmation_url'];
 
