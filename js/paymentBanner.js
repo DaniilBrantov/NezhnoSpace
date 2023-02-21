@@ -4,19 +4,19 @@
       duration: '1 месяц',
       price: '3000 ₽',
       value: '944',
-      list: [ '3000 ₽ / мес.' ]
+      list: []
     },
     2: {
       duration: '6 месяцев',
       price: '15000 ₽',
       value: '945',
-      list: ['2500 ₽ / мес.']
+      list: []
     },
     3: {
       duration: '1 год',
       price: '25000 ₽',
       value: '946',
-      list: ['2084 ₽ / мес.']
+      list: []
     }
   };
 

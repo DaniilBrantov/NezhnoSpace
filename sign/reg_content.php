@@ -13,7 +13,7 @@
             </div>
             <div class="pers_item">
                 <label>Email</label>
-                <p class="pers_item_txt">На указанный email придет код подтверждения</p>
+                <!-- <p class="pers_item_txt">На указанный email придет код подтверждения</p> -->
                 <input type="text" name="mail" placeholder="Введите email...">
                 <span class="text-error text-error_mail">text error</span>
             </div>

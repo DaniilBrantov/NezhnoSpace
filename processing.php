@@ -109,6 +109,48 @@ class UserValidationErrors
     }
 };
 
+
+
+class Subscription{
+
+	//Данные из конкретной записи
+    protected function subscriptionData($id){
+        $post = get_post($id);
+        
+        $res=[
+            'id' => $post->ID,
+            'date' => $post->post_date,
+            'excerpt' => $post->post_excerpt,
+            'title' => $post->post_title,
+            'content' => $post->post_content,
+            'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
+            'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
+            'lesson_time' => get_post_meta($post->ID, 'reading_time', true),
+            'tag' => get_the_tag_list('<li>','</li>
+            <li>','</li>', $post->ID ),
+            'exception' => get_post_meta($post->ID, 'open_posts_exception', true),
+        ];
+        $res['status']=PostStatus($res['exception']);
+        
+        return $res;
+	}
+    protected function PostStatus($exception){
+        if($exception === '1'){
+            $res=TRUE;
+        }else{ 
+            $res=FALSE; 
+        }
+        return $res;
+    }
+}
+
+
+
+
+
+
+
+
 function GetResponseFromDB($condition, $db_func){
     if($condition){
         echo json_encode($db_func);

@@ -262,23 +262,36 @@ return $name;
 
 
 
-//Сегодняшняя ежедневнвя практика
-function TodayPractice($payment_days){
-if(checkPayment()){
-if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
-$daily_practice=CategoryData($payment_days,45);
-$id = $daily_practice[$payment_days]['id'];
 
-if(!empty($id) && isset($id) && $id !== NULL && $payment_days>1){
-$result=subscriptionData($id);
-}else{
-$result=subscriptionData(913);
+//Сегодняшняя ежедневнвя практика
+function TodayPractice($payment_days,$payment_date){
+$arr=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
+$open_arr=[];
+$i=0;
+foreach ($arr as &$value) {
+if($value['status']){
+$open_arr[$i]=$value;
+$i++;
 }
-}else{
-$result=subscriptionData(913);
-};
-return $result;
 }
+return(end($open_arr));
+
+
+// if(checkPayment()){
+// if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
+// $daily_practice=CategoryData($payment_days,45);
+// $id = $daily_practice[$payment_days]['id'];
+
+// if(!empty($id) && isset($id) && $id !== NULL && $payment_days>1){
+// $result=subscriptionData($id);
+// }else{
+// $result=subscriptionData(913);
+// }
+// }else{
+// $result=subscriptionData(913);
+// };
+// return $result;
+// }
 }
 
 //Вывод всех записей из конкретной категории
@@ -304,6 +317,8 @@ $close_posts++;
 
 if($res[$i]['exception']==='1'){
 $res[$i]['status']=TRUE;
+array_unshift($res, $res[$i]);
+unset($res[$i]);
 }
 
 $i+=1;

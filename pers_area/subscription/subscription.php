@@ -17,7 +17,7 @@
 
 // Сегодняшняя практика
 // Если оплаты нет, тогда выводит NULL
-$today_practice=TodayPractice($payment_days);
+$today_practice=TodayPractice($payment_days,$payment_date);
 
 // Ежедневные практики
 $daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
@@ -61,9 +61,12 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
 <?php
 // var_dump($open_main_posts);
     //  var_dump($today_practice);
-    //  var_dump($daily_practices);
+      //print_r($daily_practices);
     //  var_dump($recommendations);
     //  var_dump($month_theme);
+
+
+
 ?>
 
 <div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
@@ -79,8 +82,10 @@ $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
     <section class="daily-practice">
         <div class="daily-practice_wrapper">
             <a class="daily-practice_img-wrapper"
-                href="<?php echo (!empty(get_permalink($today_practice['id'])) ? get_permalink($today_practice['id']) : get_permalink(913));?>">
-                <img class="daily-practice_img" src="<?php echo $today_practice['image_url'];?>" alt="">
+                href="<?php echo (!empty(get_permalink($today_practice['id'])) ? get_permalink($today_practice['id']) : get_permalink($daily_practices[1]['id']));?>">
+                <img class="daily-practice_img"
+                    src="<?php echo (!empty($today_practice['image_url']) ? $today_practice['image_url'] : $daily_practices[1]['image_url']);?>"
+                    alt="">
                 <span
                     class="daily-practice_img-span"><?php echo (empty($today_practice['title']) ? $daily_practices[1]['title'] : $today_practice['title']);?></span>
             </a>
