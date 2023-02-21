@@ -15,30 +15,18 @@
       price: (price944 ? price944 : '') + ' ₽',
       value: '944',
       list: []
-<<<<<<< HEAD
-=======
-      // 'первые 7 дней за 7 ₽', '3000 ₽ / мес.'
->>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     },
     2: {
       duration: '6 месяцев',
       price: (price945 ? price945 : '') + ' ₽',
       value: '945',
       list: []
-<<<<<<< HEAD
-=======
-      // 'первые 7 дней за 7 ₽', '2500 ₽ / мес.'
->>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     },
     3: {
       duration: '1 год',
       price: (price946 ? price946 : '') + ' ₽',
       value: '946',
       list: []
-<<<<<<< HEAD
-=======
-      // 'первые 7 дней за 7 ₽', '2084 ₽ / мес.'
->>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     }
   };
 
@@ -124,37 +112,37 @@
     }
 
     //открытие баннера при клике на today_practice
-    if (document.querySelector('.daily-practice_img-wrapper')) {
-      if (document.querySelector('.subcscription_container').dataset.statusPayment == 'false') {
-        let arr = [];
-        arr.push(document.querySelector('.daily-practice_img-wrapper'));
-        arr.push(document.querySelector('.daily-practice_btn-more'));
-        arr.forEach((item) => {
-          item.addEventListener('click', function (e) {
-            e.preventDefault();
-            if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
-              e.preventDefault();
-              if (!document.querySelector('.subscription_payment-banner .pay-banner_options-slider').classList.contains('flickity-enabled')) {
-                $('.subscription_payment-banner .pay-banner_options-slider').flickity({
-                  draggable: true,
-                  cellAlign: 'center',
-                  freeScroll: true,
-                  prevNextButtons: false,
-                  pageDots: false,
-                  initialIndex: 1,
-                  watchCSS: true
-                });
-                adaptiveHeightBanner();
-              }
-              document.querySelector('.subscription_payment-banner_background').style.display = 'block';
-              if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
-                document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
-              }
-            }
-          })
-        })
-      }
-    }
+    // if (document.querySelector('.daily-practice_img-wrapper')) {
+    //   if (document.querySelector('.subcscription_container').dataset.statusPayment == 'false') {
+    //     let arr = [];
+    //     arr.push(document.querySelector('.daily-practice_img-wrapper'));
+    //     arr.push(document.querySelector('.daily-practice_btn-more'));
+    //     arr.forEach((item) => {
+    //       item.addEventListener('click', function (e) {
+    //         e.preventDefault();
+    //         if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
+    //           e.preventDefault();
+    //           if (!document.querySelector('.subscription_payment-banner .pay-banner_options-slider').classList.contains('flickity-enabled')) {
+    //             $('.subscription_payment-banner .pay-banner_options-slider').flickity({
+    //               draggable: true,
+    //               cellAlign: 'center',
+    //               freeScroll: true,
+    //               prevNextButtons: false,
+    //               pageDots: false,
+    //               initialIndex: 1,
+    //               watchCSS: true
+    //             });
+    //             adaptiveHeightBanner();
+    //           }
+    //           document.querySelector('.subscription_payment-banner_background').style.display = 'block';
+    //           if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+    //             document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+    //           }
+    //         }
+    //       })
+    //     })
+    //   }
+    // }
   })
 })();
 
