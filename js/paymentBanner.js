@@ -88,21 +88,21 @@
         };
       }
     }
-    
+
     addSlide().then(() => {
-        $('.account_payment-banner .pay-banner_options-slider').flickity({
-          draggable: true,
-          cellAlign: 'center',
-          freeScroll: true,
-          prevNextButtons: false,
-          pageDots: false,
-          initialIndex: 1,
-          watchCSS: true
-        });
-      }).then(() => {
-        adaptiveHeightBanner();
-      }); 
-    
+      $('.account_payment-banner .pay-banner_options-slider').flickity({
+        draggable: true,
+        cellAlign: 'center',
+        freeScroll: true,
+        prevNextButtons: false,
+        pageDots: false,
+        initialIndex: 1,
+        watchCSS: true
+      });
+    }).then(() => {
+      adaptiveHeightBanner();
+    });
+
     //закрытие баннера
     if (document.querySelector('.subscription_payment-banner .pay-banner_btnClose')) {
       document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
