@@ -15,30 +15,21 @@
       price: (price944 ? price944 : '') + ' ₽',
       value: '944',
       list: []
-<<<<<<< HEAD
-=======
       // 'первые 7 дней за 7 ₽', '3000 ₽ / мес.'
->>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     },
     2: {
       duration: '6 месяцев',
       price: (price945 ? price945 : '') + ' ₽',
       value: '945',
       list: []
-<<<<<<< HEAD
-=======
       // 'первые 7 дней за 7 ₽', '2500 ₽ / мес.'
->>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     },
     3: {
       duration: '1 год',
       price: (price946 ? price946 : '') + ' ₽',
       value: '946',
       list: []
-<<<<<<< HEAD
-=======
       // 'первые 7 дней за 7 ₽', '2084 ₽ / мес.'
->>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     }
   };
 
@@ -100,21 +91,21 @@
         };
       }
     }
-    
+
     addSlide().then(() => {
-        $('.account_payment-banner .pay-banner_options-slider').flickity({
-          draggable: true,
-          cellAlign: 'center',
-          freeScroll: true,
-          prevNextButtons: false,
-          pageDots: false,
-          initialIndex: 1,
-          watchCSS: true
-        });
-      }).then(() => {
-        adaptiveHeightBanner();
-      }); 
-    
+      $('.account_payment-banner .pay-banner_options-slider').flickity({
+        draggable: true,
+        cellAlign: 'center',
+        freeScroll: true,
+        prevNextButtons: false,
+        pageDots: false,
+        initialIndex: 1,
+        watchCSS: true
+      });
+    }).then(() => {
+      adaptiveHeightBanner();
+    });
+
     //закрытие баннера
     if (document.querySelector('.subscription_payment-banner .pay-banner_btnClose')) {
       document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
