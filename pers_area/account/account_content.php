@@ -16,6 +16,10 @@
     }
 ?>
 
+<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
+
 <div class="account_section">
     <div class="container">
         <div class="account_sections-main">

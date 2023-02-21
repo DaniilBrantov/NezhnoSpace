@@ -21,6 +21,12 @@ $thumb_id = get_post_thumbnail_id( $id );
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
 
 ?>
+
+<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
+
+
 <div class="sub_less">
     <div style='background-image: url("<?php echo $src; ?>");' class="sub_less_banner">
         <div class="sub_banner_cnt sub_container ">
