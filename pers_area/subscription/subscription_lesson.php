@@ -6,7 +6,7 @@ CheckAuth();
 $get_id=(int)$_GET['post'];
 
 if( !checkPayment() || !$get_id){
-    header('Location: subscription');
+    //header('Location: subscription');
 };
 $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
 $payment_date =$user_data['payment_date'];
