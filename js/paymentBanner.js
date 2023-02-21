@@ -1,22 +1,44 @@
 (() => {
+  let price944, price945, price946;
+  if (document.querySelector('.price_944')) {
+    price944 = document.querySelector('.price_944').dataset.price;
+  }
+  if (document.querySelector('.price_945')) {
+    price945 = document.querySelector('.price_945').dataset.price;
+  }
+  if (document.querySelector('.price_946')) {
+    price946 = document.querySelector('.price_946').dataset.price;
+  }
   const optionsPayment = {
     1: {
       duration: '1 месяц',
-      price: '3000 ₽',
+      price: (price944 ? price944 : '') + ' ₽',
       value: '944',
       list: []
+<<<<<<< HEAD
+=======
+      // 'первые 7 дней за 7 ₽', '3000 ₽ / мес.'
+>>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     },
     2: {
       duration: '6 месяцев',
-      price: '15000 ₽',
+      price: (price945 ? price945 : '') + ' ₽',
       value: '945',
       list: []
+<<<<<<< HEAD
+=======
+      // 'первые 7 дней за 7 ₽', '2500 ₽ / мес.'
+>>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     },
     3: {
       duration: '1 год',
-      price: '25000 ₽',
+      price: (price946 ? price946 : '') + ' ₽',
       value: '946',
       list: []
+<<<<<<< HEAD
+=======
+      // 'первые 7 дней за 7 ₽', '2084 ₽ / мес.'
+>>>>>>> 1c4689c6f5c477f86c0b61336ae3d58658360734
     }
   };
 
@@ -46,56 +68,59 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     const sliderPayment = document.querySelector('.pay-banner_options-wrap');
-    if (sliderPayment) {
-      for (let option in optionsPayment) {
-        sliderPayment.innerHTML += `
-            <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
-              <div class='pay-banner_option-container'>
-                  <span class='pay-banner_option-stroke'></span>
-                  <div class='pay-banner_option-content'>
-                      <div class='pay-banner_option-icon'></div>
-                          <p class='pay-banner_option-title'>Начни заботится о&nbspсебе с&nbspНежно</p>
-                          <div class='pay-banner_option-text'>
-                          <p class='pay-banner_option-duration'>${optionsPayment[option].duration}</p>
-                          <p class='pay-banner_option-price'>${optionsPayment[option].price}</p>
-                          <ul class='pay-banner_option-list'>
-                          </ul>
-                          </div>
-                  </div>
-                  <form action="payment" method='post'>
-                    <input type="hidden" value="${optionsPayment[option].value}" name="payment_id">
-                    <input type="hidden" value="" name="promo" class='post-promocode-payment'>
-                    <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
-                  </form>
-              </div>
-            </li>
-          `;
-        let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
-        optionsPayment[option].list.forEach(item => {
-          payList.innerHTML += `<li>${item}</li>`;
-        })
-      };
+    async function addSlide() {
+      if (sliderPayment) {
+        for (let option in optionsPayment) {
+          sliderPayment.innerHTML += `
+              <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
+                <div class='pay-banner_option-container'>
+                    <span class='pay-banner_option-stroke'></span>
+                    <div class='pay-banner_option-content'>
+                        <div class='pay-banner_option-icon'></div>
+                            <p class='pay-banner_option-title'>Начни заботится о&nbspсебе с&nbspНежно</p>
+                            <div class='pay-banner_option-text'>
+                            <p class='pay-banner_option-duration'>${optionsPayment[option].duration}</p>
+                            <p class='pay-banner_option-price'>${optionsPayment[option].price}</p>
+                            <ul class='pay-banner_option-list'>
+                            </ul>
+                            </div>
+                    </div>
+                    <form action="payment" method='post'>
+                      <input type="hidden" value="${optionsPayment[option].value}" name="payment_id">
+                      <input type="hidden" value="" name="promo" class='post-promocode-payment'>
+                      <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
+                    </form>
+                </div>
+              </li>
+            `;
+          let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
+          optionsPayment[option].list.forEach(item => {
+            payList.innerHTML += `<li>${item}</li>`;
+          })
+        };
+      }
     }
-    adaptiveHeightBanner();
+    
+    addSlide().then(() => {
+        $('.account_payment-banner .pay-banner_options-slider').flickity({
+          draggable: true,
+          cellAlign: 'center',
+          freeScroll: true,
+          prevNextButtons: false,
+          pageDots: false,
+          initialIndex: 1,
+          watchCSS: true
+        });
+      }).then(() => {
+        adaptiveHeightBanner();
+      }); 
+    
     //закрытие баннера
     if (document.querySelector('.subscription_payment-banner .pay-banner_btnClose')) {
       document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
         e.preventDefault();
         document.querySelector('.subscription_payment-banner_background').style.display = 'none';
       })
-    }
-
-    //инициализация слайдера во всплывающем банере
-    if (document.querySelector('.subscription_payment-banner_background')) {
-      $('.subscription_payment-banner .pay-banner_options-slider').flickity({
-        draggable: true,
-        cellAlign: 'center',
-        freeScroll: true,
-        prevNextButtons: false,
-        pageDots: false,
-        initialIndex: 1,
-        watchCSS: true
-      });
     }
 
     //открытие баннера при клике на today_practice
@@ -109,6 +134,18 @@
             e.preventDefault();
             if (document.querySelector('.subcscription_container').dataset.statusPayment === 'false') {
               e.preventDefault();
+              if (!document.querySelector('.subscription_payment-banner .pay-banner_options-slider').classList.contains('flickity-enabled')) {
+                $('.subscription_payment-banner .pay-banner_options-slider').flickity({
+                  draggable: true,
+                  cellAlign: 'center',
+                  freeScroll: true,
+                  prevNextButtons: false,
+                  pageDots: false,
+                  initialIndex: 1,
+                  watchCSS: true
+                });
+                adaptiveHeightBanner();
+              }
               document.querySelector('.subscription_payment-banner_background').style.display = 'block';
               if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
                 document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
@@ -120,6 +157,7 @@
     }
   })
 })();
+
 
 
 //Отправка данных и проверка их на стороне сервера

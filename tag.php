@@ -131,4 +131,8 @@ $tag_posts=tagPosts($payment_date );
     </form> -->
 </section>
 
+<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
+
 <?php get_footer(); ?>

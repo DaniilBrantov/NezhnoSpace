@@ -309,6 +309,10 @@ if( $cat_slug === "blogs"){
         </div>
     </div>
 
+<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
+
     <!-- <form action="payment.php" method="POST" class='promocode-post'>
         <input type="text" name="promocode" class='promocode_duble'/>
         <button type='submit' class='post-promocode-payment'></button>

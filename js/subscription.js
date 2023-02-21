@@ -123,6 +123,18 @@
               if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
                 document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
               }
+
+              if (!document.querySelector('.subscription_payment-banner .pay-banner_options-slider').classList.contains('flickity-enabled')) {
+                $('.subscription_payment-banner .pay-banner_options-slider').flickity({
+                  draggable: true,
+                  cellAlign: 'center',
+                  freeScroll: true,
+                  prevNextButtons: false,
+                  pageDots: false,
+                  initialIndex: 1,
+                  watchCSS: true
+                });
+              }
             })
           } else {
             addition.querySelector('.addition_btn').style.display = 'none';

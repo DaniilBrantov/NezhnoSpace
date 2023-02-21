@@ -229,24 +229,24 @@ $("#upload_btn").click(function (e) {
 });
 
 
-(() => {
-  document.addEventListener('DOMContentLoaded', function() {
-    $('.account_payment-banner .pay-banner_options-slider').flickity({
-      draggable: true,
-      cellAlign: 'center',
-      freeScroll: true,
-      prevNextButtons: false,
-      pageDots: false,
-      initialIndex: 1,
-      watchCSS: true
-    });
-    if (document.querySelector('.account_payment-banner .pay-banner_options-slider')) {
-      if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
-        document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
-      }
-    }
-  })
-})();
+// (() => {
+//   document.addEventListener('DOMContentLoaded', function() {
+//     $('.account_payment-banner .pay-banner_options-slider').flickity({
+//       draggable: true,
+//       cellAlign: 'center',
+//       freeScroll: true,
+//       prevNextButtons: false,
+//       pageDots: false,
+//       initialIndex: 1,
+//       watchCSS: true
+//     });
+//     if (document.querySelector('.account_payment-banner .pay-banner_options-slider')) {
+//       if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
+//         document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
+//       }
+//     }
+//   })
+// })();
 
 //уточнение отписки 
 (() => {
