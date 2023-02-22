@@ -1,6 +1,4 @@
 <?php
-$post=(int)$_GET['post'];
-
 require_once( get_theme_file_path('processing.php') );
 CheckAuth();
 $get_id=(int)$_GET['post'];
@@ -20,6 +18,15 @@ $id = $post->ID;
 $thumb_id = get_post_thumbnail_id( $id );
 $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
 
+
+
+
+
+
+
+$id=(int)$_GET['post'];
+$subscription= new Subscription();
+$x=$subscription->getPostData($id);
 ?>
 
 <span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>

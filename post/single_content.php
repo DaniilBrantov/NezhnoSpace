@@ -1,6 +1,7 @@
 <?php 
-require_once( get_theme_file_path('processing.php') );
 global $post;
+require_once( get_theme_file_path('processing.php') );
+
 $cat_data = get_the_category( $post->ID )[0];
 $cat_slug=$cat_data->slug;
 if( $cat_slug === "blogs"){
@@ -33,31 +34,20 @@ if( $cat_slug === "blogs"){
 <?php
 }elseif( $cat_slug==="daily_practices" || $cat_slug==="recommendations" || $cat_slug==="themes"){
     CheckAuth();
-    
     if(!$post->ID){
         header('Location: subscription');
     }else{
-        if(subscriptionData($post->ID)['status']!==TRUE){
-            if(!checkPayment()){
-                header('Location: subscription');
-            }
+        $subscription= new Subscription();
+        $post_data =$subscription->getSubscriptionLesson($post->ID);
+        if($post_data['status'] !== true){
+            header('Location: subscription');
+        }else{
+            the_post();
         }
     }
-    // if( !checkPayment() || !$post->ID){
-    //     header('Location: subscription');
-    // };
-
-
-    $get_id=$post->ID;
-    $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
-    $payment_date =$user_data['payment_date'];
-    $post_data = subscriptionData($get_id);
     $thumb_id = get_post_thumbnail_id( $id );
     $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
-
 ?>
-
-
 <div class="sub_less">
     <div style='background-image: url("<?php echo $src; ?>");' class="sub_less_banner">
         <div class="sub_banner_cnt sub_container ">
@@ -192,7 +182,7 @@ if( $cat_slug === "blogs"){
 </div>
 
 <?php
-    $month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)), 47);
+    $month_theme=$subscription->getCatData(47);
 ?>
 
 <div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
