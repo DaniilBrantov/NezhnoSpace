@@ -339,18 +339,32 @@ class Subscription{
     protected function subscriptionLesson($id){
         $cat = (array)(get_the_category($id)[0]);
         $cat_ID=$cat["cat_ID"];
-        $cat_data=$this->getCatData($cat_ID);
-        foreach($cat_data as $el){
-            if($el['id'] === $id){
-                $cat_el=$el;
+        $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
+        $i=0;
+        $res=[];
+        while (have_posts()) : the_post();
+            $res[$i] = $this->getPostData(get_the_ID());
+            if($id === $res[$i]['id']){
+                if(checkPayment()){
+                    if($i < $count_open_posts){
+                        $res[$i]['status']=true;
+                    }else{
+                        $res[$i]['status']=false;
+                    }
+                }else{
+                    $res[$i]['status']=false;
+                };
+                if($res[$i]['exception']==='1'){
+                    $res[$i]['status']=TRUE;
+                    array_unshift($res, $res[$i]);
+                    unset($res[$i]);
+                }
+                break;
             }
-        }
-        if($cat_el["status"] === true){
-            return $cat_el;
-        }else{
-            //header('Location: subscription');
-            return $cat_el;
-        }
+            
+            $i+=1;
+        endwhile;
+        return $res[1];
     }
 }
 if($_SESSION['id']==='190'){

@@ -1,7 +1,6 @@
 <?php 
 global $post;
 require_once( get_theme_file_path('processing.php') );
-
 $cat_data = get_the_category( $post->ID )[0];
 $cat_slug=$cat_data->slug;
 if( $cat_slug === "blogs"){
@@ -32,19 +31,22 @@ if( $cat_slug === "blogs"){
     </div>
 </div>
 <?php
-}elseif( $cat_slug==="daily_practices" || $cat_slug==="recommendations" || $cat_slug==="themes"){
+}elseif( $cat_slug==="daily-practices" || $cat_slug==="recommendations" || $cat_slug==="themes"){
     CheckAuth();
+
     if(!$post->ID){
         header('Location: subscription');
     }else{
         $subscription= new Subscription();
-        $post_data =$subscription->getSubscriptionLesson($post->ID);
-        if($post_data['status'] !== true){
-            header('Location: subscription');
-        }else{
-            the_post();
-        }
+        //$post_data =$subscription->getSubscriptionLesson($post->ID);
+        // if($post_data['status'] !== true){
+        //     header('Location: subscription');
+        // }else{
+        //     the_post();
+        // }
     }
+
+
     $thumb_id = get_post_thumbnail_id( $id );
     $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
 ?>
