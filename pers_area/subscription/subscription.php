@@ -9,62 +9,26 @@
     $twelve_month=946;
 
 
-// Вывод конкретной записи
-// var_dump($daily_practices[1]);
+$subscription = new Subscription();
 
-//$month_theme['3']['next_post_date'];
+$daily_id = 45;
+$rec_id=46;
+$theme_id=47;
 
+$today_practice= $subscription->getTodayPractice($daily_id);
+$daily_practices=$subscription->getCatData($daily_id);
+$recommendations=$subscription->getCatData($rec_id);
+//Перемешиваем массив и выводим рандомные посты
+$recommendations = shuffleArray($recommendations);
+$month_theme=$subscription->getCatData($theme_id);
 
-// Сегодняшняя практика
-// Если оплаты нет, тогда выводит NULL
-$today_practice=TodayPractice($payment_days,$payment_date);
-
-// Ежедневные практики
-$daily_practices=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
-
-// Рекомендательная система
-$recommendations=[CategoryData(ceil(openPosts($payment_date, '', 46)),46)][0];
-shuffle($recommendations);
-$recommendations = array_slice($recommendations, 0, 7);
-
-// Тема месяца
-$month_theme=CategoryData(ceil(openPosts($payment_date, '', 47)),47);
-
-
-
-// Выбор услуги
-?>
-<!-- <form action="payment" method="post">
-    <input value="
-    <?php 
-    // echo $one_month 
-    ?>
-    " name="payment_btn" type="submit">
-    <input value="
-    <?php 
-    // echo $six_month 
-    ?>
-    " name="payment_btn" type="submit">
-    <input value="
-    <?php 
-    // echo $twelve_month 
-    ?>
-    " name="payment_btn" type="submit">
-</form> -->
-<?php
-// echo (get_post_meta(944, 'month_count', true));
-// var_dump (get_post_meta(944, 'price', true));
-// var_dump (get_post_meta(945, 'month_count', true));
-// var_dump (get_post_meta(945, 'price', true));
-// var_dump (get_post_meta(946, 'month_count', true));
-// var_dump (get_post_meta(946, 'price', true));?>
-<?php
-// var_dump($open_main_posts);
-    //  var_dump($today_practice);
-      //print_r($daily_practices);
-    //  var_dump($recommendations);
-    //  var_dump($month_theme);
-
+// $categories=['Ежедневные практики', 'Упражнения для вас', 'Темы'];
+// $cats_data=[];
+// foreach($categories as &$cat){
+//     $cat_ID=get_cat_ID( $cat );
+//     $cat_data=$subscription->getCatData($cat_ID);
+//     array_push( $cats_data, $cat_data );
+// }
 
 
 ?>

@@ -111,9 +111,14 @@ class UserValidationErrors
 
 
 
-class Subscription{
 
-    //Данные с каждого поста конкретной категории
+
+
+
+
+
+class Subscription{
+    // Получить данные с каждого поста конкретной категории
     public function getCatData($cat_ID){
         if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
             $res=$this->checkCatData($cat_ID);
@@ -121,8 +126,45 @@ class Subscription{
         return $res;
         wp_reset_query();
     }
-    //Вывод постов под конкретным тэгом
-    public function tagPosts(){
+    // Получить вывод постов под конкретным тэгом
+    public function getTagPosts(){
+        return $this->tagPosts();
+    }
+    // Получить данные с конкретного поста
+    public function getPostData($id){
+        return $this->PostData($id);
+    }
+    // Получить дату следующего поста
+    public function getNextPostDate($close_posts, $cat_ID){
+        return $this->nextPostDate($close_posts,$cat_ID);
+    }
+    // Получить дату оплаты
+    // public function getUserPaymentDate(){
+    //     return $this->userPaymentDate();
+    // }
+
+    // Получить кол-во открытых постов конкретной категории
+    public function getCountOpenCatPosts($cat_ID){
+        return $this->countOpenCatPosts($cat_ID);
+    }
+    // Получить массив из открытых постов конкретной категории
+    public function getOpenCatPosts($cat_ID){
+        return $this->openCatPosts($cat_ID);
+    }
+    // Массив из закрытых постов конкретной категории
+    public function getCloseCatPosts($cat_ID){
+        return $this->closeCatPosts($cat_ID);
+    }
+    //Получить сегодняшнюю ежедневную практику
+    public function getTodayPractice($cat_ID){
+        return $this->TodayPractice($cat_ID);
+    }
+    // Получить данные записи для вывода на страницу. С проверкой оплаты
+    public function getSubscriptionLesson($id){
+        return $this->subscriptionLesson($id);
+    }
+    // Вывод постов под конкретным тэгом
+    protected function tagPosts(){
         $payment_date=$this->userPaymentDate();
         if (have_posts()) :
             $i=1;
@@ -130,31 +172,23 @@ class Subscription{
             $res=[];
             while (have_posts()) : the_post();
                 $cat_ID=get_the_category()[0]->cat_ID;
-                $count_open_posts=$this->countOpenCatPosts($cat_ID);
-                $res[$i] = $this->PostData(get_the_ID());
+                $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
+                $res[$i] = $this->getPostData(get_the_ID());
 
                 if(checkPayment()){
                     if($i < $count_open_posts){
                         $res[$i]['status']=true;
                     }else{
                         $res[$i]['status']=false;
-                        $res[$i]['next_post_date']=$this->getNextPostDate($count_open_posts,$close,$cat_ID);
+                        $res[$i]['next_post_date']=$this->getNextPostDate($close,$cat_ID);
                         $close++;
                     }
                 };
-
-                // $open_posts=ceil(openPosts( $payment_date, '', $cat_id ));
-                // $res[$i] = subscriptionData(get_the_ID()) ;
-                // if(checkPayment()){
-                //     if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
-                //         $res[$i]['status']=TRUE;
-                //     }else{
-                //         $res[$i]['status']=FALSE;
-                //         $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
-                //         $close_posts++;
-                //     }
-                // };
-
+                if($res[$i]['exception']==='1'){
+                    $res[$i]['status']=TRUE;
+                    // array_unshift($res, $res[$i]);
+                    unset($res[$i]['next_post_date']);
+                }
             $i+=1;
             endwhile;
             return $res;
@@ -176,23 +210,24 @@ class Subscription{
             'tag' => get_the_tag_list('<li>','</li><li>','</li>', $post->ID )
         ];
         ($res['exception']==='1')? $res['status']=TRUE : $res['status']=FALSE;
+
         return $res;
     }
     // Распределение открытых и закрытых постов
     protected function checkCatData($cat_ID){
-        $count_open_posts=$this->countOpenCatPosts($cat_ID);
-        $i=1;
+        $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
+        $i=0;
         $close=1;
         $res=[];
         while (have_posts()) : the_post();
-            $res[$i] = $this->PostData(get_the_ID());
+            $res[$i] = $this->getPostData(get_the_ID());
 
             if(checkPayment()){
                 if($i < $count_open_posts){
                     $res[$i]['status']=true;
                 }else{
                     $res[$i]['status']=false;
-                    $res[$i]['next_post_date']=$this->getNextPostDate($count_open_posts,$close,$cat_ID);
+                    $res[$i]['next_post_date']=$this->getNextPostDate($close, $cat_ID);
                     $close++;
                 }
             };
@@ -200,6 +235,7 @@ class Subscription{
             if($res[$i]['exception']==='1'){
                 $res[$i]['status']=TRUE;
                 array_unshift($res, $res[$i]);
+                unset($res[$i]['next_post_date']);
                 unset($res[$i]);
             }
             
@@ -207,21 +243,35 @@ class Subscription{
         endwhile;
         return $res;
     }
-    // Получить дату следующего поста
-    protected function getNextPostDate($open_posts, $close_posts,$category){
-        if($category===45 || $category===46){
-            $days = 6 - $open_posts-7;
-            if($close_posts){
-                $days=1*$close_posts;
-            }
+    // Дата следующего поста
+    protected function nextPostDate($close_posts, $cat_ID){
+        if($cat_ID===45 || $cat_ID===46){
+            $days=1*$close_posts;
+        }if($cat_ID===47){
+            $open_posts=$this->getCountOpenCatPosts($cat_ID);
+            $days = 6 - $open_posts;
+            $days=$days*$close_posts;
         }
-        if($category===47){
-            $days = 6 - $open_posts-7;
-            if($close_posts){
-                $days=$days+7*$close_posts;
-            }
+        $next_post_date="+". $days ." day";
+        $next_post_date = strtotime($next_post_date, time());
+        $date = date("d.m.Y",$next_post_date);
+        $months = [
+            '01' => 'января',
+            '02' => 'февраля',
+            '03' => 'марта',
+            '04' => 'апреля',
+            '05' => 'мая',
+            '06' => 'июня',
+            '07' => 'июля',
+            '08' => 'августа',
+            '09' => 'сентября',
+            '10' => 'октября',
+            '11' => 'ноября',
+            '12' => 'декабря',
+        ];
+        $dateParts = explode('.', $date);
+        return $dateParts[0] . ' ' . $months[$dateParts[1]];
         }
-    }
     //Дата оплаты
     protected function userPaymentDate(){
         $db = new SafeMySQL();
@@ -241,7 +291,7 @@ class Subscription{
         }elseif($cat_ID === 47){
             $open_posts=$frequency_discoveries/7;
         }
-        ceil($open_posts);
+        $open_posts=ceil($open_posts);
         return $open_posts;
     }
     // Массив из открытых постов конкретной категории
@@ -249,9 +299,9 @@ class Subscription{
         if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
             $res = [];
             $i = 0;
-            $count = $this->countOpenCatPosts($cat_ID);
+            $count = $this->getCountOpenCatPosts($cat_ID);
             while ($i < $count) : the_post();
-                $res[$i] = $this->PostData(get_the_ID());
+                $res[$i] = $this->getPostData(get_the_ID());
                 $res[$i]['status']=true;
                 $i++;
             endwhile;
@@ -263,9 +313,9 @@ class Subscription{
         if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
             $res = [];
             $i=0;
-            $count = $this->countOpenCatPosts($cat_ID);
+            $count = $this->getCountOpenCatPosts($cat_ID);
             while (have_posts()) : the_post();
-                $res[$i] = $this->PostData(get_the_ID());
+                $res[$i] = $this->getPostData(get_the_ID());
                 $res[$i]['status']=false;
                 $i++;
             endwhile;
@@ -273,13 +323,55 @@ class Subscription{
         endif;
         return $res;
     }
-    
+    //Сегодняшняя ежедневная практика
+    protected function TodayPractice($cat_ID){
+        $arr = $this->getCatData($cat_ID);
+        $open_arr=[];
+        $i=0;
+        foreach ($arr as &$element) {
+            if($element['status'] === true){
+                $res = $element;
+            }
+        }
+        return $res;
+    }
+    // Данные записи для вывода на страницу. С проверкой оплаты
+    protected function subscriptionLesson($id){
+        $cat = (array)(get_the_category($id)[0]);
+        $cat_ID=$cat["cat_ID"];
+        $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
+        $i=0;
+        $res=[];
+        while (have_posts()) : the_post();
+            $res[$i] = $this->getPostData(get_the_ID());
+            if($id === $res[$i]['id']){
+                if(checkPayment()){
+                    if($i < $count_open_posts){
+                        $res[$i]['status']=true;
+                    }else{
+                        $res[$i]['status']=false;
+                    }
+                }else{
+                    $res[$i]['status']=false;
+                };
+                if($res[$i]['exception']==='1'){
+                    $res[$i]['status']=TRUE;
+                    array_unshift($res, $res[$i]);
+                    unset($res[$i]);
+                }
+                break;
+            }
+            
+            $i+=1;
+        endwhile;
+        return $res[1];
+    }
 }
-// if($_SESSION['id']==='190'){
-//     $subscription= new Subscription();
-//     $x=$subscription->tagPosts();
-//     var_dump($x);
-// }
+if($_SESSION['id']==='190'){
+    // $subscription= new Subscription();
+    // $x=$subscription->getCatData(47);
+    //var_dump($x);
+}
 
 
 

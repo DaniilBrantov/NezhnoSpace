@@ -1,40 +1,28 @@
-<?php
-    require_once( get_theme_file_path('processing.php') );
-    CheckAuth();
-    $get_id=(int)$_GET['id'];
-
-    $subscription= new Subscription();
-    if( !checkPayment() || !$get_id || empty($subscription->getCatData($get_id))){
-        header('Location: subscription');
-    };
-    $categories=$subscription->getCatData($get_id);
-
+<?php 
+$subscription= new Subscription();
+$tag_posts=$subscription->getTagPosts();
 
 ?>
-
-<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
-<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
-<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
-
-
 <div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
-    <h3 class="subcscription_title">Программа</h3>
+    <h3 class="subcscription_title"><?php single_tag_title(); ?></h3>
 
     <section class="subscriptions-posts">
         <?php 
-      foreach ($categories as $row) { 
+    foreach ($tag_posts as $row) { 
     ?>
         <div id="" class="subcscription_block-slide blockSub-slide subscriptions-post"
-            key="<?php echo array_search($row, $categories); ?>">
+            key="<?php echo array_search($row, $tag_posts); ?>">
             <div class="blockSub-slide_wrapper-img">
                 <img id="" class="blockSub-slide_img" src="<?php echo $row["image_url"]; ?>" width="267" />
                 <div class="blockSub-slide_after"></div>
                 <div class="blockSub-slide_before" status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
                 </div>
-                <div class='blockSub_lesson-time hidden'>
+                <div class='blockSub_lesson-time'>
                     <?php echo (empty($row["lesson_time"]) ? '' : $row["lesson_time"].' минут');?></div>
-                <div class='blockSub_next-post-date hidden'>
-                    <?php echo (empty($row["next_post_date"]) ? 'скоро' : $row["next_post_date"]);?></div>
+                <div class='blockSub_next-post-date'>
+                    <?php echo (empty($row["next_post_date"]) ? '' : $row["next_post_date"]);?></div>
+                <div class='blockSub_audio hidden'>
+                    <?php echo (empty($row["audio"]) ? '' : 'true');?></div>
             </div>
             <div class="subcscription_title-slide"><?php echo trimCntChars($row["title"], 30, '...') ; ?></div>
         </div>
@@ -44,10 +32,10 @@
     </section>
 
     <?php 
-        foreach ($categories as $row) { 
+        foreach ($tag_posts as $row) { 
     ?>
     <section id="" class="subscriptions-posts_addition addition"
-        addition-key="<?php echo array_search($row, $categories); ?>"
+        addition-key="<?php echo array_search($row, $tag_posts); ?>"
         status="<?php echo (boolval($row["status"]) ? 'true' : 'false'); ?>">
         <div class="addition_wrapper">
             <div class="addition_text">
@@ -99,6 +87,15 @@
   };
 ?>
 </div>
+<h3 class="subcscription_title">Смотреть также</h3>
+<div class="tags">
+    <div class="tags_cnt">
+        <?php
+            wp_tag_cloud('smallest=12&largest=36&number=1500&format=flat&separator= &orderby=name');
+        ?>
+    </div>
+</div>
+
 
 <section class='subscription_payment-banner_background'>
     <div id='payment-banner' class='subscription_payment-banner pay-banner'>
@@ -126,3 +123,7 @@
         <button type='submit' class='post-promocode-payment'></button>
     </form> -->
 </section>
+
+<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>

@@ -269,7 +269,7 @@ $arr=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
 $open_arr=[];
 $i=0;
 foreach ($arr as &$value) {
-if($value['status']){
+if($value['status'] === true){
 $open_arr[$i]=$value;
 $i++;
 }
@@ -395,6 +395,7 @@ $days = 6 - $open_posts-7;
 if($close_posts){
 $days=$days+7*$close_posts;
 }
+
 }
 
 $next_post_date="+". $days ." day";
@@ -678,4 +679,16 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
         endwhile;
         return $res;
         endif;
+        }
+		// Перемешать массив
+        function shuffleArray($arr) {
+        $result = [];
+
+        while (count($arr)) {
+        $randomIndex = array_rand($arr);
+        $result[] = $arr[$randomIndex];
+        array_splice($arr, $randomIndex, 1);
+        }
+
+        return $result;
         }
