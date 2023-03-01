@@ -79,7 +79,7 @@
                     required="required" name="account_input-lastName" value="<?php echo $user_data['surname']; ?>" />
                 <span class="text-error text-error_account_input-lastName">text error</span>
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
-                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" readonly/>
+                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" readonly disabled/>
                 <span class="text-error text-error_account_input-email">text error</span>
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
                     required="required" name="account_input-tel" value="<?php 
@@ -127,7 +127,6 @@
     </div>
 </div>
 
-
 <section class='account_payment-off_banner_background'>
     <div id='payment-off_banner' class='account_payment-off_banner payment-off_banner'>
         <button class='pay-banner_btnClose' type='button'></button>
@@ -141,4 +140,6 @@
         </div>
     </div>
 </section>
+
+
 

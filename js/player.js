@@ -1,38 +1,167 @@
 (() => {
-
   const musicList = ["theme_1"];
   let index = 0;
-  const audio = new Audio(
-    `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`
-  );
-  audio.className = 'audio';
-  document.body.append(audio);
-  const audioPlayer = document.querySelector(".player");
-  const playBtn = document.querySelector(".player__box-wrap .play");
-  const seekSlider = document.querySelector("#progress.progress");
-
-  // const next = document.querySelector(".next");
-  // const prev = document.querySelector(".prev");
-  //const titleDesktop = document.querySelector('.title-desktop')
-
-  const volumeBtn = document.querySelector(".volume");
-  const volumeNoneBtn = document.querySelector(".volume-none");
-  const volumeRange = document.querySelector(".volume-range");
-  const speed = document.querySelector(".speed");
-
-  const info = document.querySelector(".info");
-
-  if (audioPlayer) {
+  
+  class AudioPlayer {
+    constructor(element, audio) {
+      this.element = element;
+      this.audio = audio;
+      
+      this.playBtn = audio.querySelector(".player__box-wrap .play");
+      this.seekSlider = audio.querySelector("#progress.progress");
     
-    //Subscription Lesson
-    document.addEventListener('DOMContentLoaded', function() {
+      this.volumeBtn = audio.querySelector(".volume-box");
+      this.volumeRange = document.querySelector(".volume-range");
+      this.speed = audio.querySelector(".speed");
+    
+      this.info = audio.querySelector(".info");
+    }
+    loadeddata() {
+      this.element.addEventListener("loadeddata", () => {
+        this.audio.querySelector(".duration-time").textContent = getTimeCodeFromNum(this.element.duration);
+        this.element.volume = 1;
+      }, false);
+    }
+    musicPlay() {
+      this.playBtn.classList.remove("play");
+      this.playBtn.classList.add("pause");
+      this.element.play();
+    }
+    musicPause() {
+      this.playBtn.classList.remove("pause");
+      this.playBtn.classList.add("play");
+      this.element.pause();
+    }
+    listenerPlayBtn() {
+      this.playBtn.addEventListener( "click", () => {
+          if (this.element.paused) {
+            this.musicPlay();
+          } else {
+            this.musicPause();
+          }
+        }, false
+      );
+    }
+    //progress audio (google chrome)
+    setSliderMax() {
+      this.seekSlider.max = Math.floor(this.element.duration);
+    }
+    showRangeProgress(rangeInput) {
+      this.audio.style.setProperty(
+        "--seek-before-width",
+        (rangeInput.value / rangeInput.max) * 100 + "%"
+      );
+      this.setSliderMax();
+    }
+    rangeProgress() {
+      this.seekSlider.addEventListener("input", (e) => {
+        e.preventDefault();
+        this.showRangeProgress(e.target);
+        this.musicPlay();
+      });
+      this.seekSlider.addEventListener("change", (e) => {
+        e.preventDefault();
+        this.element.currentTime = this.seekSlider.value;
+        this.musicPlay();
+      });
+    }
+    timeupdate() {
+      this.element.addEventListener("timeupdate", () => {
+        this.seekSlider.value = Math.floor(this.element.currentTime);
+      });
+    }
+    setIntervalUpdate() {
+      setInterval(() => {
+        this.setSliderMax();
+        this.audio.style.setProperty(
+          "--seek-before-width",
+          (this.seekSlider.value / this.seekSlider.max) * 100 + "%"
+        );
+        this.audio.querySelector(".player_box .current-time").textContent = getTimeCodeFromNum(this.element.currentTime);
+      }, 2);
+    }
+    //audio title
+    getIndex() {
+      return musicList.findIndex((el) => this.element.src.includes(el));
+    }
+    setTitle(index) {
+      document.getElementById("player_title_text").textContent = musicList[this.getIndex()][0].toUpperCase() + musicList[index].slice(1);
+    }
+  
+    volumeAudio() {
+      this.volumeBtn.addEventListener("click", () => {
+        this.volumeBtn.querySelector('.volume').classList.toggle('active');
+        this.volumeBtn.querySelector('.volume-none').classList.toggle('active');
+        if (this.volumeBtn.querySelector('.volume-none').classList.contains('active')) {
+          this.element.volume = 0;
+        } else {
+          this.element.volume = this.volumeRange.value / 100;
+        }
+      });
+    }
+    speedAudio() {
+      this.speed.addEventListener("click", (evt) => {
+        const speedList = [1, 1.5, 2];
+        let speedIndexValue;
+        if (speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) + 1 < speedList.length) {
+          speedIndexValue = speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) + 1;
+        } else {
+          speedIndexValue = 0;
+        }
+        this.speed.textContent = speedList[speedIndexValue] + "x";
+        this.element.playbackRate = speedList[speedIndexValue];
+      });
+    }
+    infoAudio() {
+      this.info.addEventListener('click', () => {
+        this.info.querySelector(".info-tultip").classList.toggle("active");
+      })
+    }
+    nextAudio() {
+      this.element.addEventListener("ended", () => {
+        if (musicList.length > 1) {
+          index++;
+        } else if (index > musicList.length - 1) {
+          index = 0;
+        }
+        this.element.src = `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`;
+        this.setTitle(index);
+        this.musicPlay();
+      });
+    }
+  
+    initPlayer() {
+      this.loadeddata();
+      this.timeupdate();
+      this.rangeProgress();
+      this.listenerPlayBtn();
+      this.setIntervalUpdate();
+      this.volumeAudio();
+      this.speedAudio();
+      this.infoAudio();
+      this.nextAudio();
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    if (document.querySelector(".player")) {
+      const audio = new Audio(
+        `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`
+      );
+      audio.preload = 'metadata';
+      audio.className = 'audio';
+      document.body.append(audio);
+      const player = new AudioPlayer(audio, document.querySelector(".player"));
+      player.initPlayer();
+  
+      //Subscription Lesson
       if (document.querySelector('.wp-block-audio')) {
         audio.src = document.querySelector('.wp-block-audio audio').src;
         document.querySelector('.wp-block-audio').style.display = 'none!important';
         document.querySelector('.wp-block-audio').classList.add('hidden');
         document.querySelector('.trial_audio .title').classList.add('hidden');
         document.querySelector('.trial_audio').style.marginTop = '40px';
-
+  
       } else if (document.querySelector('.wp-audio-shortcode')) {
         // audio.src = document.querySelector('.wp-audio-shortcode').querySelector('a').textContent;
         audio.src = document.querySelector('.wp-audio-shortcode').querySelector('source').src;
@@ -45,221 +174,9 @@
           document.querySelector('.trial_audio').style.display = 'none';
         }
       }
-    })
-
-    //progress audio (google chrome)
-    const setSliderMax = () => {
-      seekSlider.max = Math.floor(audio.duration);
-    };
-
-    const showRangeProgress = (rangeInput) => {
-      audioPlayer.style.setProperty(
-        "--seek-before-width",
-        (rangeInput.value / rangeInput.max) * 100 + "%"
-      );
-      setSliderMax();
-    };
-
-    seekSlider.addEventListener("input", (e) => {
-      e.preventDefault();
-      showRangeProgress(e.target);
-      musicPlay();
-    });
-
-    seekSlider.addEventListener("change", (e) => {
-      e.preventDefault();
-      musicPlay();
-    });
-
-    //duration audio
-
-    audio.addEventListener(
-      "loadeddata",
-      () => {
-        audioPlayer.querySelector(".player_box .duration-time").textContent =
-          getTimeCodeFromNum(audio.duration);
-        audio.volume = 1;
-      },
-      false
-    );
-
-    setInterval(() => {
-      setSliderMax();
-      audioPlayer.style.setProperty(
-        "--seek-before-width",
-        (seekSlider.value / seekSlider.max) * 100 + "%"
-      );
-      audioPlayer.querySelector(".player_box .current-time").textContent =
-        getTimeCodeFromNum(audio.currentTime);
-    }, 2);
-
-    audio.addEventListener("timeupdate", () => {
-      seekSlider.value = Math.floor(audio.currentTime);
-    });
-
-    //play audio
-
-    function musicPlay() {
-      playBtn.classList.remove("play");
-      playBtn.classList.add("pause");
-      audio.play();
+      // if (!document.location.pathname.includes('subscription_lesson')) {
+      //   player.setTitle(index);
+      // }
     }
-
-    function musicPause() {
-      playBtn.classList.remove("pause");
-      playBtn.classList.add("play");
-      audio.pause();
-    }
-
-    playBtn.addEventListener(
-      "click",
-      () => {
-        if (audio.paused) {
-          musicPlay();
-        } else {
-          musicPause();
-        }
-      },
-      false
-    );
-
-    //audio title
-
-    if (!document.location.pathname.includes('subscription_lesson')) {
-      function setTitle(index) {
-        document.getElementById("player_title_text").textContent =
-          musicList[getIndex()][0].toUpperCase() + musicList[index].slice(1);
-      }
-
-      setTitle(index);
-
-      function getIndex() {
-        return musicList.findIndex((el) => audio.src.includes(el));
-      }
-    }
-
-    seekSlider.addEventListener("change", () => {
-      audio.currentTime = seekSlider.value;
-    });
-
-    //volume audio
-
-    if (volumeBtn) {
-      volumeBtn.addEventListener("click", vol);
-    }
-    function vol() {
-      volumeNoneBtn.classList.toggle("active");
-      volumeBtn.classList.toggle("active");
-      if (volumeNoneBtn.classList.contains("active")) {
-        audio.volume = 0;
-      } else {
-        audio.volume = volumeRange.value / 100;
-      }
-    }
-    if (volumeNoneBtn) {
-      volumeNoneBtn.addEventListener("click", vol);
-    }
-
-    //speed audio
-
-    if (speed) {
-      speed.addEventListener("click", setSpeedValue);
-    }
-
-    function setSpeedValue(evt) {
-      const speedList = [1, 1.5, 2];
-      let speedIndexValue;
-      if (
-        speedList.findIndex((el) => el === parseFloat(evt.target.textContent)) +
-        1 <
-        speedList.length
-      ) {
-        speedIndexValue =
-          speedList.findIndex(
-            (el) => el === parseFloat(evt.target.textContent)
-          ) + 1;
-      } else {
-        speedIndexValue = 0;
-      }
-      speed.textContent = speedList[speedIndexValue] + "x";
-      audio.playbackRate = speedList[speedIndexValue];
-    }
-
-    //audio info
-
-    document.addEventListener("click", (evt) => {
-      evt.stopPropagation();
-      if (evt.target.closest(".info") === info) {
-        info.querySelector(".info-tultip").classList.toggle("active");
-      }
-    });
-
-    //next audio
-
-    audio.addEventListener("ended", nextSong);
-    function nextSong() {
-      if (musicList.length > 1) {
-        index++;
-
-        if (index > musicList.length - 1) {
-          index = 0;
-        }
-        audio.src = `wp-content/themes/my-theme/audio/${musicList[index]}.mp3`;
-        setTitle(index);
-      }
-
-      musicPlay();
-    }
-
-    //audio time
-
-
-    // next.addEventListener('click', () => {
-    //   index = getIndex()
-    //   if (index < musicList.length - 1) {
-    //     index++
-    //   }
-    //   else {
-    //     index = 0
-    //   }
-    //   music.src = `./music/${musicList[index]}.mp3`
-    //   setTitle(index)
-    //   musucPlay();
-    // });
-
-    // prev.addEventListener('click', () => {
-    //   index = getIndex()
-    //   if (index > 0) {
-    //     index--
-    //   }
-    //   else {
-    //     index = musicList.length - 1
-    //   }
-    //   music.src = `./music/${musicList[index]}.mp3`
-    //   setTitle(index)
-    //   musucPlay();
-    // });
-
-    // document.querySelector('.replay').addEventListener('click', () => {
-    //   if (music.currentTime > 0) {
-    //     music.currentTime -= 10
-    //   } else {
-    //     music.currentTime = 0
-    //   }
-    // })
-
-    // document.querySelector('.forward').addEventListener('click', () => {
-    //   if (music.currentTime < music.duration) {
-    //     music.currentTime += 10
-    //   } else {
-    //     music.currentTime = music.duration
-    //   }
-    // })
-
-    // volumeRange.addEventListener('input', handleVolumeChange);
-
-    // function handleVolumeChange() {
-    //   music.volume = volumeRange.value / 100
-    // }
-  }
+  });  
 })();
