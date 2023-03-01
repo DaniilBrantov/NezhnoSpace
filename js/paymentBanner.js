@@ -65,7 +65,7 @@
                     <span class='pay-banner_option-stroke'></span>
                     <div class='pay-banner_option-content'>
                         <div class='pay-banner_option-icon'></div>
-                            <p class='pay-banner_option-title'>Начни заботится о&nbspсебе с&nbspНежно</p>
+                            <p class='pay-banner_option-title'>Начни заботиться о&nbspсебе с&nbspНежно</p>
                             <div class='pay-banner_option-text'>
                             <p class='pay-banner_option-duration'>${optionsPayment[option].duration}</p>
                             <p class='pay-banner_option-price'>${optionsPayment[option].price}</p>

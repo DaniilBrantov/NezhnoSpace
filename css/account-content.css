@@ -102,6 +102,7 @@
   transform: rotate(180deg);
 }
 .account-input-custom {
+  color: var(--black);
   padding: 12px 16px;
   border: 1px solid #421dd8;
   border-radius: 10px;

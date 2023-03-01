@@ -90,7 +90,7 @@
                 <ul class="subscriptions_list">
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                            <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
                                 с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 месяц</span>
@@ -107,7 +107,7 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                            <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
                                 с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">6 месяцев</span>
@@ -123,7 +123,7 @@
                     </li>
                     <li class="subscriptions_item">
                         <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботится о&nbsp;себе
+                            <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
                                 с&nbsp;Нежно</p>
                             <div class="subscriptions_item-info">
                                 <span class="subscriptions_item-duration">1 год</span>
@@ -266,18 +266,7 @@
         </div>
         <div class="reviews_constitutor">
             <div class="reviews_video video-container">
-                <!-- <video controls crossorigin playsinline
-                    poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
-                    <source src="<?php //getUrl(); 
-                                    ?>/videos/gone.mp4" type="video/mp4" size="1080">
-                    <a href="<?php //getUrl(); 
-                                ?>/videos/gone.mp4" download>Download</a>
-                </video> -->
-
-                <!-- <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-                    <source src="/videos/gone.mp4" type="video/mp4" />
-                </video> -->
-                <video id="video-player" class='video-player' poster="<?php getUrl(); ?>/videos/preview.png">
+                <video id="video-player" class='video-player' poster="<?php getUrl(); ?>/assets/videos/preview.png">
                     <source src="<?php getUrl(); ?>/assets/videos/home.mp4" type="video/mp4" />
                 </video>
                 <div class='video-controls'>
