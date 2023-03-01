@@ -18,7 +18,7 @@ for($i = 0; $i < count($user_id); $i++){
         if($db->query("UPDATE users SET payment_method=?s WHERE id=?i AND status=2", '', $_SESSION["id"])){
             // echo "Вы отписались от nezhno space! Вам ещё доступны материалы оплаченного месяца";
             // echo '--Закроется: '.date('d M Y H:i:s',$next_payment_date) ;
-            echo "<section class='account_payment-off_banner_background'>
+            echo "<section class='account_payment-off_banner_background' style='display: block;'>
             <div id='payment-off_banner' class='account_payment-off_banner payment-off_banner'>
                 <button class='pay-banner_btnClose' type='button'></button>
                 <div class='pay-banner_content'>
