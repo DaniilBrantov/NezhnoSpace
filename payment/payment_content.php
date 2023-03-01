@@ -1,5 +1,5 @@
 <?php
-
+echo 'hi';
 if (checkPayment() || !$_SESSION['id'] || $_SESSION['id']==NULL) {
     header('Location: subscription');
     die();
