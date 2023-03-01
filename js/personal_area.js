@@ -256,24 +256,27 @@ $("#upload_btn").click(function (e) {
     })
   }
   if (document.querySelector('#payment-off_banner')) {
-    document.querySelector('.account_payment-off_yes').addEventListener('click', function() {
-      document.querySelector('.account_payment-off_banner .pay-banner_title').innerText = 'Вы отписались от подписки Нежно Space!';
-      document.querySelector('.account_payment-off_buttons').style.justifyContent = 'center';
-      document.querySelector('.account_payment-off_buttons').innerHTML = `<button class='blue_btn'>ок</button>`;
-      document.querySelector('.account_payment-off_buttons .blue_btn').style.maxWidth = '272px';
-      document.querySelector('.pay-banner_text').style.display = 'block';
-      
-      window.open(window.location + 'pay?autopay=turn_off', '_blank');
-
-      document.querySelector('.account_payment-off_buttons .blue_btn').addEventListener('click', function() {
+    if (document.querySelector('.account_payment-off_yes')) {
+      document.querySelector('.account_payment-off_yes').addEventListener('click', function() {
+        window.location.href = document.location.protocol + '//' + document.location.host + '/pay?autopay=turn_off';
+        // console.log(document.location.protocol + '//' + document.location.host + '/pay?autopay=turn_off');
+      })
+      document.querySelector('.account_payment-off_no').addEventListener('click', function() {
         document.querySelector('.account_payment-off_banner_background').style.display = 'none';
       })
-    })
-    document.querySelector('.account_payment-off_no').addEventListener('click', function() {
-      document.querySelector('.account_payment-off_banner_background').style.display = 'none';
-    })
-    document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
-      document.querySelector('.account_payment-off_banner_background').style.display = 'none';
-    })
+      document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
+        document.querySelector('.account_payment-off_banner_background').style.display = 'none';
+      })
+    }
+    if (document.querySelector('.account_payment-off_buttons .blue_btn')) {
+      document.querySelector('.account_payment-off_buttons .blue_btn').addEventListener('click', function() {
+        window.location.href = document.location.protocol + '//' + document.location.host + '/account';
+        // console.log(document.location.protocol + '//' + document.location.host + '/account');
+      })
+      document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
+        window.location.href = document.location.protocol + '//' + document.location.host + '/account';
+        // console.log(document.location.protocol + '//' + document.location.host + '/account');
+      })
+    }
   }
 })();

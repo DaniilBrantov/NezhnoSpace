@@ -16,8 +16,20 @@ for($i = 0; $i < count($user_id); $i++){
     $next_payment_date=strtotime($count_month, strtotime($user_data['payment_date']));
     if($_GET['autopay']==="turn_off"){
         if($db->query("UPDATE users SET payment_method=?s WHERE id=?i AND status=2", '', $_SESSION["id"])){
-            echo "Вы отписались от nezhno space! Вам ещё доступны материалы оплаченного месяца";
-            echo '--Закроется: '.date('d M Y H:i:s',$next_payment_date) ;
+            // echo "Вы отписались от nezhno space! Вам ещё доступны материалы оплаченного месяца";
+            // echo '--Закроется: '.date('d M Y H:i:s',$next_payment_date) ;
+            echo "<section class='account_payment-off_banner_background'>
+            <div id='payment-off_banner' class='account_payment-off_banner payment-off_banner'>
+                <button class='pay-banner_btnClose' type='button'></button>
+                <div class='pay-banner_content'>
+                    <h4 class='pay-banner_title'>Вы отписались от подписки Нежно Space!</h4>
+                    <div class='pay-banner_text' style='display: block;'>Вам ещё доступны материалы оплаченного месяца до <span class='pay-banner_text-date'>".date('d M Y H:i:s',$next_payment_date)."</span></div>
+                    <div class='account_payment-off_buttons' style='max-width: 272px;'>
+                        <button class='blue_btn'>ок</button>
+                    </div>
+                </div>
+            </div>
+        </section>";
         }else{
             echo "Что то пошло не так. Попробовать снова?";
         }

@@ -127,7 +127,6 @@
     </div>
 </div>
 
-
 <section class='account_payment-off_banner_background'>
     <div id='payment-off_banner' class='account_payment-off_banner payment-off_banner'>
         <button class='pay-banner_btnClose' type='button'></button>
@@ -141,4 +140,6 @@
         </div>
     </div>
 </section>
+
+
 
