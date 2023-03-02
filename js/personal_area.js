@@ -13,145 +13,6 @@ const hideError = (val) => {
     }
   })
 };
-
-(() => {
-  let inputImgAvatar = document.querySelector("#account_input-img");
-  let dropboxGender = document.querySelector(".account_input-gender-wrapper");
-  let arrayInput;
-
-  if (document.querySelector('.account_personal-data')) {
-    arrayInput = document.querySelector('.account_personal-data').querySelectorAll('input');
-
-    arrayInput.forEach((input) => {
-      function setCapitalLetter(str, elem) {
-        if (str == "") return false;
-        str = str[0].toUpperCase() + str.substring(1, str.length);
-        elem.value = str;
-      }
-      if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
-        setCapitalLetter(input.value, input);
-
-        input.addEventListener('keydown', function () {
-          setCapitalLetter(input.value, input);
-        })
-      }
-
-      if (input.id === 'account_personal-tel') {
-        let tel = document.querySelector('#account_personal-tel');
-        tel.value = `+${tel.value[0]} (${tel.value[1]}${tel.value[2]}${tel.value[3]}) ${tel.value[4]}${tel.value[5]}${tel.value[6]}-${tel.value[7]}${tel.value[8]}-${tel.value[9]}${tel.value[10]}`;
-      }
-
-      if (sessionStorage.getItem(input.id)) {
-        if (input.id === 'account_input-img') {
-          sessionStorage.removeItem('account_input-img');
-        };
-        document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
-      }
-
-      if (input.id === 'account_input-age') {
-        if (input.value !== '') {
-          input.type = 'date';
-        }
-      }
-
-      input.addEventListener('input', (e) => {
-        sessionStorage.setItem(input.id, input.value);
-      });
-    });
-  }
-
-  if (inputImgAvatar) {
-    //смена аватарки в профиле
-    inputImgAvatar.addEventListener("change", function () {
-      if (inputImgAvatar.files[0]) {
-        let fr = new FileReader();
-
-        fr.addEventListener(
-          "load",
-          function () {
-            document.querySelector(".account_image-wrap img").style.display = 'block';
-            document.querySelector(".account_image-wrap img").src = fr.result;
-          },
-          false
-        );
-
-        fr.readAsDataURL(inputImgAvatar.files[0]);
-      }
-    });
-    //выбор пола
-    dropboxGender.addEventListener("click", function () {
-      let inputGender = document.querySelector(".account_input-gender");
-      let listGender = document.querySelectorAll(".account_gender-list span");
-
-      document
-        .querySelector(".account_gender-select svg")
-        .classList.toggle("dropdown");
-      if (
-        document
-          .querySelector(".account_gender-select svg")
-          .classList.contains("dropdown")
-      ) {
-        document.querySelector(".account_gender-list").style.display = "flex";
-      } else {
-        document.querySelector(".account_gender-list").style.display = "none";
-      }
-
-      listGender.forEach((item) => {
-        item.addEventListener("click", function () {
-          inputGender.value = item.innerText;
-          document
-            .querySelector(".account_gender-select svg")
-            .classList.remove("dropdown");
-          document.querySelector(".account_gender-list").style.display = "none";
-        });
-      });
-    });
-    //ввод номера телефона
-    let inputPhone = document.querySelector("#account_personal-tel");
-    let keyCode;
-    function Mask(event) {
-      event.keyCode && (keyCode = event.keyCode);
-      let pos = this.selectionStart;
-      if (pos < 3) event.preventDefault();
-      let matrix = "+7 (___) ___-__-__",
-        i = 0,
-        def = matrix.replace(/\D/g, ""),
-        val = this.value.replace(/\D/g, ""),
-        newValue = matrix.replace(/[_\d]/g, function (a) {
-          return i < val.length ? val.charAt(i++) || def.charAt(i) : a;
-        });
-      i = newValue.indexOf("_");
-      if (i != -1) {
-        i < 5 && (i = 3);
-        newValue = newValue.slice(0, i);
-      }
-      let reg = matrix
-        .substr(0, this.value.length)
-        .replace(/_+/g, function (a) {
-          return "\\d{1," + a.length + "}";
-        })
-        .replace(/[+()]/g, "\\$&");
-      reg = new RegExp("^" + reg + "$");
-      if (
-        !reg.test(this.value) ||
-        this.value.length < 5 ||
-        (keyCode > 47 && keyCode < 58)
-      )
-        this.value = newValue;
-      if (event.type == "blur" && this.value.length < 5) this.value = "";
-    }
-
-    inputPhone.addEventListener("input", Mask, false);
-    inputPhone.addEventListener("focus", Mask, false);
-    inputPhone.addEventListener("blur", Mask, false);
-    inputPhone.addEventListener("keydown", Mask, false);
-
-    //клик по кнопке сохранить
-    let btnSave = document.querySelector(".account_btn-save");
-
-  }
-})();
-
 //функция показа информации о состоянии отправляемых данных
 function uploadInfoShow(opacity, color, text) {
   let infoBlockUpload = document.querySelector('#account-info-block');
@@ -159,7 +20,150 @@ function uploadInfoShow(opacity, color, text) {
   infoBlockUpload.style.opacity = opacity;
   infoBlockUpload.style.color = color;
   infoBlockUpload.textContent = text;
-}
+};
+
+(() => {
+  class AccountInfo {
+    constructor(avatar, dropboxGender, arrayInput, inputPhone) {
+      this.avatar = avatar;
+      this.dropboxGender = dropboxGender;
+      this.arrayInput = arrayInput;
+      this.phone = inputPhone;
+    }
+    inputCustom() {
+      this.arrayInput.forEach((input) => {
+        function setCapitalLetter(str, elem) {
+          if (str == "") return false;
+          str = str[0].toUpperCase() + str.substring(1, str.length);
+          elem.value = str;
+        }
+        if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
+          setCapitalLetter(input.value, input);
+  
+          input.addEventListener('keydown', function () {
+            setCapitalLetter(input.value, input);
+          })
+        }
+  
+        if (input.id === 'account_personal-tel') {
+          let tel = document.querySelector('#account_personal-tel');
+          if (tel.value.length !== 0) {
+            tel.value = `+${tel.value[0]} (${tel.value[1]}${tel.value[2]}${tel.value[3]}) ${tel.value[4]}${tel.value[5]}${tel.value[6]}-${tel.value[7]}${tel.value[8]}-${tel.value[9]}${tel.value[10]}`;
+          }
+        }
+  
+        if (sessionStorage.getItem(input.id)) {
+          if (input.id === 'account_input-img') {
+            sessionStorage.removeItem('account_input-img');
+          };
+          document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
+        }
+  
+        if (input.id === 'account_input-age') {
+          if (input.value !== '') {
+            input.type = 'date';
+          }
+        }
+  
+        input.addEventListener('input', (e) => {
+          sessionStorage.setItem(input.id, input.value);
+        });
+      });
+    }
+    inputImgAvatar() {
+      //смена аватарки в профиле
+      this.avatar.addEventListener("change", function () {
+        if (this.avatar.files[0]) {
+          let fr = new FileReader();
+
+          fr.addEventListener(
+            "load",
+            function () {
+              document.querySelector(".account_image-wrap img").style.display = 'block';
+              document.querySelector(".account_image-wrap img").src = fr.result;
+            },
+            false
+          );
+
+          fr.readAsDataURL(this.avatar.files[0]);
+        }
+      });
+    }
+    dropGender() {
+      //выбор пола
+      this.dropboxGender.addEventListener("click", function () {
+        let inputGender = document.querySelector(".account_input-gender");
+        let listGender = document.querySelectorAll(".account_gender-list span");
+
+        document.querySelector(".account_gender-select svg").classList.toggle("dropdown");
+        if (document.querySelector(".account_gender-select svg").classList.contains("dropdown")) {
+          document.querySelector(".account_gender-list").style.display = "flex";
+        } else {
+          document.querySelector(".account_gender-list").style.display = "none";
+        }
+
+        listGender.forEach((item) => {
+          item.addEventListener("click", function () {
+            inputGender.value = item.innerText;
+            document.querySelector(".account_gender-select svg").classList.remove("dropdown");
+            document.querySelector(".account_gender-list").style.display = "none";
+          });
+        });
+      });
+    }
+    inputPhone() {
+      //ввод номера телефона
+      let keyCode;
+      function Mask(event) {
+        event.keyCode && (keyCode = event.keyCode);
+        let pos = this.selectionStart;
+        if (pos < 3) event.preventDefault();
+        let matrix = "+7 (___) ___-__-__",
+          i = 0,
+          def = matrix.replace(/\D/g, ""),
+          val = this.value.replace(/\D/g, ""),
+          newValue = matrix.replace(/[_\d]/g, function (a) {
+            return i < val.length ? val.charAt(i++) || def.charAt(i) : a;
+          });
+        i = newValue.indexOf("_");
+        if (i != -1) {
+          i < 5 && (i = 3);
+          newValue = newValue.slice(0, i);
+        }
+        let reg = matrix
+          .substr(0, this.value.length)
+          .replace(/_+/g, function (a) {
+            return "\\d{1," + a.length + "}";
+          })
+          .replace(/[+()]/g, "\\$&");
+        reg = new RegExp("^" + reg + "$");
+        if (
+          !reg.test(this.value) ||
+          this.value.length < 5 ||
+          (keyCode > 47 && keyCode < 58)
+        )
+          this.value = newValue;
+        if (event.type == "blur" && this.value.length < 5) this.value = "";
+      }
+
+      this.phone.addEventListener("input", Mask, false);
+      this.phone.addEventListener("focus", Mask, false);
+      this.phone.addEventListener("blur", Mask, false);
+      this.phone.addEventListener("keydown", Mask, false);
+    }
+    init() {
+      this.inputCustom();
+      this.inputImgAvatar();
+      this.dropGender();
+      this.inputPhone();
+    }
+  }
+
+  if (document.querySelector('.account_personal-data')) {
+    const accountInfo = new AccountInfo(document.querySelector("#account_input-img"), document.querySelector(".account_input-gender-wrapper"), document.querySelector('.account_personal-data').querySelectorAll('input'), document.querySelector("#account_personal-tel"));
+    accountInfo.init();
+  }
+})();
 
 //Update Uploads
 $("#upload_btn").click(function (e) {
@@ -228,26 +232,6 @@ $("#upload_btn").click(function (e) {
   }
 });
 
-
-// (() => {
-//   document.addEventListener('DOMContentLoaded', function() {
-//     $('.account_payment-banner .pay-banner_options-slider').flickity({
-//       draggable: true,
-//       cellAlign: 'center',
-//       freeScroll: true,
-//       prevNextButtons: false,
-//       pageDots: false,
-//       initialIndex: 1,
-//       watchCSS: true
-//     });
-//     if (document.querySelector('.account_payment-banner .pay-banner_options-slider')) {
-//       if (document.querySelector('.pay-banner_options-slider.is-draggable')) {
-//         document.querySelectorAll('.pay-banner_option').forEach((elem) => elem.style.height = '100%');
-//       }
-//     }
-//   })
-// })();
-
 //уточнение отписки 
 (() => {
   if (document.querySelector('.account_sections-footer')) {
@@ -259,7 +243,6 @@ $("#upload_btn").click(function (e) {
     if (document.querySelector('.account_payment-off_yes')) {
       document.querySelector('.account_payment-off_yes').addEventListener('click', function() {
         window.location.href = document.location.protocol + '//' + document.location.host + '/pay?autopay=turn_off';
-        // console.log(document.location.protocol + '//' + document.location.host + '/pay?autopay=turn_off');
       })
       document.querySelector('.account_payment-off_no').addEventListener('click', function() {
         document.querySelector('.account_payment-off_banner_background').style.display = 'none';
@@ -271,11 +254,9 @@ $("#upload_btn").click(function (e) {
     if (document.querySelector('.account_payment-off_buttons .blue_btn')) {
       document.querySelector('.account_payment-off_buttons .blue_btn').addEventListener('click', function() {
         window.location.href = document.location.protocol + '//' + document.location.host + '/account';
-        // console.log(document.location.protocol + '//' + document.location.host + '/account');
       })
       document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
         window.location.href = document.location.protocol + '//' + document.location.host + '/account';
-        // console.log(document.location.protocol + '//' + document.location.host + '/account');
       })
     }
   }
