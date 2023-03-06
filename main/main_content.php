@@ -429,9 +429,7 @@
                                             </defs>
                                         </svg>
                                     </span>
-                                    <span class="info-tultip">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Deleniti,
-                                        dolor!</span>
+                                    <span class="info-tultip"></span>
                                 </div>
                                 <div class="volume-box">
                                     <span id="volume" class="volume active">
