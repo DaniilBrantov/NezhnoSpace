@@ -54,6 +54,7 @@
 }
 .pay-banner_content {
   height: 100%;
+  min-height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -345,6 +346,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .pay-banner_content {
+    min-height: 200px;
+  }
   .subscription_payment-banner {
     padding: 25px 40px 10px;
   }
@@ -371,6 +375,9 @@
   }
 }
 @media (max-width: 450px) {
+  .pay-banner_content {
+    min-height: 230px;
+  }
   .subscription_payment-banner {
     margin-top: 10px;
   }

@@ -17,10 +17,15 @@
       this.info = audio.querySelector(".info");
     }
     loadeddata() {
-      this.element.addEventListener("loadeddata", () => {
-        this.audio.querySelector(".duration-time").textContent = getTimeCodeFromNum(this.element.duration);
+      if (this.element.readyState > 0) {
         this.element.volume = 1;
-      }, false);
+        this.audio.querySelector(".duration-time").textContent = getTimeCodeFromNum(this.element.duration);
+      } else {
+        this.element.addEventListener('loadedmetadata', () => {
+          this.element.volume = 1;
+          this.audio.querySelector(".duration-time").textContent = getTimeCodeFromNum(this.element.duration);
+        });
+      }
     }
     musicPlay() {
       this.playBtn.classList.remove("play");
@@ -145,12 +150,9 @@
   
   document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector(".player")) {
-      const audio = new Audio(
-        `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`
-      );
-      audio.preload = 'metadata';
-      audio.className = 'audio';
-      document.body.append(audio);
+      const audio = document.querySelector('.audio');
+      audio.src = `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`;
+
       const player = new AudioPlayer(audio, document.querySelector(".player"));
       player.initPlayer();
   

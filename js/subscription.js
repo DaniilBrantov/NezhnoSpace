@@ -255,6 +255,11 @@
       let listTxt = document.body.querySelectorAll('.sub_less_cnt ol li');
       listTxt.forEach((list) => {
         let list_txt = list.innerHTML;
+        let del = list_txt.substring(list_txt.indexOf('<'), (list_txt.indexOf('>')+1));
+        list_txt = list_txt.replace(del, '');
+        del = list_txt.substring(list_txt.indexOf('</'));
+        list_txt = list_txt.replace(del, '');
+
         let count = list_txt.indexOf('.');
         let list_title = list_txt.substring(0, count);
         let list_cnt = list_txt.substring(count + 1, list_txt.lenght).trim();
@@ -298,28 +303,5 @@
         li.innerHTML += a;
       })
     }
-
-//     let firstParagraph = document.querySelector('.sub_less_cnt').children[0];
-
-//     if (document.querySelector('.sub_less_cnt')) {
-//       if (firstParagraph.children.length > 0) {
-//         if (firstParagraph.children[0].tagName == 'IMG') {
-//         firstParagraph.children[0].style.width = '272px';
-//         firstParagraph.children[0].style.borderRadius = '15px';
-//         firstParagraph.children[0].style.marginRight = '32px';
-        // firstParagraph.style.display = 'flex';
-        // firstParagraph.style.alignItems = 'center';
-//         firstParagraph.children[0].style.float = 'left';
-//         }
-//       } else {
-//         let div = document.createElement('div');
-//         div.className = "sub_less__firstParagraph-befor";
-//         div.innerHTML = '';
-//         firstParagraph.prepend(div);
-        
-        // firstParagraph.style.display = 'flex';
-        // firstParagraph.style.alignItems = 'center';
-//       }
-//     }
   })
 })();
