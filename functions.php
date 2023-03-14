@@ -730,3 +730,27 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
         // unset($fields['shipping']['shipping_country']);// Отключаем страны доставки
         // return $fields;
         // }
+
+
+
+
+        // Add a User Column to WordPress
+        function add_user_column( $columns ) {
+        $columns['status'] = 'Статус';
+        return $columns;
+        }
+        add_filter( 'manage_users_columns', 'add_user_column' );
+
+        // Edit the User Column in WordPress
+        function edit_user_columns( $value, $column_name, $user_id ) {
+        if ( 'status' == $column_name ) {
+        $user_info = get_userdata($user_id);
+        $mail = $user_info->user_email;
+        require_once( get_theme_file_path('processing.php') );
+        $db = new SafeMySQL();
+        $status = $db->getOne("SELECT status FROM users WHERE mail=?s", $mail);
+        $user_column_value = $status;
+        return $user_column_value;
+        }
+        }
+        add_action( 'manage_users_custom_column', 'edit_user_columns', 10, 3 );
