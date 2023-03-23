@@ -18,6 +18,7 @@ $theme_id=47;
 $today_practice= $subscription->getTodayPractice($daily_id);
 $daily_practices=$subscription->getCatData($daily_id);
 $recommendations=$subscription->getCatData($rec_id);
+$recommendations = array_slice($recommendations, 0, 6);
 //Перемешиваем массив и выводим рандомные посты
 $recommendations = shuffleArray($recommendations);
 $month_theme=$subscription->getCatData($theme_id);
