@@ -46,10 +46,10 @@ if( $cat_slug === "blogs"){
         // }
     }
 
-
     $thumb_id = get_post_thumbnail_id( $id );
     $src = wp_get_attachment_image_src($thumb_id, 'full')[0];
 ?>
+
 <div class="sub_less">
     <div style='background-image: url("<?php echo $src; ?>");' class="sub_less_banner">
         <div class="sub_banner_cnt sub_container ">
@@ -180,6 +180,15 @@ if( $cat_slug === "blogs"){
         </div>
     </div>
 </div>
+
+
+<button id="like" class="like" onclick="addLike(<?php echo $post->ID; ?>,<?php echo $_SESSION['id']; ?>)">Like</button>
+<button id="dislike" class="dislike"
+    onclick="addLike(<?php echo $post->ID; ?>,<?php echo $_SESSION['id']; ?>)">Dislike</button>
+
+
+
+
 
 <?php
     $month_theme=$subscription->getCatData(47);

@@ -754,3 +754,12 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
         }
         }
         add_action( 'manage_users_custom_column', 'edit_user_columns', 10, 3 );
+
+
+
+
+
+
+
+
+        

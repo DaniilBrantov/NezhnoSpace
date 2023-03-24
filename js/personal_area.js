@@ -39,32 +39,32 @@ function uploadInfoShow(opacity, color, text) {
         }
         if ((input.id === 'account_personal-name') || (input.id === 'account_personal-lastName')) {
           setCapitalLetter(input.value, input);
-  
+
           input.addEventListener('keydown', function () {
             setCapitalLetter(input.value, input);
           })
         }
-  
+
         if (input.id === 'account_personal-tel') {
           let tel = document.querySelector('#account_personal-tel');
           if (tel.value.length !== 0) {
             tel.value = `+${tel.value[0]} (${tel.value[1]}${tel.value[2]}${tel.value[3]}) ${tel.value[4]}${tel.value[5]}${tel.value[6]}-${tel.value[7]}${tel.value[8]}-${tel.value[9]}${tel.value[10]}`;
           }
         }
-  
+
         if (sessionStorage.getItem(input.id)) {
           if (input.id === 'account_input-img') {
             sessionStorage.removeItem('account_input-img');
           };
           document.querySelector(`#${input.id}`).value = sessionStorage.getItem(input.id);
         }
-  
+
         if (input.id === 'account_input-age') {
           if (input.value !== '') {
             input.type = 'date';
           }
         }
-  
+
         input.addEventListener('input', (e) => {
           sessionStorage.setItem(input.id, input.value);
         });
@@ -239,29 +239,51 @@ $("#upload_btn").click(function (e) {
 //уточнение отписки 
 (() => {
   if (document.querySelector('.account_sections-footer')) {
-    document.querySelector('.account_sections-footer .account_bth_payment-off').addEventListener('click', function() {
+    document.querySelector('.account_sections-footer .account_bth_payment-off').addEventListener('click', function () {
       document.querySelector('.account_payment-off_banner_background').style.display = 'block';
     })
   }
   if (document.querySelector('#payment-off_banner')) {
     if (document.querySelector('.account_payment-off_yes')) {
-      document.querySelector('.account_payment-off_yes').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_yes').addEventListener('click', function () {
         window.location.href = document.location.protocol + '//' + document.location.host + '/pay?autopay=turn_off';
       })
-      document.querySelector('.account_payment-off_no').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_no').addEventListener('click', function () {
         document.querySelector('.account_payment-off_banner_background').style.display = 'none';
       })
-      document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function () {
         document.querySelector('.account_payment-off_banner_background').style.display = 'none';
       })
     }
     if (document.querySelector('.account_payment-off_buttons .blue_btn')) {
-      document.querySelector('.account_payment-off_buttons .blue_btn').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_buttons .blue_btn').addEventListener('click', function () {
         window.location.href = document.location.protocol + '//' + document.location.host + '/account';
       })
-      document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function() {
+      document.querySelector('.account_payment-off_banner .pay-banner_btnClose').addEventListener('click', function () {
         window.location.href = document.location.protocol + '//' + document.location.host + '/account';
       })
     }
   }
 })();
+
+
+function addLike(post_id, user_id) {
+  document.addEventListener("click", function (e) {
+    var type = $(e.target).attr("id");
+    $.ajax({
+      type: "POST",
+      url: 'add_like',
+      data: {
+        post_id: post_id,
+        user_id: user_id,
+        type: type
+      },
+      success: function (data) {
+        console.log(data);
+      }
+    });
+    //var type = $(this.target).attr("id");
+
+
+  });
+}
