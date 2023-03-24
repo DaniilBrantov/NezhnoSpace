@@ -244,7 +244,7 @@
                     <span class="reviews_time">06:24</span>
                 </div>
                 <div class="reviews_item">
-                    <h3 class="reviews_author">Виктория, 39 лет</h3>
+                    <h3 class="reviews_author">Анна, 25 лет</h3>
                     <hr>
                     <p class="reviews_text">Гайды Нежно Space - это не список литературы <span>на лето. Ты можешь
                             ограничиться
