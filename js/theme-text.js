@@ -97,6 +97,7 @@
         document.querySelector(
           "audio"
         ).src = `wp-content/themes/my-theme/assets/audio/${elem.audio}.mp3`;
+        document.querySelector(".info-tultip").classList.remove('active');
       } else {
         document.querySelector(".trial_audio").style.display = "none";
       }
@@ -257,23 +258,21 @@
                 //смена контента в зависимости от активного подзаголовка
                 if (subtitle.querySelector("p").classList.contains("active")) {
                   sub = subtitle.querySelector("p");
-                  dataBase[title.getAttribute("data-key")].forEach((elem) => {
-                    if (
-                      elem.theme === subtitle.querySelector("p").textContent
-                    ) {
-                      changeContent(elem);
-                    }
-                  });
-                }
+                  if (dataBase[title.getAttribute("data-key")].some((elem) => elem.theme === subtitle.querySelector("p").textContent)) {
+                    dataBase[title.getAttribute("data-key")].forEach((elem) => {
+                      if (elem.theme === subtitle.querySelector("p").textContent) {
+                        changeContent(elem);
+                      } 
+                    });
+                  } 
+                } 
               });
 
               if (text.querySelector(".trial_description-text p").textContent.length === 0) {
                 sub.classList.remove('active');
                 mobileSubtitle[0].querySelector('p').classList.add('active');
                 dataBase[title.getAttribute("data-key")].forEach((elem) => {
-                  if (
-                    elem.theme === mobileSubtitle[0].querySelector("p").textContent
-                  ) {
+                  if (elem.theme === mobileSubtitle[0].querySelector("p").textContent) {
                     changeContent(elem);
                   }
                 });

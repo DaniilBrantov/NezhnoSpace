@@ -81,7 +81,7 @@
         </div>
     </div>
     <div class="intro_link-wrap">
-        <a href="auth" target="_blank">Хочу разобраться в этом!</a>
+        <a href="auth">Хочу разобраться в этом!</a>
     </div>
     <section class="subscriptions" id="subscriptions">
         <div class="subscriptions_wrap">
@@ -205,7 +205,7 @@
                 </ul>
             </li>
         </ul>
-        <a class="less-more_link" href="my_account" target="_blank">начать</a>
+        <a class="less-more_link" href="registration">начать</a>
     </section>
     <section class="reviews">
         <h2 class="trial-title">отзывы:</h2>
@@ -429,7 +429,7 @@
                                             </defs>
                                         </svg>
                                     </span>
-                                    <span class="info-tultip"></span>
+                                    <span class="info-tultip">Подкаст о жизни</span>
                                 </div>
                                 <div class="volume-box">
                                     <span id="volume" class="volume active">

@@ -162,6 +162,10 @@ function uploadInfoShow(opacity, color, text) {
   if (document.querySelector('.account_personal-data')) {
     const accountInfo = new AccountInfo(document.querySelector("#account_input-img"), document.querySelector(".account_input-gender-wrapper"), document.querySelector('.account_personal-data').querySelectorAll('input'), document.querySelector("#account_personal-tel"));
     accountInfo.init();
+
+    if (sessionStorage.getItem('anxiety')) {
+      console.log(JSON.parse(sessionStorage.getItem('anxiety')))
+    }
   }
 })();
 

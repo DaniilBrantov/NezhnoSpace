@@ -25,6 +25,8 @@
 .info {
   cursor: pointer;
   background: transparent;
+
+  position: relative;
 }
 .info-icon {
   display: flex;
@@ -37,12 +39,16 @@
 .info-tultip {
   position: absolute;
   right: 0;
+  left: -80px;
+  top: 40px;
   display: none;
   width: 200px;
   height: 100px;
   padding: 10px;
   border-radius: 10px;
   background-color: antiquewhite;
+
+  z-index: 10;
 }
 .info-tultip.active {
   display: block;
@@ -253,6 +259,9 @@ input[type="range"]:active::-ms-thumb {
     justify-content: space-between;
     max-width: 80%;
     flex-grow: 1;
+  }
+  .info-tultip {
+    left: -130px;
   }
   .pause,
   .play {

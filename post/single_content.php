@@ -104,7 +104,7 @@ if( $cat_slug === "blogs"){
                                     </defs>
                                 </svg>
                             </span>
-                            <span class="info-tultip"></span>
+                            <span class="info-tultip">Подкаст о жизни</span>
                         </div>
                         <div class="volume-box">
                             <span id="volume" class="volume active">
@@ -307,4 +307,5 @@ if( $cat_slug === "blogs"){
         <input type="text" name="promocode" class='promocode_duble'/>
         <button type='submit' class='post-promocode-payment'></button>
     </form> -->
+    <audio preload='metadata' class='audio' src='' loop></audio>
 </section>
