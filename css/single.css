@@ -92,7 +92,48 @@
 .single{
     padding: 32px;
 }
+.single_button-reaction {
+    width: 880px;
+    margin: 30px auto; 
+    display: flex;
+}
+#like,
+#dislike {
+    width: 41px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
 
+    background-color: #EBE6FF;
+
+    cursor: pointer;
+}
+#like {
+    margin-right: 2px;
+    border-radius: 15px 0 0 15px;
+}
+#like svg path,
+#dislike svg path {
+    stroke: black;
+}
+#like.select,
+#dislike.select {
+    background-color: var(--blue);
+}
+#like.select svg path,
+#dislike.select svg path {
+    stroke: #EBE6FF;
+}
+#dislike {
+    border-radius: 0 15px 15px 0;
+}
+@media screen and (max-width: 900px) {
+    .single_button-reaction{
+        width: 80%;
+    }
+}
 
 @media screen and (max-width: 700px) {
     .single_main_img img{
