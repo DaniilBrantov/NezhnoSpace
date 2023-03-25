@@ -28,10 +28,15 @@
             error_log($e->getMessage());
             return false;
         }
-    }
+    };
     
 
-    echo json_encode(addLikeOrDislike($_POST['post_id'], $_POST['user_id'], $_POST['type']));
+    
+    if(FilterCat($_POST['post_id'], "recommendations")){
+        echo json_encode(addLikeOrDislike($_POST['post_id'], $_POST['user_id'], $_POST['type']));
+    }else{
+        echo json_encode(0);
+    };
 
 
 

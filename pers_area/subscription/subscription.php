@@ -17,19 +17,12 @@ $theme_id=47;
 
 $today_practice= $subscription->getTodayPractice($daily_id);
 $daily_practices=$subscription->getCatData($daily_id);
-$recommendations=$subscription->getCatData($rec_id);
+// $recommendations=$subscription->getCatData($rec_id);
+$recommendations=$subscription->FilterPostsByLike($rec_id);
 $recommendations = array_slice($recommendations, 0, 6);
 //Перемешиваем массив и выводим рандомные посты
 $recommendations = shuffleArray($recommendations);
 $month_theme=$subscription->getCatData($theme_id);
-
-// $categories=['Ежедневные практики', 'Упражнения для вас', 'Темы'];
-// $cats_data=[];
-// foreach($categories as &$cat){
-//     $cat_ID=get_cat_ID( $cat );
-//     $cat_data=$subscription->getCatData($cat_ID);
-//     array_push( $cats_data, $cat_data );
-// }
 
 
 ?>

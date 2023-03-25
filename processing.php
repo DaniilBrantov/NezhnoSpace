@@ -249,8 +249,17 @@ class Subscription{
             $days=1*$close_posts;
         }if($cat_ID===47){
             $open_posts=$this->getCountOpenCatPosts($cat_ID);
-            $days = 6 - $open_posts;
-            $days=$days*$close_posts;
+            $payment_date = $this->userPaymentDate();
+            $today = date("Y-m-d H:i:s");
+            $frequency_discoveries=countDaysBetweenDates($today, $payment_date);
+            $open_days=$open_posts*7;
+            $days_before_open=$open_days-$frequency_discoveries;
+            if($close_posts===1){
+                $days=$days_before_open;
+            }else{
+                $close_posts=$close_posts-1;
+                $days=$days_before_open+7*$close_posts;
+            }
         }
         $next_post_date="+". $days ." day";
         $next_post_date = strtotime($next_post_date, time());
@@ -365,6 +374,38 @@ class Subscription{
             $i+=1;
         endwhile;
         return $res[1];
+    }
+    // Посты, которые лайкнул пользователь
+    protected function RatedPosts($cat_ID){
+        $db = new SafeMySQL();
+        session_start();
+        $user_likes = $db->getAll("SELECT * FROM likes WHERE user_id=?i", $_SESSION['id']);
+        $cat_data = $this->getCatData($cat_ID);
+        $result_key = 0;
+        $result_list=[];
+        foreach($cat_data as $cat_post){
+            foreach($user_likes as $like_data){
+                if($like_data['post_id'] == $cat_post['id']){
+                    $result_list[$result_key] = $cat_post;
+                    $result_key++;
+                }
+            }
+        }
+        return $result_list;
+    }
+    public function FilterPostsByLike($cat_ID){
+        $liked_posts = $this->RatedPosts($cat_ID);
+        $cat_data = $this->getCatData($cat_ID);
+        foreach($cat_data as $key => $cat_post){
+            $post_id=$cat_post['id'];
+            foreach($liked_posts as $like_data){
+                if($post_id == $like_data['id']){
+                    unset($cat_data[$key]);
+                }
+            }
+            
+        }
+        return $cat_data;
     }
 }
 if($_SESSION['id']==='190'){
