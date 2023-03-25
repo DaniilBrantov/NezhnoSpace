@@ -70,9 +70,9 @@ $("#reg_btn").click(function (e) {
 
 //Авторизация
 $("#auth_btn").click(function (e) {
-    if (sessionStorage.getItem('anxiety')) {
-      console.log(JSON.parse(sessionStorage.getItem('anxiety')))
-    }
+//     if (sessionStorage.getItem('anxiety')) {
+//       console.log(JSON.parse(sessionStorage.getItem('anxiety')))
+//     }
     //отключает стандартное поведение e(кнопки)
     e.preventDefault();
     $("input").removeClass("error");
