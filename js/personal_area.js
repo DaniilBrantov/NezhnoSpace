@@ -273,76 +273,40 @@ function clickButtonReaction(btnSelect, btnNonSelect) {
   btnSelect.classList.add('select');
 }
 
-function addLike(post_id, user_id) {
-  let like = document.querySelector('#like');
-  let dislike = document.querySelector('#dislike');
-  let btns = [like, dislike];
-
-  btns.forEach((btn) => {
-    btn.addEventListener("click", function (e) {
-      var type = $(e.currentTarget).attr("id");
-      $.ajax({
-        type: "POST",
-        url: 'add_like',
-        data: {
-          post_id: post_id,
-          user_id: user_id,
-          type: type
-        },
-        success: function (data) {
-          console.log(data);
+function addLike(post_id, user_id, e) {
+  let type = e.currentTarget.getAttribute('id');
+  if (type == "like") {
+    clickButtonReaction(like, dislike);
+  } else if (type == "dislike") {
+    clickButtonReaction(dislike, like);
+  }
   
-          let like = document.querySelector('#like');
-          let dislike = document.querySelector('#dislike');
-          data = JSON.parse(data);
-          if (data.type == "like") {
-            clickButtonReaction(like, dislike);
-          } else if (data.type == "dislike") {
-            clickButtonReaction(dislike, like);
-          } else {
-            clickButtonReaction(like, dislike);
-          }
-        }
-      });
-      //var type = $(this.target).attr("id");
-    });
-  })
-  
+  $.ajax({
+    type: "POST",
+    url: 'add_like',
+    data: {
+      post_id: post_id,
+      user_id: user_id,
+      type: type
+    },
+    success: function (data) {
+      data = JSON.parse(data);
+    }
+  });
 }
 
-// function visibleLike(post_id, user_id) {
-//   document.addEventListener('DOMContentLoaded', function() {
-//     let like = document.querySelector('#like');
-//     let dislike = document.querySelector('#dislike');
-//     var type = 'dislike';
-//     if (document.querySelector('#like')) {
-//       $.ajax({
-//         type: "POST",
-//         url: 'add_like',
-//         data: {
-//           post_id: post_id,
-//           user_id: user_id,
-//           type: type
-//         },
-//         success: function (data) {
-//           console.log(data);
-//           data = JSON.parse(data);
-//           if (data.type == "like") {
-//             clickButtonReaction(like, dislike);
-//           } else if (data.type == "dislike") {
-//             clickButtonReaction(dislike, like);
-//           } else {
-//             clickButtonReaction(like, dislike);
-//           }
-//         }
-//       });
-//     }
-//   })
-// }
+(() => {
+  if (document.querySelector('#like')) {
+    let like = document.querySelector('#like');
+    let dislike = document.querySelector('#dislike');
+    let btns = [like, dislike];
+  
+    let userId = document.querySelector('.single_button-reaction').dataset.userId;
+    let postId = document.querySelector('.single_button-reaction').dataset.postId;
+  
+    btns.forEach((btn) => {
+      btn.addEventListener("click", (e) => addLike(postId, userId, e));
+    })
+  }
+})();
 
-// (() => {
-  // <div class='single_button-reaction' onclick="visibleLike(<?php echo $post->ID; ?>,<?php echo $_SESSION['id']; ?>)"></div>
-//     let event = new Event("click");
-//     document.querySelector('.single_button-reaction').dispatchEvent(event);
-//     // document.querySelector('.single_button-reaction').click();
-// })();

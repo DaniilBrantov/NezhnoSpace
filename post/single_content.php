@@ -184,8 +184,8 @@ if( $cat_slug === "blogs"){
 <?php 
 
 if(FilterCat($post->ID, "recommendations")){ ?>
-<div class='single_button-reaction'>
-    <button id="like" class="like" onclick="addLike(<?php echo $post->ID; ?>,<?php echo $_SESSION['id']; ?>)">
+<div class='single_button-reaction' data-post-id="<?php echo $post->ID; ?>" data-user-id="<?php echo $_SESSION['id']; ?>">
+    <button id="like" class="like">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M2.0638 12.4897C2.03793 12.0175 2.10861 11.545 2.27151 11.1011C2.43441 10.6571 2.6861 10.251 3.01123 9.90756C3.33636 9.56414 3.72809 9.29055 4.16249 9.10362C4.59689 8.91668 5.06485 8.82031 5.53777 8.82031C6.01068 8.82031 6.47863 8.91668 6.91303 9.10362C7.34743 9.29055 7.73916 9.56414 8.06429 9.90756C8.38942 10.251 8.64113 10.6571 8.80402 11.1011C8.96692 11.545 9.03758 12.0175 9.01172 12.4897V18.3543C9.03758 18.8265 8.96692 19.2991 8.80402 19.7431C8.64113 20.187 8.38942 20.5931 8.06429 20.9366C7.73916 21.28 7.34743 21.5535 6.91303 21.7404C6.47863 21.9274 6.01068 22.0238 5.53777 22.0238C5.06485 22.0238 4.59689 21.9274 4.16249 21.7404C3.72809 21.5535 3.33636 21.28 3.01123 20.9366C2.6861 20.5931 2.43441 20.187 2.27151 19.7431C2.10861 19.2991 2.03793 18.8265 2.0638 18.3543V12.4897Z"
@@ -195,7 +195,7 @@ if(FilterCat($post->ID, "recommendations")){ ?>
                 stroke="#EBE6FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </button>
-    <button id="dislike" class="dislike" onclick="addLike(<?php echo $post->ID; ?>,<?php echo $_SESSION['id']; ?>)">
+    <button id="dislike" class="dislike">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M9.03125 11.229L11.8958 20.7706C11.9842 21.0871 12.1734 21.3662 12.4347 21.5654C12.696 21.7647 13.0151 21.8733 13.3437 21.8748V21.8748C13.5435 21.8734 13.7409 21.8328 13.9249 21.7551C14.1089 21.6774 14.2758 21.5642 14.4161 21.422C14.5563 21.2798 14.6672 21.1114 14.7424 20.9263C14.8176 20.7413 14.8555 20.5433 14.8542 20.3436V14.8436"
