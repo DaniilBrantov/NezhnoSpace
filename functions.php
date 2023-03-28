@@ -760,9 +760,14 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
 
         function FilterCat($post_id, $filter_cat){
         $cat = get_the_category( $post_id );
-        if($cat[0]->slug === $filter_cat){
+        foreach($cat as $el){
+        if($el->slug === $filter_cat){
         return TRUE;
-        }else{
-        return FALSE;
         }
+        }
+        // if($cat[0]->slug === $filter_cat){
+        // return TRUE;
+        // }else{
+        // return FALSE;
+        // }
         };
