@@ -182,9 +182,9 @@ if( $cat_slug === "blogs"){
 </div>
 
 <?php 
-
 if(FilterCat($post->ID, "recommendations")){ ?>
-<div class='single_button-reaction' data-post-id="<?php echo $post->ID; ?>" data-user-id="<?php echo $_SESSION['id']; ?>">
+<div class='single_button-reaction' data-post-id="<?php echo $post->ID; ?>"
+    data-user-id="<?php echo $_SESSION['id']; ?>">
     <button id="like" class="like">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

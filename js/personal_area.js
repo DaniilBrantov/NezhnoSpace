@@ -164,7 +164,25 @@ function uploadInfoShow(opacity, color, text) {
     accountInfo.init();
 
     if (sessionStorage.getItem('anxiety')) {
-      console.log(JSON.parse(sessionStorage.getItem('anxiety')))
+      let user_alarm = sessionStorage.getItem('anxiety');
+      var formData = new FormData();
+      formData.append("user_alarm", user_alarm);
+      $.ajax({
+        url: "save_alarm",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (jqxhr, status, errorMsg) {
+          uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
+        },
+      });
+
     }
   }
 })();
@@ -280,7 +298,7 @@ function addLike(post_id, user_id, e) {
   } else if (type == "dislike") {
     clickButtonReaction(dislike, like);
   }
-  
+
   $.ajax({
     type: "POST",
     url: 'add_like',
@@ -300,10 +318,10 @@ function addLike(post_id, user_id, e) {
     let like = document.querySelector('#like');
     let dislike = document.querySelector('#dislike');
     let btns = [like, dislike];
-  
+
     let userId = document.querySelector('.single_button-reaction').dataset.userId;
     let postId = document.querySelector('.single_button-reaction').dataset.postId;
-  
+
     btns.forEach((btn) => {
       btn.addEventListener("click", (e) => addLike(postId, userId, e));
     })
