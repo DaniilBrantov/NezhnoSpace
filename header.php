@@ -7,11 +7,11 @@
 
 <head>
     <title>Нежно Space — платформа для психотерапии</title>
+    <meta name="description" content="<?php bloginfo('description'); ?>" /> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title("", true); ?></title>
     <meta name="yandex-verification" content="d821d01bf0467793" />
-    <meta name="description" content="Психотерапия с помощью искусственного интеллекта. Не надо идти к психологу. Всё под ваш случай уже подобрала рекомендательная система."> 
     <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
     <?php wp_head(); ?>
 </head>
