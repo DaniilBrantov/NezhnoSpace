@@ -230,3 +230,85 @@ $("#set_pass_btn").click(function (e) {
         },
     });
 });
+
+//Валидация пароля
+(() => {
+    if (document.querySelector('.password-validation_progress')) {
+        class PasswordValidation {
+            constructor() {
+                this.lowercaseLetters = false;
+                this.capitalLetters = false;
+                this.numbers = false;
+                this.length = false;
+            }
+            sizeBar() {
+                if (size < 0) {
+                    size = 0;
+                } else if (size > 100) {
+                    size = 100;
+                }
+                if (size > 0 && size <= 25) {
+                    colorProgress.style.background = '#FF1111';
+                } else if (size > 25 && size <= 75) {
+                    colorProgress.style.background = '#FFA011';
+                } else if (size === 100) {
+                    colorProgress.style.background = '#5DFF11';
+                }
+        
+                progressBars.style.width = `${size}%`;
+            }
+            changeInput(valid, value) {
+                if (valid) {
+                    if (!this[value]) {
+                        this[value] = true;
+                        size += 25;
+                        this.sizeBar();
+                    }
+                } else {
+                    if (this[value]) {
+                        this[value] = false;
+                        size -= 25;
+                        this.sizeBar();
+                    }
+                }
+                
+            }
+        }
+    
+        const passwordValidation = new PasswordValidation();
+        const inputPassword = document.querySelector('.pers_item .pers_input input[name="pass"]');
+        const progressBars = document.querySelector('.password-validation_progress');
+        let colorProgress = document.querySelector('.password-validation_progress');
+        let size = Number(progressBars.dataset.size);
+    
+        inputPassword.addEventListener('keyup', function() {
+            // Validate lowercase letters
+            let lowerCaseLetters = /[a-z]/g;
+            if(inputPassword.value.match(lowerCaseLetters)) {
+                passwordValidation.changeInput(true, 'lowercaseLetters');
+            } else {
+                passwordValidation.changeInput(false, 'lowercaseLetters');
+            }
+            // Validate capital letters
+            let upperCaseLetters = /[A-Z]/g;
+            if(inputPassword.value.match(upperCaseLetters)) {
+                passwordValidation.changeInput(true, 'capitalLetters');
+            } else {
+                passwordValidation.changeInput(false, 'capitalLetters');
+            }
+            // Validate numbers
+            let numbers = /[0-9]/g;
+            if(inputPassword.value.match(numbers)) {
+                passwordValidation.changeInput(true, 'numbers');
+            } else {
+                passwordValidation.changeInput(false, 'numbers');
+            }
+            // Validate length
+            if(inputPassword.value.length >= 8) {
+                passwordValidation.changeInput(true, 'length');
+            } else {
+                passwordValidation.changeInput(false, 'length');
+            }
+        })
+    }
+})();

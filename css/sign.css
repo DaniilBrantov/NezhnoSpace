@@ -2,7 +2,7 @@
   background-color: var(--white);
   width: 100vw;
   height: 85vh;
-  min-height: 650px;
+  min-height: 750px;
   /* margin-top: 70px; */
   /* margin-bottom: 30px; */
   align-items: center;
@@ -79,10 +79,12 @@
 }
 .pers_item_txt {
   font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
   color: var(--main_1);
-  align-items: center;
-  display: flex;
-  gap: 8px;
+  /* align-items: center; */
+  /* display: flex; */
+  /* gap: 8px; */
 }
 .pers_btn button {
   width: 100%;
@@ -130,7 +132,28 @@
 .pass_eye.close_eye {
 	background: url(../images/Eye-Off.svg) 0 0 no-repeat;
 }
+.password-validation {
+  margin-top: 6px;
+}
+.password-validation li {
+  margin-top: 2px;
+}
+.password-validation_progress-bar {
+  margin: 12px auto;
+	background-color: #D4D4D4;
+	border-radius: 2px;
+	height: 8px;
+	width: 100%;
+	max-width: 100%;
+}
 
+.password-validation_progress {
+	background: #FF1111;
+	border-radius: 2px;
+	height: 8px;
+	width: 0;
+	transition: width 0.5s ease-in;
+}
 input.error {
   outline: 1px solid red;
   border-color: red;

@@ -19,6 +19,17 @@
             </div>
             <div class="pers_item">
                 <label>Пароль</label>
+                <div class='password-validation pers_item_txt'>
+                    <p>Требования к паролю:</p>
+                    <ul>
+                        <li class='validation_length'>6 и более символов</li>
+                        <li class='validation_length'>используйте большие и маленькие буквы</li>
+                        <li class='validation_length'>хотя бы одна цифра</li>
+                    </ul>
+                    <div class="password-validation_progress-bar">
+                        <div data-size="0" class="password-validation_progress"></div>
+                    </div>
+                </div>
                 <div class="pers_input">
                     <input type="password" name="pass" placeholder="Введите пароль...">
                     <span class="pass_eye"></span>
