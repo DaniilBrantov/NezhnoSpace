@@ -7,9 +7,18 @@
 }
 .banner_about_img{
     width: 576px;
+    height: 370px;
+    background-color: transparent;
+    border-radius: 25px;
+
+    position: relative;
 }
 .banner_about_img img{
-    border-radius: 25px ;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 25px;
 }
 .banner_about_cnt{
     display: grid;
@@ -39,7 +48,7 @@
     text-align: center;
 }
 .we_are_item_1{
-    width: 382px;
+    width: 280px;
 }
 .we_are_item_2{
     width: 333px;
@@ -76,7 +85,11 @@
     left: 212px;
 }
 .what_are_doing_img{
-    width: 100%;
+    margin: auto;
+    width: 576px;
+    height: 332px;
+    border-radius: 200px;
+    position: relative;
 }
 .what_are_doing_before, .how_doing_title{
     position: relative;
@@ -92,12 +105,18 @@
     border-radius: 5px;
 }
 .what_are_doing_img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
     border-radius: 200px;
+}
+.what_are_doing_img:nth-child(2) img {
+    object-position: center;
 }
 .what_are_doing_txt{
     display: grid;
     text-align: start;
-    height: 233px;
 }
 .what_are_doing_txt p, 
 .what_are_doing_txt .what_are_doing_list {
@@ -124,6 +143,17 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    position: relative;
+}
+.our_team_item_img img{
+    object-fit: cover;
+    object-position: top;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.our_team_item:nth-child(3) img{
+    object-position: center;
 }
 .our_team_item_title{
     font-size: 22px;
@@ -306,7 +336,8 @@
     .what_are_doing_txt{
         grid-row-start: 3;
     }
-    .what_are_doing_img img {
+    .what_are_doing_img {
+        width: 100%;
         height: auto;
     }
     .how_doing_title::after {
@@ -321,9 +352,6 @@
     }
     .our_platform_item{
         width: 200px;
-    }
-    .what_are_doing_img, .what_are_doing_img img {
-        width: 100%;
     }
     .our_platform_item_txt{
         width: 200px;
@@ -350,6 +378,7 @@
         max-width: 100%;
     }
     .about_slider .slick-list{
+        overflow: visible;
         min-height: 530px;
     }
     .banner_about{
@@ -357,7 +386,11 @@
     }
     .banner_about_img, .banner_about_img img{
         width: 100%;
+        height: auto;
         border-radius: 0;
+    }
+    .banner_about_img img {
+        object-fit: contain;
     }
     .banner_about_cnt{
         margin: 16px;
@@ -394,8 +427,11 @@
     .what_are_doing_txt h3, .our_platform h3, .our_team h3{
         font-size: 28px;
     }
+    .what_are_doing_img {
+        width: 100%;
+        height: 350px;
+    }
     .what_are_doing_img img {
-        height: auto;
         border-radius: 0;
     }
     .what_are_doing_txt{
@@ -450,6 +486,11 @@
     }
     .our_team, .our_platform{
         padding-top: 32px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .what_are_doing_img {
+        height: 228px;
     }
 }
 @media screen and (max-width: 360px) {

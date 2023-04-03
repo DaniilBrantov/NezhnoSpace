@@ -25,26 +25,26 @@
                 </p>
             </div>
             <div class="banner_about_img">
-                <img src="<?php img('about.jpg') ?>" alt="">
+                <img src="<?php img('about-img1.png') ?>" alt="">
             </div>
         </div>
         <test>
             <div class="we_are mt_100">
                 <div class="we_are_item_1">
                     <div class="we_are_img">
-                        <img src="<?php img('logo_vector.svg') ?>" alt="">
+                        <img src="<?php img('logo_vector.svg') ?>" alt="logo" width='50' height='50'>
                     </div>
                     <div class="we_are_txt">
                         <p>
                             Мы работаем через подписку.
-                            У вас будет доступ в кабинет, где находятся
+                            У&nbsp;вас будет доступ в кабинет, где находятся
                             материалы для психологической поддержки
                         </p>
                     </div>
                 </div>
                 <div class="we_are_item_2">
                     <div class="we_are_img">
-                        <img src="<?php img('logo_vector.svg') ?>" alt="">
+                        <img src="<?php img('logo_vector.svg') ?>" alt="logo" width='50' height='50'>
                     </div>
                     <div class="we_are_txt">
                         <p>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="we_are_item_3">
                     <div class="we_are_img">
-                        <img src="<?php img('logo_vector.svg') ?>" alt="">
+                        <img src="<?php img('logo_vector.svg') ?>" alt="logo" width='50' height='50'>
                     </div>
                     <div class="we_are_txt">
                         <p>
@@ -77,8 +77,7 @@
                             что делаем
                         </h3>
                         <p>
-                            Пользователь сам выстраивает свой персональный маршрут терапии.
-                            Мы готовы поддерживать вас в любое время:
+                            Наши алгоритмы помогают клиентам выстраивать свои персональные маршруты. Платформа готова поддержать вас в&nbsp;любое время:
                         </p>
                         <div class="what_are_doing_list">
                             <ul>
@@ -97,7 +96,7 @@
                         </p>
                     </div>
                     <div class="what_are_doing_before what_are_doing_img">
-                        <img src="<?php img('what_are_we_doing.jpg') ?>" alt="">
+                        <img src="<?php img('what_are_we_doing2.jpg') ?>" alt="">
                     </div>
                 </div>
             </div>
@@ -107,7 +106,7 @@
                         как делаем
                     </h3>
                     <div class="what_are_doing_img">
-                        <img src="<?php img('how_are_we_doing.jpg') ?>" alt="">
+                        <img src="<?php img('how_are_we_doing2.png') ?>" alt="">
                     </div>
                     <div class="what_are_doing_txt">
                         <h3 class="how_doing_title">
@@ -259,7 +258,7 @@
                 </h3>
                 <div class="our_platform_cnt">
                     <div class="our_platform_item">
-                        <img class="our_platform_item_img" src="<?php img('purpose3.png') ?>" alt="">
+                        <img class="our_platform_item_img" src="<?php img('purpose3(2).png') ?>" alt="">
                         <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Ментальное здоровье — важная составляющая благополучия и качества жизни.
@@ -267,16 +266,7 @@
                         </div>
                     </div>
                     <div class="our_platform_item">
-                        <img src="<?php img('purpose4.png') ?>" alt="">
-                        <div style="display:none;" class="our_platform_item_txt">
-                            <p class="white_txt bold_txt">
-                                Обеспечиваем гендерное равенство на работе и помогаем стать увереннее женщинам, которые
-                                столкнулись с дискриминацией и РПП на фоне стресса.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="our_platform_item">
-                        <img src="<?php img('purpose5.png') ?>" alt="">
+                        <img src="<?php img('purpose4(2).png') ?>" alt="">
                         <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Корпоративная подписка Нежно Space — это улучшение условий труда и забота о психике
@@ -285,7 +275,16 @@
                         </div>
                     </div>
                     <div class="our_platform_item">
-                        <img src="<?php img('purpose10.png') ?>" alt="">
+                        <img src="<?php img('purpose5(2).png') ?>" alt="">
+                        <div style="display:none;" class="our_platform_item_txt">
+                            <p class="white_txt bold_txt">
+                                Обеспечиваем гендерное равенство на работе и помогаем стать увереннее женщинам, которые
+                                столкнулись с дискриминацией и РПП на фоне стресса.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="our_platform_item">
+                        <img src="<?php img('purpose10(2).png') ?>" alt="">
                         <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Нежно Space - это доступ к психологической поддержке для всех, в том числе для уязвимых
