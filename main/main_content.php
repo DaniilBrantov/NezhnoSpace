@@ -89,6 +89,7 @@
             <div class="subscription_cnt">
                 <ul class="subscriptions_list">
                     <li class="subscriptions_item">
+                        <span class='subscriptions_item-stroke'></span>
                         <div class="subscriptions_item-wrap">
                             <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
                                 с&nbsp;Нежно</p>
@@ -106,6 +107,7 @@
 
                     </li>
                     <li class="subscriptions_item">
+                        <span class='subscriptions_item-stroke'></span>
                         <div class="subscriptions_item-wrap">
                             <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
                                 с&nbsp;Нежно</p>
@@ -122,6 +124,7 @@
                         </form>
                     </li>
                     <li class="subscriptions_item">
+                        <span class='subscriptions_item-stroke'></span>
                         <div class="subscriptions_item-wrap">
                             <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
                                 с&nbsp;Нежно</p>
@@ -165,15 +168,10 @@
         <h2 class="less-more_title">
             Что ты получишь в Подписке?</h2>
         <div class="less-more_subtitle">
-            <p> Мы применяем современные методы психотерапии. Наши алгоритмы подстраиваются под&#160;тебя, твой темп и
-                запрос.
-                Цель платформы выстроить твой индивидуальный маршрут терапии по&nbsp;принципу <span>&#171ровно столько,
+            <p> Мы&nbsp;применяем современные методы психотерапии. Наши&nbsp;алгоритмы подстраиваются под&nbsp;вас, ваш&nbsp;темп и запрос. Цель платформы выстроить ваш&nbsp;индивидуальный маршрут терапии по&nbsp;принципу — <span>&#171ровно столько,
                     сколько
                     нужно&#187</span></p>
-            <p>Мы приготовили для тебя более 30 тем, которые страдают, пока ты тревожишься о&nbsp;еде: карьера,
-                отношения,
-                секс,
-                деньги… 1 месяц = 1 тема. В&nbsp;Личном Кабинете ты&#160;найдешь 3 блока материалов: </p>
+            <p>Вы выбираете одну&nbsp;тему месяца, которая у&nbsp;вас страдает, пока вы&nbsp;тревожитесь о&nbsp;еде. Например: карьера, отношения, секс, деньги, семья, и&nbsp;так&nbsp;далее. Таких тем в&nbsp;Нежно&nbsp;Space более 30. Вы&nbsp;можете оставаться в&nbsp;выбранной теме столько, сколько нужно. Это нормально, если вам&nbsp;понадобится больше времени. В&nbsp;Личном&nbsp;Кабинете вы&nbsp;найдете три блока материалов:</p>
         </div>
         <ul class="less-more_list">
             <li class="less-more_item">
