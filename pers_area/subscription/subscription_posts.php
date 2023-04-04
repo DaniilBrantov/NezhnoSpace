@@ -4,7 +4,8 @@
     $get_id=(int)$_GET['id'];
 
     $subscription= new Subscription();
-    if( !checkPayment() || !$get_id || empty($subscription->getCatData($get_id))){
+    $payment= new Payment();
+    if( !$payment->getCheckPayment() || !$get_id || empty($subscription->getCatData($get_id))){
         header('Location: subscription');
     };
     $categories=$subscription->getCatData($get_id);
@@ -17,7 +18,8 @@
 <span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
 
 
-<div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
+<div class="subcscription_container"
+    data-status-payment='<?php echo ($payment->getCheckPayment() ? 'true' : 'false'); ?>'>
     <h3 class="subcscription_title">Программа</h3>
 
     <section class="subscriptions-posts">

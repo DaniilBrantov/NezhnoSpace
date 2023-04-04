@@ -6,6 +6,7 @@ require __DIR__ . '/../libs/yookassa/autoload.php';
 use YooKassa\Client;
 $status=2;
 $user_id=$db->getAll("SELECT id FROM users WHERE status=?i", $status);
+$payment=new Payment();
 for($i = 0; $i < count($user_id); $i++){
     $id=$user_id[$i]['id'];
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i AND status=2", $id);
@@ -44,7 +45,7 @@ for($i = 0; $i < count($user_id); $i++){
                 }
             }else{
                 if($user_data["payment_method"] && !empty($user_data["payment_method"]) && isset($user_data["payment_method"]) && $user_data["payment_method"]!==NULL){
-                    if(connectionPayment(Autopay($user_data["payment_method"],$price,$description))){
+                    if($payment->getconnectToPayment($payment->getAutopay($user_data["payment_method"],$price,$description))){
                         $today = date("Y-m-d H:i:s");
                         if($db->query("UPDATE users SET payment_date=?s WHERE id=?i AND status=2",$today, $id)){
                             echo $id;

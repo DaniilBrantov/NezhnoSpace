@@ -1,5 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
+    $payment= new Payment();
     CheckAuth();
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
@@ -79,7 +80,8 @@
                     required="required" name="account_input-lastName" value="<?php echo $user_data['surname']; ?>" />
                 <span class="text-error text-error_account_input-lastName">text error</span>
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
-                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" readonly disabled/>
+                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" readonly
+                    disabled />
                 <span class="text-error text-error_account_input-email">text error</span>
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
                     required="required" name="account_input-tel" value="<?php 
@@ -95,7 +97,7 @@
             </form>
         </div>
 
-        <?php if (checkPayment()) { ?>
+        <?php if ($payment->getCheckPayment()) { ?>
         <div class="account_sections-footer">
             Пока не готовы начать? <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
         </div>
@@ -117,7 +119,7 @@
                 <ul class='pay-banner_options-wrap pay-banner_options-slider'>
                 </ul>
             </div>
-            
+
             <!-- <form action="payment.php" method="POST" class='promocode-post'>
                 <input type="text" name="promocode" class='promocode_duble'/>
                 <button type='submit' class='post-promocode-payment'></button>
@@ -132,7 +134,8 @@
         <button class='pay-banner_btnClose' type='button'></button>
         <div class='pay-banner_content'>
             <h4 class='pay-banner_title'>Вы уверены, что хотите отписаться от подписки Нежно&nbspSpace?</h4>
-            <div class='pay-banner_text'>Вам ещё доступны материалы оплаченного месяца до <span class='pay-banner_text-date'>05.03.2023</span></div>
+            <div class='pay-banner_text'>Вам ещё доступны материалы оплаченного месяца до <span
+                    class='pay-banner_text-date'>05.03.2023</span></div>
             <div class='account_payment-off_buttons'>
                 <button class='account_payment-off_button account_payment-off_yes'>Да</button>
                 <button class='account_payment-off_button account_payment-off_no'>Нет</button>
@@ -140,6 +143,3 @@
         </div>
     </div>
 </section>
-
-
-

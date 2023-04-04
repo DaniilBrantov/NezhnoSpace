@@ -12,7 +12,8 @@ require_once( get_theme_file_path('processing.php') );
 if($_POST['promo_btn']){
     if( $_POST['promo'] ){
         $promo=$_POST['promo'];
-        echo json_encode(checkPromocode($promo));
+        $payment=new Payment();
+        echo json_encode($payment->getcheckPromocode($promo));
     }else{
         $err["status"]=false;
         $err["msg"]="Введите промокод!";

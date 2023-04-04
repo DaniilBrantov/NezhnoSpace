@@ -264,17 +264,17 @@ return $name;
 
 
 //Сегодняшняя ежедневнвя практика
-function TodayPractice($payment_days,$payment_date){
-$arr=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
-$open_arr=[];
-$i=0;
-foreach ($arr as &$value) {
-if($value['status'] === true){
-$open_arr[$i]=$value;
-$i++;
-}
-}
-return(end($open_arr));
+// function TodayPractice($payment_days,$payment_date){
+// $arr=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
+// $open_arr=[];
+// $i=0;
+// foreach ($arr as &$value) {
+// if($value['status'] === true){
+// $open_arr[$i]=$value;
+// $i++;
+// }
+// }
+// return(end($open_arr));
 
 
 // if(checkPayment()){
@@ -292,84 +292,84 @@ return(end($open_arr));
 // };
 // return $result;
 // }
-}
+// }
 
 //Вывод всех записей из конкретной категории
-function CategoryData($open_posts,$category){
+// function CategoryData($open_posts,$category){
 
-if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
-$open_posts=ceil($open_posts);
-$res=[];
-$i=1;
-$close_posts=1;
-while (have_posts()) : the_post();
-$res[$i] = subscriptionData(get_the_ID());
-if(checkPayment()){
-if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
-$res[$i]['status']=TRUE;
-}else{
-$res[$i]['status']=FALSE;
+// if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
+// $open_posts=ceil($open_posts);
+// $res=[];
+// $i=1;
+// $close_posts=1;
+// while (have_posts()) : the_post();
+// $res[$i] = subscriptionData(get_the_ID());
+// if(checkPayment()){
+// if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
+// $res[$i]['status']=TRUE;
+// }else{
+// $res[$i]['status']=FALSE;
 
-$res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
-$close_posts++;
-}
-};
+// $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
+// $close_posts++;
+// }
+// };
 
-if($res[$i]['exception']==='1'){
-$res[$i]['status']=TRUE;
-array_unshift($res, $res[$i]);
-unset($res[$i]);
-}
+// if($res[$i]['exception']==='1'){
+// $res[$i]['status']=TRUE;
+// array_unshift($res, $res[$i]);
+// unset($res[$i]);
+// }
 
-$i+=1;
-endwhile;
-endif;
-return ($res);
-wp_reset_query();
-};
+// $i+=1;
+// endwhile;
+// endif;
+// return ($res);
+// wp_reset_query();
+// };
 
 
 //Проверка оплаты
-function checkPayment(){
+// function checkPayment(){
 
-$db = new SafeMySQL();
-$status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
+// $db = new SafeMySQL();
+// $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
 
-if($status && !empty($status) && isset($status) && $status !== NULL){
-if($status==='2'){
-return TRUE;
-}else{return FALSE;}
-}else{return FALSE;}
-}
+// if($status && !empty($status) && isset($status) && $status !== NULL){
+// if($status==='2'){
+// return TRUE;
+// }else{return FALSE;}
+// }else{return FALSE;}
+// }
 
 //Данные из конкретной записи
-function subscriptionData($id){
-$post = get_post($id);
+// function subscriptionData($id){
+// $post = get_post($id);
 
-$res=[
-'id' => $post->ID,
-'date' => $post->post_date,
-'excerpt' => $post->post_excerpt,
-'title' => $post->post_title,
-'content' => $post->post_content,
-'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
-'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
-'lesson_time' => get_post_meta($post->ID, 'reading_time', true),
-'exception' => get_post_meta($post->ID, 'open_posts_exception', true)
-];
-if(checkPayment()){
-$res['link'] = $post->post_name;
-$res['tag'] =get_the_tag_list('<li>','</li>
-<li>','</li>', $post->ID );
-}else{
-if($res['exception']==='1'){
-$res['status']=TRUE;
-}else{
-$res['status']=FALSE;
-}
-}
-return $res;
-}
+// $res=[
+// 'id' => $post->ID,
+// 'date' => $post->post_date,
+// 'excerpt' => $post->post_excerpt,
+// 'title' => $post->post_title,
+// 'content' => $post->post_content,
+// 'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
+// 'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
+// 'lesson_time' => get_post_meta($post->ID, 'reading_time', true),
+// 'exception' => get_post_meta($post->ID, 'open_posts_exception', true)
+// ];
+// if(checkPayment()){
+// $res['link'] = $post->post_name;
+// $res['tag'] =get_the_tag_list('<li>','</li>
+// <li>','</li>', $post->ID );
+// }else{
+// if($res['exception']==='1'){
+// $res['status']=TRUE;
+// }else{
+// $res['status']=FALSE;
+// }
+// }
+// return $res;
+// }
 
 //Количество дней между датами
 function countDaysBetweenDates($d1, $d2){
@@ -384,30 +384,30 @@ return 0;
 }
 
 //Дата открытия поста
-function getNextPostDate($open_posts, $close_posts,$category){
-if($category===45 || $category===46){
-$days = 6 - $open_posts-7;
-if($close_posts){
-$days=1*$close_posts;
-}
-}if($category===47){
-$days = 6 - $open_posts-7;
-if($close_posts){
-$days=$days+7*$close_posts;
-}
+// function getNextPostDate($open_posts, $close_posts,$category){
+// if($category===45 || $category===46){
+// $days = 6 - $open_posts-7;
+// if($close_posts){
+// $days=1*$close_posts;
+// }
+// }if($category===47){
+// $days = 6 - $open_posts-7;
+// if($close_posts){
+// $days=$days+7*$close_posts;
+// }
 
-}
+// }
 
-$next_post_date="+". $days ." day";
-$next_post_date = strtotime($next_post_date, time());
-$date = date("d.m.Y",$next_post_date);
-$date = new DateTime($date);
-$intlFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
-$intlFormatter->setPattern('MMMM');
-$ru_format=date_format($date, 'd'). ' '. $intlFormatter->format($date);
+// $next_post_date="+". $days ." day";
+// $next_post_date = strtotime($next_post_date, time());
+// $date = date("d.m.Y",$next_post_date);
+// $date = new DateTime($date);
+// $intlFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+// $intlFormatter->setPattern('MMMM');
+// $ru_format=date_format($date, 'd'). ' '. $intlFormatter->format($date);
 
-return($ru_format);
-}
+// return($ru_format);
+// }
 
 //Вывод конкретного кол-ва знаков в тексте
 function trimCntChars($txt,$count, $after) {
@@ -438,65 +438,65 @@ return $txt . $after;
 
 
 //Создание платежных данных
-function createPagePayment($price,$description){
-$data = array(
-'amount' => array(
-'value' => $price,
-'currency' => 'RUB',
-),
-'payment_method_data' => array(
-'type' => 'bank_card',
-),
-'capture' => true,
-'confirmation' => array(
-'type' => 'redirect',
-'return_url' => 'https://nezhno.space/pay_success',
-),
-'description' => $description,
-'save_payment_method' => true,
-'metadata' => array(
-'order_id' => 1,
-)
-);
-return $data;
-};
+// function createPagePayment($price,$description){
+// $data = array(
+// 'amount' => array(
+// 'value' => $price,
+// 'currency' => 'RUB',
+// ),
+// 'payment_method_data' => array(
+// 'type' => 'bank_card',
+// ),
+// 'capture' => true,
+// 'confirmation' => array(
+// 'type' => 'redirect',
+// 'return_url' => 'https://nezhno.space/pay_success',
+// ),
+// 'description' => $description,
+// 'save_payment_method' => true,
+// 'metadata' => array(
+// 'order_id' => 1,
+// )
+// );
+// return $data;
+// };
 
 
 //Автоплатёж
-function Autopay($pay_id,$price,$description){
-$data=array(
-'amount' => array(
-'value' => $price,
-'currency' => 'RUB',
-),
-'capture' => true,
-'payment_method_id' => $pay_id,
-'description' => $description,
-);
-return $data;
-};
+// function Autopay($pay_id,$price,$description){
+// $data=array(
+// 'amount' => array(
+// 'value' => $price,
+// 'currency' => 'RUB',
+// ),
+// 'capture' => true,
+// 'payment_method_id' => $pay_id,
+// 'description' => $description,
+// );
+// return $data;
+// };
 
 
 //Подключение к кассе
-function connectionPayment($data){
-$client = new \YooKassa\Client();
-$set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
-// $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
-$payment = $client->createPayment(
-$data,
-uniqid('', true)
-);
-return $payment;
-};
+// function connectionPayment($data){
+// $client = new \YooKassa\Client();
+// $set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+// // $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+// $payment = $client->createPayment(
+// $data,
+// uniqid('', true)
+// );
+// return $payment;
+// };
 
 // Получение данных оплаты
-function getPaymentInformation($paymentId){
-$client = new \YooKassa\Client();
-$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
-// $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
-$payment = $client->getPaymentInfo($paymentId);
-return $payment;
-}
+// function getPaymentInformation($paymentId){
+// $client = new \YooKassa\Client();
+// $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+// // $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+// $payment = $client->getPaymentInfo($paymentId);
+// return $payment;
+// }
 
 //Обновление и проверка параметра пользователя
 function updateData($update_data,$data_validation,$db_column,$err){
@@ -524,123 +524,117 @@ return $errors;
 *
 */
 function vb_reg_new_user() {
-
-// Verify nonce
 if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ))
 return( 'Ooops, something went wrong, please try again later.' );
-
-// Post values
 $password = $_POST['pass'];
 $email = $_POST['mail'];
 $name = $_POST['first_name'];
-
 $userdata = array(
 'user_login' => $email,
 'user_pass' => $password,
 'user_email' => $email,
 'first_name' => $name,
 );
-
 $user_id = wp_insert_user( $userdata ) ;
-
-// Return
 if( !is_wp_error($user_id) ) {
-//$user_id = wp_update_user(array('ID' => $user_id, 'description' => $about)); //add description-about
 return '1';
 } else {
 return $user_id->get_error_message();
 }
 die();
-
 }
-
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
 
 //Save Payment
-function SavePayment($paymentId){
-if($paymentId){
-$payment_info=getPaymentInformation($paymentId);
-$id=$_SESSION['id'];
-if($payment_info){
-if($payment_info["status"]==='succeeded'){
-$payment_date=(array)($payment_info["created_at"]);
-$db = new SafeMySQL();
-if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s WHERE
-id=?i", 2,
-$_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $payment_date["date"],
-$id)){
-$answer = true;
-}
-}
-}
-}
-return (isset($answer) );
-}
+// function SavePayment($paymentId){
+// if($paymentId){
+// $payment_info=getPaymentInformation($paymentId);
+// $id=$_SESSION['id'];
+// if($payment_info){
+// if($payment_info["status"]==='succeeded'){
+// $payment_date=(array)($payment_info["created_at"]);
+// $db = new SafeMySQL();
+// if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s
+// WHERE
+// id=?i", 2,
+// $_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"],
+// $payment_date["date"],
+// $id)){
+// $answer = true;
+// }
+// }
+// }
+// }
+// return (isset($answer) );
+// }
 
 // Получить данные записи для вывода на страницу. С проверкой оплаты
-function getSubscriptionLesson($get_id, $open_posts){
-$cat = (array)(get_the_category($get_id)[0]);
-$cat_ID=$cat["cat_ID"];
-$category_data=CategoryData($open_posts, $cat_ID);
+// function getSubscriptionLesson($get_id, $open_posts){
+// $cat = (array)(get_the_category($get_id)[0]);
+// $cat_ID=$cat["cat_ID"];
+// $category_data=CategoryData($open_posts, $cat_ID);
 
-foreach($category_data as $el){
-if($el['id'] === $get_id){
-$category_el=$el;
-}
-}
-if($category_el["status"] === true){
-return $category_el;
-}else{
-header('Location: subscription');
-}
-}
+// foreach($category_data as $el){
+// if($el['id'] === $get_id){
+// $category_el=$el;
+// }
+// }
+// if($category_el["status"] === true){
+// return $category_el;
+// }else{
+// header('Location: subscription');
+// }
+// }
 
 //Открытые посты
-function openPosts($payment_date, $get_id, $category){
-$cat = (array)(get_the_category($get_id)[0]);
-$cat_ID=$cat["cat_ID"];
-if($category){
-$cat_ID=$category;
-}
-$today = date("Y-m-d H:i:s");
-$payment_days=countDaysBetweenDates($today, $payment_date);
-if($cat_ID === 45){
-$open_posts=$payment_days;
-}elseif($cat_ID === 46){
-$open_posts=999;
-}elseif($cat_ID === 47){
-$open_posts=$payment_days/7;
-}
-return $open_posts;
-}
+// function openPosts($payment_date, $get_id, $category){
+// $cat = (array)(get_the_category($get_id)[0]);
+// $cat_ID=$cat["cat_ID"];
+// if($category){
+// $cat_ID=$category;
+// }
+// $today = date("Y-m-d H:i:s");
+// $payment_days=countDaysBetweenDates($today, $payment_date);
+// if($cat_ID === 45){
+// $open_posts=$payment_days;
+// }elseif($cat_ID === 46){
+// $open_posts=999;
+// }elseif($cat_ID === 47){
+// $open_posts=$payment_days/7;
+// }
+// return $open_posts;
+// }
 
 
 //Проверка промокода
-function checkPromocode($promo){
-$db = new SafeMySQL();
-$promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
-if($promo_data){
-if( $promo === $promo_data['promo'] ){
-if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
-    $error['status'] = true;
-    $error['promo'] = $promo_data['promo'];
-    $error['sale'] = $promo_data['sale'];
-    }else{
-    $error['status'] = false;
-    $error['msg'] = "Данный промокод не доступен!";
-    }
-    }else{
-    $error['status'] = false;
-    $error['msg'] = "Неверный промокод!";
-    }
-    }else{
-    $error['status'] = false;
-    $error['msg'] = "Неверный промокод!";
-    }
-    return $error;
-    }
+// function checkPromocode($promo){
+// $db = new SafeMySQL();
+// $promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
+// if($promo_data){
+// if( $promo === $promo_data['promo'] ){
+// if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
+    // if($promo_data['sale'] >= 100){
+
+    // }
+    // $error['status'] = true;
+    // $error['promo'] = $promo_data['promo'];
+    // $error['sale'] = $promo_data['sale'];
+    // }else{
+    // $error['status'] = false;
+    // $error['msg'] = "Данный промокод не доступен!";
+    // }
+    // }else{
+    // $error['status'] = false;
+    // $error['msg'] = "Неверный промокод!";
+    // }
+    // }else{
+    // $error['status'] = false;
+    // $error['msg'] = "Неверный промокод!";
+    // }
+    // return $error;
+    // }
 
     //Вывод последнего изображения из поста
     function LastPostImage($post) {
@@ -656,30 +650,30 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
         }
 
         //Вывод постов под конкретным тэгом
-        function tagPosts($payment_date){
-        if (have_posts()) :
-        $res=[];
-        $i=1;
-        $close_posts=1;
-        while (have_posts()) : the_post();
-        $cat_id=get_the_category()[0]->cat_ID;
-        $open_posts=ceil(openPosts( $payment_date, '', $cat_id ));
-        $res[$i] = subscriptionData(get_the_ID()) ;
-        if(checkPayment()){
-        if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
-        $res[$i]['status']=TRUE;
-        }else{
-        $res[$i]['status']=FALSE;
+        // function tagPosts($payment_date){
+        // if (have_posts()) :
+        // $res=[];
+        // $i=1;
+        // $close_posts=1;
+        // while (have_posts()) : the_post();
+        // $cat_id=get_the_category()[0]->cat_ID;
+        // $open_posts=ceil(openPosts( $payment_date, '', $cat_id ));
+        // $res[$i] = subscriptionData(get_the_ID()) ;
+        // if(checkPayment()){
+        // if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
+        // $res[$i]['status']=TRUE;
+        // }else{
+        // $res[$i]['status']=FALSE;
 
-        $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
-        $close_posts++;
-        }
-        };
-        $i+=1;
-        endwhile;
-        return $res;
-        endif;
-        }
+        // $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
+        // $close_posts++;
+        // }
+        // };
+        // $i+=1;
+        // endwhile;
+        // return $res;
+        // endif;
+        // }
         // Перемешать массив
         function shuffleArray($arr) {
         $result = [];
@@ -758,16 +752,16 @@ if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['fir
 
 
 
-        function FilterCat($post_id, $filter_cat){
-        $cat = get_the_category( $post_id );
-        foreach($cat as $el){
-        if($el->slug === $filter_cat){
-        return TRUE;
-        }
-        }
+        // function FilterCat($post_id, $filter_cat){
+        // $cat = get_the_category( $post_id );
+        // foreach($cat as $el){
+        // if($el->slug === $filter_cat){
+        // return TRUE;
+        // }
+        // }
         // if($cat[0]->slug === $filter_cat){
         // return TRUE;
         // }else{
         // return FALSE;
         // }
-        };
+        // };

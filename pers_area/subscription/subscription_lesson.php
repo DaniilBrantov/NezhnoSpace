@@ -2,8 +2,8 @@
 require_once( get_theme_file_path('processing.php') );
 CheckAuth();
 $get_id=(int)$_GET['post'];
-
-if( !checkPayment() || !$get_id){
+$payment=new Payment();
+if( !$payment->getCheckPayment() || !$get_id){
     header('Location: subscription');
 };
 $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);

@@ -25,3 +25,11 @@
         <input name="add_post" type="submit">
     </form>
 </div>
+<div class="add_payment_user">
+    <h2>Добавить пользователя, который оплатил</h2>
+    <form action="admin_check">
+        <input name="add_payment_mail" type="text">
+        <input name="add_payment_choice" type="number">
+        <input name="add_payment_mail" type="text">
+    </form>
+</div>

@@ -1,9 +1,11 @@
 <?php 
 $subscription= new Subscription();
+$payment= new Payment();
 $tag_posts=$subscription->getTagPosts();
 
 ?>
-<div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
+<div class="subcscription_container"
+    data-status-payment='<?php echo ($payment->getCheckPayment() ? 'true' : 'false'); ?>'>
     <h3 class="subcscription_title"><?php single_tag_title(); ?></h3>
 
     <section class="subscriptions-posts">

@@ -1,6 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     CheckAuth();
+    $payment=new Payment();
     $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     $payment_date =$user_data['payment_date'];
     $payment_days=countDaysBetweenDates(date("Y-m-d H:i:s"), $payment_date);
@@ -18,7 +19,7 @@ $theme_id=47;
 $today_practice= $subscription->getTodayPractice($daily_id);
 $daily_practices=$subscription->getCatData($daily_id);
 // $recommendations=$subscription->getCatData($rec_id);
-$recommendations=$subscription->FilterPostsByLike($rec_id);
+$recommendations=$subscription->getFilterPostsByLike($rec_id);
 $recommendations = array_slice($recommendations, 0, 6);
 //Перемешиваем массив и выводим рандомные посты
 $recommendations = shuffleArray($recommendations);
@@ -32,7 +33,8 @@ $month_theme=$subscription->getCatData($theme_id);
 <span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
 
 
-<div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
+<div class="subcscription_container"
+    data-status-payment='<?php echo ($payment->getCheckPayment() ? 'true' : 'false'); ?>'>
     <!-- <div class="subcscription_calendar">
         <h3 class="subcscription_title">Календарь</h3>
         <svg width="40" height="16" viewBox="0 0 40 16" fill='none' xmlns="http://www.w3.org/2000/svg">

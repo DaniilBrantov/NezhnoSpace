@@ -1,6 +1,7 @@
 <?php 
 global $post;
 require_once( get_theme_file_path('processing.php') );
+$payment=new Payment();
 $cat_data = get_the_category( $post->ID )[0];
 $cat_slug=$cat_data->slug;
 if( $cat_slug === "blogs"){
@@ -182,7 +183,8 @@ if( $cat_slug === "blogs"){
 </div>
 
 <?php 
-if(FilterCat($post->ID, "recommendations")){ ?>
+$subscription= new Subscription();
+if($subscription->getFilterCat($post->ID, "recommendations")){ ?>
 <div class='single_button-reaction' data-post-id="<?php echo $post->ID; ?>"
     data-user-id="<?php echo $_SESSION['id']; ?>">
     <button id="like" class="like">
@@ -219,7 +221,8 @@ if(FilterCat($post->ID, "recommendations")){ ?>
     $month_theme=$subscription->getCatData(47);
 ?>
 
-<div class="subcscription_container" data-status-payment='<?php echo (checkPayment() ? 'true' : 'false'); ?>'>
+<div class="subcscription_container"
+    data-status-payment='<?php echo ($payment->getCheckPayment() ? 'true' : 'false'); ?>'>
     <h3 class="subcscription_title">Общий материал</h3>
     <section class="daily_practices_slider">
         <?php 

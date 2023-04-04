@@ -1,38 +1,19 @@
 <?php
-echo 'hi';
-if (checkPayment() || !$_SESSION['id'] || $_SESSION['id']==NULL) {
+$payment=new Payment();
+if ($payment->getCheckPayment() || !$_SESSION['id'] || $_SESSION['id']==NULL) {
     header('Location: subscription');
     die();
 }
-
-if($_POST["payment_btn"] || $_POST["payment_btn"] !== NULL){
-    $service_id=$_POST["payment_id"];
-}elseif($_GET["payment_choice"]){
-    $service_id=$_GET["payment_choice"];
-}else{
-    $service_id=944;
-};
-if(!get_post_meta($service_id, 'month_count', true) || !get_post_meta($service_id, 'price', true)){
-    $service_id=944;
-};
-    $service_number=get_post_meta($service_id, 'month_count', true);
-    $price=get_post_meta($service_id, 'price', true);
-    $description=$mail . ' Купил услугу на ' . $service_number .' месяц(ев)';
-    $mail = $db->getOne("SELECT mail FROM users WHERE id=?i",$_SESSION['id']);
-
+$service_data = $payment->getPaymentServiceData();
 //Promocode
 if( $_POST['promo'] ){
     $promo=$_POST['promo'];
-    if(checkPromocode($promo)['status']){
-        $price= $price-($price / 100 * checkPromocode($promo)['sale']);
+    if($payment->getcheckPromocode($promo)['status']){
+        $price= $service_data['price']-($service_data['price'] / 100 * $payment->getcheckPromocode($promo)['sale']);
     }
 }
-
-
-
-    $payment_result=connectionPayment(createPagePayment($price, $description));
+    $payment_result=$payment->getConnectToPayment($payment->createPagePayment($service_data['price'], $service_data['description']));
     $payment_url=$payment_result['confirmation']['confirmation_url'];
-
     $_SESSION["payment"]=[
         "id" => $payment_result["id"],
         "service_id" => $service_id

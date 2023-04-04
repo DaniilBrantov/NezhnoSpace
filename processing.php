@@ -175,7 +175,7 @@ class Subscription{
                 $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
                 $res[$i] = $this->getPostData(get_the_ID());
 
-                if(checkPayment()){
+                if($this->getCheckPayment()){
                     if($i < $count_open_posts){
                         $res[$i]['status']=true;
                     }else{
@@ -221,8 +221,8 @@ class Subscription{
         $res=[];
         while (have_posts()) : the_post();
             $res[$i] = $this->getPostData(get_the_ID());
-
-            if(checkPayment()){
+            $payment=new Payment();
+            if($payment->getCheckPayment()){
                 if($i < $count_open_posts){
                     $res[$i]['status']=true;
                 }else{
@@ -354,7 +354,7 @@ class Subscription{
         while (have_posts()) : the_post();
             $res[$i] = $this->getPostData(get_the_ID());
             if($id === $res[$i]['id']){
-                if(checkPayment()){
+                if($this->getCheckPayment()){
                     if($i < $count_open_posts){
                         $res[$i]['status']=true;
                     }else{
@@ -393,7 +393,16 @@ class Subscription{
         }
         return $result_list;
     }
-    public function FilterPostsByLike($cat_ID){
+    // Получить отфильтрованные по лайкам посты 
+    public function getFilterPostsByLike($cat_ID){
+        return $this->FilterPostsByLike($cat_ID);
+    }
+    // Получить результат проверки категории
+    public function getFilterCat($cat_ID){
+        return $this->FilterCat($cat_ID);
+    }
+    //Отфильтрованные по лайкам посты 
+    protected function FilterPostsByLike($cat_ID){
         $liked_posts = $this->RatedPosts($cat_ID);
         $cat_data = $this->getCatData($cat_ID);
         foreach($cat_data as $key => $cat_post){
@@ -407,13 +416,183 @@ class Subscription{
         }
         return $cat_data;
     }
-}
-if($_SESSION['id']==='190'){
-    // $subscription= new Subscription();
-    // $x=$subscription->getCatData(47);
-    //var_dump($x);
+    // Проверка категории
+    protected function FilterCat($post_id, $filter_cat){
+        $cat = get_the_category( $post_id );
+        foreach($cat as $el){
+            if($el->slug === $filter_cat){
+            return TRUE;
+            }
+        }
+    }
 }
 
+
+
+
+
+
+
+
+
+//Payment
+class Payment{
+    // Получить проверку промокода
+    public function getcheckPromocode($promo){
+        return $this->checkPromocode($promo);
+    }
+    //Подключение к кассе
+    public function getConnectToPayment($data){
+        return $this->connectionPayment($data);
+    }
+    // Получить автоплатёж
+    public function getAutopay($data){
+        return $this->Autopay($data);
+    }
+    // Создание платежных данных
+    public function createPagePayment($price,$description){
+        $data = array(
+            'amount' => array(
+                'value' => $price,
+                'currency' => 'RUB',
+            ),
+            'payment_method_data' => array(
+                'type' => 'bank_card',
+            ),
+            'capture' => true,
+            'confirmation' => array(
+                'type' => 'redirect',
+                'return_url' => 'https://nezhno.space/pay_success',
+            ),
+            'description' => $description,
+            'save_payment_method' => true,
+            'metadata' => array(
+                'order_id' => 1,
+            )
+        );
+        return $data;
+    }
+    //Получить проверку оплаты
+    public function getCheckPayment(){
+        return $this->checkPayment($data);
+    }
+    //Получить данные выбранной услуги
+    public function getPaymentServiceData(){
+        return $this->PaymentServiceData();
+    }
+    // Данные выбранной услуги
+    protected function PaymentServiceData(){
+        $db = new SafeMySQL();
+        if($_POST["payment_btn"] || $_POST["payment_btn"] !== NULL){
+            $service_id=$_POST["payment_id"];
+        }elseif($_GET["payment_choice"]){
+            $service_id=$_GET["payment_choice"];
+        }else{
+            $service_id=944;
+        };
+        if(!get_post_meta($service_id, 'month_count', true) || !get_post_meta($service_id, 'price', true)){
+            $service_id=944;
+        };
+        $res['service_number']=get_post_meta($service_id, 'month_count', true);
+        $res['price']=get_post_meta($service_id, 'price', true);
+        $res['description']=$mail . ' Купил услугу на ' . $res['service_number'] .' месяц(ев)';
+        $res['mail'] = $db->getOne("SELECT mail FROM users WHERE id=?i",$_SESSION['id']);
+        return $res;
+    }
+    //Проверка оплаты
+    protected function checkPayment(){
+        $db = new SafeMySQL();
+        $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
+        if($status && !empty($status) && isset($status) && $status !== NULL){
+            if($status==='2'){
+                return TRUE;
+            }else{ return FALSE; }
+        }else{ return FALSE; }
+    }
+    //Автоплатёж
+    protected function Autopay($pay_id,$price,$description){
+        $data=array(
+            'amount' => array(
+            'value' => $price,
+            'currency' => 'RUB',
+            ),
+            'capture' => true,
+            'payment_method_id' => $pay_id,
+            'description' => $description,
+        );
+        return $data;
+    }
+    //Подключение к кассе
+    protected function connectionPayment($data){
+        $client = new \YooKassa\Client();
+        $set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+        // $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+        $payment = $client->createPayment($data,uniqid('', true));
+        return $payment;
+    }
+    // Получение данных оплаты
+    protected function getPaymentInformation($paymentId){
+        $client = new \YooKassa\Client();
+        $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+        // $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+        $payment = $client->getPaymentInfo($paymentId);
+        return $payment;
+    }
+    // Сохранить платёж
+    protected function SavePayment($paymentId){
+        if($paymentId){
+            $payment_info= $this->getPaymentInformation($paymentId);
+            $id=$_SESSION['id'];
+            if($payment_info){
+                if($payment_info["status"]==='succeeded'){
+                    $payment_date=(array)($payment_info["created_at"]);
+                    $db = new SafeMySQL();
+                    if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s WHERE
+                        id=?i", 2,
+                        $_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $payment_date["date"],
+                        $id)){
+                            $answer = true;
+                    }
+                }
+            }
+        }
+        return (isset($answer) );
+    }
+    //Проверка промокода
+    protected function checkPromocode($promo){
+        $db = new SafeMySQL();
+        $promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
+        if($promo_data){
+            if( $promo === $promo_data['promo'] ){
+                if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
+                    if($promo_data['sale'] >= 100){
+                        // -???
+                        // -???
+                        // -???
+                        // -???
+                        // -???
+                        // -???
+                        // -???
+                        // -???
+                    }
+                    $error['status'] = true;
+                    $error['promo'] = $promo_data['promo'];
+                    $error['sale'] = $promo_data['sale'];
+                }else{
+                    $error['status'] = false;
+                    $error['msg'] = "Данный промокод не доступен!";
+                }
+            }else{
+                $error['status'] = false;
+                $error['msg'] = "Неверный промокод!";
+            }
+        }else{
+            $error['status'] = false;
+            $error['msg'] = "Неверный промокод!";
+        }
+        return $error;
+    }    
+}
 
 
 
