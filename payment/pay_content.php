@@ -4,9 +4,15 @@ date_default_timezone_set("Europe/Moscow");
 require_once( get_theme_file_path('processing.php') );
 require __DIR__ . '/../libs/yookassa/autoload.php';
 use YooKassa\Client;
+
 $status=2;
 $user_id=$db->getAll("SELECT id FROM users WHERE status=?i", $status);
 $payment=new Payment();
+
+
+var_dump ($payment->getSubPromoDate());
+
+
 for($i = 0; $i < count($user_id); $i++){
     $id=$user_id[$i]['id'];
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i AND status=2", $id);

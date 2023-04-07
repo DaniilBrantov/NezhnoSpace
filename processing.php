@@ -446,8 +446,8 @@ class Payment{
         return $this->connectionPayment($data);
     }
     // Получить автоплатёж
-    public function getAutopay($data){
-        return $this->Autopay($data);
+    public function getAutopay($pay_id,$price,$description){
+        return $this->Autopay($pay_id,$price,$description);
     }
     // Создание платежных данных
     public function createPagePayment($price,$description){
@@ -479,6 +479,10 @@ class Payment{
     //Получить данные выбранной услуги
     public function getPaymentServiceData(){
         return $this->PaymentServiceData();
+    }
+    //Проверка срока подписки, заведённый промокодом
+    public function getSubPromoDate(){
+        return $this->checkSubPromoDate();
     }
     // Данные выбранной услуги
     protected function PaymentServiceData(){
@@ -558,40 +562,60 @@ class Payment{
         }
         return (isset($answer) );
     }
+    //Проверка срока подписки, заведённый промокодом
+    protected function checkSubPromoDate(){
+        $db = new SafeMySQL();
+        $users = $db->getAll("SELECT * FROM users WHERE status=?i", 3);
+        foreach($users as $user){
+            $date = date('Y-m-d', strtotime($user['payment_date'] . " +2 weeks"));
+            if($user['payment_date'] >= date("Y-m-d H:i:s")){
+                echo $user['mail'];
+            }
+        }
+    }
     //Проверка промокода
     protected function checkPromocode($promo){
         $db = new SafeMySQL();
+        $id = $_SESSION['id'];
         $promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
         if($promo_data){
-            if( $promo === $promo_data['promo'] ){
-                if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
-                    if($promo_data['sale'] >= 100){
-                        // -???
-                        // -???
-                        // -???
-                        // -???
-                        // -???
-                        // -???
-                        // -???
-                        // -???
+            if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d") >= $promo_data['first_date']){
+                if($promo_data['sale'] >= 100){
+                    $payment_date = date("Y-m-d H:i:s");
+                    if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE id=?i", 3, $payment_date, $id)){
+                        return [
+                            'status' => true,
+                            'promo' => $promo_data['promo'],
+                            'sale' => $promo_data['sale']
+                        ];
+                    } else {
+                        return [
+                            'status' => false,
+                            'msg' => "Ошибка при обновлении статуса пользователя!"
+                        ];
                     }
-                    $error['status'] = true;
-                    $error['promo'] = $promo_data['promo'];
-                    $error['sale'] = $promo_data['sale'];
-                }else{
-                    $error['status'] = false;
-                    $error['msg'] = "Данный промокод не доступен!";
+                } else {
+                    if($promo_data['promo'] === $promo){
+                        return [
+                            'status' => true,
+                            'promo' => $promo_data['promo'],
+                            'sale' => $promo_data['sale']
+                        ];
+                    }
                 }
-            }else{
-                $error['status'] = false;
-                $error['msg'] = "Неверный промокод!";
+            } else {
+                return [
+                    'status' => false,
+                    'msg' => "Данный промокод не доступен!"
+                ];
             }
-        }else{
-            $error['status'] = false;
-            $error['msg'] = "Неверный промокод!";
+        } else {
+            return [
+                'status' => false,
+                'msg' => "Неверный промокод!"
+            ];
         }
-        return $error;
-    }    
+    }   
 }
 
 
