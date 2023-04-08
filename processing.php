@@ -398,8 +398,8 @@ class Subscription{
         return $this->FilterPostsByLike($cat_ID);
     }
     // Получить результат проверки категории
-    public function getFilterCat($cat_ID){
-        return $this->FilterCat($cat_ID);
+    public function getFilterCat($post_id, $filter_cat){
+        return $this->FilterCat($post_id, $filter_cat);
     }
     //Отфильтрованные по лайкам посты 
     protected function FilterPostsByLike($cat_ID){
