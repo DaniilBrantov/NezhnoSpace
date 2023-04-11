@@ -563,15 +563,28 @@ class Payment{
         return (isset($answer) );
     }
     //Проверка срока подписки, заведённый промокодом
+
+    //  ! Добавить возможнось редактирования переменной $date (+... weeks)! 
     protected function checkSubPromoDate(){
         $db = new SafeMySQL();
         $users = $db->getAll("SELECT * FROM users WHERE status=?i", 3);
         foreach($users as $user){
             $date = date('Y-m-d', strtotime($user['payment_date'] . " +2 weeks"));
-            if($user['payment_date'] >= date("Y-m-d H:i:s")){
-                echo $user['mail'];
+            if($date <= date("Y-m-d H:i:s")){
+                $mail=$user['mail'];
+                $status=1;
+                $payment_date=0;
+                if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE mail=?s", $status, $payment_date, $mail)){
+                    return TRUE;
+                }
+            }else{
+                return FALSE;
             }
         }
+        // -???
+        // -???
+        // -???
+        // -???
     }
     //Проверка промокода
     protected function checkPromocode($promo){
