@@ -99,7 +99,8 @@
 
         <?php if ($payment->getCheckPayment()) { ?>
         <div class="account_sections-footer">
-            Пока не готовы начать? <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
+            <!-- Пока не готовы начать?  -->
+            <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
         </div>
         <?php } else { ?>
         <div id='payment-banner' class='account_payment-banner pay-banner'>

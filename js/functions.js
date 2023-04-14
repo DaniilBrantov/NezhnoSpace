@@ -432,6 +432,111 @@ $(function () {
     })
 })();
 
+//confirm_anxiety 
+(() => {
+    const arrayAnxiety = [
+        'я боюсь, что люди отвернутся от меня', 
+        'я убеждена, что непривлекательная и малоценная в сравнении с кем-то',
+        'я заедаю эмоции, будь-то радость, боль, страх или гнев',
+        'соглашаюсь с чужим мнением, даже если знаю, что они неправы',
+        'я подстраиваюсь под социум, чтобы не столкнуться с неодобрением и критикой',
+        'я боюсь, что кто-то заметит мои недостатки',
+        'я постоянно сомневаюсь в себе',
+        'я сделаю всё, чтобы не чувствовать себя брошенной или одинокой',
+        'я борюсь с проблемами с помощью переедания, сигарет, алкоголя, секса',
+        'я постоянно ощущаю тревогу, но не знаю её причину',
+        'ем до ощущения дискомфорта',
+        'у меня есть проблемы со здоровьем, нерегулярный цикл',
+        'я зациклена на фигуре, обеспокоена своим внешним видом',
+        'я стремлюсь к совершенству, озабочена деталями, планами, чёткими установками',
+        'часто думаю о весе и форме своего тела',
+        'я педантичная, следую правилам социума и своим внутренним',
+        'я злюсь на себя, если нарушаю свои пищевые правила',
+        'я позволяю окружающим управлять своей жизнью, мне говорят какой быть, где учиться, работать, как жить',
+        'еды в моей жизни больше, чем меня',
+        'я делю продукты на «хорошие» и «плохие», и стараюсь избегать «плохих»',
+        'я продуктивная в ущерб жизненным удовольствиям',
+        'я не принимаю себя такой, какая я есть, я стыжусь себя',
+        'я не всегда ем, что хочу',
+        'я постоянно откладываю жизнь, говорю себе, что сначала нужно похудеть, измениться или достичь определенной цели',
+        'нахваливаю других, чтобы получить одобрение',
+        'я отрабатываю лишние калории в спортзале или дополнительными шагами',
+        'я часто критикую себя',
+        'мне страшно, когда моё тело привлекает внимание и я стараюсь всячески избегать таких ситуаций',
+        'я стараюсь контролировать сколько и что я съела',
+        'не отказываю в помощи другим, даже если задача не по силам мне',
+        'меня легко ранить критикой, замечанием, неодобрением',
+        'иногда манипулирую людьми и это может создавать проблемы',
+        'я всегда стремлюсь к идеальному результату, перепроверяю работу и это мешает завершить задачу',
+        'стараюсь не проявлять инициативу из-за неуверенности в себе',
+        'я часто испытываю чувство вины, даже если ситуация от меня не зависит',
+        'я не понимаю сигналы тела (усталость, голод, сытость)'
+    ];
+
+    let storage;
+    let lengthStorage;
+
+    if (JSON.parse(sessionStorage.getItem('anxiety'))) {
+        storage = JSON.parse(sessionStorage.getItem('anxiety'));
+        lengthStorage = JSON.parse(sessionStorage.getItem('anxiety')).length;
+        JSON.parse(sessionStorage.getItem('anxiety')).reverse().forEach((item) => {
+            let sort = arrayAnxiety.indexOf(item);
+            arrayAnxiety.splice(sort, 1);
+            arrayAnxiety.unshift(item);
+        })
+    }
+
+    if (document.querySelector('.confirm_anxietyr_sliders')) {
+        let count = Math.ceil(arrayAnxiety.length / 5);
+        while (count) {
+            document.querySelector('.confirm_anxietyr_sliders').innerHTML += `<ul class="confirm_anxiety-sliders_item"></ul>`;
+            count--;
+        }
+        let itemSlider = document.querySelectorAll('.confirm_anxiety-sliders_item');
+        count = 0;
+        arrayAnxiety.forEach((arr) => {
+            let slide = itemSlider[count];
+            if (slide.querySelectorAll('li')) {
+                if (slide.querySelectorAll('li').length === 4) {
+                    count++;
+                }
+            }
+            slide.innerHTML += `<li>${arr}</li>`;
+        });
+        $('.confirm_anxietyr_sliders').slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            adaptiveHeight: true,
+            fade: true,
+            cssEase: 'linear'
+        });
+        let arrayItem = document.querySelectorAll('.confirm_anxiety-sliders_item li');
+
+        for (let i = 0; i < lengthStorage; i++) {
+            arrayItem[i].classList.add('active');
+        }
+
+        arrayItem.forEach((li) => {
+            li.addEventListener('click', function() {
+                li.classList.toggle('active');
+
+                if (li.classList.contains('active')) {
+                    storage.push(li.textContent);
+                } else {
+                    storage.forEach((arr) => {
+                        if (arr === li.textContent) {
+                            storage.splice(storage.indexOf(arr), 1);
+                        };
+                    })
+                }
+                sessionStorage.setItem('anxiety', JSON.stringify(storage))
+            })
+        })
+    }
+})();
+
 //Header Navigation Active
 
 $(function () {
