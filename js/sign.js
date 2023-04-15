@@ -254,7 +254,7 @@ $("#set_pass_btn").click(function (e) {
                 } else if (size === 100) {
                     colorProgress.style.background = '#5DFF11';
                 }
-        
+
                 progressBars.style.width = `${size}%`;
             }
             changeInput(valid, value) {
@@ -271,40 +271,40 @@ $("#set_pass_btn").click(function (e) {
                         this.sizeBar();
                     }
                 }
-                
+
             }
         }
-    
+
         const passwordValidation = new PasswordValidation();
         const inputPassword = document.querySelector('.pers_item .pers_input input[name="pass"]');
         const progressBars = document.querySelector('.password-validation_progress');
         let colorProgress = document.querySelector('.password-validation_progress');
         let size = Number(progressBars.dataset.size);
-    
-        inputPassword.addEventListener('keyup', function() {
+
+        inputPassword.addEventListener('keyup', function () {
             // Validate lowercase letters
             let lowerCaseLetters = /[a-z]/g;
-            if(inputPassword.value.match(lowerCaseLetters)) {
+            if (inputPassword.value.match(lowerCaseLetters)) {
                 passwordValidation.changeInput(true, 'lowercaseLetters');
             } else {
                 passwordValidation.changeInput(false, 'lowercaseLetters');
             }
             // Validate capital letters
             let upperCaseLetters = /[A-Z]/g;
-            if(inputPassword.value.match(upperCaseLetters)) {
+            if (inputPassword.value.match(upperCaseLetters)) {
                 passwordValidation.changeInput(true, 'capitalLetters');
             } else {
                 passwordValidation.changeInput(false, 'capitalLetters');
             }
             // Validate numbers
             let numbers = /[0-9]/g;
-            if(inputPassword.value.match(numbers)) {
+            if (inputPassword.value.match(numbers)) {
                 passwordValidation.changeInput(true, 'numbers');
             } else {
                 passwordValidation.changeInput(false, 'numbers');
             }
             // Validate length
-            if(inputPassword.value.length >= 8) {
+            if (inputPassword.value.length >= 8) {
                 passwordValidation.changeInput(true, 'length');
             } else {
                 passwordValidation.changeInput(false, 'length');
