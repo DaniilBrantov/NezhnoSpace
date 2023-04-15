@@ -81,7 +81,7 @@
         </div>
     </div>
     <div class="intro_link-wrap">
-        <a href="auth">Хочу разобраться в этом!</a>
+        <a href="confirm-anxiety">Хочу разобраться в этом!</a>
     </div>
     <section class="subscriptions" id="subscriptions">
         <div class="subscriptions_wrap">
@@ -203,7 +203,7 @@
                 </ul>
             </li>
         </ul>
-        <a class="less-more_link" href="registration">начать</a>
+        <a class="less-more_link" href="confirm-anxiety">начать</a>
     </section>
     <section class="reviews">
         <h2 class="trial-title">отзывы:</h2>

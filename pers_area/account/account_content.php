@@ -99,6 +99,10 @@
 
         <?php if ($payment->getCheckPayment()) { ?>
         <div class="account_sections-footer">
+<<<<<<< HEAD
+=======
+            <!-- Пока не готовы начать?  -->
+>>>>>>> 91784b68dd878acad52229776a9dcd9ae55e4f0f
             <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
         </div>
         <?php } else { ?>

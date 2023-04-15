@@ -20,7 +20,7 @@
             <div class="pers_item">
                 <label>Пароль</label>
                 <div class='password-validation pers_item_txt'>
-                    <p>Требования к паролю:</p>
+                    <!-- <p>Требования к паролю:</p> -->
                     <ul>
                         <li class='validation_length'>6 и более символов</li>
                         <li class='validation_length'>используйте большие и маленькие буквы</li>
