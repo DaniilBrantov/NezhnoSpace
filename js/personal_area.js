@@ -411,8 +411,13 @@ $('.add-question').click(function () {
 function addAnswer() {
   const $answerGroup = $(this).prev().clone();
   const answerIndex = $answerGroup.find('button').length + 1;
-  // $answerGroup.find('#question_type').setAttribute(`for', 'question_type_${answerIndex}`);
-  // $answerGroup.find('input').val('');
+  $answerGroup.find('#question_type').setAttribute('for', `question_type_${answerIndex}`);
+
+  // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_choice`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
+  // $answerGroup.find('#select_answer_choice').setAttribute('for', `question_type_${answerIndex}_choice`);
+  // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_text`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
+  // $answerGroup.find('#select_answer_txt').setAttribute('for', `question_type_${answerIndex}_text`);
+
   $answerGroup.find('input').val('');
   $answerGroup.find('label').text(`Ответ ${answerIndex}:`);
   $answerGroup.find('input').val('');

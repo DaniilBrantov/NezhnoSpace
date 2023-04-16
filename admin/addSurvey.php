@@ -36,9 +36,9 @@ function checkAdmin(){
 
             <label id="question_type" for="question_type_1">Тип ответа:</label>
             <input type="radio" id="question_type_1_choice" name="question_type_1" value="choice">
-            <label for="question_type_1_choice">Выбор ответа</label>
+            <label id="select_answer_choice" for="question_type_1_choice">Выбор ответа</label>
             <input type="radio" id="question_type_1_text" name="question_type_1" value="text">
-            <label label for="question_type_1_text">Свободный ввод текста</label>
+            <label label id="select_answer_txt" for="question_type_1_text">Свободный ввод текста</label>
 
             <label for="answer_1_1">Ответ 1:</label>
             <input type="text" id="answer_1_1" name="answers[0][]">
