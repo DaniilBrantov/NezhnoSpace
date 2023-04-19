@@ -100,10 +100,20 @@
                                 <!-- <span class="subscriptions_price-month">3000 ₽ / мес.</span> -->
                             </div>
                         </div>
+                        <?php 
+                            if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
+                        ?>
                         <form action="payment" method='post'>
                             <input type="hidden" value="944" name="payment_id">
                             <button name="payment_btn" type="submit">хочу подписку</button>
                         </form>
+                        <?php        
+                            } else {
+                        ?>
+                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                        <?php        
+                            }
+                        ?>
 
                     </li>
                     <li class="subscriptions_item">
@@ -118,10 +128,22 @@
                                 <!-- <span class="subscriptions_price-month">2500 ₽ / мес.</span> -->
                             </div>
                         </div>
+                        <?php 
+                            if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
+                        ?>
+                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
                         <form action="payment" method='post'>
                             <input type="hidden" value="945" name="payment_id">
                             <button name="payment_btn" type="submit">хочу подписку</button>
                         </form>
+                        <?php        
+                            } else {
+                        ?>
+                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                        <?php        
+                            }
+                        ?>
+
                     </li>
                     <li class="subscriptions_item">
                         <span class='subscriptions_item-stroke'></span>
@@ -135,10 +157,20 @@
                                 <!-- <span class="subscriptions_price-month">2084 ₽ / мес.</span> -->
                             </div>
                         </div>
+                        <?php 
+                            if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
+                        ?>
                         <form action="payment" method='post'>
                             <input type="hidden" value="946" name="payment_id">
                             <button name="payment_btn" type="submit">хочу подписку</button>
                         </form>
+                        <?php        
+                            } else {
+                        ?>
+                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                        <?php        
+                            }
+                        ?>
                     </li>
                 </ul>
                 <p class="ta_center">Пока не готовы начать? <span class="main_learn_more">Узнайте больше о&#160;подписке
@@ -502,10 +534,20 @@
                     </button>
                 </div>
                 <div class="trial_section_form">
+                    <?php 
+                       if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
+                    ?>
                     <form action="payment" method='post'>
                         <input type="hidden" value="944" name="payment_id">
                         <input class="trial_link" value="купить подписку" name="payment_btn" type="submit">
                     </form>
+                    <?php        
+                        } else {
+                    ?>
+                    <a href="confirm-anxiety"><input class="trial_link" value="купить подписку" name="payment_btn" type="submit"></a>
+                    <?php        
+                        }
+                    ?>
                 </div>
             </div>
         </div>

@@ -1095,6 +1095,7 @@ section {
   margin-top: 48px;
 }
 .confirm_anxiety_text-wrp .btn_back {
+  position: static;
   margin-top: 32px;
   font-family: 'Montserrat';
   font-style: normal;
@@ -1981,6 +1982,11 @@ section {
   }
   .confirm_anxiety {
     flex-direction: column;
+  }
+  .confirm_anxiety_text-wrp {
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
   }
   .confirm_anxiety_text-wrp .blue_btn {
     margin-top: 20px;

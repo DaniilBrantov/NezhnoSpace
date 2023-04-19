@@ -473,18 +473,28 @@ $(function () {
         'я не понимаю сигналы тела (усталость, голод, сытость)'
     ];
 
+    const local = [];
     let storage;
     let lengthStorage;
 
+    if(!JSON.parse(sessionStorage.getItem('anxiety')) || JSON.parse(sessionStorage.getItem('anxiety')).length === 0) {
+        if (document.querySelector('.confirm_anxiety-title')) {
+            document.querySelector('.confirm_anxiety-title').innerHTML = 'Рекомендуем выбрать хотя бы три&nbspтревоги:';
+        }
+    }
+
     if (JSON.parse(sessionStorage.getItem('anxiety'))) {
         storage = JSON.parse(sessionStorage.getItem('anxiety'));
-        lengthStorage = JSON.parse(sessionStorage.getItem('anxiety')).length;
-        JSON.parse(sessionStorage.getItem('anxiety')).reverse().forEach((item) => {
+        storage.forEach((arr) => {
+            local.push(arr);
+        })
+        lengthStorage = storage.length;
+        storage.reverse().forEach((item) => {
             let sort = arrayAnxiety.indexOf(item);
             arrayAnxiety.splice(sort, 1);
             arrayAnxiety.unshift(item);
         })
-    }
+    } 
 
     if (document.querySelector('.confirm_anxietyr_sliders')) {
         let count = Math.ceil(arrayAnxiety.length / 5);
@@ -523,15 +533,15 @@ $(function () {
                 li.classList.toggle('active');
 
                 if (li.classList.contains('active')) {
-                    storage.push(li.textContent);
+                    local.push(li.textContent);
                 } else {
-                    storage.forEach((arr) => {
+                    local.forEach((arr) => {
                         if (arr === li.textContent) {
-                            storage.splice(storage.indexOf(arr), 1);
+                            local.splice(local.indexOf(arr), 1);
                         };
                     })
                 }
-                sessionStorage.setItem('anxiety', JSON.stringify(storage))
+                sessionStorage.setItem('anxiety', JSON.stringify(local))
             })
         })
     }

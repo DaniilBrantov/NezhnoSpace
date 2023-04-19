@@ -47,7 +47,7 @@
             <a href="auth" class="header_user">
                 <img src="<?php img('user.svg') ?>" alt="user">
             </a>
-            <a class="header-btn" href="registration">Старт</a>
+            <a class="header-btn" href="confirm-anxiety">Старт</a>
             <?php }else{ ?>
             <a href="https://nezhno.space/auth" class="header_user">
                 <img src="<?php img('user.svg') ?>" alt="user">
