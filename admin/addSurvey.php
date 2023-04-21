@@ -40,11 +40,12 @@ function checkAdmin(){
             <input type="radio" id="question_type_1_text" name="question_type_1" value="text">
             <label label id="select_answer_txt" for="question_type_1_text">Свободный ввод текста</label>
 
-            <label for="answer_1_1">Ответ 1:</label>
+            <label for="answer_1_1">Ответ:</label>
             <input type="text" id="answer_1_1" name="answers[0][]">
             <button type="button" class="delete-answer">Удалить ответ</button>
         </div>
         <button type="button" class="add-answer">Добавить ответ</button>
+
         <div class="question-actions">
             <button type="button" class="delete-question">Удалить вопрос</button>
         </div>
@@ -52,6 +53,7 @@ function checkAdmin(){
     <button type="button" class="add-question">Добавить вопрос</button>
     <button type="submit">Создать опрос</button>
 </form>
+
 
 
 <?php

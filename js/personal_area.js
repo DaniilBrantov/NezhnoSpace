@@ -411,13 +411,14 @@ $('.add-question').click(function () {
 function addAnswer() {
   const $answerGroup = $(this).prev().clone();
   const answerIndex = $answerGroup.find('button').length + 1;
-  $answerGroup.find('#question_type').setAttribute('for', `question_type_${answerIndex}`);
+  // $answerGroup.find('#question_type').setAttribute('for', `question_type_${answerIndex}`);
 
   // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_choice`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
   // $answerGroup.find('#select_answer_choice').setAttribute('for', `question_type_${answerIndex}_choice`);
   // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_text`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
   // $answerGroup.find('#select_answer_txt').setAttribute('for', `question_type_${answerIndex}_text`);
 
+  // !!! -->
   $answerGroup.find('input').val('');
   $answerGroup.find('label').text(`Ответ ${answerIndex}:`);
   $answerGroup.find('input').val('');
@@ -442,9 +443,9 @@ $('.delete-question').click(deleteQuestion);
 function deleteAnswer() {
   $(this).closest('.answer-group').remove();
   const $answerGroups = $(this).closest('.question-group').find('.answer-group');
-  $answerGroups.each(function (index) {
-    $(this).find('label').first().text(`Ответ ${index + 1}:`);
-  });
+  // $answerGroups.each(function (index) {
+  //   $(this).find('label').first().text(`Ответ ${index + 1}:`);
+  // });
 }
 
 $('.delete-answer').click(deleteAnswer);
@@ -461,37 +462,48 @@ $('#survey-form').submit(function (e) {
 // Добавляем обработчики событий на радио кнопки для выбора типа ответа
 document.addEventListener('change', function (e) {
   if (e.target && e.target.matches('[name^="question_type"]')) {
-    const questionIndex = e.target.name.replace('question_type_', '');
-    console.log(questionIndex)
-    // const questionType = e.target.value;
-    // console.log(questionIndex);
-    // const answerContainer = document.querySelector(`#question_${questionIndex} .answer-group`);
-    // const answerInputs = answerContainer.querySelectorAll('input[type="text"]');
+    // const questionIndex = e.target.name.replace('question_type_', '');
+    const questionType = e.target.value;
+    console.log(questionType);
+    const answerContainer = document.querySelector(`#question_1 .answer-group`);
+    const answerInputs = answerContainer.querySelectorAll('input[type="text"]');
 
-    // if (questionType === 'choice') {
-    //   // Показываем кнопки "Добавить ответ" и "Удалить ответ" и делаем все поля ответа видимыми
-    //   answerContainer.classList.remove('text-answer');
-    //   const addButton = answerContainer.previousElementSibling;
-    //   const deleteButton = answerContainer.querySelector('.delete-answer');
-    //   addButton.style.display = 'inline-block';
-    //   deleteButton.style.display = 'inline-block';
-    //   answerInputs.forEach(function (input) {
-    //     input.style.display = 'inline-block';
-    //   });
-    // } else if (questionType === 'text') {
-    //   // Скрываем кнопки "Добавить ответ" и "Удалить ответ" и скрываем все поля ответа, кроме одного
-    //   answerContainer.classList.add('text-answer');
-    //   const addButton = answerContainer.previousElementSibling;
-    //   const deleteButton = answerContainer.querySelector('.delete-answer');
-    //   addButton.style.display = 'none';
-    //   deleteButton.style.display = 'none';
-    //   answerInputs.forEach(function (input, index) {
-    //     if (index === 0) {
-    //       input.style.display = 'inline-block';
-    //     } else {
-    //       input.style.display = 'none';
-    //     }
-    //   });
-    // }
+    if (questionType === 'choice') {
+      // Показываем кнопки "Добавить ответ" и "Удалить ответ" и делаем все поля ответа видимыми
+      answerContainer.classList.remove('text-answer');
+      const addButton = answerContainer.previousElementSibling;
+      const deleteButton = answerContainer.querySelector('.delete-answer');
+      addButton.style.display = 'inline-block';
+      deleteButton.style.display = 'inline-block';
+      answerInputs.forEach(function (input) {
+        input.style.display = 'inline-block';
+      });
+    } else if (questionType === 'text') {
+      // Скрываем кнопки "Добавить ответ" и "Удалить ответ" и скрываем все поля ответа, кроме одного
+      answerContainer.classList.add('text-answer');
+      const addButton = answerContainer.previousElementSibling;
+      const deleteButton = answerContainer.querySelector('.delete-answer');
+      addButton.style.display = 'none';
+      deleteButton.style.display = 'none';
+      answerInputs.forEach(function (input, index) {
+        if (index === 0) {
+          input.style.display = 'inline-block';
+        } else {
+          input.style.display = 'none';
+        }
+      });
+    }
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
