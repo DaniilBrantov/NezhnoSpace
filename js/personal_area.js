@@ -455,6 +455,22 @@ $('#survey-form').submit(function (e) {
   e.preventDefault();
   const survey = createSurvey();
   console.log(survey);
+
+
+  $.ajax({
+    url: "add_survey_check",
+    type: "POST",
+    dataType: "json",
+    data: { survey: survey },
+    success: function (data) {
+      console.log(data)
+    },
+    error: function (jqxhr, status, errorMsg) {
+      console.log(errorMsg)
+    },
+  });
+
+
 });
 
 

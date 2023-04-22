@@ -11,16 +11,7 @@ require_once(get_theme_file_path('processing.php'));
 CheckAuth();
 checkAdmin();
 
-function checkAdmin(){
-    $id=$_SESSION['id'];
-    $db = new SafeMySQL();
-    $status=$db->getOne("SELECT status FROM users WHERE id=?i", $id);
-    if($status === '4'){
-        return TRUE;
-    }else{
-        header('Location: auth');
-    }
-};
+
 
 
 ?>

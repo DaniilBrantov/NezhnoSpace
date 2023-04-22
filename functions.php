@@ -765,3 +765,17 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
         // return FALSE;
         // }
         // };
+
+
+
+
+        function checkAdmin(){
+        $id=$_SESSION['id'];
+        $db = new SafeMySQL();
+        $status=$db->getOne("SELECT status FROM users WHERE id=?i", $id);
+        if($status === '4'){
+        return TRUE;
+        }else{
+        header('Location: auth');
+        }
+        };
