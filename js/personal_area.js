@@ -478,10 +478,10 @@ $('#survey-form').submit(function (e) {
 // Добавляем обработчики событий на радио кнопки для выбора типа ответа
 document.addEventListener('change', function (e) {
   if (e.target && e.target.matches('[name^="question_type"]')) {
-    // const questionIndex = e.target.name.replace('question_type_', '');
+    const questionIndex = e.target.name.replace('question_type_', '');
     const questionType = e.target.value;
     console.log(questionType);
-    const answerContainer = document.querySelector(`#question_1 .answer-group`);
+    const answerContainer = document.querySelector(`#question_${questionIndex} .answer-group`);
     const answerInputs = answerContainer.querySelectorAll('input[type="text"]');
 
     if (questionType === 'choice') {
