@@ -24,6 +24,7 @@
                 if($db->query("INSERT INTO `add_survey`( `survey_name`, `author_id`,`survey_questions`) VALUES('$name','$author_id','$questions') ")){
                     $res['status']=1;
                     $res['name']=$name;
+                    $res['questions']=$questions;
                 }else{
                     $res['status']=0;
                     $res['err']="Что-то пошло не так";

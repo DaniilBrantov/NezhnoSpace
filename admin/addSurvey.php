@@ -45,6 +45,16 @@ checkAdmin();
     <button type="submit">Создать опрос</button>
 </form> -->
 
+<div id="survey-container">
+
+</div>
+
+
+
+
+
+
+
 <form id="survey-form">
     <div class='survey_wrp-title'>
         <label>

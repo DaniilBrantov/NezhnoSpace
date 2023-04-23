@@ -366,7 +366,6 @@ function createSurvey() {
 $('#survey-form').submit(function (e) {
   e.preventDefault();
   const survey = createSurvey();
-  console.log(survey);
 
 
   $.ajax({
@@ -375,7 +374,8 @@ $('#survey-form').submit(function (e) {
     dataType: "json",
     data: { survey: survey },
     success: function (data) {
-      console.log(data)
+      const surveyContainer = document.getElementById('survey-container');
+      generateSurvey(data, surveyContainer);
     },
     error: function (jqxhr, status, errorMsg) {
       console.log(errorMsg)
@@ -519,8 +519,142 @@ $('#survey-form').submit(function (e) {
     }
 
     document.querySelector('.delete-question').addEventListener('click', deleteQuestion);
+
   }
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Создать опрос
+function generateSurvey(data,surveyContainer) {
+  // Получаем контейнер для опроса из DOM
+  // const surveyContainer = document.getElementById('survey-container');
+
+  // Создаем форму
+  const form = document.createElement('form');
+  form.id = 'survey-form';
+  surveyContainer.appendChild(form);
+
+  // Добавляем заголовок опроса
+  const title = document.createElement('h2');
+  title.innerText = data.name;
+  form.appendChild(title);
+
+  // Создаем вопросы
+  console.log(data);
+  data.questions.forEach((question, index) => {
+    // Создаем контейнер для вопроса
+    const questionContainer = document.createElement('div');
+    questionContainer.classList.add('question-container');
+    form.appendChild(questionContainer);
+
+    // Добавляем текст вопроса
+    const questionText = document.createElement('h3');
+    questionText.innerText = `${index + 1}. ${question.text}`;
+    questionText.id = 'question-text';
+    questionContainer.appendChild(questionText);
+
+
+    // Добавляем ответы
+    question.answers.forEach(answer => {
+      // Создаем контейнер для ответа
+      const answerContainer = document.createElement('div');
+      answerContainer.classList.add('answer-container');
+      questionContainer.appendChild(answerContainer);
+
+      // Добавляем элементы в зависимости от типа ответа
+      if (question.type === 'textarea') {
+        // Тип ответа - текстовое поле
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = `question-${index}-answer`;
+        answerContainer.appendChild(input);
+      } else if (question.type === 'radio') {
+        // Тип ответа - радио-кнопки
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = `question-${index}-answer`;
+        input.value = answer;
+        answerContainer.appendChild(input);
+
+        const label = document.createElement('label');
+        label.innerText = answer;
+        answerContainer.appendChild(label);
+      } else if (question.type === 'checkbox') {
+        // Тип ответа - чекбокс-кнопки
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.name = `question-${index}-answer`;
+        input.value = answer;
+        answerContainer.appendChild(input);
+
+        const label = document.createElement('label');
+        label.innerText = answer;
+        answerContainer.appendChild(label);
+      }
+    });
+  });
+
+  // Добавляем кнопку для отправки формы
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.id = 'survey-submit';
+  submitButton.innerText = 'Получить результаты';
+  form.appendChild(submitButton);
+}
+
+
+
+// Эта функция не работает(!!preventDefault!!)
+$("#survey-submit").click(function (e) {
+  e.preventDefault();
+
+  const answers = Array.from(document.querySelectorAll('.answer-container'));
+
+  console.log(answers);
+});
+
+
+
+// Получить данные с опроса
+function getSurveyResults() {
+  // Получаем все ответы на опрос в виде массива
+  const answers = Array.from(document.querySelectorAll('.answer-container'));
+
+  // Создаем объект для хранения результатов опроса
+  const results = {};
+
+  // Итерируемся по массиву ответов
+  answers.forEach(answer => {
+    // Получаем id вопроса и значение ответа
+    const questionId = answer.dataset.questionId;
+    const answerValue = answer.value;
+
+    // Если такой вопрос уже есть в объекте результатов,
+    // то добавляем значение ответа к массиву ответов на этот вопрос
+    if (results.hasOwnProperty(questionId)) {
+      results[questionId].push(answerValue);
+    }
+    // Иначе создаем новый ключ в объекте результатов с этим вопросом и ответом
+    else {
+      results[questionId] = [answerValue];
+    }
+  });
+
+  // Выводим результаты опроса в консоль
+  console.log(results);
+}
+
 
 
 
