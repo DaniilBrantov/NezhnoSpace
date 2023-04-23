@@ -328,30 +328,9 @@ function addLike(post_id, user_id, e) {
   }
 })();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function createSurvey() {
-  // Получаем данные опроса из формы
   const pollName = document.getElementById('poll_name').value;
-  const questionInputs = document.querySelectorAll('input[name="questions[]"]');
-  const answerInputs = document.querySelectorAll('input[name^="answers"]');
+  const qroupsQuestions = document.querySelectorAll('.question-group');
 
   // Создаем объект опроса
   const survey = {
@@ -359,96 +338,29 @@ function createSurvey() {
     questions: []
   };
 
-  // Добавляем вопросы и ответы в объект опроса
-  let currentQuestion = null;
-  for (let i = 0; i < answerInputs.length; i++) {
-    const input = answerInputs[i];
-    const nameParts = input.name.split('[');
-    const questionIndex = parseInt(nameParts[1]);
-    const answerIndex = parseInt(nameParts[2].replace(']', ''));
+  qroupsQuestions.forEach((question, ind) => {
+    let array = {};
+    array.index = ind;
+    question.querySelectorAll('.answer-group_radio-wrp input').forEach(elem => {
+      if (elem.checked) {
+        array.type = elem.value;
+      }
+    });
 
-    if (!currentQuestion || questionIndex !== currentQuestion.index) {
-      currentQuestion = {
-        index: questionIndex,
-        text: questionInputs[questionIndex].value,
-        answers: []
-      };
-      survey.questions.push(currentQuestion);
+    array.text = question.querySelector('.question_name input').value;
+    array.answers = [];
+
+    if (question.querySelectorAll('.answer-group_input-answer') || question.querySelectorAll('.answer-group_input-answer').length > 0) {
+      question.querySelectorAll('.answer-group_input-answer').forEach(elem => {
+        array.answers.push(elem.querySelector('input').value);
+      })
     }
-    currentQuestion.answers.push(input.value);
-  }
+
+    survey.questions.push(array)
+  })
   // Возвращаем объект опроса в формате JSON
   return (survey);
 }
-
-
-
-
-
-
-
-// $("#add_survey_btn").click(function (e) {
-//   e.preventDefault();
-//   const survey = createSurvey();
-//   console.log(survey);
-// });
-
-
-// Добавление вопроса
-let questionIndex = 1;
-$('.add-question').click(function () {
-  questionIndex++;
-  const $questionGroup = $('.question-group').first().clone();
-  $questionGroup.find('label').text(`Вопрос ${questionIndex}:`);
-  $questionGroup.find('input').val('');
-  $questionGroup.find('.answer-group').remove();
-  $questionGroup.find('.add-answer').click(addAnswer);
-  $questionGroup.find('.delete-question').click(deleteQuestion);
-  $('.question-group').last().after($questionGroup);
-});
-
-// Добавление ответа
-function addAnswer() {
-  const $answerGroup = $(this).prev().clone();
-  const answerIndex = $answerGroup.find('button').length + 1;
-  // $answerGroup.find('#question_type').setAttribute('for', `question_type_${answerIndex}`);
-
-  // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_choice`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
-  // $answerGroup.find('#select_answer_choice').setAttribute('for', `question_type_${answerIndex}_choice`);
-  // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_text`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
-  // $answerGroup.find('#select_answer_txt').setAttribute('for', `question_type_${answerIndex}_text`);
-
-  // !!! -->
-  $answerGroup.find('input').val('');
-  $answerGroup.find('label').text(`Ответ ${answerIndex}:`);
-  $answerGroup.find('input').val('');
-  $answerGroup.find('.delete-answer').click(deleteAnswer);
-  $(this).before($answerGroup);
-}
-
-$('.add-answer').click(addAnswer);
-
-// Удаление вопроса
-function deleteQuestion() {
-  $(this).closest('.question-group').remove();
-  $('.question-group').each(function (index) {
-    $(this).find('label').first().text(`Вопрос ${index + 1}:`);
-  });
-  questionIndex--;
-}
-
-$('.delete-question').click(deleteQuestion);
-
-// Удаление ответа
-function deleteAnswer() {
-  $(this).closest('.answer-group').remove();
-  const $answerGroups = $(this).closest('.question-group').find('.answer-group');
-  // $answerGroups.each(function (index) {
-  //   $(this).find('label').first().text(`Ответ ${index + 1}:`);
-  // });
-}
-
-$('.delete-answer').click(deleteAnswer);
 
 // Отправка формы
 $('#survey-form').submit(function (e) {
@@ -469,54 +381,370 @@ $('#survey-form').submit(function (e) {
       console.log(errorMsg)
     },
   });
-
-
 });
 
 
-
-// Добавляем обработчики событий на радио кнопки для выбора типа ответа
-document.addEventListener('change', function (e) {
-  if (e.target && e.target.matches('[name^="question_type"]')) {
-    const questionIndex = e.target.name.replace('question_type_', '');
-    const questionType = e.target.value;
-    console.log(questionType);
-    const answerContainer = document.querySelector(`#question_${questionIndex} .answer-group`);
-    const answerInputs = answerContainer.querySelectorAll('input[type="text"]');
-
-    if (questionType === 'choice') {
-      // Показываем кнопки "Добавить ответ" и "Удалить ответ" и делаем все поля ответа видимыми
-      answerContainer.classList.remove('text-answer');
-      const addButton = answerContainer.previousElementSibling;
-      const deleteButton = answerContainer.querySelector('.delete-answer');
-      addButton.style.display = 'inline-block';
-      deleteButton.style.display = 'inline-block';
-      answerInputs.forEach(function (input) {
-        input.style.display = 'inline-block';
-      });
-    } else if (questionType === 'text') {
-      // Скрываем кнопки "Добавить ответ" и "Удалить ответ" и скрываем все поля ответа, кроме одного
-      answerContainer.classList.add('text-answer');
-      const addButton = answerContainer.previousElementSibling;
-      const deleteButton = answerContainer.querySelector('.delete-answer');
-      addButton.style.display = 'none';
-      deleteButton.style.display = 'none';
-      answerInputs.forEach(function (input, index) {
-        if (index === 0) {
-          input.style.display = 'inline-block';
-        } else {
-          input.style.display = 'none';
-        }
-      });
+(() => {
+  if (document.querySelector('#survey-form')) {
+    //радиокнопки в выборе типа ответа
+    function radioListenerBtns() {
+      let parents = document.querySelectorAll('.answer-group_radio-wrp');
+      parents.forEach((parent) => {
+        
+        let radioBtns = parent.querySelectorAll('.answer-group_radio-wrp input');
+        radioBtns.forEach((radioBtn) => {
+          radioBtn.addEventListener('click', function() {
+            radioBtns.forEach((btn) => {
+              if (btn !== radioBtn) {
+                btn.checked = false;
+              }
+            })
+            radioBtn.checked = true;
+    
+            if (radioBtn.value === 'textarea') {
+              radioBtn.closest('.question-group').querySelectorAll('.answer-group_input-answer').forEach(elem => elem.style.display = 'none');
+              radioBtn.closest('.question-group').querySelector('.add-answer').style.display = 'none';
+            } else {
+              radioBtn.closest('.question-group').querySelectorAll('.answer-group_input-answer').forEach(elem => elem.style.display = 'block');
+              radioBtn.closest('.question-group').querySelector('.add-answer').style.display = 'block';
+            }
+          })
+        })
+      })
     }
+    radioListenerBtns();
+
+    //добавить ответ
+    let inputAnswer = `
+      <div class='answer-group_input-answer'>
+        <label>
+            <span>Ответ:</span>
+            <input type="text">
+        </label>
+        <button type="button" class="delete-answer">Удалить ответ</button>
+      </div>
+    `;
+    function addAnswer(e) {
+      let parent = e.target.closest('.question-group');
+      let array = parent.querySelectorAll('.answer-group_input-answer');
+      if (array.length === 0) {
+        parent.querySelector('.answer-group').insertAdjacentHTML("beforeend", inputAnswer)
+      } else {
+        array[array.length - 1].insertAdjacentHTML('afterend', inputAnswer);
+      }
+      array = parent.querySelectorAll('.answer-group_input-answer')
+      array[array.length - 1].querySelector('.delete-answer').addEventListener('click', removeAnswer);
+    }
+    document.querySelector('.add-answer').addEventListener('click', addAnswer);
+
+    //удалить ответ
+    function removeAnswer(e) {
+      if (e.target.closest('.answer-group').querySelectorAll('.answer-group_input-answer').length > 1) {
+        e.target.closest('.answer-group_input-answer').remove();
+      }
+    }
+    document.querySelector('.delete-answer').addEventListener('click', removeAnswer);
+
+    //добавить вопрос
+    let questionGroup = (index) => {
+      return `
+        <div class="question-group">
+          <label class='question_name'>
+              <span class='question_name-span'>Вопрос ${index}:</span>
+              <input type="text">
+          </label>
+          <div class="answer-group">
+              <span class='answer-group_title'>Тип ответа:</span>
+
+              <div class='answer-group_radio-wrp'>
+                  <label class='answer-group_radio'>
+                      <input type="radio" value='radio' checked>
+                      <span class=''>Выбор одного ответа</span>
+                  </label>
+                  <label class='answer-group_checkbox'>
+                      <input type="radio" value='checkbox'>
+                      <span class=''>Выбор нескольких ответов</span>
+                  </label>
+                  <label class='answer-group_textarea'>
+                      <input type="radio" value='textarea'>
+                      <span class=''>Свободный ввод текста</span>
+                  </label>
+              </div>
+
+              <div class='answer-group_input-answer'>
+                  <label>
+                      <span>Ответ:</span>
+                      <input type="text">
+                  </label>
+                  <button type="button" class="delete-answer">Удалить ответ</button>
+              </div>
+          </div>
+          <button type="button" class="add-answer">Добавить ответ</button>
+          <div class="question-actions">
+              <button type="button" class="delete-question">Удалить вопрос</button>
+          </div>
+      </div>
+      `;
+    }
+
+    let indexQuestion = 1;
+    function addQuestion() {
+      indexQuestion++;
+      let array = document.querySelectorAll('.question-group');
+      if (array.length === 0) {
+        document.querySelector('.survey_wrp-title').insertAdjacentHTML("afterend", questionGroup(indexQuestion))
+      } else {
+        array[array.length - 1].insertAdjacentHTML('afterend', questionGroup(indexQuestion));
+      }
+      
+      array = document.querySelectorAll('.question-group');
+      let currentElem = array[array.length - 1];
+
+      radioListenerBtns();
+      currentElem.querySelector('.add-answer').addEventListener('click', addAnswer);
+      currentElem.querySelectorAll('.delete-answer').forEach(elem => elem.addEventListener('click', removeAnswer));
+      currentElem.querySelector('.delete-question').addEventListener('click', deleteQuestion);
+    }
+
+    document.querySelector('.add-question').addEventListener('click', addQuestion);
+
+    function deleteQuestion(e) {
+      e.target.closest('.question-group').remove();
+
+      document.querySelectorAll('.question-group').forEach((elem, ind) => {
+        elem.querySelector('.question_name-span').textContent = `Вопрос ${ind+1}:`;
+      })
+
+      indexQuestion--;
+    }
+
+    document.querySelector('.delete-question').addEventListener('click', deleteQuestion);
   }
-});
+})();
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function createSurvey() {
+//   // Получаем данные опроса из формы
+//   const pollName = document.getElementById('poll_name').value;
+//   const questionInputs = document.querySelectorAll('input[name="questions[]"]');
+//   const answerInputs = document.querySelectorAll('input[name^="answers"]');
+
+//   // Создаем объект опроса
+//   const survey = {
+//     name: pollName,
+//     questions: []
+//   };
+
+//   // Добавляем вопросы и ответы в объект опроса
+//   let currentQuestion = null;
+//   for (let i = 0; i < answerInputs.length; i++) {
+//     const input = answerInputs[i];
+//     const nameParts = input.name.split('[');
+//     const questionIndex = parseInt(nameParts[1]);
+//     const answerIndex = parseInt(nameParts[2].replace(']', ''));
+
+//     if (!currentQuestion || questionIndex !== currentQuestion.index) {
+//       currentQuestion = {
+//         index: questionIndex,
+//         text: questionInputs[questionIndex].value,
+//         answers: []
+//       };
+//       survey.questions.push(currentQuestion);
+//     }
+//     currentQuestion.answers.push(input.value);
+//   }
+//   // Возвращаем объект опроса в формате JSON
+//   return (survey);
+// }
+
+
+
+// // Удаление вопроса
+// function deleteQuestion(e) {
+//   e.target.closest('.question-group').remove();
+//   document.querySelectorAll('.question-group').forEach((elem, ind) => {
+//     let index = ind+1;
+//     if (elem.querySelector('.question_first-input')) {
+//       elem.querySelector('.question_first-input').id = `question_${index}`;
+//     }
+//     elem.querySelector('.question_first-label').setAttribute('for', `question_${index}`);
+//     elem.querySelector('.question_first-label').textContent = `Вопрос ${index}:`;
+//     console.log(index, elem.querySelector('.question_first-label'))
+// //     console.log(elem.querySelectorAll('input'));
+// //     var tmpNode = document.getElementById('d7');
+// // tmpNode.id = "d8";
+// //     elem.querySelectorAll('input')
+//   })
+  
+//   // $(this).closest('.question-group').remove();
+//   // $('.question-group').each(function (index) {
+//   //   $(this).find('label').first().text(`Вопрос ${index + 1}:`);
+//   // });
+
+//   questionIndex--;
+// }
+
+// // $('.delete-question').click(deleteQuestion);
+// // document.querySelector('.delete-question').addEventListener('click', deleteQuestion);
+// document.addEventListener('DOMContentLoaded', function() {
+//   if (document.querySelector('.question-group')) {
+//     document.querySelectorAll('.delete-question').forEach(element => {
+//       element.addEventListener('click', deleteQuestion);
+//     });
+//   }
+// })
+
+
+
+// // $("#add_survey_btn").click(function (e) {
+// //   e.preventDefault();
+// //   const survey = createSurvey();
+// //   console.log(survey);
+// // });
+
+// const questionGroup = (index) => {
+//   return `
+//     <div class="question-group">
+//     <label for="question_${index}" class='question_first-label'>Вопрос ${index}:</label>
+//     <input type="text" id="question_${index}" name="questions[]" class='question_first-input'>
+//     <div class="answer-group">
+//         <label id="question_type" for="question_type_${index}">Тип ответа:</label>
+//         <input type="radio" id="question_type_${index}_choice" name="question_type_${index}" value="choice">
+//         <label id="select_answer_choice" for="question_type_${index}_choice">Выбор ответа</label>
+//         <input type="radio" id="question_type_${index}_text" name="question_type_${index}" value="text">
+//         <label label id="select_answer_txt" for="question_type_${index}_text">Свободный ввод текста</label>
+    
+//         <label for="answer_${index}_1">Ответ:</label>
+//         <input type="text" id="answer_${index}_1" name="answers[0][]">
+//         <button type="button" class="delete-answer">Удалить ответ</button>
+        
+//     </div>
+//     <button type="button" class="add-answer">Добавить ответ</button>
+    
+//     <div class="question-actions">
+//       <button type="button" class="delete-question">Удалить вопрос</button>
+//     </div>
+//     </div>
+//   `;
+// }
+
+// const questionGroupListener = (elem) => {
+//   elem.querySelector('.delete-question').addEventListener('click', deleteQuestion);
+// }
+
+// // Добавление вопроса
+// let questionIndex = 1;
+// $('.add-question').click(function () {
+//   questionIndex++;
+//   let array = document.querySelectorAll('.question-group');
+
+//   array[array.length - 1].insertAdjacentHTML('afterend', questionGroup(questionIndex));
+//   array = document.querySelectorAll('.question-group');
+//   let elem = array[array.length - 1];
+//   questionGroupListener(elem)
+//   // elem.querySelector('.delete-question').addEventListener('click', deleteQuestion);
+//   // questionGroupListener(array[array.length - 1]);
+  
+//   // const $questionGroup = $('.question-group').first().clone();
+//   // $questionGroup.find('label').text(`Вопрос ${questionIndex}:`);
+//   // $questionGroup.find('input').val('');
+//   // $questionGroup.find('.answer-group').remove();
+//   // $questionGroup.find('.add-answer').click(addAnswer);
+//   // $questionGroup.find('.delete-question').click(deleteQuestion);
+//   // $('.question-group').last().after($questionGroup);
+// });
+
+// // Добавление ответа
+// function addAnswer() {
+//   const $answerGroup = $(this).prev().clone();
+//   const answerIndex = $answerGroup.find('button').length + 1;
+//   // $answerGroup.find('#question_type').setAttribute('for', `question_type_${answerIndex}`);
+
+//   // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_choice`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
+//   // $answerGroup.find('#select_answer_choice').setAttribute('for', `question_type_${answerIndex}_choice`);
+//   // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_text`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
+//   // $answerGroup.find('#select_answer_txt').setAttribute('for', `question_type_${answerIndex}_text`);
+
+//   // !!! -->
+//   $answerGroup.find('input').val('');
+//   $answerGroup.find('label').text(`Ответ ${answerIndex}:`);
+//   $answerGroup.find('input').val('');
+//   $answerGroup.find('.delete-answer').click(deleteAnswer);
+//   $(this).before($answerGroup);
+// }
+
+// $('.add-answer').click(addAnswer);
+
+
+// // Удаление ответа
+// function deleteAnswer() {
+//   $(this).closest('.answer-group').remove();
+//   const $answerGroups = $(this).closest('.question-group').find('.answer-group');
+//   // $answerGroups.each(function (index) {
+//   //   $(this).find('label').first().text(`Ответ ${index + 1}:`);
+//   // });
+// }
+
+// $('.delete-answer').click(deleteAnswer);
+
+
+
+
+
+// // Добавляем обработчики событий на радио кнопки для выбора типа ответа
+// document.addEventListener('change', function (e) {
+//   if (e.target && e.target.matches('[name^="question_type"]')) {
+//     // const questionIndex = e.target.name.replace('question_type_', '');
+//     const questionType = e.target.value;
+//     console.log(questionType);
+//     const answerContainer = document.querySelector(`#question_1~.answer-group`);
+//     console.log(answerContainer)
+//     const answerInputs = answerContainer.querySelectorAll('input[type="text"]');
+
+//     if (questionType === 'choice') {
+//       // Показываем кнопки "Добавить ответ" и "Удалить ответ" и делаем все поля ответа видимыми
+//       answerContainer.classList.remove('text-answer');
+//       const addButton = answerContainer.previousElementSibling;
+//       const deleteButton = answerContainer.querySelector('.delete-answer');
+//       addButton.style.display = 'inline-block';
+//       deleteButton.style.display = 'inline-block';
+//       answerInputs.forEach(function (input) {
+//         input.style.display = 'inline-block';
+//       });
+//     } else if (questionType === 'text') {
+//       // Скрываем кнопки "Добавить ответ" и "Удалить ответ" и скрываем все поля ответа, кроме одного
+//       answerContainer.classList.add('text-answer');
+//       const addButton = answerContainer.previousElementSibling;
+//       const deleteButton = answerContainer.querySelector('.delete-answer');
+//       addButton.style.display = 'none';
+//       deleteButton.style.display = 'none';
+//       answerInputs.forEach(function (input, index) {
+//         if (index === 0) {
+//           input.style.display = 'inline-block';
+//         } else {
+//           input.style.display = 'none';
+//         }
+//       });
+//     }
+//   }
+// });
 
 
 
