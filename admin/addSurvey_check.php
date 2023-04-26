@@ -20,6 +20,7 @@
             $db = new SafeMySQL();
             $author_id=$_SESSION['id'];
             $check_name = $db->query("SELECT * FROM add_survey WHERE survey_name=?s", $name);
+            $questions = json_encode($questions, JSON_FORCE_OBJECT);
             if($db->numRows($check_name) < 1){
                 if($db->query("INSERT INTO `add_survey`( `survey_name`, `author_id`,`survey_questions`) VALUES('$name','$author_id','$questions') ")){
                     $res['status']=1;

@@ -374,8 +374,10 @@ $('#survey-form').submit(function (e) {
     dataType: "json",
     data: { survey: survey },
     success: function (data) {
-      const surveyContainer = document.getElementById('survey-container');
-      generateSurvey(data, surveyContainer);
+      // const surveyContainer = document.getElementById('survey-container');
+      // generateSurvey(data, surveyContainer);
+      console.log(data.questions)
+
     },
     error: function (jqxhr, status, errorMsg) {
       console.log(errorMsg)
@@ -547,12 +549,11 @@ function generateSurvey(data,surveyContainer) {
 
   // Добавляем заголовок опроса
   const title = document.createElement('h2');
-  title.innerText = data.name;
+  title.innerText = data.survey_name;
   form.appendChild(title);
 
   // Создаем вопросы
-  console.log(data);
-  data.questions.forEach((question, index) => {
+  data.forEach((question, index) => {
     // Создаем контейнер для вопроса
     const questionContainer = document.createElement('div');
     questionContainer.classList.add('question-container');
