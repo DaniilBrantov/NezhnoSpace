@@ -347,12 +347,12 @@ function createSurvey() {
       }
     });
 
-    array.text = question.querySelector('.question_name input').value;
+    array.text = encodeURI(question.querySelector('.question_name input').value);
     array.answers = [];
 
     if (question.querySelectorAll('.answer-group_input-answer') || question.querySelectorAll('.answer-group_input-answer').length > 0) {
       question.querySelectorAll('.answer-group_input-answer').forEach(elem => {
-        array.answers.push(elem.querySelector('input').value);
+        array.answers.push(encodeURI(elem.querySelector('input').value));
       })
     }
 
@@ -374,9 +374,8 @@ $('#survey-form').submit(function (e) {
     dataType: "json",
     data: { survey: survey },
     success: function (data) {
-      // const surveyContainer = document.getElementById('survey-container');
-      // generateSurvey(data, surveyContainer);
-      console.log(data.questions)
+
+      console.log(data)
 
     },
     error: function (jqxhr, status, errorMsg) {
@@ -538,7 +537,7 @@ $('#survey-form').submit(function (e) {
 
 
 // Создать опрос
-function generateSurvey(data,surveyContainer) {
+function generateSurvey(data,surveyName, surveyContainer) {
   // Получаем контейнер для опроса из DOM
   // const surveyContainer = document.getElementById('survey-container');
 
@@ -549,11 +548,11 @@ function generateSurvey(data,surveyContainer) {
 
   // Добавляем заголовок опроса
   const title = document.createElement('h2');
-  title.innerText = data.survey_name;
+  title.innerText = surveyName;
   form.appendChild(title);
 
   // Создаем вопросы
-  data.forEach((question, index) => {
+  for (let keyData in data) {
     // Создаем контейнер для вопроса
     const questionContainer = document.createElement('div');
     questionContainer.classList.add('question-container');
@@ -561,50 +560,51 @@ function generateSurvey(data,surveyContainer) {
 
     // Добавляем текст вопроса
     const questionText = document.createElement('h3');
-    questionText.innerText = `${index + 1}. ${question.text}`;
-    questionText.id = 'question-text';
+    questionText.innerText = `${Number(keyData) + 1}. ${decodeURI(data[keyData]['text'])}`;
+    questionText.className = 'question-text';
     questionContainer.appendChild(questionText);
 
-
-    // Добавляем ответы
-    question.answers.forEach(answer => {
-      // Создаем контейнер для ответа
+    for (let keyAnswer in data[keyData]['answers']) {
+      // console.log(decodeURI(data[keyData]['answers'][keyAnswer]))
+      // Создаем контейнер для ответов
       const answerContainer = document.createElement('div');
       answerContainer.classList.add('answer-container');
       questionContainer.appendChild(answerContainer);
 
       // Добавляем элементы в зависимости от типа ответа
-      if (question.type === 'textarea') {
+      if (data[keyData]['type'] === 'textarea') {
         // Тип ответа - текстовое поле
         const input = document.createElement('input');
         input.type = 'text';
-        input.name = `question-${index}-answer`;
+        input.name = `question-${keyAnswer}-answer`;
         answerContainer.appendChild(input);
-      } else if (question.type === 'radio') {
+      } else if (data[keyData]['type'] === 'radio') {
         // Тип ответа - радио-кнопки
         const input = document.createElement('input');
         input.type = 'radio';
-        input.name = `question-${index}-answer`;
-        input.value = answer;
+        input.name = `question-${keyAnswer}-answer`;
+        input.value = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(input);
 
         const label = document.createElement('label');
-        label.innerText = answer;
+        label.innerText = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(label);
-      } else if (question.type === 'checkbox') {
+        // выбор только одного ответа
+        
+      } else if (data[keyData]['type'] === 'checkbox') {
         // Тип ответа - чекбокс-кнопки
         const input = document.createElement('input');
         input.type = 'checkbox';
-        input.name = `question-${index}-answer`;
-        input.value = answer;
+        input.name = `question-${keyAnswer}-answer`;
+        input.value = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(input);
 
         const label = document.createElement('label');
-        label.innerText = answer;
+        label.innerText = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(label);
       }
-    });
-  });
+    }
+  }
 
   // Добавляем кнопку для отправки формы
   const submitButton = document.createElement('button');

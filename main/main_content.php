@@ -131,7 +131,6 @@
                         <?php 
                             if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
                         ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
                         <form action="payment" method='post'>
                             <input type="hidden" value="945" name="payment_id">
                             <button name="payment_btn" type="submit">хочу подписку</button>

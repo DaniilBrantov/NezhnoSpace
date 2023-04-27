@@ -15,11 +15,13 @@ header('Content-Type: text/html; charset=utf-8');
 
 $db = new SafeMySQL();
 $author_id=$_SESSION['id'];
-$last_survey = $db->getOne("SELECT survey_questions FROM add_survey");
+// $last_survey = $db->getOne("SELECT survey_questions FROM add_survey");
 // var_dump(json_decode($last_survey));
 
 
 
+$name_survey = $db->getAll("SELECT survey_name FROM add_survey");
+$last_survey = $db->getAll("SELECT survey_questions FROM add_survey");
 
 ?>
 
@@ -30,15 +32,19 @@ $last_survey = $db->getOne("SELECT survey_questions FROM add_survey");
 </div>
 
 
+<script>   
+    let surveyContainer = document.getElementById('survey-container');
+    //выбирает последний опрос из базы данных
+    let this_survey = <?php 
+        echo($last_survey[count($last_survey)-1]["survey_questions"])
+    ?>;
+    let this_name = '<?php 
+        echo($name_survey[count($name_survey)-1]["survey_name"])
+    ?>';
 
-<script>
-let surveyContainer = document.getElementById('survey-container');
-let this_survey = <?php echo $last_survey[0]['survey_questions'] ?>;
 </script>
-<button onclick="generateSurvey(this_survey ,surveyContainer)">Пройти
+<button onclick="generateSurvey(this_survey, this_name, surveyContainer)">Пройти
     опрос</button>
-
-
 
 
 <form id="survey-form">

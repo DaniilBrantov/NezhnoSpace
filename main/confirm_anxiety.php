@@ -1,6 +1,6 @@
 <div class="confirm_anxiety">
     <div class='confirm_anxiety_text-wrp'>
-        <h2 class="confirm_anxiety-title">Выбрали свою тревогу:</h2>
+        <h2 class="confirm_anxiety-title">Вы выбрали свои тревоги:</h2>
         <p>Это поможет получать более точные и интересные рекомендации</p>
         <a href="registration" class='blue_btn'>сохранить результат</a>
         <a href="/" class='btn_back'>Выйти из опроса</a>
