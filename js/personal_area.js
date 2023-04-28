@@ -617,11 +617,9 @@ function generateSurvey(data,surveyName, surveyContainer) {
 
 
 // Эта функция не работает(!!preventDefault!!)
-$("#survey-submit").click(function (e) {
+$(".survey-container #survey-submit").submit(function (e) {
   e.preventDefault();
-
   const answers = Array.from(document.querySelectorAll('.answer-container'));
-
   console.log(answers);
 });
 
