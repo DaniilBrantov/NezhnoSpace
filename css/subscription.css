@@ -80,19 +80,20 @@
   display: flex;
   align-items: center;
 }
-.daily-practice_progress-bar {
+.progress-bar {
 	background-color: #DDE1F3;
-	border-radius: 5px;
+	border-radius: 16px;
 	/* margin: 15px; */
-  margin-left: 6px;
+  /* margin-left: 6px; */
 	height: 16px;
-	width: 226px;
-	max-width: 100%;
+	/* width: 226px; */
+	width: 100%;
 }
 
-.daily-practice_progress {
+.progress {
 	background: #421DD8;
-	border-radius: 5px;
+  box-shadow: 3px 0px 6px rgba(17, 17, 17, 0.25);
+	border-radius: 16px;
 	height: 16px;
 	width: 0;
 	transition: width 0.5s ease-in;

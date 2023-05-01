@@ -328,6 +328,9 @@ function addLike(post_id, user_id, e) {
   }
 })();
 
+
+// ADMIN ADD SURVEY
+
 function createSurvey() {
   const pollName = document.getElementById('poll_name').value;
   const qroupsQuestions = document.querySelectorAll('.question-group');
@@ -341,13 +344,20 @@ function createSurvey() {
   qroupsQuestions.forEach((question, ind) => {
     let array = {};
     array.index = ind;
-    question.querySelectorAll('.answer-group_radio-wrp input').forEach(elem => {
+    question.querySelectorAll('.answers-group input').forEach(elem => {
       if (elem.checked) {
         array.type = elem.value;
       }
     });
 
-    array.text = encodeURI(question.querySelector('.question_name input').value);
+    array.title = encodeURI(question.querySelector('.question_name input').value);
+    if (question.querySelector('.question_description input')) {
+      array.description = encodeURI(question.querySelector('.question_description input').value);
+    }
+    if (question.querySelector('.question_info input')) {
+      array.info = encodeURI(question.querySelector('.question_info input').value);
+    }
+    
     array.answers = [];
 
     if (question.querySelectorAll('.answer-group_input-answer') || question.querySelectorAll('.answer-group_input-answer').length > 0) {
@@ -359,6 +369,7 @@ function createSurvey() {
     survey.questions.push(array)
   })
   // Возвращаем объект опроса в формате JSON
+  console.log(survey)
   return (survey);
 }
 
@@ -392,7 +403,7 @@ $('#survey-form').submit(function (e) {
       let parents = document.querySelectorAll('.answer-group_radio-wrp');
       parents.forEach((parent) => {
         
-        let radioBtns = parent.querySelectorAll('.answer-group_radio-wrp input');
+        let radioBtns = parent.querySelectorAll('input');
         radioBtns.forEach((radioBtn) => {
           radioBtn.addEventListener('click', function() {
             radioBtns.forEach((btn) => {
@@ -406,7 +417,7 @@ $('#survey-form').submit(function (e) {
               radioBtn.closest('.question-group').querySelectorAll('.answer-group_input-answer').forEach(elem => elem.style.display = 'none');
               radioBtn.closest('.question-group').querySelector('.add-answer').style.display = 'none';
             } else {
-              radioBtn.closest('.question-group').querySelectorAll('.answer-group_input-answer').forEach(elem => elem.style.display = 'block');
+              radioBtn.closest('.question-group').querySelectorAll('.answer-group_input-answer').forEach(elem => elem.style.display = 'flex');
               radioBtn.closest('.question-group').querySelector('.add-answer').style.display = 'block';
             }
           })
@@ -454,10 +465,18 @@ $('#survey-form').submit(function (e) {
               <span class='question_name-span'>Вопрос ${index}:</span>
               <input type="text">
           </label>
+          <label class='question_description'>
+              <span class='question_description-span'>Описание вопроса</span>
+              <input type="text">
+          </label>
+          <label class='question_info'>
+              <span class='question_info-span'>Дополнительная информация</span>
+              <input type='text'>
+          </label>
           <div class="answer-group">
               <span class='answer-group_title'>Тип ответа:</span>
 
-              <div class='answer-group_radio-wrp'>
+              <div class='answer-group_radio-wrp answers-group'>
                   <label class='answer-group_radio'>
                       <input type="radio" value='radio' checked>
                       <span class=''>Выбор одного ответа</span>
@@ -488,7 +507,7 @@ $('#survey-form').submit(function (e) {
       `;
     }
 
-    let indexQuestion = 1;
+    let indexQuestion = 3;
     function addQuestion() {
       indexQuestion++;
       let array = document.querySelectorAll('.question-group');
@@ -519,8 +538,9 @@ $('#survey-form').submit(function (e) {
       indexQuestion--;
     }
 
-    document.querySelector('.delete-question').addEventListener('click', deleteQuestion);
-
+    document.querySelectorAll('.delete-question').forEach((deleteBtn) => {
+      deleteBtn.addEventListener('click', deleteQuestion);
+    })
   }
 })();
 
@@ -534,121 +554,349 @@ $('#survey-form').submit(function (e) {
 
 
 
-
+// CREATE SURVEY
 
 // Создать опрос
-function generateSurvey(data,surveyName, surveyContainer) {
-  // Получаем контейнер для опроса из DOM
-  // const surveyContainer = document.getElementById('survey-container');
+function generateSurvey(data, surveyContainer) {
+  console.log(data)
+  document.querySelector('.survey_opening-text').style.display = 'none';
+  let btnSurvey = document.querySelector('.button-survey');
+  btnSurvey.onclick = null;
 
   // Создаем форму
-  const form = document.createElement('form');
-  form.id = 'survey-form';
-  surveyContainer.appendChild(form);
+  const formSection = `<form id="form-survey">
+  <div class='survey-form_header'>
+      <div class='survey-form_header__text'>
+          <button type="button" class="survey_prev-btn"></button>
+          <div class='survey-form_header__progress'>
+              <span class='progress_passed'>1</span>
+              <span>/</span>
+              <span class='progress_all'>32</span>
+          </div>
+      </div>
+      <div class="progress-bar">
+          <div data-size="10" class="progress"></div>
+      </div>
+  </div>
+</form>`;
 
-  // Добавляем заголовок опроса
-  const title = document.createElement('h2');
-  title.innerText = surveyName;
-  form.appendChild(title);
+  surveyContainer.insertAdjacentHTML('beforeend', formSection);
+  const form = document.querySelector('#form-survey');
+
+  //выставление начального прогресса прохождения опроса
+  let passedProgress = form.querySelector('.progress_passed');
+  let countQuestion = form.querySelector('.progress_all');
+  countQuestion.textContent = `${Object.keys(data).length + 1}`;
+  let progressBar = form.querySelector('.progress');
+
+  function sizeProgress(num) {
+    passedProgress.textContent = num;
+    let size = 100 / (Object.keys(data).length + 1);
+    size *= num;
+    progressBar.style.width = 0;
+    progressBar.style.width = `${size}%`;
+  }
+  sizeProgress(1)
+
+  //создаем кнопку назад
+  const prevBtn = document.querySelector('.survey_prev-btn');
 
   // Создаем вопросы
   for (let keyData in data) {
     // Создаем контейнер для вопроса
     const questionContainer = document.createElement('div');
-    questionContainer.classList.add('question-container');
+    questionContainer.classList.add(`question-container`);
+    questionContainer.classList.add(`question-container_${data[keyData]['type']}`);
     form.appendChild(questionContainer);
 
-    // Добавляем текст вопроса
-    const questionText = document.createElement('h3');
-    questionText.innerText = `${Number(keyData) + 1}. ${decodeURI(data[keyData]['text'])}`;
-    questionText.className = 'question-text';
-    questionContainer.appendChild(questionText);
+    // Добавляем заголовок вопроса
+    const questionTitle = document.createElement('h3');
+    questionTitle.innerText = `${decodeURI(data[keyData]['title'])}`;
+    questionTitle.className = 'question-title';
+    questionContainer.appendChild(questionTitle);
 
-    for (let keyAnswer in data[keyData]['answers']) {
-      // console.log(decodeURI(data[keyData]['answers'][keyAnswer]))
-      // Создаем контейнер для ответов
+    if (data[keyData]['type'] === 'sex') {
+      questionTitle.innerText = `Ваш пол`;
+
+      const container = document.createElement('div');
+      container.classList.add('container-sex');
+      questionContainer.appendChild(container);
+
+      ['Женщина', 'Мужчина', 'Не бинарный'].forEach((sex) => {
+        const answerContainer = document.createElement('div');
+        answerContainer.classList.add('answer-container');
+        container.appendChild(answerContainer);
+
+        const label = document.createElement('label');
+        label.innerText = sex;
+        label.className = 'label-sex';
+        answerContainer.appendChild(label);
+
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'sex';
+        input.value = sex;
+        label.appendChild(input);
+
+        let checkmark = document.createElement('span');
+        checkmark.className = 'checkmark';
+        label.appendChild(checkmark);
+      })
+
+    }
+
+    if (data[keyData]['type'] === 'age') {
+      questionContainer.classList.add(`question-container_textarea`);
+      
+      questionTitle.innerText = `Сколько вам лет?`;
+
       const answerContainer = document.createElement('div');
       answerContainer.classList.add('answer-container');
       questionContainer.appendChild(answerContainer);
 
-      // Добавляем элементы в зависимости от типа ответа
-      if (data[keyData]['type'] === 'textarea') {
-        // Тип ответа - текстовое поле
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.name = `question-${keyAnswer}-answer`;
-        answerContainer.appendChild(input);
-      } else if (data[keyData]['type'] === 'radio') {
-        // Тип ответа - радио-кнопки
-        const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = `question-${keyAnswer}-answer`;
-        input.value = decodeURI(data[keyData]['answers'][keyAnswer]);
-        answerContainer.appendChild(input);
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'ДД.ММ.ГГГГ';
+      input.min = "1900-01-01";
+      input.max = "2022-12-31";
+      input.addEventListener('focus', (e) => e.target.type = 'date');
+      input.addEventListener('blur', (e) => e.target.value == '' ? e.target.type='text' : e.target.type='date')
+
+      answerContainer.appendChild(input);
+    }
+
+    //доп.информация
+    if (data[keyData]['info']) {
+      let questionInfo = document.createElement('div');
+      questionInfo.className = 'question-info';
+      questionInfo.innerHTML += `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_56_7392)">
+      <path d="M18 22C17.4477 22 17 21.5523 17 21V15C17 14.4477 16.5523 14 16 14H14C13.4477 14 13 14.4477 13 15C13 15.5523 13.4477 16 14 16C14.5523 16 15 16.4477 15 17V21C15 21.5523 14.5523 22 14 22H13C12.4477 22 12 22.4477 12 23C12 23.5523 12.4477 24 13 24H19C19.5523 24 20 23.5523 20 23C20 22.4477 19.5523 22 19 22H18ZM16 8C15.7033 8 15.4133 8.08797 15.1666 8.2528C14.92 8.41762 14.7277 8.65189 14.6142 8.92597C14.5006 9.20006 14.4709 9.50166 14.5288 9.79264C14.5867 10.0836 14.7296 10.3509 14.9393 10.5607C15.1491 10.7704 15.4164 10.9133 15.7074 10.9712C15.9983 11.0291 16.2999 10.9994 16.574 10.8858C16.8481 10.7723 17.0824 10.58 17.2472 10.3334C17.412 10.0867 17.5 9.79667 17.5 9.5C17.5 9.10218 17.342 8.72064 17.0607 8.43934C16.7794 8.15804 16.3978 8 16 8Z" fill="#7264AA"/>
+      <path d="M16 30C13.2311 30 10.5243 29.1789 8.22202 27.6406C5.91973 26.1022 4.12532 23.9157 3.06569 21.3576C2.00607 18.7994 1.72882 15.9845 2.26901 13.2687C2.80921 10.553 4.14258 8.05845 6.10051 6.10051C8.05845 4.14258 10.553 2.80921 13.2687 2.26901C15.9845 1.72882 18.7994 2.00607 21.3576 3.06569C23.9157 4.12532 26.1022 5.91973 27.6406 8.22202C29.1789 10.5243 30 13.2311 30 16C30 19.713 28.525 23.274 25.8995 25.8995C23.274 28.525 19.713 30 16 30ZM16 4.00001C13.6266 4.00001 11.3066 4.70379 9.33316 6.02237C7.35977 7.34095 5.8217 9.21509 4.91345 11.4078C4.0052 13.6005 3.76756 16.0133 4.23058 18.3411C4.69361 20.6689 5.83649 22.8071 7.51472 24.4853C9.19296 26.1635 11.3312 27.3064 13.6589 27.7694C15.9867 28.2325 18.3995 27.9948 20.5922 27.0866C22.7849 26.1783 24.6591 24.6402 25.9776 22.6668C27.2962 20.6935 28 18.3734 28 16C28 12.8174 26.7357 9.76516 24.4853 7.51472C22.2348 5.26429 19.1826 4.00001 16 4.00001Z" fill="#7264AA"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_56_7392">
+      <rect width="32" height="32" fill="white"/>
+      </clipPath>
+      </defs>
+      </svg>`;
+      questionTitle.appendChild(questionInfo);
+      questionInfo.addEventListener('click', function() {
+        document.querySelector('.survey_modal-text').innerHTML = decodeURI(data[keyData]['info']);
+        document.querySelector('.survey_modal-info').style.display = 'block';
+      })
+    }
+
+    // Добавляем описание вопроса
+    if (data[keyData]['description']) {
+      const questionDescription = document.createElement('p');
+      questionDescription.innerText = `${decodeURI(data[keyData]['description'])}`;
+      questionDescription.className = 'question-description';
+      questionContainer.appendChild(questionDescription);
+    }
+
+    function inputRange(length, array, questionContainer) {
+      const answerContainer = document.createElement('div');
+      answerContainer.classList.add('answer-container');
+      questionContainer.appendChild(answerContainer);
+
+      answerContainer.insertAdjacentHTML('beforeend', `
+        <div class="slidecontainer">
+          <input type="range" min="1" max="" value="" class="slider-range">
+          <div class="slide-delimeter_wrp"></div>
+          <input class="slidecontainer-checked" value='' type='radio' checked>
+        </div>`);
+
+        let slideContainer = answerContainer.querySelector('.slidecontainer');
+        
+        //расстановка штифтов
+        for (let i = 0; i < length; i++) {                             
+          slideContainer.querySelector('.slide-delimeter_wrp').innerHTML += `<span class='slide-delimeter'></span>`;                                                      
+        }
+        let styles = window.getComputedStyle(slideContainer.querySelector('.slide-delimeter_wrp'));
+        let widthSlide = parseFloat(styles.width);
+        let left = 0;
+        slideContainer.querySelector('.slide-delimeter_wrp').querySelectorAll('.slide-delimeter').forEach((elem, ind) => {
+          elem.style.left = left + 'px';
+          left += (widthSlide / (length - 1));
+          elem.innerHTML += `<span class='slide-delimeter_text'>${decodeURI(array[ind])}</span>`;
+          elem.querySelector('.slide-delimeter_text').style.left = '-' + parseFloat(window.getComputedStyle(elem.querySelector('.slide-delimeter_text')).width) / 2 + 'px';
+        });
+        let checkedValue = array[0];
+        let widthInput = window.getComputedStyle(slideContainer).width;
+        widthInput = parseFloat(widthInput);
+        let inputRange = answerContainer.querySelector('.slider-range');
+        inputRange.max = widthInput;
+        let paddingSize = ((widthInput - widthSlide)  / 2);
+        let pieceLength = widthInput/length;
+        inputRange.value = paddingSize + ((widthSlide / (length - 1)) * 0);
+        slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
+        console.log(slideContainer.querySelector('.slidecontainer-checked').value);
+        inputRange.addEventListener('change', function(e) {
+          let value = e.target.value;
+          for (let i = 0; i < length; i++) {
+            if ((value > pieceLength*i - (pieceLength / 2 -paddingSize)) && (value <= (pieceLength*(i+1) - (pieceLength / 2 -paddingSize)))) {
+                e.target.value = paddingSize + ((widthSlide / (length - 1)) * i);
+                checkedValue = array[i];
+                break;
+               } else {
+                 e.target.value = paddingSize + ((widthSlide / (length - 1)) * (length - 1));
+                 checkedValue = array[i];
+               }
+               
+          }
+          slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
+          console.log(slideContainer.querySelector('.slidecontainer-checked').value)
+        }) 
+    } 
+
+        // Тип ответа - RADIO-кнопки
+    if (data[keyData]['type'] === 'radio') {
+      inputRange(Object.keys(data[keyData]['answers']).length, data[keyData]['answers'], questionContainer);
+    }
+        // Тип ответа - чекбокс-кнопки
+    if (data[keyData]['type'] === 'checkbox') {
+      const answersContainer = document.createElement('div');
+      answersContainer.classList.add('answers-container');
+      questionContainer.appendChild(answersContainer);
+
+      for (let keyAnswer in data[keyData]['answers']) {
+        // Создаем контейнер для ответов
+        const answerContainer = document.createElement('div');
+        answerContainer.classList.add('answer-container');
+        answersContainer.appendChild(answerContainer);
 
         const label = document.createElement('label');
         label.innerText = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(label);
-        // выбор только одного ответа
-        
-      } else if (data[keyData]['type'] === 'checkbox') {
-        // Тип ответа - чекбокс-кнопки
+
         const input = document.createElement('input');
         input.type = 'checkbox';
-        input.name = `question-${keyAnswer}-answer`;
+        // input.name = `question-${keyAnswer}-answer`;
         input.value = decodeURI(data[keyData]['answers'][keyAnswer]);
-        answerContainer.appendChild(input);
+        label.appendChild(input);
+        let checkmark = document.createElement('span');
+        checkmark.className = 'checkmark';
+        label.appendChild(checkmark);
+      }
+    }
 
+    // Тип ответа - текстовое поле
+    if (data[keyData]['type'] === 'textarea') {
+      for (let keyAnswer in data[keyData]['answers']) {
+        // Создаем контейнер для ответов
+        const answerContainer = document.createElement('div');
+        answerContainer.classList.add('answer-container');
+        questionContainer.appendChild(answerContainer);
+  
         const label = document.createElement('label');
         label.innerText = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(label);
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Развернутый ответ';
+        // input.name = `question-${keyAnswer}-answer`;
+        label.appendChild(input);
       }
     }
   }
 
-  // Добавляем кнопку для отправки формы
-  const submitButton = document.createElement('button');
-  submitButton.type = 'submit';
-  submitButton.id = 'survey-submit';
-  submitButton.innerText = 'Получить результаты';
-  form.appendChild(submitButton);
+  //последний вопрос про стресс 
+  const questionContainer = document.createElement('div');
+  questionContainer.classList.add(`question-container`);
+  questionContainer.classList.add(`question-container_stress`);
+  form.appendChild(questionContainer);
+
+  // Добавляем заголовок вопроса
+  const questionTitle = document.createElement('h3');
+  questionTitle.innerText = 'Укажите ваш уровень стресса';
+  questionTitle.className = 'question-title';
+  questionContainer.appendChild(questionTitle);
+
+  questionContainer.innerHTML += `  <div class='question-container_stress-description'>
+  <p>1 — у меня нет стресса, я легко концентрируюсь, чувствую себя физически хорошо;</p>
+  <p>2 - в целом все идет хорошо, но иногда я легко раздражаюсь;</p>
+  <p>3 - я нервничаю и тревожусь чаще. Хуже концентрируюсь, но могу выполнять все личные и рабочие задачи;</p>
+  <p>4 - мне сложно выносить неопределенность и сюрпризы. Чувствую себя взвинченным, часто бываю уставшим и подавленным;</p>
+  <p>5 - мне кажется, что сложности и проблемы только наваливаются, и я уже не могу ничего с ними сделать. Не могу сконцентрироваться или расслабиться, плохо сплю.</p>
+  </div>`;
+
+function inputStressRange() {
+  inputRange(5, ['1', '2', '3', '4', '5'], questionContainer);
+}
+inputStressRange()
+
+  let indexQuestion = 0;
+  let questions = document.querySelectorAll('.question-container');
+  //кнопка назад
+  prevBtn.addEventListener('click', function() {
+    if (indexQuestion > 0) {
+      questions[indexQuestion].style.display = 'none';
+      indexQuestion--;
+      questions[indexQuestion].style.display = 'block';
+      sizeProgress(indexQuestion+1)
+
+      // если нажата кнопка назад на последнем вопросе
+      if (btnSurvey.textContent !== 'Далее') {
+        btnSurvey.textContent = 'Далее';
+        btnSurvey.removeEventListener('click', getSurveyResults);
+        btnSurvey.addEventListener('click', prevAnswer);
+      }
+    } 
+  })
+
+  //кнопка далее
+  btnSurvey.textContent = 'Далее';
+  questions[0].style.display = 'block';
+  for (let i = 1; i < questions.length; i++) {
+    questions[i].style.display = 'none';
+  }
+  function prevAnswer() {
+    questions[indexQuestion].style.display = 'none';
+    if (!((indexQuestion + 1) < questions.length - 1)) {
+      //кнопка завершения опроса
+      btnSurvey.removeEventListener('click', prevAnswer);
+      results(btnSurvey); 
+    } 
+    indexQuestion++;
+    questions[indexQuestion].style.display = 'block';
+    sizeProgress(indexQuestion+1)
+  }
+  btnSurvey.addEventListener('click', prevAnswer);
+
+  // получение результата
+  function results(btnSurvey) {
+    btnSurvey.innerText = 'Получить результаты';
+    btnSurvey.type = 'submit';
+    btnSurvey.addEventListener('click', getSurveyResults);
+  }
 }
 
 
-
-// Эта функция не работает(!!preventDefault!!)
-$(".survey-container #survey-submit").submit(function (e) {
-  e.preventDefault();
-  const answers = Array.from(document.querySelectorAll('.answer-container'));
-  console.log(answers);
-});
-
-
-
 // Получить данные с опроса
-function getSurveyResults() {
+function getSurveyResults(e) {
+  e.preventDefault();
   // Получаем все ответы на опрос в виде массива
-  const answers = Array.from(document.querySelectorAll('.answer-container'));
-
+  const questions = document.querySelectorAll('.question-container');
   // Создаем объект для хранения результатов опроса
   const results = {};
 
   // Итерируемся по массиву ответов
-  answers.forEach(answer => {
-    // Получаем id вопроса и значение ответа
-    const questionId = answer.dataset.questionId;
-    const answerValue = answer.value;
+  questions.forEach((question, ind) => {
+    let questionId = ind + 1;
+    if (question.classList.contains('question-container_textarea')) {
+      let answerValue = question.querySelector('input').value;
 
-    // Если такой вопрос уже есть в объекте результатов,
-    // то добавляем значение ответа к массиву ответов на этот вопрос
-    if (results.hasOwnProperty(questionId)) {
-      results[questionId].push(answerValue);
+      results[questionId] = answerValue;
+    } else {
+      results[questionId] = [];
+      question.querySelectorAll('input').forEach((answer) => {
+        if (answer.checked) {
+          results[questionId].push(answer.value);
+        }
+      })
     }
-    // Иначе создаем новый ключ в объекте результатов с этим вопросом и ответом
-    else {
-      results[questionId] = [answerValue];
-    }
-  });
+  })
 
   // Выводим результаты опроса в консоль
   console.log(results);
@@ -668,216 +916,6 @@ function getSurveyResults() {
 
 
 
-
-
-
-
-
-// function createSurvey() {
-//   // Получаем данные опроса из формы
-//   const pollName = document.getElementById('poll_name').value;
-//   const questionInputs = document.querySelectorAll('input[name="questions[]"]');
-//   const answerInputs = document.querySelectorAll('input[name^="answers"]');
-
-//   // Создаем объект опроса
-//   const survey = {
-//     name: pollName,
-//     questions: []
-//   };
-
-//   // Добавляем вопросы и ответы в объект опроса
-//   let currentQuestion = null;
-//   for (let i = 0; i < answerInputs.length; i++) {
-//     const input = answerInputs[i];
-//     const nameParts = input.name.split('[');
-//     const questionIndex = parseInt(nameParts[1]);
-//     const answerIndex = parseInt(nameParts[2].replace(']', ''));
-
-//     if (!currentQuestion || questionIndex !== currentQuestion.index) {
-//       currentQuestion = {
-//         index: questionIndex,
-//         text: questionInputs[questionIndex].value,
-//         answers: []
-//       };
-//       survey.questions.push(currentQuestion);
-//     }
-//     currentQuestion.answers.push(input.value);
-//   }
-//   // Возвращаем объект опроса в формате JSON
-//   return (survey);
-// }
-
-
-
-// // Удаление вопроса
-// function deleteQuestion(e) {
-//   e.target.closest('.question-group').remove();
-//   document.querySelectorAll('.question-group').forEach((elem, ind) => {
-//     let index = ind+1;
-//     if (elem.querySelector('.question_first-input')) {
-//       elem.querySelector('.question_first-input').id = `question_${index}`;
-//     }
-//     elem.querySelector('.question_first-label').setAttribute('for', `question_${index}`);
-//     elem.querySelector('.question_first-label').textContent = `Вопрос ${index}:`;
-//     console.log(index, elem.querySelector('.question_first-label'))
-// //     console.log(elem.querySelectorAll('input'));
-// //     var tmpNode = document.getElementById('d7');
-// // tmpNode.id = "d8";
-// //     elem.querySelectorAll('input')
-//   })
-  
-//   // $(this).closest('.question-group').remove();
-//   // $('.question-group').each(function (index) {
-//   //   $(this).find('label').first().text(`Вопрос ${index + 1}:`);
-//   // });
-
-//   questionIndex--;
-// }
-
-// // $('.delete-question').click(deleteQuestion);
-// // document.querySelector('.delete-question').addEventListener('click', deleteQuestion);
-// document.addEventListener('DOMContentLoaded', function() {
-//   if (document.querySelector('.question-group')) {
-//     document.querySelectorAll('.delete-question').forEach(element => {
-//       element.addEventListener('click', deleteQuestion);
-//     });
-//   }
-// })
-
-
-
-// // $("#add_survey_btn").click(function (e) {
-// //   e.preventDefault();
-// //   const survey = createSurvey();
-// //   console.log(survey);
-// // });
-
-// const questionGroup = (index) => {
-//   return `
-//     <div class="question-group">
-//     <label for="question_${index}" class='question_first-label'>Вопрос ${index}:</label>
-//     <input type="text" id="question_${index}" name="questions[]" class='question_first-input'>
-//     <div class="answer-group">
-//         <label id="question_type" for="question_type_${index}">Тип ответа:</label>
-//         <input type="radio" id="question_type_${index}_choice" name="question_type_${index}" value="choice">
-//         <label id="select_answer_choice" for="question_type_${index}_choice">Выбор ответа</label>
-//         <input type="radio" id="question_type_${index}_text" name="question_type_${index}" value="text">
-//         <label label id="select_answer_txt" for="question_type_${index}_text">Свободный ввод текста</label>
-    
-//         <label for="answer_${index}_1">Ответ:</label>
-//         <input type="text" id="answer_${index}_1" name="answers[0][]">
-//         <button type="button" class="delete-answer">Удалить ответ</button>
-        
-//     </div>
-//     <button type="button" class="add-answer">Добавить ответ</button>
-    
-//     <div class="question-actions">
-//       <button type="button" class="delete-question">Удалить вопрос</button>
-//     </div>
-//     </div>
-//   `;
-// }
-
-// const questionGroupListener = (elem) => {
-//   elem.querySelector('.delete-question').addEventListener('click', deleteQuestion);
-// }
-
-// // Добавление вопроса
-// let questionIndex = 1;
-// $('.add-question').click(function () {
-//   questionIndex++;
-//   let array = document.querySelectorAll('.question-group');
-
-//   array[array.length - 1].insertAdjacentHTML('afterend', questionGroup(questionIndex));
-//   array = document.querySelectorAll('.question-group');
-//   let elem = array[array.length - 1];
-//   questionGroupListener(elem)
-//   // elem.querySelector('.delete-question').addEventListener('click', deleteQuestion);
-//   // questionGroupListener(array[array.length - 1]);
-  
-//   // const $questionGroup = $('.question-group').first().clone();
-//   // $questionGroup.find('label').text(`Вопрос ${questionIndex}:`);
-//   // $questionGroup.find('input').val('');
-//   // $questionGroup.find('.answer-group').remove();
-//   // $questionGroup.find('.add-answer').click(addAnswer);
-//   // $questionGroup.find('.delete-question').click(deleteQuestion);
-//   // $('.question-group').last().after($questionGroup);
-// });
-
-// // Добавление ответа
-// function addAnswer() {
-//   const $answerGroup = $(this).prev().clone();
-//   const answerIndex = $answerGroup.find('button').length + 1;
-//   // $answerGroup.find('#question_type').setAttribute('for', `question_type_${answerIndex}`);
-
-//   // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_choice`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
-//   // $answerGroup.find('#select_answer_choice').setAttribute('for', `question_type_${answerIndex}_choice`);
-//   // $answerGroup.find('input').val('choice').setAttribute('id', `question_type_${answerIndex}_text`).setAttribute('type', 'radio').setAttribute('name', `question_type_${answerIndex}`);
-//   // $answerGroup.find('#select_answer_txt').setAttribute('for', `question_type_${answerIndex}_text`);
-
-//   // !!! -->
-//   $answerGroup.find('input').val('');
-//   $answerGroup.find('label').text(`Ответ ${answerIndex}:`);
-//   $answerGroup.find('input').val('');
-//   $answerGroup.find('.delete-answer').click(deleteAnswer);
-//   $(this).before($answerGroup);
-// }
-
-// $('.add-answer').click(addAnswer);
-
-
-// // Удаление ответа
-// function deleteAnswer() {
-//   $(this).closest('.answer-group').remove();
-//   const $answerGroups = $(this).closest('.question-group').find('.answer-group');
-//   // $answerGroups.each(function (index) {
-//   //   $(this).find('label').first().text(`Ответ ${index + 1}:`);
-//   // });
-// }
-
-// $('.delete-answer').click(deleteAnswer);
-
-
-
-
-
-// // Добавляем обработчики событий на радио кнопки для выбора типа ответа
-// document.addEventListener('change', function (e) {
-//   if (e.target && e.target.matches('[name^="question_type"]')) {
-//     // const questionIndex = e.target.name.replace('question_type_', '');
-//     const questionType = e.target.value;
-//     console.log(questionType);
-//     const answerContainer = document.querySelector(`#question_1~.answer-group`);
-//     console.log(answerContainer)
-//     const answerInputs = answerContainer.querySelectorAll('input[type="text"]');
-
-//     if (questionType === 'choice') {
-//       // Показываем кнопки "Добавить ответ" и "Удалить ответ" и делаем все поля ответа видимыми
-//       answerContainer.classList.remove('text-answer');
-//       const addButton = answerContainer.previousElementSibling;
-//       const deleteButton = answerContainer.querySelector('.delete-answer');
-//       addButton.style.display = 'inline-block';
-//       deleteButton.style.display = 'inline-block';
-//       answerInputs.forEach(function (input) {
-//         input.style.display = 'inline-block';
-//       });
-//     } else if (questionType === 'text') {
-//       // Скрываем кнопки "Добавить ответ" и "Удалить ответ" и скрываем все поля ответа, кроме одного
-//       answerContainer.classList.add('text-answer');
-//       const addButton = answerContainer.previousElementSibling;
-//       const deleteButton = answerContainer.querySelector('.delete-answer');
-//       addButton.style.display = 'none';
-//       deleteButton.style.display = 'none';
-//       answerInputs.forEach(function (input, index) {
-//         if (index === 0) {
-//           input.style.display = 'inline-block';
-//         } else {
-//           input.style.display = 'none';
-//         }
-//       });
-//     }
-//   }
-// });
 
 
 
