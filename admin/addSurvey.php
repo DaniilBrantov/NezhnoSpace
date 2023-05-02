@@ -23,15 +23,17 @@ $last_survey = $db->getAll("SELECT * FROM add_survey ORDER BY id DESC LIMIT 1")[
 ?>
 
 <script>
-// let surveyContainer = document.getElementById('survey-container');
-
 let this_survey = <?php 
       echo($last_survey["survey_questions"]);
   ?>;
 
+  let this_id = <?php 
+      echo($last_survey["id"]);
+  ?>;
 
-
-// console.log(this_survey)
+  let this_name = '<?php 
+      echo($last_survey["survey_name"]);
+  ?>';
 </script>
 
 
@@ -52,7 +54,7 @@ let this_survey = <?php
 
     </div>
     <div class='buttons-wrp'>
-        <button onclick="generateSurvey(this_survey, document.getElementById('survey-container'))"
+        <button onclick="generateSurvey(this_survey, document.getElementById('survey-container'), this_id, this_name)"
             class='button-survey blue_btn'>Начать</button>
         <a href="/">Выйти из опроса</a>
     </div>

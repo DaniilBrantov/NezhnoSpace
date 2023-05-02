@@ -555,7 +555,7 @@ $('#survey-form').submit(function (e) {
 // CREATE SURVEY
 
 // Создать опрос
-function generateSurvey(data, surveyContainer) {
+function generateSurvey(data, surveyContainer, id, nameSurvey) {
   document.querySelector('.survey_opening-text').style.display = 'none';
   let btnSurvey = document.querySelector('.button-survey');
   btnSurvey.onclick = null;
@@ -866,17 +866,19 @@ function generateSurvey(data, surveyContainer) {
   function results(btnSurvey) {
     btnSurvey.innerText = 'Получить результаты';
     btnSurvey.type = 'submit';
-    btnSurvey.addEventListener('click', getSurveyResults);
+    btnSurvey.addEventListener('click', (e) => getSurveyResults(e, id, nameSurvey, data));
   }
 }
 
 
 // Получить данные с опроса
-function getSurveyResults(e) {
+function getSurveyResults(e, id, nameSurvey, data) {
   e.preventDefault();
   // Получаем все ответы на опрос в виде массива
   const questions = document.querySelectorAll('.question-container');
   // Создаем объект для хранения результатов опроса
+  const ID = id;
+  const NAME = nameSurvey;
   const results = {};
 
   // Итерируемся по массиву ответов
@@ -897,12 +899,19 @@ function getSurveyResults(e) {
   })
 
   // Отправляем данные на сервер
-  console.log(results);
+  // console.log(results);
+  const DATA = { 
+    id: ID,
+    survey_questions: data,
+    survey_name: NAME,
+    user_result: results 
+  };
+  console.log(DATA)
   $.ajax({
     url: "add_survey_check",
     type: "POST",
     dataType: "json",
-    data: { user_result: results },
+    data: DATA,
     success: function (data) {
       console.log(data)
     },
