@@ -906,18 +906,18 @@ function getSurveyResults(e, id, nameSurvey, data) {
 
   // Отправляем данные на сервер
   // console.log(results);
-  const DATA = { 
+  const DATA = {
     id: ID,
     survey_questions: data,
     survey_name: NAME,
-    user_result: results 
+    user_result: results
   };
   console.log(DATA)
   $.ajax({
     url: "add_survey_check",
     type: "POST",
     dataType: "json",
-    data: DATA,
+    data: { user_answers: DATA },
     success: function (data) {
       console.log(data)
     },
