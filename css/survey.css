@@ -420,7 +420,7 @@
 /***** Chrome, Safari, Opera and Edge Chromium styles *****/
 /* slider track */
 .answer-container .slidecontainer input[type="range"]::-webkit-slider-runnable-track {
-   background-color: #fff;
+   background-color: transparent;
    border-radius: 5px;
    height: 6px;  
 }
