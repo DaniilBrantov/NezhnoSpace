@@ -700,6 +700,9 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
       answerContainer.insertAdjacentHTML('beforeend', `
         <div class="slidecontainer">
           <input type="range" min="1" max="" value="" class="slider-range">
+          <div class="slidecontainer_range-wrp">
+            <div class="slide-delimeter_wrp"></div>
+          </div>
           <div class="slide-delimeter_wrp"></div>
           <input class="slidecontainer-checked" value='' type='radio' checked>
         </div>`);
@@ -722,6 +725,7 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
       let checkedValue = array[0];
       let widthInput = window.getComputedStyle(slideContainer).width;
       widthInput = parseFloat(widthInput);
+      answerContainer.querySelector('.slidecontainer input[type="range"]').style.width = widthInput + 22 + 'px';
       let inputRange = answerContainer.querySelector('.slider-range');
       inputRange.max = widthInput;
       let paddingSize = ((widthInput - widthSlide) / 2);
@@ -750,6 +754,8 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
     // Тип ответа - RADIO-кнопки
     if (data[keyData]['type'] === 'radio') {
       inputRange(Object.keys(data[keyData]['answers']).length, data[keyData]['answers'], questionContainer);
+
+      // window.addEventListener('resize', inputRange(Object.keys(data[keyData]['answers']).length, data[keyData]['answers'], questionContainer));
     }
     // Тип ответа - чекбокс-кнопки
     if (data[keyData]['type'] === 'checkbox') {
