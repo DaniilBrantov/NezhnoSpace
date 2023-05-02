@@ -357,7 +357,7 @@ function createSurvey() {
     if (question.querySelector('.question_info input')) {
       array.info = encodeURI(question.querySelector('.question_info input').value);
     }
-    
+
     array.answers = [];
 
     if (question.querySelectorAll('.answer-group_input-answer') || question.querySelectorAll('.answer-group_input-answer').length > 0) {
@@ -385,9 +385,7 @@ $('#survey-form').submit(function (e) {
     dataType: "json",
     data: { survey: survey },
     success: function (data) {
-
       console.log(data)
-
     },
     error: function (jqxhr, status, errorMsg) {
       console.log(errorMsg)
@@ -402,17 +400,17 @@ $('#survey-form').submit(function (e) {
     function radioListenerBtns() {
       let parents = document.querySelectorAll('.answer-group_radio-wrp');
       parents.forEach((parent) => {
-        
+
         let radioBtns = parent.querySelectorAll('input');
         radioBtns.forEach((radioBtn) => {
-          radioBtn.addEventListener('click', function() {
+          radioBtn.addEventListener('click', function () {
             radioBtns.forEach((btn) => {
               if (btn !== radioBtn) {
                 btn.checked = false;
               }
             })
             radioBtn.checked = true;
-    
+
             if (radioBtn.value === 'textarea') {
               radioBtn.closest('.question-group').querySelectorAll('.answer-group_input-answer').forEach(elem => elem.style.display = 'none');
               radioBtn.closest('.question-group').querySelector('.add-answer').style.display = 'none';
@@ -516,7 +514,7 @@ $('#survey-form').submit(function (e) {
       } else {
         array[array.length - 1].insertAdjacentHTML('afterend', questionGroup(indexQuestion));
       }
-      
+
       array = document.querySelectorAll('.question-group');
       let currentElem = array[array.length - 1];
 
@@ -532,7 +530,7 @@ $('#survey-form').submit(function (e) {
       e.target.closest('.question-group').remove();
 
       document.querySelectorAll('.question-group').forEach((elem, ind) => {
-        elem.querySelector('.question_name-span').textContent = `Вопрос ${ind+1}:`;
+        elem.querySelector('.question_name-span').textContent = `Вопрос ${ind + 1}:`;
       })
 
       indexQuestion--;
@@ -558,7 +556,6 @@ $('#survey-form').submit(function (e) {
 
 // Создать опрос
 function generateSurvey(data, surveyContainer) {
-  console.log(data)
   document.querySelector('.survey_opening-text').style.display = 'none';
   let btnSurvey = document.querySelector('.button-survey');
   btnSurvey.onclick = null;
@@ -647,7 +644,7 @@ function generateSurvey(data, surveyContainer) {
 
     if (data[keyData]['type'] === 'age') {
       questionContainer.classList.add(`question-container_textarea`);
-      
+
       questionTitle.innerText = `Сколько вам лет?`;
 
       const answerContainer = document.createElement('div');
@@ -660,7 +657,7 @@ function generateSurvey(data, surveyContainer) {
       input.min = "1900-01-01";
       input.max = "2022-12-31";
       input.addEventListener('focus', (e) => e.target.type = 'date');
-      input.addEventListener('blur', (e) => e.target.value == '' ? e.target.type='text' : e.target.type='date')
+      input.addEventListener('blur', (e) => e.target.value == '' ? e.target.type = 'text' : e.target.type = 'date')
 
       answerContainer.appendChild(input);
     }
@@ -681,7 +678,7 @@ function generateSurvey(data, surveyContainer) {
       </defs>
       </svg>`;
       questionTitle.appendChild(questionInfo);
-      questionInfo.addEventListener('click', function() {
+      questionInfo.addEventListener('click', function () {
         document.querySelector('.survey_modal-text').innerHTML = decodeURI(data[keyData]['info']);
         document.querySelector('.survey_modal-info').style.display = 'block';
       })
@@ -707,54 +704,54 @@ function generateSurvey(data, surveyContainer) {
           <input class="slidecontainer-checked" value='' type='radio' checked>
         </div>`);
 
-        let slideContainer = answerContainer.querySelector('.slidecontainer');
-        
-        //расстановка штифтов
-        for (let i = 0; i < length; i++) {                             
-          slideContainer.querySelector('.slide-delimeter_wrp').innerHTML += `<span class='slide-delimeter'></span>`;                                                      
-        }
-        let styles = window.getComputedStyle(slideContainer.querySelector('.slide-delimeter_wrp'));
-        let widthSlide = parseFloat(styles.width);
-        let left = 0;
-        slideContainer.querySelector('.slide-delimeter_wrp').querySelectorAll('.slide-delimeter').forEach((elem, ind) => {
-          elem.style.left = left + 'px';
-          left += (widthSlide / (length - 1));
-          elem.innerHTML += `<span class='slide-delimeter_text'>${decodeURI(array[ind])}</span>`;
-          elem.querySelector('.slide-delimeter_text').style.left = '-' + parseFloat(window.getComputedStyle(elem.querySelector('.slide-delimeter_text')).width) / 2 + 'px';
-        });
-        let checkedValue = array[0];
-        let widthInput = window.getComputedStyle(slideContainer).width;
-        widthInput = parseFloat(widthInput);
-        let inputRange = answerContainer.querySelector('.slider-range');
-        inputRange.max = widthInput;
-        let paddingSize = ((widthInput - widthSlide)  / 2);
-        let pieceLength = widthInput/length;
-        inputRange.value = paddingSize + ((widthSlide / (length - 1)) * 0);
-        slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
-        console.log(slideContainer.querySelector('.slidecontainer-checked').value);
-        inputRange.addEventListener('change', function(e) {
-          let value = e.target.value;
-          for (let i = 0; i < length; i++) {
-            if ((value > pieceLength*i - (pieceLength / 2 -paddingSize)) && (value <= (pieceLength*(i+1) - (pieceLength / 2 -paddingSize)))) {
-                e.target.value = paddingSize + ((widthSlide / (length - 1)) * i);
-                checkedValue = array[i];
-                break;
-               } else {
-                 e.target.value = paddingSize + ((widthSlide / (length - 1)) * (length - 1));
-                 checkedValue = array[i];
-               }
-               
-          }
-          slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
-          console.log(slideContainer.querySelector('.slidecontainer-checked').value)
-        }) 
-    } 
+      let slideContainer = answerContainer.querySelector('.slidecontainer');
 
-        // Тип ответа - RADIO-кнопки
+      //расстановка штифтов
+      for (let i = 0; i < length; i++) {
+        slideContainer.querySelector('.slide-delimeter_wrp').innerHTML += `<span class='slide-delimeter'></span>`;
+      }
+      let styles = window.getComputedStyle(slideContainer.querySelector('.slide-delimeter_wrp'));
+      let widthSlide = parseFloat(styles.width);
+      let left = 0;
+      slideContainer.querySelector('.slide-delimeter_wrp').querySelectorAll('.slide-delimeter').forEach((elem, ind) => {
+        elem.style.left = left + 'px';
+        left += (widthSlide / (length - 1));
+        elem.innerHTML += `<span class='slide-delimeter_text'>${decodeURI(array[ind])}</span>`;
+        elem.querySelector('.slide-delimeter_text').style.left = '-' + parseFloat(window.getComputedStyle(elem.querySelector('.slide-delimeter_text')).width) / 2 + 'px';
+      });
+      let checkedValue = array[0];
+      let widthInput = window.getComputedStyle(slideContainer).width;
+      widthInput = parseFloat(widthInput);
+      let inputRange = answerContainer.querySelector('.slider-range');
+      inputRange.max = widthInput;
+      let paddingSize = ((widthInput - widthSlide) / 2);
+      let pieceLength = widthInput / length;
+      inputRange.value = paddingSize + ((widthSlide / (length - 1)) * 0);
+      slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
+      console.log(slideContainer.querySelector('.slidecontainer-checked').value);
+      inputRange.addEventListener('change', function (e) {
+        let value = e.target.value;
+        for (let i = 0; i < length; i++) {
+          if ((value > pieceLength * i - (pieceLength / 2 - paddingSize)) && (value <= (pieceLength * (i + 1) - (pieceLength / 2 - paddingSize)))) {
+            e.target.value = paddingSize + ((widthSlide / (length - 1)) * i);
+            checkedValue = array[i];
+            break;
+          } else {
+            e.target.value = paddingSize + ((widthSlide / (length - 1)) * (length - 1));
+            checkedValue = array[i];
+          }
+
+        }
+        slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
+        console.log(slideContainer.querySelector('.slidecontainer-checked').value)
+      })
+    }
+
+    // Тип ответа - RADIO-кнопки
     if (data[keyData]['type'] === 'radio') {
       inputRange(Object.keys(data[keyData]['answers']).length, data[keyData]['answers'], questionContainer);
     }
-        // Тип ответа - чекбокс-кнопки
+    // Тип ответа - чекбокс-кнопки
     if (data[keyData]['type'] === 'checkbox') {
       const answersContainer = document.createElement('div');
       answersContainer.classList.add('answers-container');
@@ -788,7 +785,7 @@ function generateSurvey(data, surveyContainer) {
         const answerContainer = document.createElement('div');
         answerContainer.classList.add('answer-container');
         questionContainer.appendChild(answerContainer);
-  
+
         const label = document.createElement('label');
         label.innerText = decodeURI(data[keyData]['answers'][keyAnswer]);
         answerContainer.appendChild(label);
@@ -821,20 +818,20 @@ function generateSurvey(data, surveyContainer) {
   <p>5 - мне кажется, что сложности и проблемы только наваливаются, и я уже не могу ничего с ними сделать. Не могу сконцентрироваться или расслабиться, плохо сплю.</p>
   </div>`;
 
-function inputStressRange() {
-  inputRange(5, ['1', '2', '3', '4', '5'], questionContainer);
-}
-inputStressRange()
+  function inputStressRange() {
+    inputRange(5, ['1', '2', '3', '4', '5'], questionContainer);
+  }
+  inputStressRange()
 
   let indexQuestion = 0;
   let questions = document.querySelectorAll('.question-container');
   //кнопка назад
-  prevBtn.addEventListener('click', function() {
+  prevBtn.addEventListener('click', function () {
     if (indexQuestion > 0) {
       questions[indexQuestion].style.display = 'none';
       indexQuestion--;
       questions[indexQuestion].style.display = 'block';
-      sizeProgress(indexQuestion+1)
+      sizeProgress(indexQuestion + 1)
 
       // если нажата кнопка назад на последнем вопросе
       if (btnSurvey.textContent !== 'Далее') {
@@ -842,7 +839,7 @@ inputStressRange()
         btnSurvey.removeEventListener('click', getSurveyResults);
         btnSurvey.addEventListener('click', prevAnswer);
       }
-    } 
+    }
   })
 
   //кнопка далее
@@ -850,17 +847,18 @@ inputStressRange()
   questions[0].style.display = 'block';
   for (let i = 1; i < questions.length; i++) {
     questions[i].style.display = 'none';
+
   }
   function prevAnswer() {
     questions[indexQuestion].style.display = 'none';
     if (!((indexQuestion + 1) < questions.length - 1)) {
       //кнопка завершения опроса
       btnSurvey.removeEventListener('click', prevAnswer);
-      results(btnSurvey); 
-    } 
+      results(btnSurvey);
+    }
     indexQuestion++;
     questions[indexQuestion].style.display = 'block';
-    sizeProgress(indexQuestion+1)
+    sizeProgress(indexQuestion + 1)
   }
   btnSurvey.addEventListener('click', prevAnswer);
 
@@ -898,16 +896,22 @@ function getSurveyResults(e) {
     }
   })
 
-  // Выводим результаты опроса в консоль
+  // Отправляем данные на сервер
   console.log(results);
+  $.ajax({
+    url: "add_survey_check",
+    type: "POST",
+    dataType: "json",
+    data: { user_result: results },
+    success: function (data) {
+      console.log(data)
+    },
+    error: function (jqxhr, status, errorMsg) {
+      console.log(errorMsg)
+    },
+  });
+
 }
-
-
-
-
-
-
-
 
 
 
