@@ -27,11 +27,11 @@ let this_survey = <?php
       echo($last_survey["survey_questions"]);
   ?>;
 
-  let this_id = <?php 
+let this_id = <?php 
       echo($last_survey["id"]);
   ?>;
 
-  let this_name = '<?php 
+let this_name = '<?php 
       echo($last_survey["survey_name"]);
   ?>';
 </script>
