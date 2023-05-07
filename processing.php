@@ -84,6 +84,30 @@ class UserValidationErrors
             return "Введите свою дату рождения";
         }
     }
+    public function getCheckTokens($mail, $token)
+    {
+        return $this->checkTokens($mail, $token);
+    }
+    protected function checkTokens($mail, $token)
+    {
+        $db = new SafeMySQL();
+        $sql =$db->query("SELECT info FROM tokens WHERE mail=?s AND token=?s", $mail, $token);
+        if($db->numRows($sql)>0){
+            $sql= json_decode($sql);
+            $status=$sql['status'];
+            $pay_choice=$sql['pay_choice'];
+            $date=$sql['date'];
+            $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
+            if($user_up){
+                $error = 0;
+            }else{
+                $error = "Попробуйте позже...";
+            }
+        }else{
+            $error = "Проверьте вашу почту";
+        }
+        return $error;
+    }
     protected function FieldLength($full_name, $error)
     {
         if($full_name == '') {

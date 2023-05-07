@@ -13,6 +13,7 @@
     $pass=$_POST['pass'];
     $pass_conf=$_POST['pass_conf'];
     $checkbox=$_POST['approval_check'];
+    $token=$_GET['token'];
 
 $user_validation = new UserValidationErrors();
 $errors=[];
@@ -32,6 +33,12 @@ if($user_validation->getPassword($pass)){
 if(!vb_reg_new_user()){
     $errors['first_name']=vb_reg_new_user();
 }
+if(!empty($_GET['token']) && isset($_GET['token'])){
+    if($user_validation->getCheckTokens($mail, $token)){
+        $errors['mail']=$user_validation->getCheckTokens($mail, $token);
+    }
+}
+
 
 if(empty($errors)){
     // Хешируем пароль

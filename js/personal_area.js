@@ -732,7 +732,7 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
       let pieceLength = widthInput / length;
       inputRange.value = paddingSize + ((widthSlide / (length - 1)) * 0);
       slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
-      console.log(slideContainer.querySelector('.slidecontainer-checked').value);
+      // console.log(slideContainer.querySelector('.slidecontainer-checked').value);
       inputRange.addEventListener('change', function (e) {
         let value = e.target.value;
         for (let i = 0; i < length; i++) {
@@ -747,7 +747,7 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
 
         }
         slideContainer.querySelector('.slidecontainer-checked').value = decodeURI(checkedValue);
-        console.log(slideContainer.querySelector('.slidecontainer-checked').value)
+        // console.log(slideContainer.querySelector('.slidecontainer-checked').value)
       })
     }
 

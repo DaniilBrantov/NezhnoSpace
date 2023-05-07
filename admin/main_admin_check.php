@@ -16,6 +16,9 @@ $category=$_POST['category'];
 
 var_dump($title);
 
+
+
+
 // $post_data = array(
 //     'post_title'    => $title,
 //     'post_content'  => $content,

@@ -32,12 +32,13 @@ function saveUserSurveyData($user_answers){
     $survey_name = $user_answers['survey_name'];
     $user_result = $user_answers['user_result'];
     $checking_add_survey = $db->query("SELECT * FROM add_survey WHERE id=?i AND survey_name=?s", $survey_id, $survey_name);
-    $checking_survey = $db->query("SELECT * FROM survey WHERE survey_id=?i AND survey_name=?s AND users_id=?i", $survey_id, $survey_name, $user_id);
+    $checking_survey = $db->query("SELECT * FROM survey WHERE survey_id=?i AND users_id=?i", $survey_id, $user_id);
     $answers = json_encode($user_result, JSON_FORCE_OBJECT);
     if($db->numRows($checking_add_survey) === 1){
         //Проверка на существование прохождения опроса юзером
         if( $db->numRows($checking_survey) > 1 ){
-            if($db->query("UPDATE `survey`(`survey_id`,`survey_name`,`users_id`,`answers`) VALUES('$survey_id','$survey_name','$user_id','$answers') ")){
+            // if($db->query("UPDATE `survey`(`survey_id`,`survey_name`,`users_id`,`answers`) VALUES('$survey_id','$survey_name','$user_id','$answers') ")){
+            if($db->query("UPDATE survey SET answers='$answers' WHERE survey_id='$survey_id' AND users_id='$user_id'") ){
                 $res['status']=1;
                 $res['name']=$survey_name;
             }else{
