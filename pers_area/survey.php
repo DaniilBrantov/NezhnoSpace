@@ -10,7 +10,7 @@ require_once( get_theme_file_path('processing.php') );
 
 
 
-
+//Add Page in WP
 // Опрос
 // 
 // 
