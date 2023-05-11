@@ -842,7 +842,7 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
       // если нажата кнопка назад на последнем вопросе
       if (btnSurvey.textContent !== 'Далее') {
         btnSurvey.textContent = 'Далее';
-        btnSurvey.removeEventListener('click', getSurveyResults);
+        btnSurvey.removeEventListener('click', resultsClick);
         btnSurvey.addEventListener('click', prevAnswer);
       }
     }
@@ -872,10 +872,13 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
   function results(btnSurvey) {
     btnSurvey.innerText = 'Получить результаты';
     btnSurvey.type = 'submit';
-    btnSurvey.addEventListener('click', (e) => getSurveyResults(e, id, nameSurvey, data));
+    btnSurvey.addEventListener('click', resultsClick);
+  }
+
+  function resultsClick(e) {
+    getSurveyResults(e, id, nameSurvey, data);
   }
 }
-
 
 // Получить данные с опроса
 function getSurveyResults(e, id, nameSurvey, data) {
@@ -912,17 +915,30 @@ function getSurveyResults(e, id, nameSurvey, data) {
     survey_name: NAME,
     user_result: results
   };
-  console.log(DATA)
+  // console.log(DATA)
   $.ajax({
     url: "add_survey_check",
     type: "POST",
     dataType: "json",
     data: { user_answers: DATA },
     success: function (data) {
-      console.log(data)
+      // console.log(data)
+      document.querySelector('.survey_modal-info').style.display = 'block';
+      document.querySelector('.survey_modal-info').querySelector('.survey_modal_btn-close').style.display = 'none';
+      document.querySelector('.survey_modal-info').querySelector('.survey_modal-text').innerHTML = `
+        <h2 style='text-align: center;'>Спасибо за прохождение опроса</h2>
+        <a href="/account" class='blue_btn account_analytics_survey-link'>Выйти</a>
+      `;
     },
     error: function (jqxhr, status, errorMsg) {
       console.log(errorMsg)
+      // document.querySelector('.survey_modal-info').style.display = 'block';
+      // document.querySelector('.survey_modal-info').querySelector('.survey_modal_btn-close').style.display = 'none';
+      // document.querySelector('.survey_modal-info').querySelector('.survey_modal-text').innerHTML = `
+      //   <h2 style='text-align: center;'>Спасибо за прохождение опроса</h2>
+      //   <a href="/account" class='blue_btn account_analytics_survey-link'>Выйти</a>
+      // `;
+      // document.querySelector('.survey_modal-info').querySelector('.survey_modal-text').innerHTML += '<h2>Спасибо за прохождение опроса</h2>';
     },
   });
 

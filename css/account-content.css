@@ -1,5 +1,5 @@
 .account_section {
-  margin-top: 172px;
+  /* margin-top: 172px; */
 }
 .account_section .container {
   margin-bottom: 20px;
@@ -23,6 +23,12 @@
 .account_analytics_not-result-text {
   margin-top: -35px;
   text-align: center;
+}
+.account_analytics_survey-link {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
 }
 .account_personal-data {
   width: 100%;
@@ -273,7 +279,7 @@
     order: 2;
   }
   .account_section {
-    margin-top: 85px;
+    /* margin-top: 85px; */
   }
   .account_personal-data {
     max-width: 450px;
