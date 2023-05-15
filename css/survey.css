@@ -685,7 +685,13 @@
     font-size: 13px;
   }
 }
-
+@media (max-width: 483px) {
+  .question-container_checkbox .answers-container {
+    max-width: max-content;
+    width: 100%;
+    padding-left: 20px;
+  }
+}
 
 
 
