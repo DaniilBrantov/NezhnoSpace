@@ -91,19 +91,22 @@ class UserValidationErrors
     protected function checkTokens($mail, $token)
     {
         $db = new SafeMySQL();
-        $sql =$db->query("SELECT info FROM tokens WHERE mail=?s AND token=?s", $mail, $token);
+        $sql =$db->query("SELECT * FROM tokens WHERE mail=?s AND token=?s", $mail, $token)[0];
+        $info_sql =$sql['info'];
+        $token=$sql['token'];
         $error=[];
-        if($db->numRows($sql)>0){
+        if($db->numRows($info_sql)>0){
             $user_sql =$db->query("SELECT mail FROM users WHERE mail=?s", $mail);
             if($db->numRows($user_sql)>0){
-                $sql= json_decode($sql);
-                $status=$sql['status'];
-                $pay_choice=$sql['pay_choice'];
-                $date=$sql['date'];
+                $info_sql= json_decode($info_sql);
+                $status=$info_sql['status'];
+                $pay_choice=$info_sql['pay_choice'];
+                $date=$info_sql['date'];
                 $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
                 if($user_up){
                     $error['status'] = 1;
-                    $error['info'] = $sql;
+                    $error['info'] = $info_sql;
+                    $error['token'] = $token;
                 }else{
                     $error['msg'] = "Попробуйте позже...";
                     $error['status'] = 0;
@@ -112,7 +115,6 @@ class UserValidationErrors
                 $error['status'] = 0;
                 $error['msg'] = "Такого пользователя не существует";
             }
-
         }else{
             $error['status'] = 0;
             $error['msg'] = "Проверьте вашу почту";

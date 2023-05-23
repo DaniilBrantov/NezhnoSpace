@@ -38,17 +38,18 @@ if(empty($errors)){
     $reg_date = date("Y-m-d H:i:s");    
 
     // Проверка наличия статуса у пользователя
-    if($_GET['token']){
-        $check_token = $user_validation->getCheckTokens($mail, $token);
-        if($check_token['status'] == 0){
-            $errors['mail']=$check_token['msg'];
-        }else{
-            // Сохраняем таблицу
-            $status = $check_token['info']['status'];
-            $pay_choice = $check_token['info']['pay_choice'];
-            $db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
-            //ПОЧЕМУ ТО НЕ СОХРАНЯЕТСЯ ПО ЭТОМУ СПОСОБУ
-        }
+    $check_token = $user_validation->getCheckTokens($mail, $token);
+    if( isset($_GET['token']) && $_GET['token'] == $check_token['token'] ){
+        $errors['mail']='check_token';
+        // if($check_token['status'] == 0){
+        //     $errors['mail']=$check_token['msg'];
+        // }else{
+        //     // Сохраняем таблицу
+        //     $status = $check_token['info']['status'];
+        //     $pay_choice = $check_token['info']['pay_choice'];
+        //     $db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
+        //ПОЧЕМУ ТО НЕ СОХРАНЯЕТСЯ ПО ЭТОМУ СПОСОБУ
+        // }
     }else{
         // Сохраняем таблицу
         $db->query("INSERT INTO `users`(`name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
