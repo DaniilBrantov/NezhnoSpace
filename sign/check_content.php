@@ -69,7 +69,7 @@ if(empty($errors)){
         $errors['status']=true;
     }else{
         $errors['status']=false;
-        $errors['mail']='Произошла неизвестная ошибка';
+        $errors['mail']='Произошла неизвестная ошибка. Попробуйте позже';
     }
 }else{
     $errors['status']=false;
@@ -160,4 +160,3 @@ echo json_encode($errors);
     // }
 
 ?>
-
