@@ -92,19 +92,30 @@ class UserValidationErrors
     {
         $db = new SafeMySQL();
         $sql =$db->query("SELECT info FROM tokens WHERE mail=?s AND token=?s", $mail, $token);
+        $error=[];
         if($db->numRows($sql)>0){
-            $sql= json_decode($sql);
-            $status=$sql['status'];
-            $pay_choice=$sql['pay_choice'];
-            $date=$sql['date'];
-            $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
-            if($user_up){
-                $error = 0;
+            $user_sql =$db->query("SELECT mail FROM users WHERE mail=?s", $mail);
+            if($db->numRows($user_sql)>0){
+                $sql= json_decode($sql);
+                $status=$sql['status'];
+                $pay_choice=$sql['pay_choice'];
+                $date=$sql['date'];
+                $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
+                if($user_up){
+                    $error['status'] = 1;
+                    $error['info'] = $sql;
+                }else{
+                    $error['msg'] = "Попробуйте позже...";
+                    $error['status'] = 0;
+                }
             }else{
-                $error = "Попробуйте позже...";
+                $error['status'] = 0;
+                $error['msg'] = "Такого пользователя не существует";
             }
+
         }else{
-            $error = "Проверьте вашу почту";
+            $error['status'] = 0;
+            $error['msg'] = "Проверьте вашу почту";
         }
         return $error;
     }
