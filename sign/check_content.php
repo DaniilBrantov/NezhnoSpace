@@ -3,11 +3,6 @@
     require_once( get_theme_file_path('processing.php') );
     session_start();
     
-    // $_POST['first_name']="daniil";
-    // $_POST['mail']="ilt@msil.gqrh";
-    // $_POST['pass']="Genius2018DR!";
-    // $_POST['pass_conf']="Genius2018DR!";
-
     $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
     $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
     $pass=$_POST['pass'];
@@ -33,11 +28,7 @@ if($user_validation->getPassword($pass)){
 if(!vb_reg_new_user()){
     $errors['first_name']=vb_reg_new_user();
 }
-if(!empty($_GET['token']) && isset($_GET['token'])){
-    if($user_validation->getCheckTokens($mail, $token)){
-        $errors['mail']=$user_validation->getCheckTokens($mail, $token);
-    }
-}
+
 
 
 if(empty($errors)){
@@ -46,8 +37,23 @@ if(empty($errors)){
     $activation=md5($mail.time());
     $reg_date = date("Y-m-d H:i:s");    
 
-    // Сохраняем таблицу
-    $db->query("INSERT INTO `users`( `name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
+    // Проверка наличия статуса у пользователя
+    $check_token = $user_validation->getCheckTokens($mail, $token);
+    if( isset($_GET['token']) && $_GET['token'] == $check_token['token'] ){
+        $errors['mail']='check_token';
+        // if($check_token['status'] == 0){
+        //     $errors['mail']=$check_token['msg'];
+        // }else{
+        //     // Сохраняем таблицу
+        //     $status = $check_token['info']['status'];
+        //     $pay_choice = $check_token['info']['pay_choice'];
+        //     $db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
+        //ПОЧЕМУ ТО НЕ СОХРАНЯЕТСЯ ПО ЭТОМУ СПОСОБУ
+        // }
+    }else{
+        // Сохраняем таблицу
+        $db->query("INSERT INTO `users`(`name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
+    }
 
     //cURL запрос из auth. Автоматическая авторизация
     $postData = array(
@@ -69,7 +75,7 @@ if(empty($errors)){
         $errors['status']=true;
     }else{
         $errors['status']=false;
-        $errors['mail']='Произошла неизвестная ошибка';
+        $errors['mail']='Произошла неизвестная ошибка. Попробуйте позже';
     }
 }else{
     $errors['status']=false;
@@ -160,4 +166,3 @@ echo json_encode($errors);
     // }
 
 ?>
-
