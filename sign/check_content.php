@@ -38,7 +38,7 @@ if(empty($errors)){
     $reg_date = date("Y-m-d H:i:s");    
 
     // Проверка наличия статуса у пользователя
-    if(!empty($_GET['token']) && isset($_GET['token'])){
+    if($_GET['token']){
         $check_token = $user_validation->getCheckTokens($mail, $token);
         if($check_token['status'] == 0){
             $errors['mail']=$check_token['msg'];
@@ -52,7 +52,6 @@ if(empty($errors)){
     }else{
         // Сохраняем таблицу
         $db->query("INSERT INTO `users`(`name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
-        $errors['mail']='zzzzzzzz';
     }
 
     //cURL запрос из auth. Автоматическая авторизация
