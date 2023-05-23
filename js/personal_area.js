@@ -927,7 +927,8 @@ function getSurveyResults(e, id, nameSurvey, data) {
       document.querySelector('.survey_modal-info').querySelector('.survey_modal_btn-close').style.display = 'none';
       document.querySelector('.survey_modal-info').querySelector('.survey_modal-text').innerHTML = `
         <h2 style='text-align: center;'>Спасибо за прохождение опроса</h2>
-        <a href="/account" class='blue_btn account_analytics_survey-link'>Выйти</a>
+        <p style='text-align: center; margin-top: 10px; margin-bottom: 10px;'>Теперь рекомендации будут более персонализированными и эффективными для вас.</p>
+        <a href="/subscription" class='blue_btn account_analytics_survey-link'>Выйти</a>
       `;
     },
     error: function (jqxhr, status, errorMsg) {
