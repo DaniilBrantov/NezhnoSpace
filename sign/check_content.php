@@ -8,7 +8,7 @@
     $pass=$_POST['pass'];
     $pass_conf=$_POST['pass_conf'];
     $checkbox=$_POST['approval_check'];
-    $token=$_GET['token'];
+    $token=$_POST['token'];
 
 $user_validation = new UserValidationErrors();
 $errors=[];
@@ -39,17 +39,17 @@ if(empty($errors)){
 
     // Проверка наличия статуса у пользователя
     $check_token = $user_validation->getCheckTokens($mail, $token);
-    if( isset($_GET['token']) && $_GET['token'] == $check_token['token'] ){
-        $errors['mail']='check_token';
-        // if($check_token['status'] == 0){
-        //     $errors['mail']=$check_token['msg'];
-        // }else{
-        //     // Сохраняем таблицу
-        //     $status = $check_token['info']['status'];
-        //     $pay_choice = $check_token['info']['pay_choice'];
-        //     $db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
-        //ПОЧЕМУ ТО НЕ СОХРАНЯЕТСЯ ПО ЭТОМУ СПОСОБУ
-        // }
+    // $check_token = $user_validation->getCheckTokens('daniil.brantov04@mail.rq', '5LjUSkuxrY');
+    if( isset($token) ){
+        $errors['mail']=$check_token;
+        if($check_token['status'] == 0){
+            $errors['mail']=$check_token['msg'];
+        }elseif($check_token['status'] == 1){
+            // Сохраняем таблицу
+            $status = $check_token['info']->status;
+            $pay_choice = $check_token['info']->pay_choice;
+            $db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
+        }
     }else{
         // Сохраняем таблицу
         $db->query("INSERT INTO `users`(`name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");

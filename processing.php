@@ -91,30 +91,26 @@ class UserValidationErrors
     protected function checkTokens($mail, $token)
     {
         $db = new SafeMySQL();
-        $sql =$db->query("SELECT * FROM tokens WHERE mail=?s AND token=?s", $mail, $token)[0];
+        $sql =$db->getAll("SELECT * FROM tokens WHERE mail=?s AND token=?s", $mail, $token)[0];
         $info_sql =$sql['info'];
         $token=$sql['token'];
+        $info_sql= json_decode($info_sql);
         $error=[];
-        if($db->numRows($info_sql)>0){
-            $user_sql =$db->query("SELECT mail FROM users WHERE mail=?s", $mail);
-            if($db->numRows($user_sql)>0){
-                $info_sql= json_decode($info_sql);
-                $status=$info_sql['status'];
-                $pay_choice=$info_sql['pay_choice'];
-                $date=$info_sql['date'];
-                $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
-                if($user_up){
-                    $error['status'] = 1;
+        if(isset($sql) && !empty($sql)){
+                $user_sql =$db->query("SELECT mail FROM users WHERE mail=?s", $mail);
+                $status=$info_sql->status;
+                $pay_choice=$info_sql->pay_choice;
+                $date=$info_sql->date;
+                if($db->numRows($user_sql)>0){
+                    $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
+                    $error['status'] = 2;
                     $error['info'] = $info_sql;
                     $error['token'] = $token;
                 }else{
-                    $error['msg'] = "Попробуйте позже...";
-                    $error['status'] = 0;
+                    $error['status'] = 1;
+                    $error['info'] = $info_sql;
+                    $error['token'] = $token;
                 }
-            }else{
-                $error['status'] = 0;
-                $error['msg'] = "Такого пользователя не существует";
-            }
         }else{
             $error['status'] = 0;
             $error['msg'] = "Проверьте вашу почту";
@@ -547,6 +543,12 @@ class Payment{
         if($status && !empty($status) && isset($status) && $status !== NULL){
             if($status==='2'){
                 return TRUE;
+            }elseif($status==='3'){
+                if($this->getSubPromoDate()){
+                    return FALSE;
+                }else{
+                    return TRUE;
+                }
             }else{ return FALSE; }
         }else{ return FALSE; }
     }
@@ -606,7 +608,7 @@ class Payment{
         $db = new SafeMySQL();
         $users = $db->getAll("SELECT * FROM users WHERE status=?i", 3);
         foreach($users as $user){
-            $date = date('Y-m-d', strtotime($user['payment_date'] . " +2 weeks"));
+            $date = date('Y-m-d', strtotime($user['payment_date'] . " +1 weeks"));
             if($date <= date("Y-m-d H:i:s")){
                 $mail=$user['mail'];
                 $status=1;
