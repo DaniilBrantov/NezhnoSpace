@@ -59,7 +59,7 @@ $("#reg_btn").click(function (e) {
             else {
                 for (let key in data) {
                     if (key !== 'status') {
-                        //console.log(key, data[key])
+                        console.log(data)
                         showError(key, data[key]);
                     }
                 }
