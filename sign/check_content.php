@@ -1,92 +1,156 @@
 <?php
-    //session_start();
-    require_once( get_theme_file_path('processing.php') );
     session_start();
+    require_once( get_theme_file_path('processing.php') );
+
+    $user_validation = new UserValidationErrors();
+    $site_url=$url;
+    $user_data=[
+        'first_name' => filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING),
+        'mail' => $_POST['mail'],
+        'pass' => $_POST['pass'],
+        'pass_conf' => $_POST['pass_conf'],
+        'checkbox' => $_POST['approval_check'],
+        'token' => $_POST['token']
+    ];
+
+    $validation_rules = [
+        'first_name' => 'getName',
+        'pass_conf' => 'MatchingPasswords',
+        'mail' => 'getCoincidenceUser',
+        'pass' => 'getPassword',
+    ];
+
+    $errors = [];
+
+    foreach ($validation_rules as $key => $rule) {
+        // $result = $user_validation->$rule($$key);
+        if( $key == 'pass_conf' ){
+            $result = $user_validation->MatchingPasswords($user_data['pass'], $user_data['pass_conf']);
+        }else{
+            $result = $user_validation->$rule($user_data[$key]);
+        }
+
+        if ($result) {
+            $errors[$key] = $result;
+        }
+    }
+    if (!vb_reg_new_user()) {
+        $errors['first_name'] = vb_reg_new_user();
+    }
     
-    $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
-    $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
-    $pass=$_POST['pass'];
-    $pass_conf=$_POST['pass_conf'];
-    $checkbox=$_POST['approval_check'];
-    $token=$_GET['token'];
 
-$user_validation = new UserValidationErrors();
-$errors=[];
+    if(empty($errors)){
+        if(UserReg( $errors, $user_data )['status']){
+            if($auth_curl = AuthcURL($user_data, $url)){
+                $errors['status']=1;
+            }else{ 
+                $errors['mail']="Произошла ошибка. Попробуйте авторизоваться";
+                $errors['status']=0;
+            }
+        }else{
+            $errors['mail']=UserReg( $errors, $user_data )['err'];
+            $errors['status']=0;
+        }
+    };
+    // var_dump($errors);
+    echo json_encode($errors);
 
-if($user_validation->getName($name)){
-    $errors['first_name']=$user_validation->getName($name);
-}
-if($user_validation->MatchingPasswords($pass, $pass_conf)){
-    $errors['pass_conf']=$user_validation->MatchingPasswords($pass, $pass_conf);
-}
-if($user_validation->getCoincidenceUser($mail)){
-    $errors['mail']=$user_validation->getCoincidenceUser($mail);
-}
-if($user_validation->getPassword($pass)){
-    $errors['pass']=$user_validation->getPassword($pass);
-}
-if(!vb_reg_new_user()){
-    $errors['first_name']=vb_reg_new_user();
-}
+    function UserReg( $errors, $user_data ){
+        require_once( get_theme_file_path('processing.php') );
+            $user_validation = new UserValidationErrors();
+            $db = new SafeMySQL();
+            if($check_token = $user_validation->getCheckTokens($user_data['mail'], $user_data['token'])){
+                $name = $user_data['first_name'];
+                $mail = $user_data['mail'];
+                $hash_pass = password_hash($user_data['pass'], PASSWORD_DEFAULT);
+                $reg_date = date("Y-m-d H:i:s");
+                $activation=md5($mail.time());
+                $status = $check_token['info']->status;
+                $pay_choice = $check_token['info']->pay_choice;
+                $res['status']=0;
+                if( isset($user_data['token']) &&  !empty($user_data['token']) && $user_data['token']!=='null'){
+                    if($check_token['status'] == 1){
+                        $res['status']=$db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
+                    }else{
+                        $res['err']=$user_data['token'];
+                    }
+                }else{
+                    // Сохраняем таблицу
+                    $res['status']=$db->query("INSERT INTO `users`( `name`, `mail`, `password`, `user_registered`, `activation` ) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
+                };
+            }else{
+                $res['err']='Не правильный токен! Убедитесь в правильности ссылки';
+            }
+        return $res;
+    };
 
 
+    function AuthcURL($user_data, $site_url){
+        require_once( get_theme_file_path('processing.php') );
+        session_start();
 
-if(empty($errors)){
-    // Хешируем пароль
-    $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
-    $activation=md5($mail.time());
-    $reg_date = date("Y-m-d H:i:s");    
+        //cURL запрос из auth. Автоматическая авторизация
+        $mail=$user_data['mail'];
+        $pass=$user_data['pass'];
+        $postData = array(
+            'auth' => true,
+            'mail' => $mail,
+            'pass' => $pass,
+            'auth_btn' => true
+        );
 
-    // Проверка наличия статуса у пользователя
-    $check_token = $user_validation->getCheckTokens($mail, $token);
-    if( isset($_GET['token']) && $_GET['token'] == $check_token['token'] ){
-        $errors['mail']='check_token';
-        // if($check_token['status'] == 0){
-        //     $errors['mail']=$check_token['msg'];
-        // }else{
-        //     // Сохраняем таблицу
-        //     $status = $check_token['info']['status'];
-        //     $pay_choice = $check_token['info']['pay_choice'];
-        //     $db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
-        //ПОЧЕМУ ТО НЕ СОХРАНЯЕТСЯ ПО ЭТОМУ СПОСОБУ
-        // }
-    }else{
-        // Сохраняем таблицу
-        $db->query("INSERT INTO `users`(`name`, `mail`, `password`,`user_registered`,`activation`) VALUES('$name','$mail','$hash_pass','$reg_date','$activation') ");
-    }
+        $ch = curl_init($site_url.'/auth-check');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response=json_decode($response, true);
+        extract($response);
+        
+        $_SESSION['id'] = $response['id'];
 
-    //cURL запрос из auth. Автоматическая авторизация
-    $postData = array(
-        'auth' => true,
-        'mail' => $mail,
-        'pass' => $pass,
-        'auth_btn' => true
-    );
-    $ch = curl_init($url.'/auth-check');
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    $response=json_decode($response, true);
-    extract($response);
+        if($response && $response!==NULL){
+            return 1;
+        }else{
+            return $site_url;
+        }
+    };
 
-    $_SESSION['id']=$response['id'];
-    if($_SESSION['id'] && $_SESSION['id']!== NULL){
-        $errors['status']=true;
-    }else{
-        $errors['status']=false;
-        $errors['mail']='Произошла неизвестная ошибка. Попробуйте позже';
-    }
-}else{
-    $errors['status']=false;
-    $errors['mail']='Произошла неизвестная ошибка';
-
-};
-echo json_encode($errors);
-
+    
 
 
 
+
+
+    
+    // $name=filter_var(trim($_POST['first_name']), FILTER_SANITIZE_STRING);
+    // $mail=filter_var(trim(strtolower($_POST['mail'])), FILTER_SANITIZE_STRING);
+    // $pass=$_POST['pass'];
+    // $pass_conf=$_POST['pass_conf'];
+    // $checkbox=$_POST['approval_check'];
+    // $token=$_POST['token'];
+
+    // if($user_validation->getName($name)){
+    //     $errors['first_name']=$user_validation->getName($name);
+    // }
+    // if($user_validation->MatchingPasswords($pass, $pass_conf)){
+    //     $errors['pass_conf']=$user_validation->MatchingPasswords($pass, $pass_conf);
+    // }
+    // if($user_validation->getCoincidenceUser($mail)){
+    //     $errors['mail']=$user_validation->getCoincidenceUser($mail);
+    // }
+    // if($user_validation->getPassword($pass)){
+    //     $errors['pass']=$user_validation->getPassword($pass);
+    // }
+    // if(!vb_reg_new_user()){
+    //     $errors['first_name']=vb_reg_new_user();
+    // }
+
+
+    // $_POST['first_name']='dsf';
+    // $_POST['mail']='dan2@mail.ru';
+    // $_POST['pass']='daniilbrantov2004BR';
+    // $_POST['pass_conf']=$_POST['pass'];
 
 
 

@@ -29,6 +29,8 @@ $("#reg_btn").click(function (e) {
     var pass = $('input[name="pass"]').val();
     var pass_conf = $('input[name="pass_conf"]').val();
     var approval_check = $('input[name="approval_check"]').val();
+    var get = (new URL(document.location)).searchParams;
+    var token = get.get("token");
 
     var formData = new FormData();
     formData.append("nonce", reg_nonce);
@@ -37,6 +39,7 @@ $("#reg_btn").click(function (e) {
     formData.append("pass", pass);
     formData.append("pass_conf", pass_conf);
     formData.append("approval_check", approval_check);
+    formData.append("token", token);
 
     // обьект ajax со св-ми ,как было у формы.
     $.ajax({
@@ -56,7 +59,7 @@ $("#reg_btn").click(function (e) {
             else {
                 for (let key in data) {
                     if (key !== 'status') {
-                        //console.log(key, data[key])
+                        console.log(data)
                         showError(key, data[key]);
                     }
                 }

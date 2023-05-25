@@ -7,18 +7,13 @@
 
 
 
-$email = 'daniil.brantov04@mail.ru';
-$status = 2;
-$pay_choice = 1;
-$date = date("Y-m-d H:i:s");
-
 $user_data=[
-    'mail' => $email,
-    'status' => $status,
-    'pay_choice' => $pay_choice,
-    'date' => $date,
+    'mail' => $_POST['mail'],
+    'status' => $_POST['status'],
+    'pay_choice' => $_POST['pay_choice'],
+    'date' => date("Y-m-d H:i:s"),
 ];
-$user_data=json_encode($user_data);
+json_encode($user_data);
 // обьект с данными хранится в tokens, а после регистрации и проверки токена сразу же добавляются поля из обьекта
 $result = sendRegistrationLink($email, $user_data);
 if ($result) {
