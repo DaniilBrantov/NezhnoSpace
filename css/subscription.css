@@ -326,6 +326,7 @@
 .addition_text {
   width: 100%;
   max-width: 580px;
+  padding-right: 10px;
 }
 .addition_title {
   font-family: 'Montserrat';

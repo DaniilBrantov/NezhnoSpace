@@ -602,12 +602,12 @@ $(function () {
             document.querySelector('.account_navigation-list .account_subscription').classList.remove('active');
             document.querySelector('.account_navigation-list .account_fullname').classList.add('active');
         }
-        if (document.location.pathname.includes('subscription')) {
+        else if (document.location.pathname.includes('subscription')) {
             document.querySelector('.account_navigation-list .account_fullname').classList.remove('active');
             document.querySelector('.account_navigation-list .account_subscription').classList.add('active');
         } else {
             document.querySelector('.account_navigation-list .account_subscription').classList.remove('active');
-            document.querySelector('.account_navigation-list .account_fullname').classList.add('active');
+            document.querySelector('.account_navigation-list .account_fullname').classList.remove('active');
         }
     }
 })();

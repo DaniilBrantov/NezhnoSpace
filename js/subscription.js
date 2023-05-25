@@ -256,19 +256,21 @@
       listTxt.forEach((list) => {
         let list_txt = list.innerHTML;
         let del = list_txt.substring(list_txt.indexOf('<'), (list_txt.indexOf('>')+1));
-        list_txt = list_txt.replace(del, '');
-        del = list_txt.substring(list_txt.indexOf('</'));
-        list_txt = list_txt.replace(del, '');
-
-        let count = list_txt.indexOf('.');
-        let list_title = list_txt.substring(0, count);
-        let list_cnt = list_txt.substring(count + 1, list_txt.lenght).trim();
-
-        list.textContent = list_title;
-
-        let p_list_cnt = document.createElement("p");
-        p_list_cnt.textContent = list_cnt;
-        list.after(p_list_cnt);
+        if (del.length > 0) {
+          list_txt = list_txt.replace(del, '');
+          del = list_txt.substring(list_txt.indexOf('</'));
+          list_txt = list_txt.replace(del, '');
+  
+          let count = list_txt.indexOf('.');
+          let list_title = list_txt.substring(0, count);
+          let list_cnt = list_txt.substring(count + 1, list_txt.length).trim();
+  
+          list.textContent = list_title;
+  
+          let p_list_cnt = document.createElement("p");
+          p_list_cnt.textContent = list_cnt;
+          list.after(p_list_cnt);
+        } 
       });
     };
 
