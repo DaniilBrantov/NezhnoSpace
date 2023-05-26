@@ -5,64 +5,37 @@
  
  */
 
-
-
-$user_data=[
-    'mail' => $_POST['mail'],
-    'status' => $_POST['status'],
-    'pay_choice' => $_POST['pay_choice'],
-    'date' => date("Y-m-d H:i:s"),
-];
-json_encode($user_data);
-// обьект с данными хранится в tokens, а после регистрации и проверки токена сразу же добавляются поля из обьекта
-$result = sendRegistrationLink($email, $user_data);
-if ($result) {
-    echo $result;
-} else {
-    echo 'Failed to send the registration link.';
-}
-
-function sendRegistrationLink($email, $user_data) {
-    require_once( get_theme_file_path('send_mail.php') );
-    $registrationPage = 'https://nezhno.space/registration';
-    $token = generateUniqueToken();
-    storeToken( $email, $token, $user_data );
-
-    $registrationLink = $registrationPage . '?token=' . urlencode($token);
-    $subject = 'Registration Link';
-    $message = 'Please click on the following link to register: ' . $registrationLink;
-    $result = SendMail($email, $subject, $message,$subject);
-    if ($result) {
-        return $result; // Email sent successfully
-    } else {
-        return false; // Failed to send email
-    }
-}
-
-function generateUniqueToken($length = 10) {
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $token = '';
-    $charactersLength = strlen($characters);
-    for ($i = 0; $i < $length; $i++) {
-        $randomIndex = mt_rand(0, $charactersLength - 1);
-        $token .= $characters[$randomIndex];
-    }
-    return $token;
-}
-
-function storeToken($email, $token, $user_data) {
-    require_once(get_theme_file_path('processing.php'));
-    $db = new SafeMySQL();
-    $query = "INSERT INTO tokens (mail, token, info) VALUES ('$email', '$token', '$user_data')";
-    if ($db->query($query)) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-}
+require_once( get_theme_file_path('processing.php') );
 
 ?>
 
+<form action="admin_check" method="post">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+        <option value="">--Выберите статус--</option>
+        <?php
+
+      $status_options = $db->getAll("SELECT * FROM status");
+      foreach ($status_options as $key => $value) {
+        echo "<option value='" . ($key + 1) . "'>" . $value['name'] . "</option>";
+      }
+    ?>
+    </select>
+
+    <label for="pay_choice">Цена:</label>
+    <?php
+    $pay_options = $db->getAll("SELECT * FROM services");
+    foreach ($pay_options as $key => $value) {
+      echo "<input type='radio' id='pay_choice" . ($key + 1) . "' name='pay_choice' value='" . ($key + 1) . "' required>";
+      echo "<label for='pay_choice" . ($key + 1) . "'>" . $value['price'] . "</label>";
+    }
+  ?>
+
+    <input type="submit" value="Отправить">
+</form>
 
 
 
