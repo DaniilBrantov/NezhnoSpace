@@ -20,18 +20,28 @@
 require_once( get_theme_file_path('processing.php') );
 
 $user_data=[
-    'mail' => $_POST['mail'],
+    'mail' => $_POST['email'],
     'status' => $_POST['status'],
     'pay_choice' => $_POST['pay_choice'],
     'date' => date("Y-m-d H:i:s"),
 ];
-json_encode($user_data);
+if($weeks = $_POST['weeks']){
+    $user_data['weeks']=$weeks;
+}
+$email=$_POST['email'];
+$json_data=json_encode($user_data);
+
 // обьект с данными хранится в tokens, а после регистрации и проверки токена сразу же добавляются поля из обьекта
-if ($result = sendRegistrationLink($email, $user_data)) {
-    echo $result;
+if ($result = sendRegistrationLink($email, $json_data)) {
+    var_dump($user_data); 
 } else {
     echo 'Failed to send the registration link.';
 }
+
+
+
+
+
 
 function sendRegistrationLink($email, $user_data) {
     require_once( get_theme_file_path('send_mail.php') );
@@ -64,8 +74,7 @@ function generateUniqueToken($length = 10) {
 function storeToken($email, $token, $user_data) {
     require_once(get_theme_file_path('processing.php'));
     $db = new SafeMySQL();
-    $query = "INSERT INTO tokens (mail, token, info) VALUES ('$email', '$token', '$user_data')";
-    if ($db->query($query)) {
+    if ($db->query("INSERT INTO tokens (mail, token, info) VALUES ('$email', '$token', '$user_data')")) {
         return TRUE;
     } else {
         return FALSE;

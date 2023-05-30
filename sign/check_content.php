@@ -70,7 +70,7 @@
                 $res['status']=0;
                 if( isset($user_data['token']) &&  !empty($user_data['token']) && $user_data['token']!=='null'){
                     if($check_token['status'] == 1){
-                        $res['status']=$db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$activation') ");
+                        $res['status']=$db->query("INSERT INTO `users`( `status`, `name`, `mail`, `password`, `pay_choice`, `user_registered`, `payment_date`, `created_payment`, `activation` ) VALUES('$status','$name','$mail','$hash_pass','$pay_choice','$reg_date','$reg_date','$reg_date','$activation') ");
                     }else{
                         $res['err']=$user_data['token'];
                     }

@@ -4,9 +4,10 @@
  *
  
  */
-
+get_header();
 require_once( get_theme_file_path('processing.php') );
-
+$subscription = new Subscription();
+if($subscription->getCheckAdmin()){
 ?>
 
 <form action="admin_check" method="post">
@@ -24,7 +25,7 @@ require_once( get_theme_file_path('processing.php') );
       }
     ?>
     </select>
-
+    <input type='number' id='weeks' name='weeks'>
     <label for="pay_choice">Цена:</label>
     <?php
     $pay_options = $db->getAll("SELECT * FROM services");
@@ -40,7 +41,9 @@ require_once( get_theme_file_path('processing.php') );
 
 
 
-<br><br><br><br><br><br><br>
+<br><br><br>
+
+<br><br><br><br>
 
 
 <div class="add_post">
@@ -70,3 +73,53 @@ require_once( get_theme_file_path('processing.php') );
         <input name="add_payment_mail" type="text">
     </form>
 </div>
+
+
+
+<br><br><br><br>
+
+
+<h2>Добавить промокод</h2>
+<form>
+    <label for="promo">Промокод (заглавными буквами):</label>
+    <input type="text" id="promo" name="promo" required><br>
+
+    <label for="sale">Скидка (от 1 до 100):</label>
+    <input type="number" id="sale" name="sale" min="1" max="100" required onchange="togglePaidDays()"><br>
+
+    <label for="first_date">Дата начала действия промокода:</label>
+    <input type="date" id="first_date" name="first_date" required><br>
+
+    <label for="last_date">Дата окончания действия промокода:</label>
+    <input type="date" id="last_date" name="last_date"><br>
+
+    <div id="paid_days_container" style="display: none;">
+        <label for="paid_days">Количество дней оплаченной подписки:</label>
+        <input type="number" id="paid_days" name="paid_days" min="1" max="365"><br>
+    </div>
+
+    <input type="submit" value="Отправить">
+</form>
+
+<script>
+function togglePaidDays() {
+    var saleInput = document.getElementById("sale");
+    var paidDaysContainer = document.getElementById("paid_days_container");
+    if (saleInput.value == 100) {
+        paidDaysContainer.style.display = "block";
+    } else {
+        paidDaysContainer.style.display = "none";
+    }
+}
+</script>
+
+
+
+
+
+
+
+<?php 
+    }; 
+    get_footer(); 
+?>

@@ -10,7 +10,7 @@ $user_id=$db->getAll("SELECT id FROM users WHERE status=?i", $status);
 $payment=new Payment();
 
 
-var_dump ($payment->getSubPromoDate());
+// var_dump ($payment->getSubPromoDate(44));
 
 
 for($i = 0; $i < count($user_id); $i++){

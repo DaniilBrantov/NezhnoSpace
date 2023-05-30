@@ -196,6 +196,19 @@ class Subscription{
     public function getSubscriptionLesson($id){
         return $this->subscriptionLesson($id);
     }
+    // Получить данные проверки админки
+    public function getCheckAdmin(){
+        return $this->checkAdmin();
+    }
+    // Проверка админки
+    protected function checkAdmin() {
+        require_once(get_theme_file_path('processing.php'));
+        session_start();
+        $status = (new SafeMySQL())->getOne("SELECT status FROM users WHERE id = ?i", $_SESSION['id']);
+        if ($status === '4') return true;
+        header('Location: auth');
+        exit();
+    }
     // Вывод постов под конкретным тэгом
     protected function tagPosts(){
         $payment_date=$this->userPaymentDate();
@@ -514,8 +527,8 @@ class Payment{
         return $this->PaymentServiceData();
     }
     //Проверка срока подписки, заведённый промокодом
-    public function getSubPromoDate(){
-        return $this->checkSubPromoDate();
+    public function getSubPromoDate($weeksToAdd){
+        return $this->checkSubPromoDate($weeksToAdd);
     }
     // Данные выбранной услуги
     protected function PaymentServiceData(){
@@ -544,7 +557,11 @@ class Payment{
             if($status==='2'){
                 return TRUE;
             }elseif($status==='3'){
-                if($this->getSubPromoDate()){
+                $mail = $db->getOne("SELECT mail FROM users WHERE id=?i", $_SESSION['id']);
+                $info_sql = $db->getOne("SELECT info FROM tokens WHERE mail=?s", $mail);
+                $info_sql= json_decode($info_sql);
+                $weeks=$info_sql->weeks;
+                if($this->getSubPromoDate($weeks)){
                     return FALSE;
                 }else{
                     return TRUE;
@@ -602,36 +619,25 @@ class Payment{
         return (isset($answer) );
     }
     //Проверка срока подписки, заведённый промокодом
-
-    //  ! Добавить возможнось редактирования переменной $date (+... weeks)! 
-    protected function checkSubPromoDate(){
+    protected function checkSubPromoDate($weeksToAdd = 1) {
         $db = new SafeMySQL();
-        $users = $db->getAll("SELECT * FROM users WHERE status=?i", 3);
-        foreach($users as $user){
-            $date = date('Y-m-d', strtotime($user['payment_date'] . " +1 weeks"));
-            if($date <= date("Y-m-d H:i:s")){
-                $mail=$user['mail'];
-                $status=1;
-                $payment_date=0;
-                if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE mail=?s", $status, $payment_date, $mail)){
-                    return TRUE;
-                }
-            }else{
-                return FALSE;
+        foreach ($db->getAll("SELECT * FROM users WHERE status = ?i", 3) as $user) {
+            if (date('Y-m-d', strtotime($user['payment_date'] . " +{$weeksToAdd} weeks")) <= date("Y-m-d H:i:s")) {
+                $db->query("UPDATE users SET status = ?i, payment_date = ?s WHERE mail = ?s", 1, 0, $user['mail']);
+                return true;
             }
         }
-        // -???
-        // -???
-        // -???
-        // -???
+        return false;
     }
+    
+    
     //Проверка промокода
     protected function checkPromocode($promo){
         $db = new SafeMySQL();
         $id = $_SESSION['id'];
         $promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
         if($promo_data){
-            if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d") >= $promo_data['first_date']){
+            if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d") >= $promo_data['first_date'] || $promo_data['last_date']==NULL && date("Y-m-d") >= $promo_data['first_date']){
                 if($promo_data['sale'] >= 100){
                     $payment_date = date("Y-m-d H:i:s");
                     if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE id=?i", 3, $payment_date, $id)){
