@@ -212,6 +212,7 @@ class Subscription{
     // Вывод постов под конкретным тэгом
     protected function tagPosts(){
         $payment_date=$this->userPaymentDate();
+        $payment = new Payment();
         if (have_posts()) :
             $i=1;
             $close=1;
@@ -221,7 +222,7 @@ class Subscription{
                 $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
                 $res[$i] = $this->getPostData(get_the_ID());
 
-                if($this->getCheckPayment()){
+                if($payment->getCheckPayment()){
                     if($i < $count_open_posts){
                         $res[$i]['status']=true;
                     }else{
@@ -392,6 +393,7 @@ class Subscription{
     }
     // Данные записи для вывода на страницу. С проверкой оплаты
     protected function subscriptionLesson($id){
+        $payment=new Payment();
         $cat = (array)(get_the_category($id)[0]);
         $cat_ID=$cat["cat_ID"];
         $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
@@ -675,6 +677,225 @@ class Payment{
         }
     }   
 }
+
+
+
+
+
+
+
+class NewUserRole {
+    private array $user_data; 
+    /**
+     * Конструктор класса
+     *
+     * @param array $user_data - данные пользователя.
+     */
+    public function __construct(array $user_data) {
+        $this->user_data = $user_data;
+    }
+
+    /**
+     * Отправляет ссылку для регистрации на указанный адрес электронной почты.
+     *
+     * @return bool - результат отправки письма.
+     */
+    public function sendRegistrationLink(): bool {
+        require_once(get_theme_file_path('send_mail.php'));
+
+        $mail = $this->user_data['mail'];
+        if (!empty($mail)) {
+            // Проверяем существование mail в базе данных
+            $emailExists = $this->checkEmailExists($mail);
+
+            if ($emailExists) {
+                // Обновляем данные пользователя
+                $this->updateUserData();
+            } else {
+                // Генерируем уникальный токен и сохраняем его в базе данных
+                $token = $this->generateUniqueToken();
+                $this->storeToken($token);
+            }
+
+            // Формируем ссылку для регистрации и текст письма
+            $registrationLink = 'https://nezhno.space/registration?token=' . urlencode($token);
+            $subject = 'Registration Link';
+            $message = 'Please click on the following link to register: ' . $registrationLink;
+
+            // Отправляем письмо на указанный адрес электронной почты
+            if ($send_mail = SendMail($mail, $subject, $message, $subject)) {
+                return $send_mail;
+            } else {
+                echo 'Failed to send the registration link.';
+            }
+        } else {
+            echo 'Email is missing.';
+            return false; // Return false if the mail is missing
+        }
+    }
+
+    /**
+     * Генерирует уникальный токен заданной длины.
+     *
+     * @param int $length - длина токена (по умолчанию 10 символов).
+     * @return string - сгенерированный токен.
+     */
+    public function generateUniqueToken(int $length = 10): string {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $token = '';
+        for ($i = 0; $i < $length; $i++) {
+            // Выбираем случайный символ из набора символов.
+            $token .= $characters[mt_rand(0, strlen($characters) - 1)];
+        }
+        return $token;
+    }
+
+    /**
+     * Сохраняет токен в базе данных.
+     *
+     * @param string $token - токен для сохранения.
+     * @return bool - результат сохранения токена.
+     */
+    public function storeToken(string $token): bool {
+        // Получаем экземпляр объекта базы данных и сохраняем токен.
+        $db = new SafeMySQL();
+        $json_data = json_encode($this->user_data);
+        $mail = $this->user_data['mail'];
+        $result = $db->query("INSERT INTO tokens (mail, token, info) VALUES ('$mail', '$token', '$json_data')");
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     * Проверяет существование mail в базе данных.
+     *
+     * @param string $mail - mail для проверки.
+     * @return bool - результат проверки.
+     */
+    public function checkEmailExists(string $mail): bool {
+        // Получаем экземпляр объекта базы данных и проверяем существование mail.
+        $db = new SafeMySQL();
+        $result = $db->getOne("SELECT COUNT(*) FROM tokens WHERE mail = ?s", $mail);
+        return $result > 0;
+    }
+
+    /**
+     * Обновляет данные пользователя.
+     *
+     * @return bool - результат обновления данных.
+     */
+    public function updateUserData(): bool {
+        // Получаем экземпляр объекта базы данных и обновляем данные пользователя.
+        $db = new SafeMySQL();
+        $info = json_encode($this->user_data) ;
+        $mail = $this->user_data['mail'];
+        
+
+        $result = $db->query("UPDATE tokens SET info = '$info' WHERE mail = '$mail'");
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Устанавливает данные пользователя.
+     *
+     * @param array $user_data - новые данные пользователя.
+     */
+    public function setUserData($mail, $status, $pay_choice, $weeks): void {
+        $this->user_data = [
+            'mail' => $mail,
+            'status' => $status,
+            'pay_choice' => $pay_choice,
+            'date' => date("Y-m-d H:i:s"),
+            'weeks' => $weeks,
+        ];
+    }
+
+    /**
+     * Возвращает данные пользователя.
+     *
+     * @return array - данные пользователя.
+     */
+    public function getUserData(): array {
+        return $this->user_data;
+    }
+}
+
+
+
+
+
+
+class addPromo {
+    public function add_promo_code($promo, $sale, $first_date, $last_date, $paid_days=null) {
+        $db = new SafeMySQL();
+        
+        if (!$this->is_promo_unique($promo)) {
+            return "Промокод уже существует";
+        }
+    
+        if (!$this->is_date_valid($first_date, $last_date)) {
+            return "Некорректные даты";
+        }
+    
+        if (!$this->is_sale_valid($sale)) {
+            return "Некорректная скидка";
+        }
+    
+        if ($paid_days !== null && !$this->is_paid_days_valid($paid_days)) {
+            if(empty($paid_days) || $paid_days == ""){
+                $paid_days = null;
+            }else{
+                return "Некорректное количество оплаченных дней";
+            }
+        }
+    
+        $query = "INSERT INTO promocodes (promo, sale, first_date, last_date";
+        if ($paid_days !== null) {
+            $query .= ", paid_days";
+        }
+        $query .= ") VALUES (?s, ?i, ?s, ?s";
+        $params = [$promo, $sale, $first_date, $last_date];
+        if ($paid_days !== null) {
+            $query .= ", ?i";
+            $params[] = $paid_days;
+        }
+        $query .= ")";
+        $result = $db->query($query, ...$params); // Use the splat operator to unpack the parameters
+    
+        return $result ? "Промокод успешно добавлен" : "Ошибка при добавлении промокода";
+    }
+    
+
+    private function is_promo_unique($promo) {
+        $db = new SafeMySQL();
+        $result = $db->query("SELECT * FROM promocodes WHERE promo = ?s", $promo);
+        return $result->num_rows === 0;
+    }
+
+    private function is_date_valid($first_date, $last_date) {
+        return $first_date < $last_date;
+    }
+
+    private function is_sale_valid($sale) {
+        return $sale >= 0 && $sale <= 100;
+    }
+
+    private function is_paid_days_valid($paid_days) {
+        return $paid_days > 0;
+    }
+}
+
+
+
+
 
 
 
