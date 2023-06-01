@@ -10,6 +10,96 @@ $subscription = new Subscription();
 if($subscription->getCheckAdmin()){
 ?>
 
+
+
+<form action="admin_check" method="post">
+    <div id="token-fields">
+        <div class="token-field">
+            <label for="email">Email:</label>
+            <input type="email" name="email[]" required>
+
+            <label for="token">Token:</label>
+            <input type="text" name="token[]" required>
+
+            <label for="info">Info:</label>
+            <input type="text" name="info[]" required>
+
+            <button type="button" class="delete-field">Delete</button>
+        </div>
+    </div>
+
+    <button type="button" id="add-field">Add Field</button>
+    <input type="submit" value="Submit">
+</form>
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const addFieldButton = document.getElementById("add-field");
+    const tokenFields = document.getElementById("token-fields");
+
+    addFieldButton.addEventListener("click", function() {
+        const fieldContainer = document.createElement("div");
+        fieldContainer.className = "token-field";
+
+        const emailInput = document.createElement("input");
+        emailInput.type = "email";
+        emailInput.name = "email[]";
+        emailInput.required = true;
+
+        const tokenInput = document.createElement("input");
+        tokenInput.type = "text";
+        tokenInput.name = "token[]";
+        tokenInput.required = true;
+
+        const infoInput = document.createElement("input");
+        infoInput.type = "text";
+        infoInput.name = "info[]";
+        infoInput.required = true;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-field";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", function() {
+            fieldContainer.remove();
+        });
+
+        fieldContainer.appendChild(emailInput);
+        fieldContainer.appendChild(tokenInput);
+        fieldContainer.appendChild(infoInput);
+        fieldContainer.appendChild(deleteButton);
+
+        tokenFields.appendChild(fieldContainer);
+    });
+
+    const deleteButtons = document.getElementsByClassName("delete-field");
+    for (const deleteButton of deleteButtons) {
+        deleteButton.addEventListener("click", function() {
+            deleteButton.parentNode.remove();
+        });
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Добавление/Обновление ролей</h2>
+
 <form action="admin_check" method="post">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>

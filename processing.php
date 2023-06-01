@@ -684,6 +684,73 @@ class Payment{
 
 
 
+class ChangeRole {
+    private $db;
+
+    public function __construct() {
+        // Подключение к базе данных
+        $this->db = new SafeMySQL();
+    }
+
+    /**
+     * Изменяет статус пользователей на основе CSV файла.
+     * @param string $csvFilePath Путь к CSV файлу.
+     * @param int $newStatus Новый статус пользователей.
+     * @return bool Возвращает true в случае успешного изменения статуса или false в противном случае.
+     */
+    public function changeStatusForUsersFromCSV(string $csvFilePath, int $newStatus): bool {
+        if (!file_exists($csvFilePath)) {
+            echo "Файл CSV не найден: $csvFilePath.";
+            return false;
+        }
+
+        $file = fopen($csvFilePath, 'r');
+        if (!$file) {
+            echo "Не удалось открыть файл CSV: $csvFilePath.";
+            return false;
+        }
+
+        $emails = [];
+        while (($row = fgetcsv($file)) !== false) {
+            $emails[] = $row[0];
+        }
+
+        fclose($file);
+
+        // Изменение статуса пользователей
+        $result = $this->changeStatusForUsers($emails, $newStatus);
+
+        return $result;
+    }
+
+    /**
+     * Изменяет статус пользователей.
+     * @param array $emails Массив email-ов пользователей.
+     * @param int $newStatus Новый статус пользователей.
+     * @return bool Возвращает true в случае успешного изменения статуса или false в противном случае.
+     */
+    public function changeStatusForUsers(array $emails, int $newStatus): bool {
+        // Проверяем наличие email-ов
+        if (empty($emails)) {
+            return false;
+        }
+
+        $query = "UPDATE users SET status = ?i WHERE mail IN(?a) AND status = 3";
+
+        // Изменение статуса пользователей в базе данных
+        $result = $this->db->query($query, $newStatus, $emails);
+
+        return $result ? true : false;
+    }
+}
+
+
+
+
+
+
+
+
 class NewUserRole {
     private array $user_data; 
     /**
@@ -892,10 +959,6 @@ class addPromo {
         return $paid_days > 0;
     }
 }
-
-
-
-
 
 
 
