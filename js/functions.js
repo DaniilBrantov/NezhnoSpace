@@ -435,7 +435,7 @@ $(function () {
 //confirm_anxiety 
 (() => {
     const arrayAnxiety = [
-        'я боюсь, что люди отвернутся от меня', 
+        'я боюсь, что люди отвернутся от меня',
         'я убеждена, что непривлекательная и малоценная в сравнении с кем-то',
         'я заедаю эмоции, будь-то радость, боль, страх или гнев',
         'соглашаюсь с чужим мнением, даже если знаю, что они неправы',
@@ -477,7 +477,7 @@ $(function () {
     let storage;
     let lengthStorage;
 
-    if(!JSON.parse(sessionStorage.getItem('anxiety')) || JSON.parse(sessionStorage.getItem('anxiety')).length === 0) {
+    if (!JSON.parse(sessionStorage.getItem('anxiety')) || JSON.parse(sessionStorage.getItem('anxiety')).length === 0) {
         if (document.querySelector('.confirm_anxiety-title')) {
             document.querySelector('.confirm_anxiety-title').innerHTML = 'Рекомендуем выбрать хотя бы три&nbspтревоги:';
         }
@@ -494,7 +494,7 @@ $(function () {
             arrayAnxiety.splice(sort, 1);
             arrayAnxiety.unshift(item);
         })
-    } 
+    }
 
     if (document.querySelector('.confirm_anxietyr_sliders')) {
         let count = Math.ceil(arrayAnxiety.length / 5);
@@ -529,7 +529,7 @@ $(function () {
         }
 
         arrayItem.forEach((li) => {
-            li.addEventListener('click', function() {
+            li.addEventListener('click', function () {
                 li.classList.toggle('active');
 
                 if (li.classList.contains('active')) {
@@ -627,3 +627,108 @@ $(function () {
         })
     }
 })();
+
+
+//cloudPayment
+let btn = document.getElementById("payButton")
+//let language = navigator.language //or fix
+let language = "ru-RU"
+
+
+$("#payButton").click(function (e) {
+    e.preventDefault();
+    $(`input`).removeClass("error");
+    var service_id = $('input[name="service_id"]').val();
+
+    var formData = new FormData();
+    formData.append("service_id", service_id);
+
+    $.ajax({
+        url: "payment",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        success: function (data) {
+            if (data.status) {
+                pay(data.service_name, data.price, data.quantity, data.mail, data.phone, data.period, data.publicId, data.description, data.invoiceId);
+            }
+            //Выводить ошибки
+            else {
+                for (let key in data) {
+                    if (key !== 'status') {
+                        console.log(data)
+                        showError(key, data[key]);
+                    }
+                }
+            }
+        },
+        error: function (jqxhr, status, errorMsg) {
+            showModalError();
+        },
+    });
+});
+
+function pay(service_name, price, quantity, mail, phone, period, publicId, description, invoiceId) {
+    var widget = new cp.CloudPayments();
+    var receipt = {
+        Items: [//товарные позиции
+            {
+                label: service_name, //наименование товара
+                price: price, //цена
+                quantity: quantity, //количество
+                amount: price * quantity, //сумма
+                vat: 0, //ставка НДС
+                method: 0, // тег-1214 признак способа расчета - признак способа расчета
+                object: 0, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
+            }
+        ],
+        taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
+        email: mail, //e-mail покупателя, если нужно отправить письмо с чеком
+        phone: phone, //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
+        isBso: false, //чек является бланком строгой отчетности
+        amounts:
+        {
+            electronic: price * quantity, // Сумма оплаты электронными деньгами
+            advancePayment: 0.00, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
+            credit: 0.00, // Сумма постоплатой(в кредит) (2 знака после запятой)
+            provision: 0.00 // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
+        }
+    };
+
+    var data = {};
+    data.CloudPayments = {
+        CustomerReceipt: receipt, //чек для первого платежа
+        recurrent: {
+            interval: 'Month',
+            period: period,
+            customerReceipt: receipt //чек для регулярных платежей
+        }
+    }; //создание ежемесячной подписки
+
+    widget.charge({ // options
+        publicId: publicId, //id из личного кабинета
+        description: description, //назначение
+        amount: price * quantity, //сумма
+        currency: 'RUB', //валюта
+        invoiceId: invoiceId, //номер заказа  (необязательно)
+        accountId: mail, //идентификатор плательщика (обязательно для создания подписки)
+        data: data
+    },
+        function (options) { // success
+
+            console.log('Успешно:'.options)
+        },
+        function (reason, options) { // fail
+            console.log('Fail:'.reason)
+            console.log('Fail:'.options)
+        });
+};
+
+
+// //window.addEventListener('load', pay)
+// btn.addEventListener('click', pay)
+
+

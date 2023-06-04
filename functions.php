@@ -779,3 +779,54 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
         header('Location: auth');
         }
         };
+
+
+
+
+
+        // Добавление скрипта виджета CloudPayments
+        function add_cloudpayments_widget_script() {
+        wp_enqueue_script('cloudpayments-widget', 'https://widget.cloudpayments.ru/bundles/cloudpayments', array(), '',
+        true);
+        }
+        add_action('wp_enqueue_scripts', 'add_cloudpayments_widget_script');
+
+        // Функция для вывода виджета CloudPayments с автоплатежем
+        function add_cloudpayments_widget($public_key, $description, $amount, $id, $mail) {
+        ob_start();
+        ?>
+        <script>
+        function initCloudPaymentsWidget() {
+            var widget = new cp.CloudPayments();
+            widget.pay('charge', {
+                publicId: '<?php echo $public_key; ?>',
+                description: '<?php echo $description; ?>',
+                amount: '<?php echo $amount; ?>', // Сумма платежа
+                currency: 'RUB',
+                invoiceId: '<?php echo $id; ?>', // Уникальный идентификатор платежа
+                accountId: '<?php echo $mail; ?>',
+                skin: "mini",
+                data: {
+                    myProp: 'myValue' // Можете добавить дополнительные данные платежа
+                }
+            }, {
+                onSuccess: function(options) {
+                    console.log('Успешный платеж');
+                    console.log(options);
+                    // Добавьте здесь код для обработки успешного платежа
+
+                },
+                onFail: function(reason, options) {
+                    console.log('Неуспешный платеж');
+                    console.log(reason, options);
+                    // Добавьте здесь код для обработки неуспешного платежа
+                }
+            });
+        }
+        document.addEventListener("DOMContentLoaded", initCloudPaymentsWidget);
+        </script>
+        <?php
+    $widget_script = ob_get_clean();
+
+    echo $widget_script;
+}
