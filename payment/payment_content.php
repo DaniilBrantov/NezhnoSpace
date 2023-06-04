@@ -1,3 +1,4 @@
+<button name='id' id="payButton">Pay</button>
 <?php
 
 require_once( get_theme_file_path('processing.php') );
@@ -11,14 +12,30 @@ $user_id=$_SESSION['id'];
 $service = $db->getRow("SELECT * FROM services WHERE id=?i", $id);
 $user = $db->getRow("SELECT * FROM users WHERE id=?i", $user_id);
 $quantity=1;
+$publicId='pk_3da4553acc29b450d95115b0918f7';
+$invoiceId='4b978f8af1e63cb76629acbb9d9caff0';
+if(empty($user['telephone']) || $user['telephone']==null){
+    $data['status']=false;
+    $data['msg']='Телефон!';
+}else{
+    $phone=$user['telephone'];
 
-$data=[
-    'service_name' => $service['name'],
-    'price' => $service['price'],
-    'quantity' => $quantity,
-    'mail' => $user['mail'],
+    $data=[
+        'publicId' => $publicId,
+        'invoiceId' => $invoiceId,
+        'service_name' => $service['name'],
+        'price' => $service['price'],
+        'quantity' => $quantity,
+        'mail' => $user['mail'],
+        'phone' => $phone,
+        'period' => $service['month_count'],
+        'description' => $service['description'],
+    ];
+    $data['status']=true;
+}
 
-]
+
+echo json_encode($data);
 
 
 

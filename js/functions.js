@@ -630,14 +630,8 @@ $(function () {
 
 
 //cloudPayment
-let btn = document.getElementById("payButton")
-//let language = navigator.language //or fix
-let language = "ru-RU"
-
-
 $("#payButton").click(function (e) {
     e.preventDefault();
-    $(`input`).removeClass("error");
     var service_id = $('input[name="service_id"]').val();
 
     var formData = new FormData();
@@ -660,19 +654,23 @@ $("#payButton").click(function (e) {
                 for (let key in data) {
                     if (key !== 'status') {
                         console.log(data)
-                        showError(key, data[key]);
                     }
                 }
             }
         },
         error: function (jqxhr, status, errorMsg) {
-            showModalError();
+            console.log(jqxhr)
+            console.log(status)
+            console.log(errorMsg)
         },
     });
 });
 
 function pay(service_name, price, quantity, mail, phone, period, publicId, description, invoiceId) {
-    var widget = new cp.CloudPayments();
+    let language = "ru-RU"
+    var widget = new cp.CloudPayments({
+        language: language
+    })
     var receipt = {
         Items: [//товарные позиции
             {
