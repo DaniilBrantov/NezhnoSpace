@@ -1,33 +1,27 @@
 (() => {
-  let price944, price945, price946;
-  if (document.querySelector('.price_944')) {
-    price944 = document.querySelector('.price_944').dataset.price;
-  }
-  if (document.querySelector('.price_945')) {
-    price945 = document.querySelector('.price_945').dataset.price;
-  }
-  if (document.querySelector('.price_946')) {
-    price946 = document.querySelector('.price_946').dataset.price;
-  }
+  let price944 = document.querySelector('.price_944')?.dataset.price || '3000';
+  let price945 = document.querySelector('.price_945')?.dataset.price || '15000';
+  let price946 = document.querySelector('.price_946')?.dataset.price || '25000';
+
   class PaymentBanner {
     constructor(banner, sliderPayment) {
       this.banner = banner;
       this.optionsPayment = {
         1: {
           duration: '1 месяц',
-          price: (price944 ? price944 : '3000') + ' ₽',
+          price: price944 + ' ₽',
           value: '944',
           list: []
         },
         2: {
           duration: '6 месяцев',
-          price: (price945 ? price945 : '15000') + ' ₽',
+          price: price945 + ' ₽',
           value: '945',
           list: []
         },
         3: {
           duration: '1 год',
-          price: (price946 ? price946 : '25000') + ' ₽',
+          price: price946 + ' ₽',
           value: '946',
           list: []
         }
@@ -37,32 +31,66 @@
     addSlide() {
       for (let option in this.optionsPayment) {
         this.sliderPayment.innerHTML += `
-            <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
-              <div class='pay-banner_option-container'>
-                  <span class='pay-banner_option-stroke'></span>
-                  <div class='pay-banner_option-content'>
-                      <div class='pay-banner_option-icon'></div>
-                          <p class='pay-banner_option-title'>Начни заботиться о&nbspсебе с&nbspНежно</p>
-                          <div class='pay-banner_option-text'>
-                          <p class='pay-banner_option-duration'>${this.optionsPayment[option].duration}</p>
-                          <p class='pay-banner_option-price'>${this.optionsPayment[option].price}</p>
-                          <ul class='pay-banner_option-list'>
-                          </ul>
-                          </div>
-                  </div>
-                  <form action="payment" method='post'>
-                    <input type="hidden" value="${this.optionsPayment[option].value}" name="payment_id">
-                    <input type="hidden" value="" name="promo" class='post-promocode-payment'>
-                    <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
-                  </form>
+          <li class='pay-banner_option pay-banner_options-slide' id='pay-banner_options-slide${option}'>
+            <div class='pay-banner_option-container'>
+              <span class='pay-banner_option-stroke'></span>
+              <div class='pay-banner_option-content'>
+                <div class='pay-banner_option-icon'></div>
+                <p class='pay-banner_option-title'>Начни заботиться о&nbspсебе с&nbspНежно</p>
+                <div class='pay-banner_option-text'>
+                  <p class='pay-banner_option-duration'>${this.optionsPayment[option].duration}</p>
+                  <p class='pay-banner_option-price'>${this.optionsPayment[option].price}</p>
+                  <ul class='pay-banner_option-list'>
+                  </ul>
+                </div>
               </div>
-            </li>
-          `;
+              <form action="payment" method='post'>
+                <input type="hidden" value="${this.optionsPayment[option].value}" name="payment_id">
+                <input type="hidden" value="1" name="service_id">
+                <input type="hidden" value="" name="promo" class='post-promocode-payment'>
+                <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
+              </form>
+            </div>
+          </li>
+        `;
         let payList = document.querySelector(`#pay-banner_options-slide${option}`).querySelector('.pay-banner_option-list');
         this.optionsPayment[option].list.forEach(item => {
           payList.innerHTML += `<li>${item}</li>`;
-        })
-      };
+        });
+      }
+
+      const paymentButtons = document.querySelectorAll('.pay-banner_option-button');
+      paymentButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const formData = new FormData();
+          const service_id = button.parentElement.querySelector('[name="service_id"]').value;
+          formData.append('service_id', service_id);
+          // Добавьте остальные данные, если необходимо
+
+          // Выполнение AJAX-запроса
+          $.ajax({
+            url: 'payment',
+            type: 'POST',
+            dataType: 'html',
+            processData: false,
+            contentType: false,
+            cache: false,
+            data: formData,
+            success: function (response) {
+              // Обработка успешного ответа
+              // response содержит полученный контент с сервера
+              const jsonStr = JSON.stringify(response);
+              console.log(response.serviceId);
+              // pay(data.publicId, data.description, data.price, data.mail);
+            },
+            error: function (jqxhr, status, errorMsg) {
+              // Обработка ошибки
+              console.log(errorMsg);
+            }
+          });
+        });
+      });
     }
     adaptiveHeightBanner() {
       if (this.banner.clientHeight <= 780) {
@@ -100,8 +128,9 @@
       document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
         e.preventDefault();
         document.querySelector('.subscription_payment-banner_background').style.display = 'none';
-      })
+      });
     }
+
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -109,13 +138,13 @@
       const bannerPay = new PaymentBanner(document.querySelector('#payment-banner'), document.querySelector('.pay-banner_options-wrap'));
       bannerPay.init();
     }
-  })
+  });
 })();
 
 //Отправка данных и проверка их на стороне сервера
 $(".pay-banner_promocode-btn").click(function (e) {
   e.preventDefault();
-  $(`input`).removeClass("error");
+  $("input").removeClass("error");
   var promo_btn = $('input[name="promo_btn"]').val();
   var promo = $('input[name="promo"]').val();
 
@@ -138,7 +167,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
         document.querySelector('.pay-banner_promocode-input.error').style.outline = '1px solid green';
         document.querySelector('.pay-banner_promocode-input-wrap .text-error_promo').style.color = 'green';
         hideError('promo');
-        document.querySelectorAll('.post-promocode-payment').forEach((input) => input.value = promo);
+        document.querySelectorAll('.post-promocode-payment').forEach((input) => (input.value = promo));
       } else {
         for (let key in data) {
           if (key !== 'status') {
@@ -151,10 +180,45 @@ $(".pay-banner_promocode-btn").click(function (e) {
     error: function (jqxhr, status, errorMsg) {
       showError('promo', "Произошла непредвиденная ошибка");
       hideError('promo');
-    },
+    }
   }).then((data) => {
     if (data.status) {
+      console.log(data)
       //window.location.href = 'payment';
     }
   });
 });
+
+
+function pay(publicId, description, amount, accountId) {
+  let language = "ru-RU";
+  var widget = new cp.CloudPayments({
+    language: language
+  })
+  widget.pay('auth', // или 'charge'
+    { //options
+      publicId: publicId, //id из личного кабинета
+      description: description, //назначение
+      amount: amount, //сумма
+      currency: 'RUB', //валюта
+      accountId: accountId, //идентификатор плательщика (необязательно)
+      skin: "mini", //дизайн виджета (необязательно)
+      autoClose: 3
+    }, {
+    onSuccess: function (options) { // success
+      console.log('1')
+      console.log(options)
+    },
+    onFail: function (reason, options) { // fail
+      console.log(reason)
+      console.log(options)
+    },
+    onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+      //например вызов вашей аналитики Facebook Pixel
+
+      console.log('3')
+      console.log(options)
+    }
+  }
+  )
+}
