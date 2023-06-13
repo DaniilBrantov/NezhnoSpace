@@ -46,7 +46,7 @@
               </div>
               <form action="payment" method='post'>
                 <input type="hidden" value="${this.optionsPayment[option].value}" name="payment_id">
-                <input type="hidden" value="1" name="service_id">
+                <input type="hidden" value="${option}" name="service_id">
                 <input type="hidden" value="" name="promo" class='post-promocode-payment'>
                 <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
               </form>
@@ -72,17 +72,16 @@
           $.ajax({
             url: 'payment',
             type: 'POST',
-            dataType: 'html',
+            dataType: 'json',
             processData: false,
             contentType: false,
             cache: false,
             data: formData,
-            success: function (response) {
+            success: function (data) {
               // Обработка успешного ответа
               // response содержит полученный контент с сервера
-              const jsonStr = JSON.stringify(response);
-              console.log(response.serviceId);
-              // pay(data.publicId, data.description, data.price, data.mail);
+              console.log(data);
+              pay(data.publicId, data.description, data.price, data.mail);
             },
             error: function (jqxhr, status, errorMsg) {
               // Обработка ошибки
@@ -190,7 +189,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
 });
 
 
-function pay(publicId, description, amount, accountId) {
+function pay(publicId, description, amount, mail) {
   let language = "ru-RU";
   var widget = new cp.CloudPayments({
     language: language
@@ -201,23 +200,19 @@ function pay(publicId, description, amount, accountId) {
       description: description, //назначение
       amount: amount, //сумма
       currency: 'RUB', //валюта
-      accountId: accountId, //идентификатор плательщика (необязательно)
+      accountId: mail, //идентификатор плательщика (необязательно)
+      invoiceId: '1', //номер заказа  (необязательно)
       skin: "mini", //дизайн виджета (необязательно)
       autoClose: 3
     }, {
     onSuccess: function (options) { // success
-      console.log('1')
-      console.log(options)
+      //действие при успешной оплате
     },
     onFail: function (reason, options) { // fail
-      console.log(reason)
-      console.log(options)
+      //действие при неуспешной оплате
     },
     onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
       //например вызов вашей аналитики Facebook Pixel
-
-      console.log('3')
-      console.log(options)
     }
   }
   )
