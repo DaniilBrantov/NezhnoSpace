@@ -862,11 +862,92 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
       btnSurvey.removeEventListener('click', prevAnswer);
       results(btnSurvey);
     }
+    //записать ответ на вопрос в хранилище
+    if (questions[indexQuestion].classList.contains('question-container_textarea')) {
+      let answerValue = questions[indexQuestion].querySelector('input').value;
+      if (localStorage.getItem('survey')) {
+        let array = JSON.parse(localStorage.getItem('survey'))
+        array[indexQuestion] = answerValue
+        localStorage.setItem('survey', JSON.stringify(array))
+      } else {
+        localStorage.setItem('survey', JSON.stringify({indexQuestion: answerValue}))
+      }
+    } else {
+      let arrayAnswers = [];
+      questions[indexQuestion].querySelectorAll('input').forEach((answer) => {
+        if (answer.checked) {
+          arrayAnswers.push(answer.value);
+        }
+      })
+      let array = JSON.parse(localStorage.getItem('survey'))
+      if (array) {
+        array[indexQuestion] = arrayAnswers
+        localStorage.setItem('survey', JSON.stringify(array))
+      } else {
+        let arr = {
+          [indexQuestion]: arrayAnswers
+        }
+        localStorage.setItem('survey', JSON.stringify(arr))
+      }
+    }
+
     indexQuestion++;
     questions[indexQuestion].style.display = 'block';
     sizeProgress(indexQuestion + 1)
   }
   btnSurvey.addEventListener('click', prevAnswer);
+
+  //заполнение опроса, если были сохраненные в хранилище ответы
+  if (localStorage.getItem('survey')) {
+    let local = JSON.parse(localStorage.getItem('survey'))
+    Object.keys(local).map((item) => {
+      if (questions[indexQuestion].classList.contains('question-container_textarea')) {
+        questions[indexQuestion].querySelector('input').value = local[item]
+      } else if (questions[indexQuestion].classList.contains('question-container_radio')) {
+        let valueLocal = local[item][0];
+        let value;
+
+        let length = questions[indexQuestion].querySelectorAll('.slide-delimeter').length
+        let slideContainer = questions[indexQuestion].querySelector('.slidecontainer');
+        let styles = window.getComputedStyle(slideContainer.querySelector('.slide-delimeter_wrp'));
+        let widthSlide = parseFloat(styles.width);
+        let widthInput = window.getComputedStyle(slideContainer).width;
+        widthInput = parseFloat(widthInput);
+        let inputRange = questions[indexQuestion].querySelector('.slider-range');
+        inputRange.max = widthInput;
+        let paddingSize = ((widthInput - widthSlide) / 2);
+        let pieceLength = widthInput / length;
+
+        questions[indexQuestion].querySelectorAll('.slide-delimeter_text').forEach((text, ind) => {
+          if (text.textContent === valueLocal) {
+            value = widthInput / questions[indexQuestion].querySelectorAll('.slide-delimeter_text').length * ind
+          }
+        })
+
+        for (let i = 0; i < length; i++) {
+          if ((value > pieceLength * i - (pieceLength / 2 - paddingSize)) && (value <= (pieceLength * (i + 1) - (pieceLength / 2 - paddingSize)))) {
+            inputRange.value = paddingSize + ((widthSlide / (length - 1)) * i);
+            break;
+          } else {
+            inputRange.value = paddingSize + ((widthSlide / (length - 1)) * (length - 1));
+          }
+        }
+        slideContainer.querySelector('.slidecontainer-checked').value = valueLocal;
+      } else {
+        questions[indexQuestion].querySelectorAll('input').forEach((input) => {
+          local[item].forEach((it) => {
+            if (input.value === it) {
+              input.checked = true
+            }
+          })
+        })
+      }
+      questions[indexQuestion].style.display = 'none';
+      indexQuestion++
+      questions[indexQuestion].style.display = 'block';
+      sizeProgress(indexQuestion + 1)
+    })
+  }
 
   // получение результата
   function results(btnSurvey) {
@@ -923,6 +1004,7 @@ function getSurveyResults(e, id, nameSurvey, data) {
     data: { user_answers: DATA },
     success: function (data) {
       // console.log(data)
+      localStorage.removeItem('survey')
       document.querySelector('.survey_modal-info').style.display = 'block';
       document.querySelector('.survey_modal-info').querySelector('.survey_modal_btn-close').style.display = 'none';
       document.querySelector('.survey_modal-info').querySelector('.survey_modal-text').innerHTML = `

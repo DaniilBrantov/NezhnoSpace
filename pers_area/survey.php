@@ -44,8 +44,22 @@ let this_name = '<?php
 
     </div>
     <div class='buttons-wrp'>
-        <button onclick="generateSurvey(this_survey, document.getElementById('survey-container'), this_id, this_name)"
-            class='button-survey blue_btn'>Начать</button>
+        <button type='button' onclick="generateSurvey(this_survey, document.getElementById('survey-container'), this_id, this_name)"
+            class='button-survey blue_btn'>
+        </button>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('survey')) {
+          if (document.querySelector('.button-survey.blue_btn')) {
+            document.querySelector('.button-survey.blue_btn').textContent = 'Продолжить'
+          } 
+        } else {
+          if (document.querySelector('.button-survey.blue_btn')) {
+            document.querySelector('.button-survey.blue_btn').textContent = 'Начать'
+          }
+        }
+          })
+        </script>
         <a href="/">Выйти из опроса</a>
     </div>
 
