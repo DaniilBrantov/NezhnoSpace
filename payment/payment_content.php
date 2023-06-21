@@ -14,6 +14,7 @@ $user = $db->getRow("SELECT * FROM users WHERE id=?i", $user_id);
 $publicId='pk_3da4553acc29b450d95115b0918f7';
 $apiKey='4b978f8af1e63cb76629acbb9d9caff0';
 $label = 'Пользователь '. $user_id .'оплатил подписку №'. $id;
+$startDate=date("Y-m-d H:i:s");   
 
 $data=[
     'label' => $label,
@@ -26,6 +27,7 @@ $data=[
     'description' => $service['description'],
     'quantity' => $quantity,
     'apiKey' => $apiKey,
+    'startDate' => $startDate
 ];
 $data['status']=true;
 

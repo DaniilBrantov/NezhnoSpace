@@ -81,7 +81,7 @@
               // Обработка успешного ответа
               // response содержит полученный контент с сервера
               // console.log(data);
-              pay(data.label, data.price, data.quantity, data.period, data.mail, data.publicId, data.description, data.invoiceId);
+              pay(data.label, data.price, data.quantity, data.period, data.mail, data.publicId, data.description, data.invoiceId, data.startDate);
               // pay(label, amount, quantity, period, mail, publicId, description, invoiceId)
             },
             error: function (jqxhr, status, errorMsg) {
@@ -190,8 +190,16 @@ $(".pay-banner_promocode-btn").click(function (e) {
 });
 
 
+
+
+
+
+
+
+
+
 // Pay
-function pay(label, amount, quantity, period, mail, publicId, description, invoiceId, apiKey) {
+function pay(label, amount, quantity, period, mail, publicId, description, invoiceId, apiKey, startDate) {
   var widget = new cp.CloudPayments();
 
   var receipt = {
@@ -233,12 +241,16 @@ function pay(label, amount, quantity, period, mail, publicId, description, invoi
     currency: 'RUB',
     invoiceId: invoiceId,
     accountId: mail,
+    skin: "mini",
+    requireConfirmation: true,
+    startDate: startDate, // Установка выбранной даты начала списаний
     data: data
   },
     function (options) {
       // действие при успешной оплате
       console.log('Платеж успешно выполнен:', options);
-      alert('Платеж успешно выполнен. SubscriptionId: ' + options.Model.SubscriptionId);
+      console.log('result:', widgetResult);
+      getSubscriptions(options.AccountId);
 
       // Получение SubscriptionId
       var subscriptionId = options.Model.SubscriptionId;
@@ -254,91 +266,154 @@ function pay(label, amount, quantity, period, mail, publicId, description, invoi
   );
 }
 
-function getSubscriptionStatus(subscriptionId, apiKey) {
-  $.ajax({
-    url: 'https://api.cloudpayments.ru/subscriptions/get',
-    type: 'POST',
-    dataType: 'json',
+// function getSubscriptionStatus(subscriptionId, apiKey) {
+//   $.ajax({
+//     url: 'https://api.cloudpayments.ru/subscriptions/get',
+//     type: 'POST',
+//     dataType: 'json',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': apiKey
+//     },
+//     data: JSON.stringify({
+//       SubscriptionId: subscriptionId
+//     }),
+//     success: function (data) {
+//       // Обработка успешного получения информации о статусе подписки
+//       console.log('Информация о статусе подписки:', data);
+//     },
+//     error: function (jqxhr, status, errorMsg) {
+//       // Обработка ошибки
+//       console.log('Ошибка получения информации о статусе подписки:', errorMsg);
+//     }
+//   });
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Функция для приостановки подписки
+function suspendSubscription(subscriptionId, suspendUntil) {
+  // Формирование запроса к API CloudPayments
+  var url = 'https://api.cloudpayments.ru/subscriptions/suspend';
+  var requestData = {
+    AccountId: subscriptionId,
+    SuspendUntil: suspendUntil
+  };
+
+  // Отправка запроса
+  fetch(url, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': apiKey
+      'Authorization': 'Basic ' + btoa('public_key:api_secret')
     },
-    data: JSON.stringify({
-      SubscriptionId: subscriptionId
-    }),
-    success: function (data) {
-      // Обработка успешного получения информации о статусе подписки
-      console.log('Информация о статусе подписки:', data);
-    },
-    error: function (jqxhr, status, errorMsg) {
-      // Обработка ошибки
-      console.log('Ошибка получения информации о статусе подписки:', errorMsg);
-    }
-  });
+    body: JSON.stringify(requestData)
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      // Обработка ответа
+      if (data.Success) {
+        // Приостановка подписки успешно выполнена
+        console.log('Подписка приостановлена');
+        // Дополнительные действия, если необходимо
+      } else {
+        // Приостановка подписки не удалась
+        console.log('Ошибка при приостановке подписки:', data.Message);
+        // Обработка ошибки
+      }
+    })
+    .catch(function (error) {
+      // Обработка ошибок
+      console.log('Ошибка при выполнении запроса:', error);
+    });
 }
 
 
 
+// Определение функции для отмены подписки
+function cancelSubscription(subscriptionId) {
+  fetch('https://api.cloudpayments.ru/subscriptions/cancel', {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer your_api_key', // Замените 'your_api_key' на ваш ключ API CloudPayments
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      Id: subscriptionId,
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.Success) {
+        console.log('Подписка успешно отменена');
+      } else {
+        console.error('Ошибка при отмене подписки:', data.Message);
+      }
+    })
+    .catch(error => {
+      console.error('Ошибка при выполнении запроса:', error);
+    });
+}
+
+const http = require('http');
+
+function getSubscriptions(accountId) {
+  const options = {
+    hostname: 'api.cloudpayments.ru',
+    path: '/subscriptions/list?AccountId=' + accountId,
+    auth: 'your_public_id:your_api_password', // Замените на ваш публичный идентификатор и API пароль CloudPayments
+  };
+
+  const req = http.get(options, (res) => {
+    let data = '';
+
+    res.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    res.on('end', () => {
+      const subscriptions = JSON.parse(data).Model;
+      console.log('Список подписок:', subscriptions);
+      // Дальнейшая обработка списка подписок
+    });
+  });
+
+  req.on('error', (error) => {
+    console.error('Ошибка при получении списка подписок:', error);
+  });
+}
+
+// Пример вызова функции
+const accountId = 'daniil.brantov04@mail.ru'; // Замените на актуальный идентификатор аккаунта
+getSubscriptions(accountId);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Функция для приостановки подписки
-// function suspendSubscription(subscriptionId, suspendUntil) {
-//   // Формирование запроса к API CloudPayments
-//   var url = 'https://api.cloudpayments.ru/subscriptions/suspend';
-//   var requestData = {
-//     AccountId: subscriptionId,
-//     SuspendUntil: suspendUntil
-//   };
-
-//   // Отправка запроса
-//   fetch(url, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': 'Basic ' + btoa('public_key:api_secret')
-//     },
-//     body: JSON.stringify(requestData)
-//   })
-//   .then(function(response) {
-//     return response.json();
-//   })
-//   .then(function(data) {
-//     // Обработка ответа
-//     if (data.Success) {
-//       // Приостановка подписки успешно выполнена
-//       console.log('Подписка приостановлена');
-//       // Дополнительные действия, если необходимо
-//     } else {
-//       // Приостановка подписки не удалась
-//       console.log('Ошибка при приостановке подписки:', data.Message);
-//       // Обработка ошибки
-//     }
-//   })
-//   .catch(function(error) {
-//     // Обработка ошибок
-//     console.log('Ошибка при выполнении запроса:', error);
-//   });
-// }
-
-// // Пример использования функции
-// var subscriptionId = 'your_subscription_id'; // Замените на реальный SubscriptionId
-// var suspendUntil = '2023-05-31T00:00:00Z'; // Замените на желаемую дату и время
+var subscriptionId = 'subscription_id';
+var suspendUntil = '2023-06-31T00:00:00Z'; // Замените на желаемую дату и время
 
 // suspendSubscription(subscriptionId, suspendUntil);
+// cancelSubscription(subscriptionId);
 
+// Вопрос: Где subscriptionId?
 
 
 
