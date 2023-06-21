@@ -80,8 +80,9 @@
             success: function (data) {
               // Обработка успешного ответа
               // response содержит полученный контент с сервера
-              console.log(data);
-              pay(data.publicId, data.description, data.price, data.mail);
+              // console.log(data);
+              pay(data.label, data.price, data.quantity, data.period, data.mail, data.publicId, data.description, data.invoiceId);
+              // pay(label, amount, quantity, period, mail, publicId, description, invoiceId)
             },
             error: function (jqxhr, status, errorMsg) {
               // Обработка ошибки
@@ -189,31 +190,230 @@ $(".pay-banner_promocode-btn").click(function (e) {
 });
 
 
-function pay(publicId, description, amount, mail) {
-  let language = "ru-RU";
-  var widget = new cp.CloudPayments({
-    language: language
-  })
-  widget.pay('auth', // или 'charge'
-    { //options
-      publicId: publicId, //id из личного кабинета
-      description: description, //назначение
-      amount: amount, //сумма
-      currency: 'RUB', //валюта
-      accountId: mail, //идентификатор плательщика (необязательно)
-      invoiceId: '1', //номер заказа  (необязательно)
-      skin: "mini", //дизайн виджета (необязательно)
-      autoClose: 3
-    }, {
-    onSuccess: function (options) { // success
-      //действие при успешной оплате
-    },
-    onFail: function (reason, options) { // fail
-      //действие при неуспешной оплате
-    },
-    onComplete: function (paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-      //например вызов вашей аналитики Facebook Pixel
+// Pay
+function pay(label, amount, quantity, period, mail, publicId, description, invoiceId, apiKey) {
+  var widget = new cp.CloudPayments();
+
+  var receipt = {
+    Items: [{
+      label: label,
+      price: amount,
+      quantity: quantity,
+      amount: amount * quantity,
+      vat: 20,
+      method: 0,
+      object: 0
+    }],
+    taxationSystem: 0,
+    email: mail,
+    isBso: false,
+    amounts: {
+      electronic: amount * quantity,
+      advancePayment: 0.00,
+      credit: 0.00,
+      provision: 0.00
     }
-  }
-  )
+  };
+
+  var data = {
+    CloudPayments: {
+      CustomerReceipt: receipt,
+      recurrent: {
+        interval: 'Month',
+        period: period,
+        customerReceipt: receipt
+      }
+    }
+  };
+
+  widget.charge({
+    publicId: publicId,
+    description: description,
+    amount: amount * quantity,
+    currency: 'RUB',
+    invoiceId: invoiceId,
+    accountId: mail,
+    data: data
+  },
+    function (options) {
+      // действие при успешной оплате
+      console.log('Платеж успешно выполнен:', options);
+      alert('Платеж успешно выполнен. SubscriptionId: ' + options.Model.SubscriptionId);
+
+      // Получение SubscriptionId
+      var subscriptionId = options.Model.SubscriptionId;
+      console.log('SubscriptionId:', subscriptionId);
+
+      // Вызов метода getSubscriptionStatus для получения информации о статусе подписки
+      getSubscriptionStatus(subscriptionId, apiKey);
+    },
+    function (reason, options) {
+      // действие при неуспешной оплате
+      console.log('Ошибка при выполнении платежа:', reason, options);
+    }
+  );
 }
+
+function getSubscriptionStatus(subscriptionId, apiKey) {
+  $.ajax({
+    url: 'https://api.cloudpayments.ru/subscriptions/get',
+    type: 'POST',
+    dataType: 'json',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': apiKey
+    },
+    data: JSON.stringify({
+      SubscriptionId: subscriptionId
+    }),
+    success: function (data) {
+      // Обработка успешного получения информации о статусе подписки
+      console.log('Информация о статусе подписки:', data);
+    },
+    error: function (jqxhr, status, errorMsg) {
+      // Обработка ошибки
+      console.log('Ошибка получения информации о статусе подписки:', errorMsg);
+    }
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Функция для приостановки подписки
+// function suspendSubscription(subscriptionId, suspendUntil) {
+//   // Формирование запроса к API CloudPayments
+//   var url = 'https://api.cloudpayments.ru/subscriptions/suspend';
+//   var requestData = {
+//     AccountId: subscriptionId,
+//     SuspendUntil: suspendUntil
+//   };
+
+//   // Отправка запроса
+//   fetch(url, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Basic ' + btoa('public_key:api_secret')
+//     },
+//     body: JSON.stringify(requestData)
+//   })
+//   .then(function(response) {
+//     return response.json();
+//   })
+//   .then(function(data) {
+//     // Обработка ответа
+//     if (data.Success) {
+//       // Приостановка подписки успешно выполнена
+//       console.log('Подписка приостановлена');
+//       // Дополнительные действия, если необходимо
+//     } else {
+//       // Приостановка подписки не удалась
+//       console.log('Ошибка при приостановке подписки:', data.Message);
+//       // Обработка ошибки
+//     }
+//   })
+//   .catch(function(error) {
+//     // Обработка ошибок
+//     console.log('Ошибка при выполнении запроса:', error);
+//   });
+// }
+
+// // Пример использования функции
+// var subscriptionId = 'your_subscription_id'; // Замените на реальный SubscriptionId
+// var suspendUntil = '2023-05-31T00:00:00Z'; // Замените на желаемую дату и время
+
+// suspendSubscription(subscriptionId, suspendUntil);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function pay(publicId, description, amount, mail) {
+//   let language = "ru-RU";
+//   var widget = new cp.CloudPayments({
+//     language: language
+//   });
+
+//   let paymentOptions = {
+//     publicId: publicId,
+//     description: description,
+//     amount: amount,
+//     currency: 'RUB',
+//     accountId: mail,
+//     invoiceId: '1',
+//     skin: "mini",
+//     autoClose: 3
+//   };
+
+//   function makePayment() {
+//     if (!widget.optionsPayment) {
+//       widget.optionsPayment = paymentOptions;
+//       widget.pay('auth', paymentOptions, {
+//         onSuccess: function (options) {
+//           console.log('Платеж успешно выполнен:', options);
+//         },
+//         onFail: function (reason, options) {
+//           console.log('Ошибка при выполнении платежа:', reason, options);
+//         },
+//         onComplete: function (paymentResult, options) {
+//           console.log('Платеж завершен:', paymentResult, options);
+//         }
+//       });
+//     }
+//   }
+
+//   // Устанавливаем интервал повторения платежа каждый месяц (30 дней)
+//   setInterval(makePayment, 30 * 24 * 60 * 60 * 1000);
+// }
