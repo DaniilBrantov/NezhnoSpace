@@ -248,9 +248,12 @@ function pay(label, amount, quantity, period, mail, publicId, description, invoi
   },
     function (options) {
       // действие при успешной оплате
-      console.log('Платеж успешно выполнен:', options);
-      console.log('result:', widgetResult);
-      getSubscriptions(options.AccountId);
+      // console.log('Платеж успешно выполнен:', options);
+      // console.log('result:', widgetResult);
+      const accountId = options.accountId;
+      const publicId = options.publicId
+      getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
+
 
       // Получение SubscriptionId
       var subscriptionId = options.Model.SubscriptionId;
@@ -374,38 +377,27 @@ function cancelSubscription(subscriptionId) {
     });
 }
 
-const http = require('http');
+function getSubscriptions(accountId, publicId, apiKey) {
+  const apiUrl = `https://api.cloudpayments.ru/subscriptions/list?AccountId=${accountId}`;
 
-function getSubscriptions(accountId) {
-  const options = {
-    hostname: 'api.cloudpayments.ru',
-    path: '/subscriptions/list?AccountId=' + accountId,
-    auth: 'your_public_id:your_api_password', // Замените на ваш публичный идентификатор и API пароль CloudPayments
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Basic ' + btoa(`${publicId}:${apiKey}`),
+    },
   };
 
-  const req = http.get(options, (res) => {
-    let data = '';
-
-    res.on('data', (chunk) => {
-      data += chunk;
-    });
-
-    res.on('end', () => {
-      const subscriptions = JSON.parse(data).Model;
+  fetch(apiUrl, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+      const subscriptions = data.Model;
       console.log('Список подписок:', subscriptions);
       // Дальнейшая обработка списка подписок
+    })
+    .catch(error => {
+      console.error('Ошибка при получении списка подписок:', error);
     });
-  });
-
-  req.on('error', (error) => {
-    console.error('Ошибка при получении списка подписок:', error);
-  });
 }
-
-// Пример вызова функции
-const accountId = 'daniil.brantov04@mail.ru'; // Замените на актуальный идентификатор аккаунта
-getSubscriptions(accountId);
-
 
 var subscriptionId = 'subscription_id';
 var suspendUntil = '2023-06-31T00:00:00Z'; // Замените на желаемую дату и время
