@@ -5,34 +5,6 @@ $query = parse_url($url, PHP_URL_QUERY);
 parse_str($query, $data);
 saveTelegramUserData($data);
 
-function saveTelegramUserData($data) {
-    session_start();
-    require_once( get_theme_file_path('processing.php') );
-    $db = new SafeMySQL();
-    $sign_check = new UserValidationErrors();
-
-  // Извлечение данных из GET-параметров
-  $id = $data['id'];
-  if($sign_check->getCheckId($id)['status']){
-        $first_name = urldecode($data['first_name']);
-        if(!$sign_check->getName($first_name)){
-            $username = $data['username'];
-            $photo_url = urldecode($data['photo_url']);
-            $auth_date = strtotime($data['auth_date']);
-            $hash = $data['hash'];
-        }else{
-            return $sign_check->getName($first_name);
-        }
-        
-  }else{
-    return $sign_check->getCheckId($id)['msg'];
-  }
-
-
-  $sql = "INSERT INTO users ( id, name, username, photo_url, last_act) VALUES ('$id', '$first_name', '$username', '$photo_url', '$auth_date')";
-  $db->query($sql);
-}
-
 
 ?>
 

@@ -6,37 +6,47 @@ $bot_username = 'NezhnoSpacebot'; // Замените на имя вашего �
 if ($_GET['logout']) {
     setcookie('tg_user', '');
     header('Location: auth?action=out');
+    exit;
 }
-
+$tg_user = getTelegramUserData();
 function getTelegramUserData() {
-    if (isset($_COOKIE['tg_user'])) {
-        $auth_data_json = urldecode($_COOKIE['tg_user']);
-        $auth_data = json_decode($auth_data_json, true);
+    if (isset($_GET['id'], $_GET['first_name'], $_GET['username'], $_GET['photo_url'])) {
+        $auth_data = [
+            'id' => $_GET['id'],
+            'first_name' => $_GET['first_name'],
+            'username' => $_GET['username'],
+            'photo_url' => $_GET['photo_url']
+        ];
         return $auth_data;
     }
     return false;
 }
 
-$tg_user = getTelegramUserData();
+
 if ($tg_user !== false) {
     $first_name = htmlspecialchars($tg_user['first_name']);
     $last_name = htmlspecialchars($tg_user['last_name']);
-    if (isset($tg_user['username'])) {
-        $username = htmlspecialchars($tg_user['username']);
-        $html = "<h1>Hello, <a href=\"https://t.me/{$username}\">{$first_name} {$last_name}</a>!</h1>";
+    $username = isset($tg_user['username']) ? htmlspecialchars($tg_user['username']) : '';
+    $photo_url = isset($tg_user['photo_url']) ? htmlspecialchars($tg_user['photo_url']) : '';
+
+    $html = "<h1>Hello, ";
+    if (!empty($username)) {
+        $html .= "<a href=\"https://t.me/{$username}\">{$first_name} {$last_name}</a>";
     } else {
-        $html = "<h1>Hello, {$first_name} {$last_name}!</h1>";
+        $html .= "{$first_name} {$last_name}";
     }
-    if (isset($tg_user['photo_url'])) {
-        $photo_url = htmlspecialchars($tg_user['photo_url']);
+    $html .= "!</h1>";
+
+    if (!empty($photo_url)) {
         $html .= "<img src=\"{$photo_url}\">";
     }
+
     $html .= "<p><a href=\"?logout=1\">Log out</a></p>";
 } else {
     $html = <<<HTML
-    <h1>Hello, anonymous!</h1>
-    <script src="https://telegram.org/js/telegram-widget.js?2" 
-    data-telegram-login="{$bot_username}" data-size="large" data-auth-url="telegram"></script>
+    <h1>Login with Telegram</h1>
+    <script async src="https://telegram.org/js/telegram-widget.js?2"
+        data-telegram-login="{$bot_username}" data-size="large" data-auth-url="telegram"></script>
 HTML;
 }
 
@@ -48,7 +58,7 @@ echo <<<HTML
         <title>Login Widget Example</title>
     </head>
     <body>
-        <center>{$html}</center>
+        <div style="text-align: center;">{$html}</div>
     </body>
 </html>
 HTML;
