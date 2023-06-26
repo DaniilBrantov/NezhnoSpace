@@ -88,6 +88,20 @@ class UserValidationErrors
     {
         return $this->checkTokens($mail, $token);
     }
+    public function getCheckId($id){
+        return $this->checkId($id);
+    }
+    protected function checkId($id){
+        $db = new SafeMySQL();
+        $existingUser = $db->query("SELECT id FROM users WHERE id=?i", $id);
+        if($db->numRows($existingUser)>0){
+            $error['status']=0;
+            $error['msg']="Такой пользователь уже существует";
+            return $error;
+        }else{
+            return $error['status']=1;
+        }
+    }
     protected function checkTokens($mail, $token)
     {
         $db = new SafeMySQL();
