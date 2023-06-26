@@ -1,35 +1,10 @@
 <?php
-
-$url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-$query = parse_url($url, PHP_URL_QUERY);
-parse_str($query, $data);
-saveTelegramUserData($data);
-
-
+$telegramLogin = new TelegramLogin('NezhnoSpacebot');
+$telegramLoginResult = $telegramLogin->processTelegramLogin();
 ?>
 
 
 
-
-
-
-
-<?php
-$BOT_USERNAME = 'NezhnoSpacebot';
-$REDIRECT_URI = 'https://nezhno.space/telegram_auth';
-
-
-?>
-
-<html>
-
-<body>
-    <script async src="https://telegram.org/js/telegram-widget.js?222" data-telegram-login="<?= $BOT_USERNAME ?>"
-        data-size="large" data-auth-url="<?= $REDIRECT_URI ?>" data-request-access="write"></script>
-    <a href="https://telegram.org/" target="_blank" rel="noopener noreferrer">Авторизоваться через Telegram</a>
-</body>
-
-</html>
 
 
 

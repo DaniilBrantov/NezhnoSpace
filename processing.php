@@ -157,6 +157,102 @@ class UserValidationErrors
 };
 
 
+class TelegramLogin {
+    private $bot_username;
+
+    public function __construct($bot_username) {
+        $this->bot_username = $bot_username;
+    }
+
+    public function handleLogout() {
+        if ($_GET['logout']) {
+            setcookie('tg_user', '');
+            header('Location: auth?action=out');
+            exit;
+        }
+    }
+
+    public function getTelegramUserData() {
+        if (isset($_GET['id'], $_GET['first_name'], $_GET['username'], $_GET['photo_url'])) {
+            return [
+                'id' => $_GET['id'],
+                'first_name' => $_GET['first_name'],
+                'username' => $_GET['username'],
+                'photo_url' => $_GET['photo_url']
+            ];
+        }
+        return false;
+    }
+
+    public function checkTgUser($tg_user) {
+        $result = [];
+
+        if ($tg_user !== false) {
+            $first_name = htmlspecialchars($tg_user['first_name']);
+            $last_name = htmlspecialchars($tg_user['last_name']);
+            $username = isset($tg_user['username']) ? htmlspecialchars($tg_user['username']) : '';
+            $photo_url = isset($tg_user['photo_url']) ? htmlspecialchars($tg_user['photo_url']) : '';
+
+            $message = [
+                'first_name' => $first_name,
+                'last_name' => $last_name
+            ];
+
+            if (!empty($username)) {
+                $message['username'] = $username;
+            }
+
+            if (!empty($photo_url)) {
+                $message['photo_url'] = $photo_url;
+            }
+
+            $result['success'] = true;
+            $result['message'] = $message;
+        } else {
+            $result['success'] = false;
+            $result['message'] = "Login with Telegram";
+        }
+
+        return $result;
+    }
+
+    public function saveTelegramUserData($data) {
+        session_start();
+        require_once(get_theme_file_path('processing.php'));
+        $db = new SafeMySQL();
+        $sign_check = new UserValidationErrors();
+
+        $id = $data['id'];
+        if ($sign_check->getCheckId($id)['status']) {
+            $first_name = urldecode($data['first_name']);
+            if (!$sign_check->getName($first_name)) {
+                $username = $data['username'];
+                $photo_url = urldecode($data['photo_url']);
+                $auth_date = strtotime($data['auth_date']);
+            } else {
+                return $sign_check->getName($first_name);
+            }
+        } else {
+            return $sign_check->getCheckId($id)['msg'];
+        }
+
+        if($db->query("INSERT INTO users (name, username, photo_url, last_act) VALUES ('$first_name', '$username', '$photo_url', '$auth_date')")){
+            return 'true';
+        }
+    }
+
+    public function processTelegramLogin() {
+        $this->handleLogout();
+
+        $tg_user = $this->getTelegramUserData();
+        $result = $this->checkTgUser($tg_user);
+        return $result;
+
+        $this->saveTelegramUserData($_GET);
+    }
+}
+
+
 
 
 

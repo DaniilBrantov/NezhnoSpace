@@ -20,9 +20,31 @@
                 $error['status']=false;
                 echo json_encode($error);
             }
+        }else{
+            var_dump( TgLogin() );
         }
     }
 
+function TgLogin(){
+    $telegramLogin = new TelegramLogin('NezhnoSpacebot');
+    $telegramLoginResult = $telegramLogin->processTelegramLogin();
+    if($telegramLoginResult["success"]){
+        $db = new SafeMySQL();
+        $username=$telegramLoginResult["message"]["username"];
+        $tg_data=$db->query("SELECT * FROM users WHERE username=?s",$username);
+        if($db->numRows($tg_data) < 1){
+            if($res = $telegramLogin->saveTelegramUserData($telegramLoginResult["message"])){
+                return '$res';
+            }else{
+                return $res;
+            }
+        }else{
+            return $tg_data;
+        }
+    }else{
+        return '$telegramLoginResult';
+    }
+}
 
 function enter (){ 
     $db = new SafeMySQL();
