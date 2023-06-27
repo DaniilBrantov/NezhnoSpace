@@ -277,14 +277,25 @@ class TelegramLogin {
                 ? $db->query("UPDATE `users` SET `name`='$name', `surname`='$last_name', `username`='$username', `mail`='$username', `password`='$hash', `photo_url`='$photo_url', `last_act`='$last_act' WHERE `tg_id`='$tg_id'")
                 : $db->query("INSERT INTO `users`(`tg_id`, `name`, `surname`, `username`, `mail`, `password`, `photo_url`, `last_act`) VALUES ('$tg_id', '$name', '$last_name', '$username', '$username', '$hash', '$photo_url', '$last_act')");
 
-            $result = [
-                'status' => true,
-                'data' => $tgData,
-            ];
-            return $result;
-        }
 
-        return 'Произошла ошибка. Попробуйте снова';
+            if($query){
+                $result = [
+                    'status' => true,
+                    'data' => $tgData,
+                ];
+            }else{
+                $result = [
+                    'status' => false,
+                    'data' => 'Не удалось сохранить данные',
+                ];
+            }
+        }else{
+            $result = [
+            'status' => false,
+            'data' => 'Произошла ошибка. Попробуйте снова',
+        ];
+        }
+        return $result;
     }
 }
 

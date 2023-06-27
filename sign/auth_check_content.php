@@ -25,13 +25,12 @@
         }else {
             if(isset($_POST['auth_btn'])){
                 $error=enter();
-                if (count($error) == 0 || $tg_log['status']){
+                if (count($error) == 0 ){
                     $UID = $_SESSION['id'];
                     $error['status']=true;
                     $error['id']=$UID;
                     if($tg_log['status']){
-                        header('Location: account');
-                        exit();
+                        echo json_encode($error);
                     }else{
                         echo json_encode($error);
                     }
