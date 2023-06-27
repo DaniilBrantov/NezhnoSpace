@@ -61,3 +61,6 @@
         <button class="blue_btn authorization_window-error_btn">ок</button>
     </div>
 </div>
+
+<!-- <script async src="https://telegram.org/js/telegram-widget.js?222" data-telegram-login="NezhnoSpacebot"
+    data-size="large" data-auth-url="https://nezhno.space/auth-check" data-request-access="write"></script> -->

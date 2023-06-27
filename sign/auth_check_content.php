@@ -2,29 +2,47 @@
     require_once( get_theme_file_path('processing.php') );
     //если передана переменная action, «разавторизируем» пользователя
     if($_GET['action'] == "out") out(); 
-    if (login()){
-        $UID = $_SESSION['id'];
-        $error=[];
-        $error['status']=true;
-        echo json_encode($error);
-    }else {
-        if(isset($_POST['auth_btn'])){
-            $error=enter();
-            if (count($error) == 0){
-                $UID = $_SESSION['id'];
-                $error['status']=true;
-                $error['id']=$UID;
-                echo json_encode($error);
+
+    $tgLogin = new TelegramLogin('NezhnoSpacebot');
+    $tg_log = $tgLogin->TgLogin();
+
+    if($tg_log['status']){
+        $_POST['mail'] = $tg_log['data']['username'];
+        $_POST['pass'] = $tg_log['data']['hash'];
+        $_POST['auth_btn'] = true;
+    }
+
+        if (login()){
+            $UID = $_SESSION['id'];
+            $error=[];
+            $error['status']=true;
+            if($tg_log['status']){
+                header('Location: account');
+                exit();
             }else{
-                //функция входа на сайт
-                $error['status']=false;
                 echo json_encode($error);
             }
-        }else{
-            $tgLogin = new TelegramLogin('NezhnoSpacebot');
-            var_dump( $tgLogin->TgLogin() );
+        }else {
+            if(isset($_POST['auth_btn'])){
+                $error=enter();
+                if (count($error) == 0 || $tg_log['status']){
+                    $UID = $_SESSION['id'];
+                    $error['status']=true;
+                    $error['id']=$UID;
+                    if($tg_log['status']){
+                        header('Location: account');
+                        exit();
+                    }else{
+                        echo json_encode($error);
+                    }
+                }else{
+                    //функция входа на сайт
+                    $error['status']=false;
+                    echo json_encode($error);
+                }
+            }
         }
-    }
+    
 
 
 function enter (){ 
@@ -35,10 +53,11 @@ function enter (){
         $mail=$_POST['mail']; 
         $pass=$_POST['pass'];
         $enter_rez=$db->query("SELECT * FROM users WHERE mail=?s",$_POST['mail']);
-
         if ($db->numRows($enter_rez) == 1){  
+            $tgLogin = new TelegramLogin('NezhnoSpacebot');
+            $tg_log = $tgLogin->TgLogin();
             $row = $db->getAll("SELECT * FROM users WHERE mail=?s",$_POST['mail'])[0];             
-            if (password_verify($pass, $row['password'])){ 
+            if ($tg_log['status'] || password_verify($pass, $row['password']) ){ 
                     setcookie ("mail", $row['mail'], time() + 50000);                         
                     setcookie ("pass", md5($row['mail'].$row['password']), time() + 50000);                    
                     $_SESSION['id'] = $row['id'];               
@@ -72,9 +91,16 @@ function lastAct($id){
 
 
 function login () {     
-    $db = new SafeMySQL(); 
-    ini_set ("session.use_trans_sid", true);   
-    session_start();  
+    $db = new SafeMySQL();
+    // Установка параметров cookie сессии
+    $sessionName = 'my_session'; // Имя cookie сессии
+    $cookieLifetime = 0; // Время жизни cookie сессии (0 - до закрытия браузера)
+    $cookiePath = '/'; // Путь, для которого доступны cookie сессии
+    $cookieDomain = ''; // Домен, для которого доступны cookie сессии
+
+
+    session_start();
+
 
     if (isset($_SESSION['id'])){
 

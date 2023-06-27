@@ -274,10 +274,14 @@ class TelegramLogin {
             $existingUser = $db->getRow("SELECT 1 FROM `users` WHERE `tg_id` = ?s", $tg_id);
 
             $query = $existingUser
-                ? $db->query("UPDATE `users` SET `name`='$name', `surname`='$last_name', `username`='$username', `password`='$hash', `photo_url`='$photo_url', `last_act`='$last_act' WHERE `tg_id`='$tg_id'")
-                : $db->query("INSERT INTO `users`(`tg_id`, `name`, `surname`, `username`, `password`, `photo_url`, `last_act`) VALUES ('$tg_id', '$name', '$last_name', '$username', '$hash', '$photo_url', '$last_act')");
+                ? $db->query("UPDATE `users` SET `name`='$name', `surname`='$last_name', `username`='$username', `mail`='$username', `password`='$hash', `photo_url`='$photo_url', `last_act`='$last_act' WHERE `tg_id`='$tg_id'")
+                : $db->query("INSERT INTO `users`(`tg_id`, `name`, `surname`, `username`, `mail`, `password`, `photo_url`, `last_act`) VALUES ('$tg_id', '$name', '$last_name', '$username', '$username', '$hash', '$photo_url', '$last_act')");
 
-            return $query !== false;
+            $result = [
+                'status' => true,
+                'data' => $tgData,
+            ];
+            return $result;
         }
 
         return 'Произошла ошибка. Попробуйте снова';
