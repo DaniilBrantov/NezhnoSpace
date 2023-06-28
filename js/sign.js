@@ -1,119 +1,124 @@
 const showError = (value, textError) => {
-    document.querySelector(`input[name=${value}]`).classList.add('error');
-    document.querySelector(`.text-error_${value}`).style.opacity = '1';
-    document.querySelector(`.text-error_${value}`).innerText = textError;
-}
+    const inputElement = document.querySelector(`input[name="${value}"]`);
+    const errorTextElement = document.querySelector(`.text-error_${value}`);
+    inputElement.classList.add('error');
+    errorTextElement.textContent = textError;
+    errorTextElement.style.opacity = '1';
+};
 
 const showModalError = () => {
-    document.querySelector('.authorization_window-error').style.display = 'flex';
-    document.querySelector('.authorization_window-error span').innerText = 'При загрузке произошла неизвестная ошибка! Пожалуйста, попробуйте позже.';
+    const errorWindow = document.querySelector('.authorization_window-error');
+    const errorMessage = errorWindow.querySelector('span');
+    const errorButton = errorWindow.querySelector('.authorization_window-error_btn');
 
-    document.querySelector('.authorization_window-error_btn').addEventListener('click', function () {
-        document.querySelector('.authorization_window-error').style.display = 'none';
-    }, false);
-}
+    errorWindow.style.display = 'flex';
+    errorMessage.textContent = 'При загрузке произошла неизвестная ошибка! Пожалуйста, попробуйте позже.';
 
-//Регистрация
+    errorButton.addEventListener('click', () => {
+        errorWindow.style.display = 'none';
+    });
+};
 
-$("#reg_btn").click(function (e) {
-    // if (sessionStorage.getItem('anxiety').length > 0) {
-    //     console.log(JSON.parse(sessionStorage.getItem('anxiety')))
-    // }
-    //отключает стандартное поведение e(кнопки)
-    e.preventDefault();
-    $(`input`).removeClass("error");
-    //val()- взять инф-цию с данного эл-нта
-    var reg_nonce = $('#vb_new_user_nonce').val();
-    var first_name = $('input[name="first_name"]').val();
-    var mail = $('input[name="mail"]').val();
-    var pass = $('input[name="pass"]').val();
-    var pass_conf = $('input[name="pass_conf"]').val();
-    var approval_check = $('input[name="approval_check"]').val();
-    var get = (new URL(document.location)).searchParams;
-    var token = get.get("token");
+const handleRegistration = () => {
+    document.addEventListener('DOMContentLoaded', () => {
+        const regBtn = document.querySelector("#reg_btn");
+        if (regBtn) {
+            regBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                document.querySelectorAll('input').forEach(input => input.classList.remove("error"));
 
-    var formData = new FormData();
-    formData.append("nonce", reg_nonce);
-    formData.append("first_name", first_name);
-    formData.append("mail", mail);
-    formData.append("pass", pass);
-    formData.append("pass_conf", pass_conf);
-    formData.append("approval_check", approval_check);
-    formData.append("token", token);
+                const regNonce = document.querySelector('#vb_new_user_nonce').value;
+                const firstName = document.querySelector('input[name="first_name"]').value;
+                const mail = document.querySelector('input[name="mail"]').value;
+                const pass = document.querySelector('input[name="pass"]').value;
+                const passConf = document.querySelector('input[name="pass_conf"]').value;
+                const approvalCheck = document.querySelector('input[name="approval_check"]').value;
+                const get = new URLSearchParams(document.location.search);
+                const token = get.get("token");
 
-    // обьект ajax со св-ми ,как было у формы.
-    $.ajax({
-        url: "check",
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: function (data) {
-            //Успешно зарегистрорвался
-            if (data.status) {
-                window.location.href = 'subscription';
-            }
-            //Выводить ошибки
-            else {
-                for (let key in data) {
-                    if (key !== 'status') {
-                        console.log(data)
-                        showError(key, data[key]);
+                const formData = new FormData();
+                formData.append("nonce", regNonce);
+                formData.append("first_name", firstName);
+                formData.append("mail", mail);
+                formData.append("pass", pass);
+                formData.append("pass_conf", passConf);
+                formData.append("approval_check", approvalCheck);
+                formData.append("token", token);
+
+                fetch("check", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status) {
+                            window.location.href = 'subscription';
+                        } else {
+                            for (let key in data) {
+                                if (key !== 'status') {
+                                    showError(key, data[key]);
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        showModalError();
+                    });
+            });
+        }
+    });
+};
+
+const handleAuthentication = () => {
+    const authBtn = document.querySelector("#auth_btn");
+
+    authBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.querySelectorAll("input").forEach(input => input.classList.remove("error"));
+
+        const mail = document.querySelector('input[name="mail"]').value;
+        const pass = document.querySelector('input[name="pass"]').value;
+        const authBtnValue = document.querySelector('button[name="auth_btn"]').value;
+
+        const formData = new FormData();
+        formData.append("mail", mail);
+        formData.append("pass", pass);
+        formData.append("auth_btn", authBtnValue);
+
+
+        fetch("auth-check", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    window.location.href = 'account';
+                } else {
+                    for (let key in data) {
+                        if (key !== 'status') {
+                            showError(key, data[key]);
+                        }
                     }
                 }
-            }
-        },
-        error: function (jqxhr, status, errorMsg) {
-            showModalError();
-        },
+            })
+            .catch(() => {
+                showModalError();
+            });
     });
-});
+};
 
-//Авторизация
-$("#auth_btn").click(function (e) {
-    // if (sessionStorage.getItem('anxiety')) {
-    //   console.log(JSON.parse(sessionStorage.getItem('anxiety')));
-    // }
-    //отключает стандартное поведение e(кнопки)
-    e.preventDefault();
-    $("input").removeClass("error");
-    //val()- взять инф-цию с данного эл-нта
-    let mail = $('input[name="mail"]').val();
-    let pass = $('input[name="pass"]').val();
-    let auth_btn = $('input[name="auth_btn"]').val();
+// Регистрация
+handleRegistration();
 
-    let formData = new FormData();
-    formData.append("mail", mail);
-    formData.append("pass", pass);
-    formData.append("auth_btn", auth_btn);
+// Авторизация
+handleAuthentication();
 
-    //обьект ajax со св-ми ,как было у формы.
-    $.ajax({
-        url: "auth-check",
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: function (data) {
-            if (data.status) {
-                window.location.href = 'account';
-            } else {
-                for (let key in data) {
-                    if (key !== 'status') {
-                        showError(key, data[key]);
-                    }
-                }
-            }
-        },
-        error: function (jqxhr, status, errorMsg) {
-            showModalError();
-        },
-    });
-});
+
+
+
+
+
 
 //Подтверждение почты
 $("#activation_btn").click(function (e) {
