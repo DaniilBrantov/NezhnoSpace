@@ -1,7 +1,16 @@
 <?php
 /* scripts and styles */
-
 /*Регистрация всех стилей*/
+if ( ! defined( 'ABSPATH' ) ) {
+    define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+}
+if ( ! function_exists( 'wp_register_style' ) ) {
+    require_once( ABSPATH . 'wp-includes/functions.wp-styles.php' );
+}
+if ( ! function_exists( 'get_template_directory_uri' ) ) {
+    require_once( ABSPATH . 'wp-includes/theme.php' );
+}
+
 function load_styles(){
 	wp_register_style(
 		"my_style",
