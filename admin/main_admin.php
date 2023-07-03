@@ -68,7 +68,7 @@ if($subscription->getCheckAdmin()){
             $date = new DateTime($this->createdPayment);
             $subscriptionDays = $date->diff($now)->format("%a");
             $daysInterval = $this->getDaysInterval($cat);
-            //! $nextLessonDays = $daysInterval - $subscriptionDays;
+            $nextLessonDays = $daysInterval - $subscriptionDays;
 
             // $nextLessonDays = $lessonCount * $daysInterval + $daysInterval - $subscriptionDays;
             $nextLessonDate = date('Y-m-d', strtotime("+$nextLessonDays days"));
@@ -76,7 +76,6 @@ if($subscription->getCheckAdmin()){
             if ($cat === 'recomendations') {
                 $nextLessonDate = null; // Уроки открыты всегда, не нужно определять следующую дату
             }
-            var_dump( $subscriptionDays);
     
             return $nextLessonDate;
         }
@@ -95,8 +94,8 @@ if($subscription->getCheckAdmin()){
     
         // 6. Получение массива данных из БД с конкретным тегом или тегами
         public function getDataByTag($tags) {
-            $tagData = array();
-            $tagsArray = explode(',', $tags);
+            // $tagData = array();
+            // $tagsArray = explode(',', $tags);
     
             foreach ($this->subscriptions as $subscription) {
                 foreach ($tagsArray as $tag) {
@@ -192,7 +191,7 @@ if($subscription->getCheckAdmin()){
     }
     
     $subscription= new ViewSubscription();
-    var_dump($subscription->getNextLessonDate('themes'));
+    var_dump($subscription->getDataByTag(['tag1','tag3','tag2','tag9',]));
     // var_dump($subscription->getCatData($cat))
     // var_dump($subscription->addPost('daily', 'active', "title", 'description', '', '', '', '', ''));
 ?>
