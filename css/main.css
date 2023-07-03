@@ -644,9 +644,10 @@ section {
 .reviews_time {
   position: relative;
   align-self: flex-end;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 20px;
   color: #111111;
+  padding: 0 10px;
 }
 .reviews_time:first-of-type {
   display: grid;

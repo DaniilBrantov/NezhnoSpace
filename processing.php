@@ -16,383 +16,305 @@ $db = new SafeMySQL();
 
 class UserValidationErrors
 {
-    public function getName($val)
-    {	
+    // ...
+
+    public function getFirstName($val)
+    {
         return $this->FieldLength($val, "Введите Имя");
     }
-    public function getSurname($val)
-    {	
+
+    public function getLastName($val)
+    {
         return $this->FieldLength($val, "Введите Фамилию");
     }
-    public function MatchingPasswords($pass, $pass_conf){
-        if($pass === $pass_conf) {
+
+    public function MatchingPasswords($pass, $pass_conf)
+    {
+        if ($pass === $pass_conf) {
             return 0;
-        }else{
+        } else {
             return "Повторный пароль введен не верно!";
         }
     }
-    public function getCoincidenceUser($val){
-        if(!$this->getEmail($val)){
+
+    public function getCoincidenceUser($val)
+    {
+        if (!$this->getEmail($val)) {
             return $this->CoincidenceUser($val);
-        }else{
+        } else {
             return $this->getEmail($val);
         }
     }
+
     public function getEmail($val)
-    {	
-        $field_lenght=$this->FieldLength($val, "Введите Email");
-        if($field_lenght === 0){
-            if(preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $val)){
-                return $field_lenght;
-            }else{
-                return 'Неверно введен е-mail';
+    {
+        $field_length = $this->FieldLength($val, "Введите Email");
+        if ($field_length === 0) {
+            if (preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $val)) {
+                return $field_length;
+            } else {
+                return 'Неверно введен e-mail';
             }
-        }else{
-            return $field_lenght;
+        } else {
+            return $field_length;
         }
     }
+
     public function getPassword($val)
     {
-        $field_lenght=$this->FieldLength($val, "Введите Пароль");
-        if($field_lenght === 0){
-            if(!preg_match('/^\S*(?=\S{8,30})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $val)){
+        $field_length = $this->FieldLength($val, "Введите Пароль");
+        if ($field_length === 0) {
+            if (!preg_match('/^\S*(?=\S{8,30})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $val)) {
                 return "Слабый пароль";
-            }else{ 
-                return $field_lenght; 
+            } else {
+                return $field_length;
             }
-        }else{
-            return $field_lenght;
+        } else {
+            return $field_length;
         }
     }
+
     public function getTelephone($val)
     {
-        if(preg_match("/^[0-9]{11,11}+$/", $val)){
-			$first = substr($val, "0",1);
-			if($first != 7){
-				return "Некорректный номер телефона";
-			}else{
+        if (preg_match("/^[0-9]{11,11}+$/", $val)) {
+            $first = substr($val, 0, 1);
+            if ($first != '7') {
+                return "Некорректный номер телефона";
+            } else {
                 return 0;
-			}
-		}else{
-			return"Телефон задан в неверном формате";
-		}
+            }
+        } else {
+            return "Телефон задан в неверном формате";
+        }
     }
-    public function getAge($val)
+
+    public function getBirthdate($val)
     {
-        if( time() > strtotime($val) ){
+        if (time() > strtotime($val)) {
             if (time() < strtotime('+18 years', strtotime($val))) {
                 return "Вам меньше 18 лет";
             } else {
                 return 0;
             }
-        }else{
+        } else {
             return "Введите свою дату рождения";
         }
     }
+
     public function getCheckTokens($mail, $token)
     {
         return $this->checkTokens($mail, $token);
     }
-    public function getCheckId($id){
+
+    public function getCheckId($id)
+    {
         return $this->checkId($id);
     }
-    protected function checkId($id){
+
+    protected function checkId($id)
+    {
         $db = new SafeMySQL();
         $existingUser = $db->query("SELECT id FROM users WHERE id=?i", $id);
-        if($db->numRows($existingUser)>0){
-            $error['status']=0;
-            $error['msg']="Такой пользователь уже существует";
+        if ($db->numRows($existingUser) > 0) {
+            $error['status'] = 0;
+            $error['msg'] = "Такой пользователь уже существует";
             return $error;
-        }else{
-            return $error['status']=1;
+        } else {
+            return $error['status'] = 1;
         }
     }
+
     protected function checkTokens($mail, $token)
     {
         $db = new SafeMySQL();
-        $sql =$db->getAll("SELECT * FROM tokens WHERE mail=?s AND token=?s", $mail, $token)[0];
-        $info_sql =$sql['info'];
-        $token=$sql['token'];
-        $info_sql= json_decode($info_sql);
-        $error=[];
-        if(isset($sql) && !empty($sql)){
-                $user_sql =$db->query("SELECT mail FROM users WHERE mail=?s", $mail);
-                $status=$info_sql->status;
-                $pay_choice=$info_sql->pay_choice;
-                $date=$info_sql->date;
-                if($db->numRows($user_sql)>0){
-                    $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
-                    $error['status'] = 2;
-                    $error['info'] = $info_sql;
-                    $error['token'] = $token;
-                }else{
-                    $error['status'] = 1;
-                    $error['info'] = $info_sql;
-                    $error['token'] = $token;
-                }
-        }else{
+        $sql = $db->getAll("SELECT * FROM tokens WHERE mail=?s AND token=?s", $mail, $token)[0];
+        $info_sql = $sql['info'];
+        $token = $sql['token'];
+        $info_sql = json_decode($info_sql);
+        $error = [];
+        if (isset($sql) && !empty($sql)) {
+            $user_sql = $db->query("SELECT mail FROM users WHERE mail=?s", $mail);
+            $status = $info_sql->status;
+            $pay_choice = $info_sql->pay_choice;
+            $date = $info_sql->date;
+            if ($db->numRows($user_sql) > 0) {
+                $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'");
+                $error['status'] = 2;
+                $error['info'] = $info_sql;
+                $error['token'] = $token;
+            } else {
+                $error['status'] = 1;
+                $error['info'] = $info_sql;
+                $error['token'] = $token;
+            }
+        } else {
             $error['status'] = 0;
             $error['msg'] = "Проверьте вашу почту";
         }
         return $error;
     }
+
     protected function FieldLength($full_name, $error)
     {
-        if($full_name == '') {
+        if ($full_name == "") {
             return $error;
-        }elseif (mb_strlen($full_name) < 3 || mb_strlen($full_name) > 50){
+        } elseif (mb_strlen($full_name) < 3 || mb_strlen($full_name) > 50) {
             $error = "Недопустимая длина";
             return $error;
-        }else{
+        } else {
             return 0;
         }
     }
+
     protected function CoincidenceUser($val)
     {
         $db = new SafeMySQL();
-        //$check_user=$db->query("SELECT user_email FROM wp_users WHERE user_email=?s", $val
-        if($check_user=$db->query("SELECT mail FROM users WHERE mail=?s", $val)){
-            if($db->numRows($check_user)>0){
+        if ($check_user = $db->query("SELECT mail FROM users WHERE mail=?s", $val)) {
+            if ($db->numRows($check_user) > 0) {
                 return 'Такой пользователь уже существует';
             }else{
-                return $field_lenght;
+                return 0;
             }
-        }else{return "Произошла неизвестная ошибка";}
+        } else {
+            return "Произошла неизвестная ошибка";
+        }
     }
-};
+
+}
 
 
 
 
 
 
-class Subscription{
+class Subscription {
     // Получить данные с каждого поста конкретной категории
-    public function getCatData($cat_ID){
-        if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
-            $res=$this->checkCatData($cat_ID);
-        endif;
+    public function getCatData($cat_ID) {
+        $res = [];
+
+        if (have_posts()) {
+            query_posts(array('orderby' => 'date', 'order' => 'ASC', 'cat' => $cat_ID));
+
+            $res = $this->checkCatData($cat_ID);
+
+            wp_reset_query();
+        }
+
         return $res;
-        wp_reset_query();
     }
+
     // Получить вывод постов под конкретным тэгом
-    public function getTagPosts(){
+    public function getTagPosts() {
         return $this->tagPosts();
     }
+
     // Получить данные с конкретного поста
-    public function getPostData($id){
-        return $this->PostData($id);
+    public function getPostData($id) {
+        return $this->postData($id);
     }
+
     // Получить дату следующего поста
-    public function getNextPostDate($close_posts, $cat_ID){
-        return $this->nextPostDate($close_posts,$cat_ID);
+    public function getNextPostDate($close_posts, $cat_ID) {
+        return $this->nextPostDate($close_posts, $cat_ID);
     }
-    // Получить дату оплаты
-    // public function getUserPaymentDate(){
-    //     return $this->userPaymentDate();
-    // }
 
     // Получить кол-во открытых постов конкретной категории
-    public function getCountOpenCatPosts($cat_ID){
+    public function getCountOpenCatPosts($cat_ID) {
         return $this->countOpenCatPosts($cat_ID);
     }
+
     // Получить массив из открытых постов конкретной категории
-    public function getOpenCatPosts($cat_ID){
+    public function getOpenCatPosts($cat_ID) {
         return $this->openCatPosts($cat_ID);
     }
+
     // Массив из закрытых постов конкретной категории
-    public function getCloseCatPosts($cat_ID){
+    public function getCloseCatPosts($cat_ID) {
         return $this->closeCatPosts($cat_ID);
     }
-    //Получить сегодняшнюю ежедневную практику
-    public function getTodayPractice($cat_ID){
-        return $this->TodayPractice($cat_ID);
+
+    // Получить сегодняшнюю ежедневную практику
+    public function getTodayPractice($cat_ID) {
+        return $this->todayPractice($cat_ID);
     }
+
     // Получить данные записи для вывода на страницу. С проверкой оплаты
-    public function getSubscriptionLesson($id){
+    public function getSubscriptionLesson($id) {
         return $this->subscriptionLesson($id);
     }
+
     // Получить данные проверки админки
-    public function getCheckAdmin(){
+    public function getCheckAdmin() {
         return $this->checkAdmin();
     }
+    
+
     // Проверка админки
     protected function checkAdmin() {
         require_once(get_theme_file_path('processing.php'));
         session_start();
         $status = (new SafeMySQL())->getOne("SELECT status FROM users WHERE id = ?i", $_SESSION['id']);
-        if ($status === '4') return true;
+
+        if ($status === '4') {
+            return true;
+        }
+
         header('Location: auth');
         exit();
     }
+
     // Вывод постов под конкретным тэгом
-    protected function tagPosts(){
-        $payment_date=$this->userPaymentDate();
-        $payment = new Payment();
-        if (have_posts()) :
-            $i=1;
-            $close=1;
-            $res=[];
-            while (have_posts()) : the_post();
-                $cat_ID=get_the_category()[0]->cat_ID;
-                $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
-                $res[$i] = $this->getPostData(get_the_ID());
-
-                if($payment->getCheckPayment()){
-                    if($i < $count_open_posts){
-                        $res[$i]['status']=true;
-                    }else{
-                        $res[$i]['status']=false;
-                        $res[$i]['next_post_date']=$this->getNextPostDate($close,$cat_ID);
-                        $close++;
-                    }
-                };
-                if($res[$i]['exception']==='1'){
-                    $res[$i]['status']=TRUE;
-                    // array_unshift($res, $res[$i]);
-                    unset($res[$i]['next_post_date']);
-                }
-            $i+=1;
-            endwhile;
-            return $res;
-        endif;
-    }
-    //Данные с конкретного поста
-    protected function PostData($id){
-        $post = get_post($id);
-        $res=[
-            'id' => $post->ID,
-            'date' => $post->post_date,
-            'excerpt' => $post->post_excerpt,
-            'title' => $post->post_title,
-            'content' => $post->post_content,
-            'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
-            'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
-            'lesson_time' => get_post_meta($post->ID, 'reading_time', true),
-            'exception' => get_post_meta($post->ID, 'open_posts_exception', true),
-            'tag' => get_the_tag_list('<li>','</li><li>','</li>', $post->ID )
-        ];
-        ($res['exception']==='1')? $res['status']=TRUE : $res['status']=FALSE;
-
-        return $res;
-    }
-    // Распределение открытых и закрытых постов
-    protected function checkCatData($cat_ID){
-        $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
-        $i=0;
-        $close=1;
-        $res=[];
-        while (have_posts()) : the_post();
-            $res[$i] = $this->getPostData(get_the_ID());
-            $payment=new Payment();
-            if($payment->getCheckPayment()){
-                if($i < $count_open_posts){
-                    $res[$i]['status']=true;
-                }else{
-                    $res[$i]['status']=false;
-                    $res[$i]['next_post_date']=$this->getNextPostDate($close, $cat_ID);
-                    $close++;
-                }
-            };
-
-            if($res[$i]['exception']==='1'){
-                $res[$i]['status']=TRUE;
-                array_unshift($res, $res[$i]);
-                unset($res[$i]['next_post_date']);
-                unset($res[$i]);
-            }
-            
-            $i+=1;
-        endwhile;
-        return $res;
-    }
-    // Дата следующего поста
-    protected function nextPostDate($close_posts, $cat_ID){
-        if($cat_ID===45 || $cat_ID===46){
-            $days=1*$close_posts;
-        }if($cat_ID===47){
-            $open_posts=$this->getCountOpenCatPosts($cat_ID);
-            $payment_date = $this->userPaymentDate();
-            $today = date("Y-m-d H:i:s");
-            $frequency_discoveries=countDaysBetweenDates($today, $payment_date);
-            $open_days=$open_posts*7;
-            $days_before_open=$open_days-$frequency_discoveries;
-            if($close_posts===1){
-                $days=$days_before_open;
-            }else{
-                $close_posts=$close_posts-1;
-                $days=$days_before_open+7*$close_posts;
-            }
-        }
-        $next_post_date="+". $days ." day";
-        $next_post_date = strtotime($next_post_date, time());
-        $date = date("d.m.Y",$next_post_date);
-        $months = [
-            '01' => 'января',
-            '02' => 'февраля',
-            '03' => 'марта',
-            '04' => 'апреля',
-            '05' => 'мая',
-            '06' => 'июня',
-            '07' => 'июля',
-            '08' => 'августа',
-            '09' => 'сентября',
-            '10' => 'октября',
-            '11' => 'ноября',
-            '12' => 'декабря',
-        ];
-        $dateParts = explode('.', $date);
-        return $dateParts[0] . ' ' . $months[$dateParts[1]];
-        }
-    //Дата оплаты
-    protected function userPaymentDate(){
-        $db = new SafeMySQL();
-        session_start();
-        $payment_date = $db->getOne("SELECT payment_date FROM users WHERE id=?i", $_SESSION['id']);
-        return $payment_date;
-    }
-    // Кол-во открытых постов конкретной категории
-    protected function countOpenCatPosts($cat_ID){
+    protected function tagPosts() {
         $payment_date = $this->userPaymentDate();
-        $today = date("Y-m-d H:i:s");
-        $frequency_discoveries=countDaysBetweenDates($today, $payment_date);
-        if($cat_ID === 45){
-            $open_posts=$frequency_discoveries;
-        }elseif($cat_ID === 46){
-            $open_posts=999;
-        }elseif($cat_ID === 47){
-            $open_posts=$frequency_discoveries/7;
-        }
-        $open_posts=ceil($open_posts);
-        return $open_posts;
-    }
-    // Массив из открытых постов конкретной категории
-    protected function openCatPosts($cat_ID){
-        if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
-            $res = [];
-            $i = 0;
-            $count = $this->getCountOpenCatPosts($cat_ID);
-            while ($i < $count) : the_post();
+        $payment = new Payment();
+        $res = [];
+
+        if (have_posts()) {
+            $i = 1;
+            $close = 1;
+
+            while (have_posts()) {
+                the_post();
+                $cat_ID = get_the_category()[0]->cat_ID;
+                $count_open_posts = $this->getCountOpenCatPosts($cat_ID);
+
                 $res[$i] = $this->getPostData(get_the_ID());
-                $res[$i]['status']=true;
+
+                if ($payment->getCheckPayment()) {
+                    if ($i < $count_open_posts) {
+                        $res[$i]['status'] = true;
+                    } else {
+                        $res[$i]['status'] = false;
+                    }
+                } else {
+                    $res[$i]['status'] = false;
+                }
+
+                if ($res[$i]['status']) {
+                    $close = 0;
+                }
+
                 $i++;
-            endwhile;
-        endif;
+            }
+
+            if ($close) {
+                $res = [];
+            }
+        }
+
         return $res;
     }
-    // Массив из закрытых постов конкретной категории
-    protected function closeCatPosts($cat_ID){
-        if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
-            $res = [];
-            $i=0;
-            $count = $this->getCountOpenCatPosts($cat_ID);
-            while (have_posts()) : the_post();
-                $res[$i] = $this->getPostData(get_the_ID());
-                $res[$i]['status']=false;
-                $i++;
-            endwhile;
-            $res = array_slice($res, $count);
-        endif;
+
+    // Получить данные с конкретного поста
+    protected function postData($id) {
+        $res = [];
+        $post = get_post($id);
+        $res['id'] = $id;
+        $res['title'] = $post->post_title;
+        $res['content'] = $post->post_content;
+        $res['thumbnail'] = get_the_post_thumbnail_url($id, 'full');
+        $res['audio'] = get_post_meta($id, 'audio_url', true);
+
         return $res;
     }
     //Сегодняшняя ежедневная практика
@@ -491,12 +413,49 @@ class Subscription{
     }
 }
 
+    // Получить кол-во открытых постов конкретной категории
+    protected function countOpenCatPosts($cat_ID) {
+        $payment = new Payment();
+        $count_open_posts = 0;
 
+        if ($payment->getCheckPayment()) {
+            $args = array(
+                'post_type' => 'post',
+                'cat' => $cat_ID,
+                'posts_per_page' => -1,
+                'meta_query' => array(
+                    array(
+                        'key' => 'status',
+                        'value' => 'open',
+                    ),
+                ),
+            );
 
+            $count_open_posts = count(get_posts($args));
+        }
 
+        return $count_open_posts;
+    }
 
+    // Массив из открытых постов конкретной категории
+    protected function openCatPosts($cat_ID) {
+        $payment = new Payment();
+        $open_posts = [];
 
+        if ($payment->getCheckPayment()) {
+            $args = array(
+                'post_type' => 'post',
+                'cat' => $cat_ID,
+                'posts_per_page' => -1,
+                'meta_query' => array(
+                    array(
+                        'key' => 'status',
+                        'value' => 'open',
+                    ),
+                ),
+            );
 
+            $posts = get_posts($args);
 
 
 //Payment
@@ -506,9 +465,9 @@ class Payment{
         return $this->checkPromocode($promo);
     }
     //Подключение к кассе
-    public function getConnectToPayment($data){
-        return $this->connectionPayment($data);
-    }
+    // public function getConnectToPayment($data){
+    //     return $this->connectionPayment($data);
+    // }
     // Получить автоплатёж
     public function getAutopay($pay_id,$price,$description){
         return $this->Autopay($pay_id,$price,$description);
@@ -538,7 +497,7 @@ class Payment{
     }
     //Получить проверку оплаты
     public function getCheckPayment(){
-        return $this->checkPayment($data);
+        return $this->checkPayment();
     }
     //Получить данные выбранной услуги
     public function getPaymentServiceData(){
@@ -647,22 +606,24 @@ class Payment{
         }
         return false;
     }
-    
-    
-    //Проверка промокода
-    protected function checkPromocode($promo){
+
+    // Проверка промокода
+    protected function checkPromocode($promo) {
         $db = new SafeMySQL();
         $id = $_SESSION['id'];
-        $promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
-        if($promo_data){
-            if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d") >= $promo_data['first_date'] || $promo_data['last_date']==NULL && date("Y-m-d") >= $promo_data['first_date']){
-                if($promo_data['sale'] >= 100){
-                    $payment_date = date("Y-m-d H:i:s");
-                    if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE id=?i", 3, $payment_date, $id)){
+        $promoData = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
+        if ($promoData) {
+            $today = date("Y-m-d");
+            $firstDate = $promoData['first_date'];
+            $lastDate = $promoData['last_date'];
+            if (($today >= $firstDate && $today <= $lastDate) || ($lastDate === NULL && $today >= $firstDate)) {
+                if ($promoData['sale'] >= 100) {
+                    $paymentDate = date("Y-m-d H:i:s");
+                    if ($db->query("UPDATE users SET status=?i, payment_date=?s WHERE id=?i", 3, $paymentDate, $id)) {
                         return [
                             'status' => true,
-                            'promo' => $promo_data['promo'],
-                            'sale' => $promo_data['sale']
+                            'promo' => $promoData['promo'],
+                            'sale' => $promoData['sale']
                         ];
                     } else {
                         return [
@@ -671,11 +632,11 @@ class Payment{
                         ];
                     }
                 } else {
-                    if($promo_data['promo'] === $promo){
+                    if ($promoData['promo'] === $promo) {
                         return [
                             'status' => true,
-                            'promo' => $promo_data['promo'],
-                            'sale' => $promo_data['sale']
+                            'promo' => $promoData['promo'],
+                            'sale' => $promoData['sale']
                         ];
                     }
                 }
@@ -691,8 +652,73 @@ class Payment{
                 'msg' => "Неверный промокод!"
             ];
         }
-    }   
+    }
+
+    // Проверка оплаты
+    protected function checkPayment() {
+        $db = new SafeMySQL();
+        $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
+        if ($status && !empty($status) && isset($status) && $status !== NULL) {
+            if ($status === '2') {
+                return true;
+            } elseif ($status === '3') {
+                $mail = $db->getOne("SELECT mail FROM users WHERE id=?i", $_SESSION['id']);
+                $infoSql = $db->getOne("SELECT info FROM tokens WHERE mail=?s", $mail);
+                $infoSql = json_decode($infoSql);
+                $weeks = $infoSql->weeks;
+                if ($this->checkSubPromoDate($weeks)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    // Получение данных выбранной услуги
+    protected function paymentServiceData() {
+        $db = new SafeMySQL();
+        $serviceId = null;
+        if (isset($_POST["payment_btn"]) || $_POST["payment_btn"] !== null) {
+            $serviceId = $_POST["payment_id"];
+        } elseif (isset($_GET["payment_choice"])) {
+            $serviceId = $_GET["payment_choice"];
+        }
+    
+        if (!$serviceId || !get_post_meta($serviceId, 'month_count', true) || !get_post_meta($serviceId, 'price', true)) {
+            $serviceId = 944;
+        }
+    
+        $mail = $db->getOne("SELECT mail FROM users WHERE id=?i", $_SESSION['id']);
+    
+        $res = [
+            'service_number' => get_post_meta($serviceId, 'month_count', true),
+            'price' => get_post_meta($serviceId, 'price', true),
+            'description' => $mail . ' Купил услугу на ' . get_post_meta($serviceId, 'month_count', true) . ' месяц(ев)',
+            'mail' => $mail
+        ];
+    
+        return $res;
+    }
+    
+
+    // Проверка срока подписки, заведённый промокодом
+    protected function checkSubPromoDate($weeksToAdd = 1) {
+        $db = new SafeMySQL();
+        foreach ($db->getAll("SELECT * FROM users WHERE status = ?i", 3) as $user) {
+            if (date('Y-m-d', strtotime($user['payment_date'] . " +{$weeksToAdd} weeks")) <= date("Y-m-d H:i:s")) {
+                $db->query("UPDATE users SET status = ?i, payment_date = ?s WHERE mail = ?s", 1, 0, $user['mail']);
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
 
 
 
@@ -990,5 +1016,3 @@ function GetResponseFromDB($condition, $db_func){
         $_POST['try_free'],
         $db->getAll("SELECT * FROM main_try_free")
     );
-
-?>
