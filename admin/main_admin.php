@@ -8,6 +8,193 @@ get_header();
 require_once( get_theme_file_path('processing.php') );
 $subscription = new Subscription();
 if($subscription->getCheckAdmin()){
+
+
+
+    class ViewSubscription {
+        private $subscriptions;
+        private $createdPayment;
+    
+        public function __construct() {
+            // Загрузка данных из базы данных и инициализация свойств $subscriptions и $createdPayment
+            $this->subscriptions = $this->loadDataFromDatabase();
+            $this->createdPayment = $this->loadCreatedPaymentFromDatabase();
+        }
+    
+        // 1. Получение данных из таблицы subscription и проверка статуса
+        public function getSubscriptionData() {
+            $subscriptionData = array();
+    
+            foreach ($this->subscriptions as $subscription) {
+                // Проверка статуса
+                if ($subscription['status'] === 'active') {
+                    $subscriptionData[] = $subscription;
+                }
+            }
+    
+            return $subscriptionData;
+        }
+    
+        // 2. Получение всех строк из конкретного столбца
+        public function getColumnData($columnName) {
+            $columnData = array();
+
+            foreach ($this->subscriptions as $subscription) {
+                if (isset($subscription[$columnName])) {
+                    $columnData[] = $subscription[$columnName];
+                }
+            }
+
+            return $columnData;
+        }
+    
+        // 3. Вывод одной конкретной строки из таблицы subscription
+        public function getSubscriptionById($id) {
+            foreach ($this->subscriptions as $subscription) {
+                if ($subscription['id'] === $id) {
+                    return $subscription;
+                }
+            }
+    
+            return null; // Если запись с указанным id не найдена
+        }
+    
+        // 4. Получение даты открытия следующего урока
+        public function getNextLessonDate($cat) {
+            $lessonCount = count($this->getCatData($cat));
+            // $today = date('Y-m-d');
+            // $subscriptionDays = date('Y-m-d', strtotime($today) - strtotime($this->createdPayment));
+            $now = new DateTime();
+            $date = new DateTime($this->createdPayment);
+            $subscriptionDays = $date->diff($now)->format("%a");
+            $daysInterval = $this->getDaysInterval($cat);
+            //! $nextLessonDays = $daysInterval - $subscriptionDays;
+
+            // $nextLessonDays = $lessonCount * $daysInterval + $daysInterval - $subscriptionDays;
+            $nextLessonDate = date('Y-m-d', strtotime("+$nextLessonDays days"));
+    
+            if ($cat === 'recomendations') {
+                $nextLessonDate = null; // Уроки открыты всегда, не нужно определять следующую дату
+            }
+            var_dump( $subscriptionDays);
+    
+            return $nextLessonDate;
+        }
+    
+        // 5. Получение массива данных из БД по конкретному значению cat
+        public function getCatData($cat) {
+            $catData = array();
+    
+            foreach ($this->subscriptions as $subscription) {
+                if ($subscription['cat'] === $cat) {
+                    $catData[] = $subscription;
+                }
+            }
+            return $catData;
+        }
+    
+        // 6. Получение массива данных из БД с конкретным тегом или тегами
+        public function getDataByTag($tags) {
+            $tagData = array();
+            $tagsArray = explode(',', $tags);
+    
+            foreach ($this->subscriptions as $subscription) {
+                foreach ($tagsArray as $tag) {
+                    if (strpos($subscription['title'], $tag) !== false) {
+                        $tagData[] = $subscription;
+                        break;
+                    }
+                }
+            }
+    
+            return $tagData;
+        }
+    
+        // 7. Получение количества открытых постов конкретной категории
+        public function getOpenPostCount($daysInterval) {
+            $today = date('Y-m-d');
+            $subscriptionDays = strtotime($today) - strtotime($this->createdPayment);
+            $openPosts = $subscriptionDays % $daysInterval;
+    
+            return $openPosts;
+        }
+    
+        // 8. Получение массива открытых постов
+        public function getOpenPosts($openPostCount) {
+            return array_slice($this->subscriptions, 0, $openPostCount);
+        }
+    
+        // 9. Проверка конкретного поста на статус
+        public function checkPostStatus($id, $daysInterval) {
+            $openPosts = $this->getOpenPostCount($daysInterval);
+    
+            if ($id <= $openPosts) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    
+        // 10. Получение сегодняшнего урока
+        public function getTodayLesson($cat) {
+            $daysInterval = $this->getDaysInterval($cat);
+            $openPostCount = $this->getOpenPostCount($daysInterval);
+            $openPosts = $this->getOpenPosts($openPostCount);
+            return end($openPosts);
+        }
+    
+        // 11. Получение интервала дней в зависимости от категории
+        public function getDaysInterval($cat) {
+            if ($cat === 'themes') {
+                return 7;
+            } else if ($cat === 'daily') {
+                return 1;
+            } else {
+                return null;
+            }
+        }
+
+        // 12. Добавление нового поста в базу данных и массив $subscriptions
+        public function addPost($cat, $status, $title, $description, $tags, $photo, $video, $audio, $link) {
+            // Добавление данных в базу данных
+            $db = new SafeMySQL();
+            $db->query("INSERT INTO subscription (cat, status, title, description, tags, photo, video, audio, link) VALUES (?s, ?s, ?s, ?s, ?s, ?s, ?s, ?s, ?s)",
+            $cat,
+            $status,
+            $title,
+            $description,
+            $tags,
+            $photo,
+            $video,
+            $audio,
+            $link);
+        }
+    
+        // Загрузка данных из базы данных
+        private function loadDataFromDatabase() {
+            $db = new SafeMySQL();
+            $data = $db->getAll("SELECT * FROM subscription");
+    
+            return $data;
+        }
+    
+        // Загрузка даты создания платежа пользователя из базы данных
+        private function loadCreatedPaymentFromDatabase() {
+            $userId = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+            if ($userId) {
+                $db = new SafeMySQL();
+                $createdPayment = $db->getOne("SELECT created_payment FROM users WHERE id = ?i", $userId);
+                return $createdPayment;
+            }
+    
+            return null;
+        }
+    }
+    
+    $subscription= new ViewSubscription();
+    var_dump($subscription->getNextLessonDate('themes'));
+    // var_dump($subscription->getCatData($cat))
+    // var_dump($subscription->addPost('daily', 'active', "title", 'description', '', '', '', '', ''));
 ?>
 
 
