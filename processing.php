@@ -172,8 +172,8 @@ class UserValidationErrors
         if ($check_user = $db->query("SELECT mail FROM users WHERE mail=?s", $val)) {
             if ($db->numRows($check_user) > 0) {
                 return 'Такой пользователь уже существует';
-            } else {
-                return '';
+            }else{
+                return 0;
             }
         } else {
             return "Произошла неизвестная ошибка";
@@ -317,34 +317,101 @@ class Subscription {
 
         return $res;
     }
-
-    // Получить дату следующего поста
-    protected function nextPostDate($close_posts, $cat_ID) {
-        $next_post_date = '';
-        $payment = new Payment();
-        $count_close_posts = count($close_posts);
-        $count_open_posts = $this->getCountOpenCatPosts($cat_ID);
-
-        if ($payment->getCheckPayment()) {
-            if ($count_close_posts == 0 || $count_open_posts == 0) {
-                $next_post_date = '';
-            } elseif ($count_close_posts >= $count_open_posts) {
-                $next_post_date = '';
-            } else {
-                $today = date('Y-m-d');
-                $close_posts_dates = array_column($close_posts, 'post_date');
-
-                foreach ($close_posts_dates as $date) {
-                    if ($date > $today) {
-                        $next_post_date = $date;
-                        break;
+    //Сегодняшняя ежедневная практика
+    protected function TodayPractice($cat_ID){
+        $arr = $this->getCatData($cat_ID);
+        $open_arr=[];
+        $i=0;
+        foreach ($arr as &$element) {
+            if($element['status'] === true){
+                $res = $element;
+            }
+        }
+        return $res;
+    }
+    // Данные записи для вывода на страницу. С проверкой оплаты
+    protected function subscriptionLesson($id){
+        $payment=new Payment();
+        $cat = (array)(get_the_category($id)[0]);
+        $cat_ID=$cat["cat_ID"];
+        $count_open_posts=$this->getCountOpenCatPosts($cat_ID);
+        $i=0;
+        $res=[];
+        while (have_posts()) : the_post();
+            $res[$i] = $this->getPostData(get_the_ID());
+            if($id === $res[$i]['id']){
+                if($this->getCheckPayment()){
+                    if($i < $count_open_posts){
+                        $res[$i]['status']=true;
+                    }else{
+                        $res[$i]['status']=false;
                     }
+                }else{
+                    $res[$i]['status']=false;
+                };
+                if($res[$i]['exception']==='1'){
+                    $res[$i]['status']=TRUE;
+                    array_unshift($res, $res[$i]);
+                    unset($res[$i]);
+                }
+                break;
+            }
+            
+            $i+=1;
+        endwhile;
+        return $res[1];
+    }
+    // Посты, которые лайкнул пользователь
+    protected function RatedPosts($cat_ID){
+        $db = new SafeMySQL();
+        session_start();
+        $user_likes = $db->getAll("SELECT * FROM likes WHERE user_id=?i", $_SESSION['id']);
+        $cat_data = $this->getCatData($cat_ID);
+        $result_key = 0;
+        $result_list=[];
+        foreach($cat_data as $cat_post){
+            foreach($user_likes as $like_data){
+                if($like_data['post_id'] == $cat_post['id']){
+                    $result_list[$result_key] = $cat_post;
+                    $result_key++;
                 }
             }
         }
-
-        return $next_post_date;
+        return $result_list;
     }
+    // Получить отфильтрованные по лайкам посты 
+    public function getFilterPostsByLike($cat_ID){
+        return $this->FilterPostsByLike($cat_ID);
+    }
+    // Получить результат проверки категории
+    public function getFilterCat($post_id, $filter_cat){
+        return $this->FilterCat($post_id, $filter_cat);
+    }
+    //Отфильтрованные по лайкам посты 
+    protected function FilterPostsByLike($cat_ID){
+        $liked_posts = $this->RatedPosts($cat_ID);
+        $cat_data = $this->getCatData($cat_ID);
+        foreach($cat_data as $key => $cat_post){
+            $post_id=$cat_post['id'];
+            foreach($liked_posts as $like_data){
+                if($post_id == $like_data['id']){
+                    unset($cat_data[$key]);
+                }
+            }
+            
+        }
+        return $cat_data;
+    }
+    // Проверка категории
+    protected function FilterCat($post_id, $filter_cat){
+        $cat = get_the_category( $post_id );
+        foreach($cat as $el){
+            if($el->slug === $filter_cat){
+            return TRUE;
+            }
+        }
+    }
+}
 
     // Получить кол-во открытых постов конкретной категории
     protected function countOpenCatPosts($cat_ID) {
@@ -390,120 +457,154 @@ class Subscription {
 
             $posts = get_posts($args);
 
-            foreach ($posts as $post) {
-                $open_posts[] = $this->getPostData($post->ID);
-            }
-        }
 
-        return $open_posts;
-    }
-
-    // Массив из закрытых постов конкретной категории
-    protected function closeCatPosts($cat_ID) {
-        $payment = new Payment();
-        $close_posts = [];
-
-        if ($payment->getCheckPayment()) {
-            $args = array(
-                'post_type' => 'post',
-                'cat' => $cat_ID,
-                'posts_per_page' => -1,
-                'meta_query' => array(
-                    array(
-                        'key' => 'status',
-                        'value' => 'close',
-                    ),
-                ),
-            );
-
-            $posts = get_posts($args);
-
-            foreach ($posts as $post) {
-                $close_posts[] = $this->getPostData($post->ID);
-            }
-        }
-
-        return $close_posts;
-    }
-
-    // Получить сегодняшнюю ежедневную практику
-    protected function todayPractice($cat_ID) {
-        $payment = new Payment();
-        $today_practice = [];
-
-        if ($payment->getCheckPayment()) {
-            $args = array(
-                'post_type' => 'post',
-                'cat' => $cat_ID,
-                'posts_per_page' => 1,
-                'meta_query' => array(
-                    array(
-                        'key' => 'status',
-                        'value' => 'open',
-                    ),
-                ),
-            );
-
-            $query = new WP_Query($args);
-
-            if ($query->have_posts()) {
-                while ($query->have_posts()) {
-                    $query->the_post();
-                    $today_practice = $this->getPostData(get_the_ID());
-                }
-
-                wp_reset_postdata();
-            }
-        }
-
-        return $today_practice;
-    }
-
-    // Получить данные записи для вывода на страницу. С проверкой оплаты
-    protected function subscriptionLesson($id) {
-        $res = [];
-        $payment = new Payment();
-        $payment_date = $this->userPaymentDate();
-
-        if ($payment->getCheckPayment()) {
-            $res = $this->getPostData($id);
-        }
-
-        return $res;
-    }
-
-    // Получить дату оплаты пользователя
-    protected function userPaymentDate() {
-        require_once(get_theme_file_path('processing.php'));
-        session_start();
-        $user_id = $_SESSION['id'];
-        $payment_date = (new SafeMySQL())->getOne("SELECT payment_date FROM users WHERE id = ?i", $user_id);
-
-        return $payment_date;
-    }
-}
-
-
-
-
-
-
-
-
-class Payment {
+//Payment
+class Payment{
     // Получить проверку промокода
-    public function getCheckPromocode($promo) {
+    public function getcheckPromocode($promo){
         return $this->checkPromocode($promo);
     }
-
-    // Получить проверку оплаты
-    public function getCheckPayment() {
+    //Подключение к кассе
+    // public function getConnectToPayment($data){
+    //     return $this->connectionPayment($data);
+    // }
+    // Получить автоплатёж
+    public function getAutopay($pay_id,$price,$description){
+        return $this->Autopay($pay_id,$price,$description);
+    }
+    // Создание платежных данных
+    public function createPagePayment($price,$description){
+        $data = array(
+            'amount' => array(
+                'value' => $price,
+                'currency' => 'RUB',
+            ),
+            'payment_method_data' => array(
+                'type' => 'bank_card',
+            ),
+            'capture' => true,
+            'confirmation' => array(
+                'type' => 'redirect',
+                'return_url' => 'https://nezhno.space/pay_success',
+            ),
+            'description' => $description,
+            'save_payment_method' => true,
+            'metadata' => array(
+                'order_id' => 1,
+            )
+        );
+        return $data;
+    }
+    //Получить проверку оплаты
+    public function getCheckPayment(){
         return $this->checkPayment();
     }
-
-    // Получить данные выбранной услуги
-    public function getPaymentServiceData() {
-        return $this->paymentServiceData();
+    //Получить данные выбранной услуги
+    public function getPaymentServiceData(){
+        return $this->PaymentServiceData();
+    }
+    //Проверка срока подписки, заведённый промокодом
+    public function getSubPromoDate($weeksToAdd){
+        return $this->checkSubPromoDate($weeksToAdd);
+    }
+    // Данные выбранной услуги
+    protected function PaymentServiceData(){
+        $db = new SafeMySQL();
+        if($_POST["payment_btn"] || $_POST["payment_btn"] !== NULL){
+            $service_id=$_POST["payment_id"];
+        }elseif($_GET["payment_choice"]){
+            $service_id=$_GET["payment_choice"];
+        }else{
+            $service_id=944;
+        };
+        if(!get_post_meta($service_id, 'month_count', true) || !get_post_meta($service_id, 'price', true)){
+            $service_id=944;
+        };
+        $res['service_number']=get_post_meta($service_id, 'month_count', true);
+        $res['price']=get_post_meta($service_id, 'price', true);
+        $res['description']=$mail . ' Купил услугу на ' . $res['service_number'] .' месяц(ев)';
+        $res['mail'] = $db->getOne("SELECT mail FROM users WHERE id=?i",$_SESSION['id']);
+        return $res;
+    }
+    //Проверка оплаты
+    protected function checkPayment(){
+        $db = new SafeMySQL();
+        $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
+        if($status && !empty($status) && isset($status) && $status !== NULL){
+            if($status==='2'){
+                return TRUE;
+            }elseif($status==='3'){
+                $mail = $db->getOne("SELECT mail FROM users WHERE id=?i", $_SESSION['id']);
+                $info_sql = $db->getOne("SELECT info FROM tokens WHERE mail=?s", $mail);
+                $info_sql= json_decode($info_sql);
+                $weeks=$info_sql->weeks;
+                if($this->getSubPromoDate($weeks)){
+                    return FALSE;
+                }else{
+                    return TRUE;
+                }
+            }else{ return FALSE; }
+        }else{ return FALSE; }
+    }
+    //Автоплатёж
+    protected function Autopay($pay_id,$price,$description){
+        $data=array(
+            'amount' => array(
+            'value' => $price,
+            'currency' => 'RUB',
+            ),
+            'capture' => true,
+            'payment_method_id' => $pay_id,
+            'description' => $description,
+        );
+        return $data;
+    }
+    //Подключение к кассе
+    protected function connectionPayment($data){
+        $client = new \YooKassa\Client();
+        $set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+        // $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+        $payment = $client->createPayment($data,uniqid('', true));
+        return $payment;
+    }
+    // Получение данных оплаты
+    protected function getPaymentInformation($paymentId){
+        $client = new \YooKassa\Client();
+        $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+        // $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+        $payment = $client->getPaymentInfo($paymentId);
+        return $payment;
+    }
+    // Сохранить платёж
+    protected function SavePayment($paymentId){
+        if($paymentId){
+            $payment_info= $this->getPaymentInformation($paymentId);
+            $id=$_SESSION['id'];
+            if($payment_info){
+                if($payment_info["status"]==='succeeded'){
+                    $payment_date=(array)($payment_info["created_at"]);
+                    $db = new SafeMySQL();
+                    if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s WHERE
+                        id=?i", 2,
+                        $_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $payment_date["date"],
+                        $id)){
+                            $answer = true;
+                    }
+                }
+            }
+        }
+        return (isset($answer) );
+    }
+    //Проверка срока подписки, заведённый промокодом
+    protected function checkSubPromoDate($weeksToAdd = 1) {
+        $db = new SafeMySQL();
+        foreach ($db->getAll("SELECT * FROM users WHERE status = ?i", 3) as $user) {
+            if (date('Y-m-d', strtotime($user['payment_date'] . " +{$weeksToAdd} weeks")) <= date("Y-m-d H:i:s")) {
+                $db->query("UPDATE users SET status = ?i, payment_date = ?s WHERE mail = ?s", 1, 0, $user['mail']);
+                return true;
+            }
+        }
+        return false;
     }
 
     // Проверка промокода
@@ -915,5 +1016,3 @@ function GetResponseFromDB($condition, $db_func){
         $_POST['try_free'],
         $db->getAll("SELECT * FROM main_try_free")
     );
-
-?>
