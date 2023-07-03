@@ -54,6 +54,9 @@
   margin-bottom: 5px;
   margin-top: 5px;
 }
+#pers_approval_checkbox + label a {
+  font-size: 10px;
+}
 #pers_approval_checkbox + label::before {
   content: "";
   display: inline-block;

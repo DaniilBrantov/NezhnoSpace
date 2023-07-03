@@ -208,7 +208,6 @@ $(function () {
 
 $(function () {
   $(".reviews_list").slick({
-    arrows: false,
     centerMode: true,
     variableWidth: true,
     speed: 700,
@@ -219,6 +218,7 @@ $(function () {
       {
         breakpoint: 768,
         settings: {
+          arrows: false,
           centerPadding: "180px",
           slidesToShow: 2,
         },

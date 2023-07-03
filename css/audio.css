@@ -46,7 +46,7 @@
   height: 100px;
   padding: 10px;
   border-radius: 10px;
-  background-color: antiquewhite;
+  background-color: var(--main_3);
 
   z-index: 10;
 }

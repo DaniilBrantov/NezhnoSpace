@@ -44,7 +44,7 @@
             <div class="pers_approval pers_item_txt">
                 <input type="checkbox" required class="visually-hidden" id="pers_approval_checkbox"
                     name="approval_check">
-                <label for="pers_approval_checkbox">Я соглашаюсь с условиями публичной оферты</label>
+                <label for="pers_approval_checkbox"><a href="https://nezhno.space/contract">Я соглашаюсь с условиями публичной оферты</a></label>
             </div>
             <?php wp_nonce_field('vb_new_user','vb_new_user_nonce', true, true ); ?>
             <div class="pers_btn">

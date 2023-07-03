@@ -50,11 +50,15 @@
             </a>
             <a class="header-btn" href="confirm-anxiety">Старт</a>
             <?php }else{ ?>
-            <a href="https://nezhno.space/auth" class="header_user">
-                <img src="<?php img('user.svg') ?>" alt="user">
-            </a>
+                <div class='header_btn-mobile'>
+                <a href="https://nezhno.space/auth" class="header_user">
+                    <img src="<?php img('user.svg') ?>" alt="user">
+                </a>
+                <a href="https://nezhno.space/auth-check?action=out" class="header_logout-mobile">
+                    <img src="<?php img('signout.svg') ?>" alt="signout">
+                </a>
+                </div>
             <a class="header-btn" href="https://nezhno.space/auth-check?action=out">Выйти</a>
-
         </div>
         <div class="header_auth">
             <ul class="account_navigation-list navigation-list_slider">
