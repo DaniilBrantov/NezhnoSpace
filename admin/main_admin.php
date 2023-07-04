@@ -94,39 +94,43 @@ if($subscription->getCheckAdmin()){
     
         // 6. Получение массива данных из БД с конкретным тегом или тегами
         public function getDataByTag($tags) {
-            // $tagData = array();
-            // $tagsArray = explode(',', $tags);
-    
-            foreach ($this->subscriptions as $subscription) {
-                foreach ($tagsArray as $tag) {
-                    if (strpos($subscription['title'], $tag) !== false) {
-                        $tagData[] = $subscription;
-                        break;
+            $tagData = array();
+            if (!empty($tags)) {
+                $tagsArray = explode(',', $tags);
+                foreach ($this->subscriptions as $subscription) {
+                    foreach ($tagsArray as $tag) {
+                            if (strpos($subscription['tags'], $tag) !== false) {
+                                $tagData[] = $subscription;
+                                break;
+                            }
+                        
                     }
                 }
             }
-    
+            
             return $tagData;
         }
     
         // 7. Получение количества открытых постов конкретной категории
-        public function getOpenPostCount($daysInterval) {
+        public function getOpenPostCount($cat) {
+            $daysInterval = $this->getDaysInterval($cat);
             $today = date('Y-m-d');
-            $subscriptionDays = strtotime($today) - strtotime($this->createdPayment);
-            $openPosts = $subscriptionDays % $daysInterval;
-    
+            $subscriptionDays = (strtotime($today) - strtotime($this->createdPayment)) / 86400; // секунды в сутках;
+            $openPosts = floor($subscriptionDays / $daysInterval);
             return $openPosts;
         }
     
         // 8. Получение массива открытых постов
-        public function getOpenPosts($openPostCount) {
+        public function getOpenPosts($cat) {
+            $openPostCount = $this->getOpenPostCount($cat);
             return array_slice($this->subscriptions, 0, $openPostCount);
         }
     
         // 9. Проверка конкретного поста на статус
-        public function checkPostStatus($id, $daysInterval) {
-            $openPosts = $this->getOpenPostCount($daysInterval);
-    
+        public function checkPostStatus($id) {
+            $cat = $this->getCatById($id);
+            $daysInterval = $this->getDaysInterval($cat);
+            $openPosts = $this->getOpenPostCount($cat);
             if ($id <= $openPosts) {
                 return true;
             } else {
@@ -136,9 +140,9 @@ if($subscription->getCheckAdmin()){
     
         // 10. Получение сегодняшнего урока
         public function getTodayLesson($cat) {
-            $daysInterval = $this->getDaysInterval($cat);
-            $openPostCount = $this->getOpenPostCount($daysInterval);
-            $openPosts = $this->getOpenPosts($openPostCount);
+            // $daysInterval = $this->getDaysInterval($cat);
+            // $openPostCount = $this->getOpenPostCount($cat);
+            $openPosts = $this->getOpenPosts($cat);
             return end($openPosts);
         }
     
@@ -152,8 +156,18 @@ if($subscription->getCheckAdmin()){
                 return null;
             }
         }
+        
+        // 12. Получить категорию по id
+        public function getCatById($id) {
+            foreach ($this->subscriptions as $subscription) {
+                if ($subscription['id'] === $id) {
+                    return $subscription['cat'];
+                }
+            }
+            return null; // Если запись с указанным id не найдена
+        }
 
-        // 12. Добавление нового поста в базу данных и массив $subscriptions
+        // 13. Добавление нового поста в базу данных и массив $subscriptions
         public function addPost($cat, $status, $title, $description, $tags, $photo, $video, $audio, $link) {
             // Добавление данных в базу данных
             $db = new SafeMySQL();
@@ -168,7 +182,46 @@ if($subscription->getCheckAdmin()){
             $audio,
             $link);
         }
+
+    // 14. Проверка наличия поста и пользователя в БД + updatePostAccess()
+    public function togglePostAccess($postId, $userId, $access) {
+        $post = $this->getSubscriptionById($postId);
+        $user = $_SESSION['id'];
+        
+        if ($post && $user) {
+            if($this->updatePostAccess($postId, $userId, $access)){
+                return true; // Успешное выполнение операции
+            }else{
+                return false; 
+            
+            }
+        }
+        return false; // Невозможно открыть или закрыть доступ
+        
+    }
     
+    // 15. Обновление состояния доступа к посту для пользователя
+    private function updatePostAccess($postId, $userId, $access) {
+        $db = new SafeMySQL();
+        
+        // Проверка наличия записи в таблице post_access
+        $existingAccess = $db->getOne("SELECT access FROM post_access WHERE post_id = ?i AND user_id = ?i", $postId, $userId);
+        
+        if ($existingAccess !== null) {
+            // Обновление состояния доступа в таблице post_access
+            $res = $db->query("UPDATE post_access SET access = ?s WHERE post_id = ?i AND user_id = ?i", $access, $postId, $userId);
+        } else {
+            // Создание новой записи в таблице post_access
+            $res = $db->query("INSERT INTO post_access (post_id, user_id, access) VALUES (?i, ?i, ?i)", $postId, $userId, $access);
+        }
+        return $res;
+        // // Обновление состояния доступа в объекте subscriptions, если данные хранятся в памяти
+        // $post = $this->getSubscriptionById($postId);
+        // if ($post) {
+        //     $post->access = $access;
+        // }
+    }
+
         // Загрузка данных из базы данных
         private function loadDataFromDatabase() {
             $db = new SafeMySQL();
@@ -191,7 +244,7 @@ if($subscription->getCheckAdmin()){
     }
     
     $subscription= new ViewSubscription();
-    var_dump($subscription->getDataByTag(['tag1','tag3','tag2','tag9',]));
+    var_dump($subscription->togglePostAccess('1', '190', 1));
     // var_dump($subscription->getCatData($cat))
     // var_dump($subscription->addPost('daily', 'active', "title", 'description', '', '', '', '', ''));
 ?>
