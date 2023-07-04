@@ -206,7 +206,7 @@ if($subscription->getCheckAdmin()){
         
         // Проверка наличия записи в таблице post_access
         $existingAccess = $db->getOne("SELECT access FROM post_access WHERE post_id = ?i AND user_id = ?i", $postId, $userId);
-        
+        //! ???
         if ($existingAccess !== null) {
             // Обновление состояния доступа в таблице post_access
             $res = $db->query("UPDATE post_access SET access = ?s WHERE post_id = ?i AND user_id = ?i", $access, $postId, $userId);
