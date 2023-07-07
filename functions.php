@@ -793,10 +793,14 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
 
 
+        // true);
+        // }
+        // add_action('wp_enqueue_scripts', 'add_cloudpayments_widget_script');
+
         // Добавление скрипта виджета CloudPayments
         function add_cloudpayments_widget_script() {
-        wp_enqueue_script('cloudpayments-widget', 'https://widget.cloudpayments.ru/bundles/cloudpayments', array(), '',
-        true);
+            wp_enqueue_script('cloudpayments-widget', 'https://widget.cloudpayments.ru/bundles/cloudpayments', array(), '',
+            true);
         }
         add_action('wp_enqueue_scripts', 'add_cloudpayments_widget_script');
 

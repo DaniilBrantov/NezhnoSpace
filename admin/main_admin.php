@@ -11,6 +11,12 @@ if($subscription->getCheckAdmin()){
 
 
 
+
+
+
+
+
+
     class ViewSubscription {
         private $subscriptions;
         private $createdPayment;
@@ -167,66 +173,23 @@ if($subscription->getCheckAdmin()){
             return null; // Если запись с указанным id не найдена
         }
 
-        // 13. Добавление нового поста в базу данных и массив $subscriptions
-        public function addPost($cat, $status, $title, $description, $tags, $photo, $video, $audio, $link) {
-            // Добавление данных в базу данных
-            $db = new SafeMySQL();
-            $db->query("INSERT INTO subscription (cat, status, title, description, tags, photo, video, audio, link) VALUES (?s, ?s, ?s, ?s, ?s, ?s, ?s, ?s, ?s)",
-            $cat,
-            $status,
-            $title,
-            $description,
-            $tags,
-            $photo,
-            $video,
-            $audio,
-            $link);
-        }
-
-    // 14. Проверка наличия поста и пользователя в БД + updatePostAccess()
-    public function togglePostAccess($postId, $userId, $access) {
-        $post = $this->getSubscriptionById($postId);
-        $user = $_SESSION['id'];
-        
-        if ($post && $user) {
-            if($this->updatePostAccess($postId, $userId, $access)){
-                return true; // Успешное выполнение операции
-            }else{
-                return false; 
-            
-            }
-        }
-        return false; // Невозможно открыть или закрыть доступ
-        
-    }
-    
-    // 15. Обновление состояния доступа к посту для пользователя
-    private function updatePostAccess($postId, $userId, $access) {
-        $db = new SafeMySQL();
-        
-        // Проверка наличия записи в таблице post_access
-        $existingAccess = $db->getOne("SELECT access FROM post_access WHERE post_id = ?i AND user_id = ?i", $postId, $userId);
-        //! ???
-        if ($existingAccess !== null) {
-            // Обновление состояния доступа в таблице post_access
-            $res = $db->query("UPDATE post_access SET access = ?s WHERE post_id = ?i AND user_id = ?i", $access, $postId, $userId);
-        } else {
-            // Создание новой записи в таблице post_access
-            $res = $db->query("INSERT INTO post_access (post_id, user_id, access) VALUES (?i, ?i, ?i)", $postId, $userId, $access);
-        }
-        return $res;
-        // // Обновление состояния доступа в объекте subscriptions, если данные хранятся в памяти
-        // $post = $this->getSubscriptionById($postId);
-        // if ($post) {
-        //     $post->access = $access;
-        // }
-    }
 
         // Загрузка данных из базы данных
         private function loadDataFromDatabase() {
             $db = new SafeMySQL();
             $data = $db->getAll("SELECT * FROM subscription");
-    
+            $access_data = $db->getAll("SELECT * FROM post_access WHERE user_id='?i'", $_SESSION['id']);
+
+            foreach ($data as &$subscription) {
+                foreach($access_data as $access){
+                    if ($subscription['id'] === $access['post_id']) {
+                        $subscription['access'] = $access['access'];
+                        break;
+                    }
+                }
+                
+            }
+
             return $data;
         }
     
@@ -242,12 +205,144 @@ if($subscription->getCheckAdmin()){
             return null;
         }
     }
+
+    class AddSubscription {
+        // 1. Добавление нового поста в базу данных и массив $subscriptions
+        public function addPost($cat, $status, $title, $description, $tags, $photo, $video, $audio, $link) {
+            // Добавление данных в базу данных
+            $db = new SafeMySQL();
+            $db->query("INSERT INTO subscription (cat, status, title, description, tags, photo, video, audio, link) VALUES (?s, ?s, ?s, ?s, ?s, ?s, ?s, ?s, ?s)",
+            $cat,
+            $status,
+            $title,
+            $description,
+            $tags,
+            $photo,
+            $video,
+            $audio,
+            $link);
+        }
     
-    $subscription= new ViewSubscription();
-    var_dump($subscription->togglePostAccess('1', '190', 1));
-    // var_dump($subscription->getCatData($cat))
-    // var_dump($subscription->addPost('daily', 'active', "title", 'description', '', '', '', '', ''));
+        // 2. Проверка наличия поста и пользователя в БД + updatePostAccess()
+        public function togglePostAccess($postId, $userId, $access) {
+            $subscription = new ViewSubscription();
+            $post = $subscription->getSubscriptionById($postId);
+            $user = $_SESSION['id'];
+            
+            if ($post && $user) {
+                if($this->updatePostAccess($postId, $userId, $access)){
+                    return true; // Успешное выполнение операции
+                }else{
+                    return false; 
+                
+                }
+            }
+            return false; // Невозможно открыть или закрыть доступ
+            
+        }
+
+        // 3. Обновление состояния доступа к посту для пользователя
+        private function updatePostAccess($postId, $userId, $access) {
+            $db = new SafeMySQL();
+            $subscription = new ViewSubscription();
+
+            $query = "INSERT INTO post_access (post_id, user_id, access)
+                    VALUES (?i, ?i, ?i)
+                    ON DUPLICATE KEY UPDATE access = ?i";
+
+            // Проверка наличия дубликатов записи
+            $existingAccess = $db->query("SELECT access FROM post_access WHERE post_id = ?i AND user_id = ?i", $postId, $userId);
+            if ($db->numRows($existingAccess) < 1) {
+                // Создание новой записи в таблице post_access
+                $res = $db->query($query, $postId, $userId, $access, $access);
+            } else {
+                // Обновление состояния доступа в таблице post_access
+                $res = $db->query("UPDATE post_access SET access = ?i WHERE post_id = ?i AND user_id = ?i", $access, $postId, $userId);
+            }
+
+            if ($res !== false) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    $sub= new ViewSubscription();
+    $add_sub= new AddSubscription();
+    //var_dump($add_sub->togglePostAccess('1', '190', 0));
+    //print_r($sub->getSubscriptionData());
+
 ?>
+<h1>Add Subscription</h1>
+    <form id="addSubscriptionForm" method="POST">
+        <label for="cat">Category:</label>
+        <input type="text" name="cat" id="cat" required><br><br>
+
+        <label for="status">Status:</label>
+        <input type="text" name="status" id="status" required><br><br>
+
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea name="description" id="description" required></textarea><br><br>
+
+        <label for="tags">Tags:</label>
+        <input type="text" name="tags" id="tags" required><br><br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" name="photo" id="photo" accept="image/*" required><br><br>
+
+        <label for="video">Video:</label>
+        <input type="text" name="video" id="video" required><br><br>
+
+        <label for="audio">Audio:</label>
+        <input type="text" name="audio" id="audio" required><br><br>
+
+        <label for="link">Link:</label>
+        <input type="text" name="link" id="link" required><br><br>
+
+        <input type="submit" value="Add Subscription">
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('#addSubscriptionForm').submit(function(e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: 'admin', // Укажите путь к файлу обработки формы на сервере
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log(response);
+                        // Выводите сообщение об успешном добавлении или обработке данных по вашему усмотрению
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                        // Выводите сообщение об ошибке или обработайте ее по вашему усмотрению
+                    }
+                });
+            });
+        });
+    </script> <br> <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

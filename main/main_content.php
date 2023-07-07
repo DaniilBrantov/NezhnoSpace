@@ -105,12 +105,12 @@
                         ?>
                         <form action="payment" method='post'>
                             <input type="hidden" value="944" name="payment_id">
-                            <button name="payment_btn" type="submit">хочу подписку</button>
+                            <button name="payment_btn" class="pay-banner_promocode-btn" type="submit">хочу подписку</button>
                         </form>
                         <?php        
                             } else {
                         ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                        <a href="confirm-anxiety"><button class="pay-banner_promocode-btn" type='button'>хочу подписку</button></a>
                         <?php        
                             }
                         ?>
@@ -128,17 +128,53 @@
                                 <!-- <span class="subscriptions_price-month">2500 ₽ / мес.</span> -->
                             </div>
                         </div>
+                        <?php if ($payment->getCheckPayment()) { ?>
+        <div class="account_sections-footer">
+            <!-- Пока не готовы начать?  -->
+            <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
+        </div>
+        <?php } else { ?>
+        <div id='payment-banner' class='account_payment-banner pay-banner'>
+            <div class='pay-banner_content'>
+                <form class='pay-banner_promocode-wrap'>
+                    <h4 class='pay-banner_promocode-title'>Промокод</h4>
+                    <div class='pay-banner_promocode-input-wrap'>
+                        <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+                        <span class="text-error text-error_promo">text error</span>
+                    </div>
+                    <div class='pay-banner_promocode-btn-wrap'>
+                        <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'
+                            type='button'>Использовать</button>
+                    </div>
+                </form>
+                <h4 class='pay-banner_title'>Оформить подписку:</h4>
+                <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+                </ul>
+            </div>
+
+            <!-- <form action="payment.php" method="POST" class='promocode-post'>
+                <input type="text" name="promocode" class='promocode_duble'/>
+                <button type='submit' class='post-promocode-payment'></button>
+            </form> -->
+        </div>
+        <?php  }; ?>
+    </div>
+</div>
                         <?php 
                             if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
                         ?>
+                        <span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+                        <span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+                        <span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
+
                         <form action="payment" method='post'>
                             <input type="hidden" value="945" name="payment_id">
-                            <button name="payment_btn" type="submit">хочу подписку</button>
+                            <button name="payment_btn" class="pay-banner_promocode-btn" type="submit">хочу подписку</button>
                         </form>
                         <?php        
                             } else {
                         ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                        <a href="confirm-anxiety"><button type='button' class="pay-banner_promocode-btn">хочу подписку</button></a>
                         <?php        
                             }
                         ?>
@@ -161,12 +197,12 @@
                         ?>
                         <form action="payment" method='post'>
                             <input type="hidden" value="946" name="payment_id">
-                            <button name="payment_btn" type="submit">хочу подписку</button>
+                            <button name="payment_btn" class="pay-banner_promocode-btn" type="submit">хочу подписку</button>
                         </form>
                         <?php        
                             } else {
                         ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                        <a href="confirm-anxiety"><button class="pay-banner_promocode-btn" type='button'>хочу подписку</button></a>
                         <?php        
                             }
                         ?>
@@ -251,7 +287,7 @@
                         что уже его применяю, даже не зная тонкостей до этого 🥰 Планирую радовать и баловать себя ещё
                         чаще 😁
                     </p>
-                    <span class="reviews_time">С 12.2022</span>
+                    <span class="reviews_time">Нежно с 12.2022</span>
                 </div>
                 <div class="reviews_item">
                     <h3 class="reviews_author">
@@ -267,7 +303,7 @@
                         себя
                         спокойнее по поводу еды в целом
                     </p>
-                    <span class="reviews_time">С 11.2022</span>
+                    <span class="reviews_time">Нежно с 11.2022</span>
                 </div>
                 <div class="reviews_item">
                     <h3 class="reviews_author">
@@ -279,7 +315,7 @@
                         понаблюдать, как автоматически тело откликается напряжением в ягодицах и спине на мысли о
                         конфликте на
                         работе. Честно, я еще не была так близко знакома со своим телом. </p>
-                    <span class="reviews_time">С 09.2022</span>
+                    <span class="reviews_time">Нежно с 09.2022</span>
                 </div>
                 <div class="reviews_item">
                     <h3 class="reviews_author">
@@ -287,7 +323,7 @@
                     </h3>
                     <hr>
                     <p class="reviews_text">Классная статья в теме Тревожность! Очень интересно, какой разной бывает тревога. Моя - напряжённая такая, мобилизационная и при этом, наоборот, я начинаю метаться между кучей дел и задач, которые СРОЧНО надо решить, желательно вчера)) </p>
-                    <span class="reviews_time">С 10.2022</span>
+                    <span class="reviews_time">Нежно с 10.2022</span>
                 </div>
                 <div class="reviews_item">
                     <h3 class="reviews_author">
@@ -295,7 +331,7 @@
                     </h3>
                     <hr>
                     <p class="reviews_text">Я замечательно на самом деле! Перестала переедать совсем, перестала бояться еды и избегать ее, перестала заедать стресс!!! Перестала думать о похудении 24/7 и самое главное я себе очень нравлюсь) и никто не сможет меня в этом переубедить</p>
-                    <span class="reviews_time">С 05.2023</span>
+                    <span class="reviews_time">Нежно с 05.2023</span>
                 </div>
                 <div class="reviews_item">
                     <h3 class="reviews_author">
@@ -303,7 +339,7 @@
                     </h3>
                     <hr>
                     <p class="reviews_text">За время подписки я перестала себя ограничивать, ем то, что готовят. Перестала отдельно готовить и даже похудела. Остаюсь с вами)</p>
-                    <span class="reviews_time">С 04.2023</span>
+                    <span class="reviews_time">Нежно с 04.2023</span>
                 </div>
                 <div class="reviews_item">
                     <h3 class="reviews_author">
@@ -311,7 +347,7 @@
                     </h3>
                     <hr>
                     <p class="reviews_text">Мне точно есть, что сказать по теме Качество жизни. Хочу переслушать подкаст еще раз с полным погружением. Подписка реально похожа на сессии психолога - работа гораздо глубже, чем я ожидала. Но удобно, что могу выбирать самое комфортное время. </p>
-                    <span class="reviews_time">С 03.2023</span>
+                    <span class="reviews_time">Нежно с 03.2023</span>
                 </div>
             </div>
         </div>

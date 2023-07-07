@@ -184,7 +184,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
   }).then((data) => {
     if (data.status) {
       console.log(data)
-      //window.location.href = 'payment';
+      window.location.href = 'payment';
     }
   });
 });
@@ -248,19 +248,19 @@ function pay(label, amount, quantity, period, mail, publicId, description, invoi
   },
     function (options) {
       // действие при успешной оплате
-      // console.log('Платеж успешно выполнен:', options);
+      console.log('Платеж успешно выполнен:', options);
       // console.log('result:', widgetResult);
-      const accountId = options.accountId;
-      const publicId = options.publicId
-      getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
+      // const accountId = options.accountId;
+      // const publicId = options.publicId
+      // getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
 
 
       // Получение SubscriptionId
-      var subscriptionId = options.Model.SubscriptionId;
-      console.log('SubscriptionId:', subscriptionId);
+      // var subscriptionId = options.Model.SubscriptionId;
+      // console.log('SubscriptionId:', subscriptionId);
 
       // Вызов метода getSubscriptionStatus для получения информации о статусе подписки
-      getSubscriptionStatus(subscriptionId, apiKey);
+      // getSubscriptionStatus(subscriptionId, apiKey);
     },
     function (reason, options) {
       // действие при неуспешной оплате
