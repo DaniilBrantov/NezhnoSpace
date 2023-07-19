@@ -191,11 +191,12 @@ function handleClick(service_id) {
         contentType: false,
         cache: false,
         data: formData,
-        done: function(data) {
-          console.log(data);
+        success: function(data) {
           if(data.status){
-            pay(data.label, data.price, data.quantity, data.email, data.phone, data.period)
+            
+            Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period)
           }else{
+
             const showError = (value, textError) => {
               const inputElement = document.querySelector(`input[name="${value}"]`);
               const errorTextElement = document.querySelector(`.text-error_${value}`);
@@ -206,13 +207,37 @@ function handleClick(service_id) {
             showError(data.input,data.msg);
           }
         },
-        fail: function(jqxhr, status, errorMsg) {
+        error: function(jqxhr, status, errorMsg) {
           uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
         },
       });
     });
   }
 }
+
+
+
+document.addEventListener('click', function(e) {
+      // if($('popupContainer').hasClass('show')){
+    //   console.log(1)
+    // }
+  const popupContainer = document.getElementById('popupContainer');
+  const isClickedOutsideForm = !popupContent.contains(e.target);
+
+  if (isClickedOutsideForm) {
+
+
+
+
+  // $("popupContent").removeClass("show");
+    // popupContainer.style.display = 'none';
+  }
+});
+
+
+
+
+
 
 function Pay(label, price, quantity, email, phone, period) {
   var widget = new cp.CloudPayments();
@@ -263,6 +288,18 @@ function Pay(label, price, quantity, email, phone, period) {
   function (options) { // success
       // переадресация на страницу "account"
       window.location.href = "account";
+      $.ajax({
+        url: "pay_success",
+        type: "POST",
+        dataType: "json",
+        data: { options: options },
+        success: function (data) {
+          console.log(data)
+        },
+        error: function (jqxhr, status, errorMsg) {
+          console.log(errorMsg)
+        },
+      });
   },
   function (reason, options) { // fail
       // вывод причины ошибки в консоль

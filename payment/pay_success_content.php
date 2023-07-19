@@ -3,8 +3,12 @@ session_start();
 require_once( get_theme_file_path('processing.php') );
 
 
-
-
+$options = $_POST['options'];
+if($options){
+    echo json_encode('Good!');
+}else{
+    echo json_encode('Errrrrrrrrrrrrrrrrr');
+}
 
 
 

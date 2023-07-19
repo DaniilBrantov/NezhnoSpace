@@ -147,7 +147,7 @@
 
 <div id="popupContainer">
   <div id="popupContent">
-  <form>
+  <form class="authorization_form">
         <div class="pers_item">
             <label>Email</label>
             <input id="email" type="email" name="email" placeholder="Введите email">
@@ -164,3 +164,4 @@
     </form>
   </div>
 </div>
+
