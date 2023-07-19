@@ -175,22 +175,23 @@ if($subscription->getCheckAdmin()){
 
 
         // Загрузка данных из базы данных
-        private function loadDataFromDatabase() {
-            $db = new SafeMySQL();
-            $data = $db->getAll("SELECT * FROM subscription");
-            $access_data = $db->getAll("SELECT * FROM post_access WHERE user_id='?i'", $_SESSION['id']);
+        private function loadDataFromDatabase() { 
+                $db = new SafeMySQL();
+                $data = $db->getAll("SELECT * FROM subscription");
+                $access_data = $db->getAll("SELECT * FROM post_access WHERE user_id='?i'", $_SESSION['id']);
 
-            foreach ($data as &$subscription) {
-                foreach($access_data as $access){
-                    if ($subscription['id'] === $access['post_id']) {
-                        $subscription['access'] = $access['access'];
-                        break;
+
+                foreach ($data as &$subscription) {
+                    foreach($access_data as $access){
+                        if ($subscription['id'] === $access['post_id']) {
+                            $subscription['access'] = $access['access'];
+                            break;
+                        }
                     }
+                    
                 }
-                
-            }
 
-            return $data;
+                return $data;
         }
     
         // Загрузка даты создания платежа пользователя из базы данных
@@ -436,7 +437,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <form action="admin_check" method="post">
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+    <input type="text" id="email" name="email" required>
 
     <label for="status">Status:</label>
     <select id="status" name="status" required>

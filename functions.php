@@ -1,4 +1,12 @@
 <?php
+function add_cors_headers() {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+}
+add_action('init', 'add_cors_headers');
+
+
 /* scripts and styles */
 /*Регистрация всех стилей*/
 if ( ! defined( 'ABSPATH' ) ) {
@@ -138,7 +146,7 @@ function load_script() /*имя функции произвольное*/
 		);
 		wp_enqueue_script("flickity-js");
 
-	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription", "paymentBanner"];
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription","cloudpayments", "paymentBanner"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(

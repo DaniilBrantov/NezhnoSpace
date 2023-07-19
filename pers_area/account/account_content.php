@@ -144,3 +144,23 @@
         </div>
     </div>
 </section>
+
+<div id="popupContainer">
+  <div id="popupContent">
+  <form>
+        <div class="pers_item">
+            <label>Email</label>
+            <input id="email" type="email" name="email" placeholder="Введите email">
+            <span class="text-error text-error_email">text error</span>
+        </div>
+        <div class="pers_item">
+            <label>Номер телефона</label>
+            <input type="tel" id="phone" name="phone" placeholder="Введите номер телефона">
+            <span class="text-error text-error_phone">text error</span>
+        </div>
+        <div class="pers_btn">
+            <button id="mail-phone_btn" name="mail-phone_btn" type="submit" class="blue_btn">Сохранить</button>
+        </div>
+    </form>
+  </div>
+</div>

@@ -1,8 +1,8 @@
+
 (() => {
   let price944 = document.querySelector('.price_944')?.dataset.price || '3000';
   let price945 = document.querySelector('.price_945')?.dataset.price || '15000';
   let price946 = document.querySelector('.price_946')?.dataset.price || '25000';
-
   class PaymentBanner {
     constructor(banner, sliderPayment) {
       this.banner = banner;
@@ -58,37 +58,13 @@
           payList.innerHTML += `<li>${item}</li>`;
         });
       }
-
       const paymentButtons = document.querySelectorAll('.pay-banner_option-button');
       paymentButtons.forEach(button => {
         button.addEventListener('click', (e) => {
           e.preventDefault();
-          const formData = new FormData();
-          const service_id = button.parentElement.querySelector('[name="service_id"]').value;
-          formData.append('service_id', service_id);
-          // Добавьте остальные данные, если необходимо
-
-          // Выполнение AJAX-запроса
-          $.ajax({
-            url: 'payment',
-            type: 'POST',
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            cache: false,
-            data: formData,
-            success: function (data) {
-              // Обработка успешного ответа
-              // response содержит полученный контент с сервера
-              // console.log(data);
-              pay(data.label, data.price, data.quantity, data.period, data.mail, data.publicId, data.description, data.invoiceId, data.startDate);
-              // pay(label, amount, quantity, period, mail, publicId, description, invoiceId)
-            },
-            error: function (jqxhr, status, errorMsg) {
-              // Обработка ошибки
-              console.log(errorMsg);
-            }
-          });
+          const service = button.parentElement.querySelector('input[name="service_id"]');
+          const service_id = service ? service.value : null;
+          handleClick(service_id);
         });
       });
     }
@@ -99,11 +75,9 @@
         document.querySelector('.pay-banner_title').style.marginBottom = '15px';
         this.banner.paddingBottom = '5px';
       }
-
       if (window.screen.height > 800 && window.screen.width < 800) {
         document.querySelector('.subscription_payment-banner').style.height = '80vh';
       }
-
       if (this.banner.clientHeight <= 700 && window.screen.width < 800) {
         this.banner.style.height = 'max-content';
         document.querySelector('.subscription_payment-banner_background').style.overflowY = 'auto';
@@ -121,7 +95,6 @@
         watchCSS: true
       });
       this.adaptiveHeightBanner();
-
       window.addEventListener('resize', (e) => {
         this.adaptiveHeightBanner();
       });
@@ -130,9 +103,7 @@
         document.querySelector('.subscription_payment-banner_background').style.display = 'none';
       });
     }
-
   }
-
   document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.pay-banner_options-wrap')) {
       const bannerPay = new PaymentBanner(document.querySelector('#payment-banner'), document.querySelector('.pay-banner_options-wrap'));
@@ -141,17 +112,17 @@
   });
 })();
 
+
+
 //Отправка данных и проверка их на стороне сервера
 $(".pay-banner_promocode-btn").click(function (e) {
   e.preventDefault();
   $("input").removeClass("error");
   var promo_btn = $('input[name="promo_btn"]').val();
   var promo = $('input[name="promo"]').val();
-
   var formData = new FormData();
   formData.append("promo_btn", promo_btn);
   formData.append("promo", promo);
-
   $.ajax({
     url: "promocode_check",
     type: "POST",
@@ -184,10 +155,123 @@ $(".pay-banner_promocode-btn").click(function (e) {
   }).then((data) => {
     if (data.status) {
       console.log(data)
+      //window.location.href = 'payment';
       window.location.href = 'payment';
     }
   });
 });
+
+
+
+const popupContainer = document.getElementById('popupContainer');
+
+function handleClick(service_id) {
+  if (popupContainer) {
+    popupContainer.style.display = 'block';
+    const emailInput = popupContainer.querySelector('input[name="email"]');
+    const phoneInput = popupContainer.querySelector('input[name="phone"]');
+    const email = emailInput ? emailInput.value : null;
+    const phone = phoneInput ? phoneInput.value : null;
+    popupContainer.classList.add('show');
+
+    $("#mail-phone_btn").click(function(event) {
+      event.preventDefault();
+      const formData = new FormData();
+      let emailValue = $('input[name="email"]').val();
+      let phoneValue = $('input[name="phone"]').val();
+      formData.append('service_id', service_id);
+      formData.append('email', emailValue);
+      formData.append('phone', phoneValue);
+      
+      $.ajax({
+        url: "payment",
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        data: formData,
+        done: function(data) {
+          console.log(data);
+          if(data.status){
+            pay(data.label, data.price, data.quantity, data.email, data.phone, data.period)
+          }else{
+            const showError = (value, textError) => {
+              const inputElement = document.querySelector(`input[name="${value}"]`);
+              const errorTextElement = document.querySelector(`.text-error_${value}`);
+              inputElement.classList.add('error');
+              errorTextElement.textContent = textError;
+              errorTextElement.style.opacity = '1';
+            };
+            showError(data.input,data.msg);
+          }
+        },
+        fail: function(jqxhr, status, errorMsg) {
+          uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
+        },
+      });
+    });
+  }
+}
+
+function Pay(label, price, quantity, email, phone, period) {
+  var widget = new cp.CloudPayments();
+  var receipt = {
+          Items: [//товарные позиции
+              {
+                  label: label, //наименование товара
+                  price: price, //цена
+                  quantity: quantity, //количество
+                  amount: price + quantity, //сумма
+                  vat: 0, //ставка НДС
+                  method: 0, // тег-1214 признак способа расчета - признак способа расчета
+                  object: 0, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
+              }
+          ],
+          taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
+          email: email, //e-mail покупателя, если нужно отправить письмо с чеком
+          phone: phone, //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
+          isBso: false, //чек является бланком строгой отчетности
+          amounts:
+          {
+              electronic: price + quantity, // Сумма оплаты электронными деньгами
+              advancePayment: 0.00, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
+              credit: 0.00, // Сумма постоплатой(в кредит) (2 знака после запятой)
+              provision: 0.00 // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
+          }
+      };
+
+  var data = {};
+  data.CloudPayments = {
+      CustomerReceipt: receipt, //чек для первого платежа
+      recurrent: {
+       interval: 'Month',
+       period: period, 
+       customerReceipt: receipt //чек для регулярных платежей
+       }
+       }; //создание ежемесячной подписки
+
+  widget.charge({ // options
+      publicId: 'pk_3da4553acc29b450d95115b0918f7', //id из личного кабинета
+      description: 'Подписка на ежемесячный доступ к сайту nezhno.space', //назначение
+      amount: price + quantity, //сумма
+      currency: 'RUB', //валюта
+      invoiceId: sessionStorage['id'], //номер заказа  (необязательно)
+      accountId: email, //идентификатор плательщика (обязательно для создания подписки)
+      data: data
+  },
+  function (options) { // success
+      // переадресация на страницу "account"
+      window.location.href = "account";
+  },
+  function (reason, options) { // fail
+      // вывод причины ошибки в консоль
+      console.error("Payment failed:", reason); 
+  });
+};
+
+
+
 
 
 
@@ -199,76 +283,79 @@ $(".pay-banner_promocode-btn").click(function (e) {
 
 
 // Pay
-function pay(label, amount, quantity, period, mail, publicId, description, invoiceId, apiKey, startDate) {
-  var widget = new cp.CloudPayments();
+// function pay(label, amount, quantity, period, mail, publicId, description, invoiceId, apiKey, startDate) {
+//   var widget = new cp.CloudPayments();
+//   var receipt = {
+//     Items: [{
+//       label: label,
+//       price: amount,
+//       quantity: quantity,
+//       amount: amount * quantity,
+//       vat: 20,
+//       method: 0,
+//       object: 0
+//     }],
+//     taxationSystem: 0,
+//     email: mail,
+//     isBso: false,
+//     amounts: {
+//       electronic: amount * quantity,
+//       advancePayment: 0.00,
+//       credit: 0.00,
+//       provision: 0.00
+//     }
+//   };
+//   var data = {
+//     CloudPayments: {
+//       CustomerReceipt: receipt,
+//       recurrent: {
+//         interval: 'Month',
+//         period: period,
+//         customerReceipt: receipt
+//       }
+//     }
+//   };
+//   widget.charge({
+//     publicId: publicId,
+//     description: description,
+//     amount: amount * quantity,
+//     currency: 'RUB',
+//     invoiceId: invoiceId,
+//     accountId: mail,
+//     skin: "mini",
+//     requireConfirmation: true,
+//     startDate: startDate, // Установка выбранной даты начала списаний
+//     data: data
+//   },
+//     function (options) {
+//       // действие при успешной оплате
+//       // console.log('Платеж успешно выполнен:', options);
+//       console.log('Платеж успешно выполнен:', options);
+//       // console.log('result:', widgetResult);
+//       const accountId = options.accountId;
+//       const publicId = options.publicId
+//       getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
+//       // const accountId = options.accountId;
+//       // const publicId = options.publicId
+//       // getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
 
-  var receipt = {
-    Items: [{
-      label: label,
-      price: amount,
-      quantity: quantity,
-      amount: amount * quantity,
-      vat: 20,
-      method: 0,
-      object: 0
-    }],
-    taxationSystem: 0,
-    email: mail,
-    isBso: false,
-    amounts: {
-      electronic: amount * quantity,
-      advancePayment: 0.00,
-      credit: 0.00,
-      provision: 0.00
-    }
-  };
 
-  var data = {
-    CloudPayments: {
-      CustomerReceipt: receipt,
-      recurrent: {
-        interval: 'Month',
-        period: period,
-        customerReceipt: receipt
-      }
-    }
-  };
+//       // Получение SubscriptionId
+//       var subscriptionId = options.Model.SubscriptionId;
+//       console.log('SubscriptionId:', subscriptionId);
+//       // var subscriptionId = options.Model.SubscriptionId;
+//       // console.log('SubscriptionId:', subscriptionId);
 
-  widget.charge({
-    publicId: publicId,
-    description: description,
-    amount: amount * quantity,
-    currency: 'RUB',
-    invoiceId: invoiceId,
-    accountId: mail,
-    skin: "mini",
-    requireConfirmation: true,
-    startDate: startDate, // Установка выбранной даты начала списаний
-    data: data
-  },
-    function (options) {
-      // действие при успешной оплате
-      console.log('Платеж успешно выполнен:', options);
-      // console.log('result:', widgetResult);
-      // const accountId = options.accountId;
-      // const publicId = options.publicId
-      // getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
-
-
-      // Получение SubscriptionId
-      // var subscriptionId = options.Model.SubscriptionId;
-      // console.log('SubscriptionId:', subscriptionId);
-
-      // Вызов метода getSubscriptionStatus для получения информации о статусе подписки
-      // getSubscriptionStatus(subscriptionId, apiKey);
-    },
-    function (reason, options) {
-      // действие при неуспешной оплате
-      console.log('Ошибка при выполнении платежа:', reason, options);
-    }
-  );
-}
-
+//       // Вызов метода getSubscriptionStatus для получения информации о статусе подписки
+//       getSubscriptionStatus(subscriptionId, apiKey);
+//       // getSubscriptionStatus(subscriptionId, apiKey);
+//     },
+//     function (reason, options) {
+//       // действие при неуспешной оплате
+//       console.log('Ошибка при выполнении платежа:', reason, options);
+//     }
+//   );
+// }
 // function getSubscriptionStatus(subscriptionId, apiKey) {
 //   $.ajax({
 //     url: 'https://api.cloudpayments.ru/subscriptions/get',
@@ -291,26 +378,6 @@ function pay(label, amount, quantity, period, mail, publicId, description, invoi
 //     }
 //   });
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Функция для приостановки подписки
 function suspendSubscription(subscriptionId, suspendUntil) {
   // Формирование запроса к API CloudPayments
@@ -319,7 +386,6 @@ function suspendSubscription(subscriptionId, suspendUntil) {
     AccountId: subscriptionId,
     SuspendUntil: suspendUntil
   };
-
   // Отправка запроса
   fetch(url, {
     method: 'POST',
@@ -349,9 +415,6 @@ function suspendSubscription(subscriptionId, suspendUntil) {
       console.log('Ошибка при выполнении запроса:', error);
     });
 }
-
-
-
 // Определение функции для отмены подписки
 function cancelSubscription(subscriptionId) {
   fetch('https://api.cloudpayments.ru/subscriptions/cancel', {
@@ -376,17 +439,14 @@ function cancelSubscription(subscriptionId) {
       console.error('Ошибка при выполнении запроса:', error);
     });
 }
-
 function getSubscriptions(accountId, publicId, apiKey) {
   const apiUrl = `https://api.cloudpayments.ru/subscriptions/list?AccountId=${accountId}`;
-
   const requestOptions = {
     method: 'GET',
     headers: {
       'Authorization': 'Basic ' + btoa(`${publicId}:${apiKey}`),
     },
   };
-
   fetch(apiUrl, requestOptions)
     .then(response => response.json())
     .then(data => {
@@ -398,61 +458,16 @@ function getSubscriptions(accountId, publicId, apiKey) {
       console.error('Ошибка при получении списка подписок:', error);
     });
 }
-
 var subscriptionId = 'subscription_id';
 var suspendUntil = '2023-06-31T00:00:00Z'; // Замените на желаемую дату и время
-
 // suspendSubscription(subscriptionId, suspendUntil);
 // cancelSubscription(subscriptionId);
-
 // Вопрос: Где subscriptionId?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function pay(publicId, description, amount, mail) {
 //   let language = "ru-RU";
 //   var widget = new cp.CloudPayments({
 //     language: language
 //   });
-
 //   let paymentOptions = {
 //     publicId: publicId,
 //     description: description,
@@ -463,7 +478,6 @@ var suspendUntil = '2023-06-31T00:00:00Z'; // Замените на желаем
 //     skin: "mini",
 //     autoClose: 3
 //   };
-
 //   function makePayment() {
 //     if (!widget.optionsPayment) {
 //       widget.optionsPayment = paymentOptions;
@@ -480,7 +494,6 @@ var suspendUntil = '2023-06-31T00:00:00Z'; // Замените на желаем
 //       });
 //     }
 //   }
-
 //   // Устанавливаем интервал повторения платежа каждый месяц (30 дней)
 //   setInterval(makePayment, 30 * 24 * 60 * 60 * 1000);
 // }

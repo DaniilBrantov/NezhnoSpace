@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title("", true); ?></title>
     <meta name="yandex-verification" content="d821d01bf0467793" />
-    <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+    <!-- <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script> -->
     <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
     <?php wp_head(); ?>
 </head>
@@ -45,10 +45,14 @@
             <?php
                     };
             if(!$_SESSION['id']){ ?>
-            <a href="auth" class="header_user">
-                <img src="<?php img('user.svg') ?>" alt="user">
-            </a>
-            <a class="header-btn" href="confirm-anxiety">Старт</a>
+            <div class="header_right">
+                <a href="auth" class="header_user">
+                    <img src="<?php img('user.svg') ?>" alt="user">
+                </a>
+                <a class="header-btn" href="confirm-anxiety">
+                    Старт
+                </a>
+            </div>
             <?php }else{ ?>
                 <div class='header_btn-mobile'>
                 <a href="https://nezhno.space/auth" class="header_user">

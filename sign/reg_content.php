@@ -55,6 +55,8 @@
             <p>Есть аккаунт?</p>
             <a href="auth">Войти</a>
         </div>
+        <script async src="https://telegram.org/js/telegram-widget.js?222" data-telegram-login="NezhnoSpacebot"
+    data-size="large" data-auth-url="https://nezhno.space/auth-check" data-request-access="write"></script>
     </div>
     <div class="authorization_window-error">
         <span>window error</span>

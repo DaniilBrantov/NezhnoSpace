@@ -70,9 +70,9 @@ const handleRegistration = () => {
 };
 
 const handleAuthentication = () => {
-    const authBtn = document.querySelector("#auth_btn");
+    // const authBtn = document.querySelector("#auth_btn");
 
-    authBtn.addEventListener("click", (e) => {
+    $("#auth_btn").click(function(e) {
         e.preventDefault();
         document.querySelectorAll("input").forEach(input => input.classList.remove("error"));
 
