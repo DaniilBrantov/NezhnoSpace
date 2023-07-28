@@ -85,7 +85,8 @@
     }
     init() {
       this.addSlide();
-      $('.account_payment-banner .pay-banner_options-slider').flickity({
+    
+      const sliderOptions = {
         draggable: true,
         cellAlign: 'center',
         freeScroll: true,
@@ -93,16 +94,24 @@
         pageDots: false,
         initialIndex: 1,
         watchCSS: true
-      });
+      };
+    
+      $('.account_payment-banner .pay-banner_options-slider').flickity(sliderOptions);
+    
       this.adaptiveHeightBanner();
-      window.addEventListener('resize', (e) => {
+    
+      window.addEventListener('resize', () => {
         this.adaptiveHeightBanner();
       });
-      document.querySelector('.pay-banner_btnClose').addEventListener('click', function (e) {
+    if(document.querySelector('.pay-banner_btnClose')){
+            document.querySelector('.pay-banner_btnClose').addEventListener('click', (e) => {
         e.preventDefault();
         document.querySelector('.subscription_payment-banner_background').style.display = 'none';
       });
     }
+
+    }
+    
   }
   document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('.pay-banner_options-wrap')) {
@@ -165,6 +174,15 @@ $(".pay-banner_promocode-btn").click(function (e) {
 
 const popupContainer = document.getElementById('popupContainer');
 
+
+document.addEventListener('click', function(event) {
+  if (!popupContainer.contains(event.target) && popupContainer.contains('show')) {
+    popupContainer.style.display = 'none';
+    popupContainer.classList.remove('show');
+  }
+});
+
+
 function handleClick(service_id) {
   if (popupContainer) {
     popupContainer.style.display = 'block';
@@ -174,71 +192,75 @@ function handleClick(service_id) {
     const phone = phoneInput ? phoneInput.value : null;
     popupContainer.classList.add('show');
 
-    $("#mail-phone_btn").click(function(event) {
-      event.preventDefault();
-      const formData = new FormData();
-      let emailValue = $('input[name="email"]').val();
-      let phoneValue = $('input[name="phone"]').val();
-      formData.append('service_id', service_id);
-      formData.append('email', emailValue);
-      formData.append('phone', phoneValue);
-      
-      $.ajax({
-        url: "payment",
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: function(data) {
-          if(data.status){
-            
-            Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period)
-          }else{
+    // Hide the form when the area outside popupContainer is clicked
+    // document.addEventListener('click', function(event) {
+    //   if (!popupContainer.contains(event.target)) {
+    //     popupContainer.style.display = 'none';
+    //     popupContainer.classList.remove('show');
+    //   }
+    // });
 
-            const showError = (value, textError) => {
-              const inputElement = document.querySelector(`input[name="${value}"]`);
-              const errorTextElement = document.querySelector(`.text-error_${value}`);
-              inputElement.classList.add('error');
-              errorTextElement.textContent = textError;
-              errorTextElement.style.opacity = '1';
-            };
-            showError(data.input,data.msg);
-          }
-        },
-        error: function(jqxhr, status, errorMsg) {
-          uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
-        },
-      });
-    });
+
+
+
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.id === 'mail-phone_btn') {
+        // $("#mail-phone_btn").click(function(event) {
+        e.preventDefault();
+        const formData = new FormData();
+        let emailValue = $('input[name="email"]').val();
+        let phoneValue = $('input[name="phone"]').val();
+        formData.append('service_id', service_id);
+        formData.append('email', emailValue);
+        formData.append('phone', phoneValue);
+        
+        $.ajax({
+          url: "payment",
+          type: "POST",
+          dataType: "json",
+          processData: false,
+          contentType: false,
+          cache: false,
+          data: formData,
+          success: function(data) {
+            if(data.status){
+              // console.log('ok')
+              Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period)
+            }else{
+
+              const showError = (value, textError) => {
+                const inputElement = document.querySelector(`input[name="${value}"]`);
+                const errorTextElement = document.querySelector(`.text-error_${value}`);
+                inputElement.classList.add('error');
+                errorTextElement.textContent = textError;
+                errorTextElement.style.opacity = '1';
+              };
+              showError(data.input,data.msg);
+            }
+          },
+          error: function(jqxhr, status, errorMsg) {
+            uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
+          },
+        });
+    // });
+      }else{
+      console.log(e.target.id)
+        // hidePopupContainer(e);
+      }
+   });
   }
 }
 
 
 
-document.addEventListener('click', function(e) {
-      // if($('popupContainer').hasClass('show')){
-    //   console.log(1)
-    // }
-  const popupContainer = document.getElementById('popupContainer');
-  const isClickedOutsideForm = !popupContent.contains(e.target);
-
-  if (isClickedOutsideForm) {
 
 
-
-
-  // $("popupContent").removeClass("show");
-    // popupContainer.style.display = 'none';
+function hidePopupContainer(e) {
+  if (!popupContainer.contains(e.target)) {
+      popupContainer.style.display = 'none';
+      popupContainer.classList.remove('show');
   }
-});
-
-
-
-
-
-
+}
 function Pay(label, price, quantity, email, phone, period) {
   var widget = new cp.CloudPayments();
   var receipt = {
@@ -274,37 +296,30 @@ function Pay(label, price, quantity, email, phone, period) {
        period: period, 
        customerReceipt: receipt //чек для регулярных платежей
        }
-       }; //создание ежемесячной подписки
+  }; //создание ежемесячной подписки
 
   widget.charge({ // options
-      publicId: 'pk_3da4553acc29b450d95115b0918f7', //id из личного кабинета
-      description: 'Подписка на ежемесячный доступ к сайту nezhno.space', //назначение
-      amount: price + quantity, //сумма
-      currency: 'RUB', //валюта
-      invoiceId: sessionStorage['id'], //номер заказа  (необязательно)
-      accountId: email, //идентификатор плательщика (обязательно для создания подписки)
-      data: data
-  },
-  function (options) { // success
-      // переадресация на страницу "account"
-      window.location.href = "account";
-      $.ajax({
-        url: "pay_success",
-        type: "POST",
-        dataType: "json",
-        data: { options: options },
-        success: function (data) {
-          console.log(data)
+        publicId: 'pk_3da4553acc29b450d95115b0918f7',
+        description: 'Подписка на ежемесячный доступ к сайту nezhno.space',
+        amount: price + quantity,
+        currency: 'RUB',
+        invoiceId: sessionStorage['id'],
+        accountId: email,
+        returnUrl: 'pay_success',
+        data: data
+      }, {
+        onSuccess: function(options) { // success
+          window.location.href = 'pay_success';
         },
-        error: function (jqxhr, status, errorMsg) {
-          console.log(errorMsg)
+        onFail: function(reason, options) { // fail
+          window.location.href = 'pay_success';
         },
-      });
-  },
-  function (reason, options) { // fail
-      // вывод причины ошибки в консоль
-      console.error("Payment failed:", reason); 
+        onComplete: function(paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
+          var url = paymentResult.ReturnUrl.url; // Проверьте правильное свойство объекта
+          window.location.href = url;
+        }
   });
+      
 };
 
 

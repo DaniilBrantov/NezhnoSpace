@@ -5,9 +5,9 @@ require_once( get_theme_file_path('processing.php') );
 
 $options = $_POST['options'];
 if($options){
-    echo json_encode('Good!');
+    echo('Оплата прошла успешно!');
 }else{
-    echo json_encode('Errrrrrrrrrrrrrrrrr');
+    echo ('Оплата не прошла');
 }
 
 

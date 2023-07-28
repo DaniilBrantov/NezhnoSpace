@@ -11,10 +11,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title("", true); ?></title>
-    <meta name="yandex-verification" content="d821d01bf0467793" />
     <!-- <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script> -->
     <script src="https://widget.cloudpayments.ru/bundles/cloudpayments.js"></script>
     <?php wp_head(); ?>
+    <!-- <meta name="yandex-verification" content="d821d01bf0467793" /> -->
+
 </head>
 
 <body>
