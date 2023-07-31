@@ -175,14 +175,6 @@ $(".pay-banner_promocode-btn").click(function (e) {
 const popupContainer = document.getElementById('popupContainer');
 
 
-document.addEventListener('click', function(event) {
-  if (!popupContainer.contains(event.target) && popupContainer.contains('show')) {
-    popupContainer.style.display = 'none';
-    popupContainer.classList.remove('show');
-  }
-});
-
-
 function handleClick(service_id) {
   if (popupContainer) {
     popupContainer.style.display = 'block';
@@ -243,9 +235,9 @@ function handleClick(service_id) {
           },
         });
     // });
-      }else{
-      console.log(e.target.id)
-        // hidePopupContainer(e);
+      }else if( e.target.id === 'popupContainer' ){
+        popupContainer.style.display = 'none';
+        popupContainer.classList.remove('show');
       }
    });
   }
@@ -254,13 +246,6 @@ function handleClick(service_id) {
 
 
 
-
-function hidePopupContainer(e) {
-  if (!popupContainer.contains(e.target)) {
-      popupContainer.style.display = 'none';
-      popupContainer.classList.remove('show');
-  }
-}
 function Pay(label, price, quantity, email, phone, period) {
   var widget = new cp.CloudPayments();
   var receipt = {
