@@ -290,7 +290,6 @@ function Pay(label, price, quantity, email, phone, period) {
         currency: 'RUB',
         invoiceId: sessionStorage['id'],
         accountId: email,
-        returnUrl: 'pay_success',
         data: data
       }, {
         onSuccess: function(options) { // success
@@ -298,10 +297,6 @@ function Pay(label, price, quantity, email, phone, period) {
         },
         onFail: function(reason, options) { // fail
           window.location.href = 'pay_success';
-        },
-        onComplete: function(paymentResult, options) { //Вызывается как только виджет получает от api.cloudpayments ответ с результатом транзакции.
-          var url = paymentResult.ReturnUrl.url; // Проверьте правильное свойство объекта
-          window.location.href = url;
         }
   });
       
