@@ -216,8 +216,9 @@ function handleClick(service_id) {
           data: formData,
           success: function(data) {
             if(data.status){
-              // console.log('ok')
-              Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period)
+              const PayData = Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period, data.invoiceId);
+              
+
             }else{
 
               const showError = (value, textError) => {
@@ -246,62 +247,76 @@ function handleClick(service_id) {
 
 
 
-function Pay(label, price, quantity, email, phone, period) {
+function Pay(label, price, quantity, email, phone, period, invoiceId) {
   var widget = new cp.CloudPayments();
   var receipt = {
-          Items: [//товарные позиции
+          Items: [
               {
-                  label: label, //наименование товара
-                  price: price, //цена
-                  quantity: quantity, //количество
-                  amount: price + quantity, //сумма
-                  vat: 0, //ставка НДС
-                  method: 0, // тег-1214 признак способа расчета - признак способа расчета
-                  object: 0, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
+                  label: label,
+                  price: price,
+                  quantity: quantity,
+                  amount: price + quantity,
+                  vat: 0,
+                  method: 0,
+                  object: 0,
               }
           ],
-          taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
-          email: email, //e-mail покупателя, если нужно отправить письмо с чеком
-          phone: phone, //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
-          isBso: false, //чек является бланком строгой отчетности
+          taxationSystem: 0,
+          email: email, 
+          phone: phone, 
+          isBso: false, 
+          autoClose: 3, 
           amounts:
           {
-              electronic: price + quantity, // Сумма оплаты электронными деньгами
-              advancePayment: 0.00, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
-              credit: 0.00, // Сумма постоплатой(в кредит) (2 знака после запятой)
-              provision: 0.00 // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
-          }
+              electronic: price + quantity,
+              advancePayment: 0.00,
+              credit: 0.00,
+              provision: 0.00
+          },
+          
       };
 
   var data = {};
   data.CloudPayments = {
-      CustomerReceipt: receipt, //чек для первого платежа
+      CustomerReceipt: receipt,
       recurrent: {
        interval: 'Month',
        period: period, 
-       customerReceipt: receipt //чек для регулярных платежей
+       customerReceipt: receipt
        }
-  }; //создание ежемесячной подписки
-
+  };  
   widget.charge({ // options
-        publicId: 'pk_3da4553acc29b450d95115b0918f7',
-        description: 'Подписка на ежемесячный доступ к сайту nezhno.space',
-        amount: price + quantity,
-        currency: 'RUB',
-        invoiceId: sessionStorage['id'],
-        accountId: email,
-        data: data
-      }, {
-        onSuccess: function(options) { // success
-          window.location.href = 'pay_success';
-        },
-        onFail: function(reason, options) { // fail
-          window.location.href = 'pay_success';
-        }
-  });
-      
-};
+    publicId: 'pk_3da4553acc29b450d95115b0918f7',
+    description: 'Подписка на ежемесячный доступ к сайту nezhno.space',
+    amount: price + quantity,
+    currency: 'RUB',
+    accountId: email,
+    data: data
+  }, function (options) {
+      // console.log(options);
+      // Полезная нагрузка для вебхука
+      var payload = {
+        transactionId: options.accountId,
+        amount: options.amount,
+        currency: currency,
+        status: 'completed'
+      }; 
+      // Отправка AJAX-запроса с помощью jQuery
+      $.post('https://nezhno.space/pay_success', JSON.stringify(payload))
+      .done(function(response) {
+      var subscriptionId = response.model.subscriptionId;
+      console.log('Вебхук успешно обработан. SubscriptionId:', subscriptionId);
+      // Перенаправление на другую страницу
+      window.location.href = "https://nezhno.space/pay_success";
+      })
+      .fail(function() {
+      console.log('Ошибка при обработке вебхука');
+      });
 
+          // console.log(subscriptionId);
+          // window.location.href = "https://nezhno.space/pay_success";
+  })
+}
 
 
 
@@ -370,6 +385,9 @@ function Pay(label, price, quantity, email, phone, period) {
 //       // const accountId = options.accountId;
 //       // const publicId = options.publicId
 //       // getSubscriptions(accountId, 'pk_3da4553acc29b450d95115b0918f7', '4b978f8af1e63cb76629acbb9d9caff0');
+
+
+
 
 
 //       // Получение SubscriptionId

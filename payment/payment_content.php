@@ -39,7 +39,7 @@ if(!$error_email){
 }
 
 
-$publicId='pk_3da4553acc29b450d95115b0918f7';
+// $publicId='pk_3da4553acc29b450d95115b0918f7';
 $apiKey='4b978f8af1e63cb76629acbb9d9caff0';
 $label = 'Пользователь '. $user_id .' оплатил подписку №'. $id;
 $startDate=date("Y-m-d H:i:s");   
@@ -56,6 +56,7 @@ $data['description'] = $description;
 $data['quantity'] = $quantity;
 $data['apiKey'] = $apiKey;
 $data['startDate'] = $startDate;
+$data['invoiceId'] = $_SESSION['id'];
 
 
 

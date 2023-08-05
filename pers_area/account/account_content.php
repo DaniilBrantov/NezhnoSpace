@@ -1,6 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     $payment= new Payment();
+    $_SESSION['id'] = 1;
     CheckAuth();
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
@@ -167,62 +168,3 @@
 
 
 
-<script>
-
-function Pay(label, price, quantity, email, phone, period) {
-  var widget = new cp.CloudPayments();
-  var receipt = {
-          Items: [//товарные позиции
-              {
-                  label: label, //наименование товара
-                  price: price, //цена
-                  quantity: quantity, //количество
-                  amount: price + quantity, //сумма
-                  vat: 0, //ставка НДС
-                  method: 0, // тег-1214 признак способа расчета - признак способа расчета
-                  object: 0, // тег-1212 признак предмета расчета - признак предмета товара, работы, услуги, платежа, выплаты, иного предмета расчета
-              }
-          ],
-          taxationSystem: 0, //система налогообложения; необязательный, если у вас одна система налогообложения
-          email: email, //e-mail покупателя, если нужно отправить письмо с чеком
-          phone: phone, //телефон покупателя в любом формате, если нужно отправить сообщение со ссылкой на чек
-          isBso: false, //чек является бланком строгой отчетности
-          amounts:
-          {
-              electronic: price + quantity, // Сумма оплаты электронными деньгами
-              advancePayment: 0.00, // Сумма из предоплаты (зачетом аванса) (2 знака после запятой)
-              credit: 0.00, // Сумма постоплатой(в кредит) (2 знака после запятой)
-              provision: 0.00 // Сумма оплаты встречным предоставлением (сертификаты, др. мат.ценности) (2 знака после запятой)
-          }
-      };
-
-  var data = {};
-  data.CloudPayments = {
-      CustomerReceipt: receipt, //чек для первого платежа
-      recurrent: {
-       interval: 'Month',
-       period: period, 
-       customerReceipt: receipt //чек для регулярных платежей
-       }
-  }; //создание ежемесячной подписки
-
-  widget.charge({ // options
-        publicId: 'pk_3da4553acc29b450d95115b0918f7',
-        description: 'Подписка на ежемесячный доступ к сайту nezhno.space',
-        amount: price + quantity,
-        currency: 'RUB',
-        invoiceId: sessionStorage['id'],
-        accountId: email,
-        data: data
-      }, {
-        onSuccess: function(options) { // success
-          window.location.href = 'pay_success';
-        },
-        onFail: function(reason, options) { // fail
-          window.location.href = 'pay_success';
-        }
-  });
-      
-};
-Pay('', 1, 1, 'email@test.ru', '89999999999', 1);
-</script>
