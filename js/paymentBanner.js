@@ -163,7 +163,8 @@ $(".pay-banner_promocode-btn").click(function (e) {
     }
   }).then((data) => {
     if (data.status) {
-      console.log(data)
+      console.log(data);
+      
       //window.location.href = 'payment';
       window.location.href = 'payment';
     }
@@ -216,7 +217,7 @@ function handleClick(service_id) {
           data: formData,
           success: function(data) {
             if(data.status){
-              const PayData = Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period, data.invoiceId);
+              const PayData = Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period);
               
 
             }else{
@@ -247,7 +248,7 @@ function handleClick(service_id) {
 
 
 
-function Pay(label, price, quantity, email, phone, period, invoiceId) {
+function Pay(label, price, quantity, email, phone, period) {
   var widget = new cp.CloudPayments();
   var receipt = {
           Items: [
@@ -291,31 +292,19 @@ function Pay(label, price, quantity, email, phone, period, invoiceId) {
     amount: price + quantity,
     currency: 'RUB',
     accountId: email,
-    data: data
-  }, function (options) {
-      // console.log(options);
-      // Полезная нагрузка для вебхука
-      var payload = {
-        transactionId: options.accountId,
-        amount: options.amount,
-        currency: currency,
-        status: 'completed'
-      }; 
-      // Отправка AJAX-запроса с помощью jQuery
-      $.post('https://nezhno.space/pay_success', JSON.stringify(payload))
-      .done(function(response) {
-      var subscriptionId = response.model.subscriptionId;
-      console.log('Вебхук успешно обработан. SubscriptionId:', subscriptionId);
-      // Перенаправление на другую страницу
-      window.location.href = "https://nezhno.space/pay_success";
-      })
-      .fail(function() {
-      console.log('Ошибка при обработке вебхука');
-      });
+    data: data,
+    configuration: {
+      common: {
+          successRedirectUrl: "https://nezhno.space/success", // адреса для перенаправления 
+          failRedirectUrl: "https://nezhno.space/fail"        // при оплате по Tinkoff Pay
+      }
+    },
+  },function (options) {
+          console.log('Платеж успешно выполнен:', options);
+          window.location.href = "pay_success";
 
-          // console.log(subscriptionId);
-          // window.location.href = "https://nezhno.space/pay_success";
-  })
+    }
+  )
 }
 
 

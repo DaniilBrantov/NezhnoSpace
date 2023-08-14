@@ -1,6 +1,7 @@
 {
     "require": {
         "php":">=5.3.0",
+        "izatop/cloudpayments": "^1.0",
         "yoomoney/yookassa-sdk-php": "^2.7"
     }
 }

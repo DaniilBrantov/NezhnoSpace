@@ -666,31 +666,6 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
         return $last_img;
         }
 
-        //Вывод постов под конкретным тэгом
-        // function tagPosts($payment_date){
-        // if (have_posts()) :
-        // $res=[];
-        // $i=1;
-        // $close_posts=1;
-        // while (have_posts()) : the_post();
-        // $cat_id=get_the_category()[0]->cat_ID;
-        // $open_posts=ceil(openPosts( $payment_date, '', $cat_id ));
-        // $res[$i] = subscriptionData(get_the_ID()) ;
-        // if(checkPayment()){
-        // if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
-        // $res[$i]['status']=TRUE;
-        // }else{
-        // $res[$i]['status']=FALSE;
-
-        // $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
-        // $close_posts++;
-        // }
-        // };
-        // $i+=1;
-        // endwhile;
-        // return $res;
-        // endif;
-        // }
         // Перемешать массив
         function shuffleArray($arr) {
         $result = [];
@@ -703,47 +678,6 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
         return $result;
         }
-
-        // add_action( 'after_setup_theme', 'woocommerce_support' );
-        // function woocommerce_support() {
-        // add_theme_support( 'woocommerce' );
-        // }
-        // // add_filter( 'woocommerce_template_path', 'wc_template_path' );
-        // // function wc_template_path($path) {
-        // // $path = get_stylesheet_directory() . '/assets/css/';
-        // // return $path;
-        // // }
-
-
-        // // Отключаем ненужные поля ввода при заказе
-        // add_filter('woocommerce_checkout_fields','remove_checkout_fields');
-        // function remove_checkout_fields($fields){
-        // unset($fields['billing']['billing_first_name']); // Имя Включено
-        // unset($fields['billing']['billing_last_name']); // Отключено Фамилия
-        // unset($fields['billing']['billing_company']); // Отключено Компания
-        // unset($fields['billing']['billing_address_1']); // Адрес Отключено
-        // unset($fields['billing']['billing_address_2']); // Дополнение к адоесу Отключено
-        // unset($fields['billing']['billing_city']); // Отключено
-        // unset($fields['billing']['billing_postcode']); // Индекс Отключено
-        // unset($fields['billing']['billing_country']); // Отключено
-        // unset($fields['billing']['billing_state']); // Область Отключено
-        // unset($fields['billing']['billing_phone']);
-        // unset($fields['order']['order_comments']);
-        // unset($fields['billing']['billing_email']);
-        // unset($fields['account']['account_username']); // Отключено
-        // unset($fields['account']['account_password']); // Отключено
-        // unset($fields['account']['account_password-2']); // Отключено
-        // return $fields;
-        // }
-        // add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
-        // function custom_override_checkout_fields( $fields ) {
-        // unset($fields['billing']['billing_country']); // Отключаем страны оплаты
-        // unset($fields['shipping']['shipping_country']);// Отключаем страны доставки
-        // return $fields;
-        // }
-
-
-
 
         // Add a User Column to WordPress
         function add_user_column( $columns ) {
@@ -765,25 +699,6 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
         }
         }
         add_action( 'manage_users_custom_column', 'edit_user_columns', 10, 3 );
-
-
-
-
-        // function FilterCat($post_id, $filter_cat){
-        // $cat = get_the_category( $post_id );
-        // foreach($cat as $el){
-        // if($el->slug === $filter_cat){
-        // return TRUE;
-        // }
-        // }
-        // if($cat[0]->slug === $filter_cat){
-        // return TRUE;
-        // }else{
-        // return FALSE;
-        // }
-        // };
-
-
 
 
         function checkAdmin(){
@@ -850,4 +765,21 @@ add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
     $widget_script = ob_get_clean();
 
     echo $widget_script;
+}
+
+
+function compareData()
+{
+    $db = new SafeMySQL();
+    $usersData = $db->getCol("SELECT user_alarm FROM users WHERE id = ?s", $_SESSION["id"]);
+    $themesData = $db->getCol("SELECT description FROM themes");
+    $intersectData = array_intersect($usersData, $themesData);
+    var_dump($_SESSION["id"]);
+    var_dump($intersectData);
+    if (count($intersectData) > 0) {
+        $theme = reset($intersectData);
+        $themeData = $db->getRow("SELECT * FROM themes WHERE description = ?s", $theme);
+        return $themeData;
+    }
+    return false;
 }

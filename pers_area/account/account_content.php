@@ -1,7 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     $payment= new Payment();
-    $_SESSION['id'] = 1;
+    // $_SESSION['id'] = 1;
     CheckAuth();
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){

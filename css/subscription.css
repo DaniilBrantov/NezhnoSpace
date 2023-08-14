@@ -173,6 +173,9 @@
 
   outline: none;/*  убрать при клике */
 }
+.recommendations_slider{
+  margin-bottom: 50px;
+}
 .blockSub-slide_img {
   object-fit: cover;
   width: 100%;
