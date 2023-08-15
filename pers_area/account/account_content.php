@@ -1,6 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
-    $payment= new Payment();
+    // var_dump($_SESSION['status']) ;
     // $_SESSION['id'] = 1;
     CheckAuth();
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
@@ -98,7 +98,7 @@
             </form>
         </div>
 
-        <?php if ($payment->getCheckPayment()) { ?>
+        <?php if ($_SESSION['status']) { ?>
         <div class="account_sections-footer">
             <!-- Пока не готовы начать?  -->
             <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>

@@ -46,7 +46,7 @@ $startDate=date("Y-m-d H:i:s");
 
 $data['label'] = $label;
 $data['publicId'] = $id;
-$data['service_name'] = $label;
+// $data['service_name'] = $label;
 $data['service_name'] = $service['name'];
 $data['price'] = (int)$service['price'];
 $data['email'] = $user['mail'];

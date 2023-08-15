@@ -44,9 +44,9 @@
                   </ul>
                 </div>
               </div>
-              <form action="payment" method='post'>
+              <form id="payment_form" action="payment" method='post'>
                 <input type="hidden" value="${this.optionsPayment[option].value}" name="payment_id">
-                <input type="hidden" value="${option}" name="service_id">
+                <input id="service_id" type="hidden" value="${option}" name="service_id">
                 <input type="hidden" value="" name="promo" class='post-promocode-payment'>
                 <button class='pay-banner_option-button' name="payment_btn" type="submit">хочу подписку</button>
               </form>
@@ -62,11 +62,12 @@
       paymentButtons.forEach(button => {
         button.addEventListener('click', (e) => {
           e.preventDefault();
-          const service = button.parentElement.querySelector('input[name="service_id"]');
-          const service_id = service ? service.value : null;
+          const service_id = e.target.closest('#payment_form')?.querySelector('input[name="service_id"]')?.value;
           handleClick(service_id);
         });
       });
+      
+
     }
     adaptiveHeightBanner() {
       if (this.banner.clientHeight <= 780) {
@@ -162,12 +163,7 @@ $(".pay-banner_promocode-btn").click(function (e) {
       hideError('promo');
     }
   }).then((data) => {
-    if (data.status) {
-      console.log(data);
-      
-      //window.location.href = 'payment';
-      window.location.href = 'payment';
-    }
+    window.location.href = 'pay_success';
   });
 });
 
@@ -217,9 +213,7 @@ function handleClick(service_id) {
           data: formData,
           success: function(data) {
             if(data.status){
-              const PayData = Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period);
-              
-
+              Pay(data.label, data.price, data.quantity, data.email, data.phone, data.period);
             }else{
 
               const showError = (value, textError) => {

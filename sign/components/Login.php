@@ -1,4 +1,8 @@
 <?php
+// require_once( get_theme_file_path('/components/CloudPayments/CloudPayments.php') );
+// $payment = new CloudPayment;
+// $_SESSION['status'] = '2';
+
 class Login
 {
     private $db;
@@ -26,6 +30,7 @@ class Login
                     setcookie("mail", $row['mail'], time() + 50000);
                     setcookie("pass", md5($row['mail'] . $row['password']), time() + 50000);
                     $_SESSION['id'] = $row['id'];
+                    
                     $id = $_SESSION['id'];
                     $this->lastAct($id);
                     return $error;
@@ -90,6 +95,9 @@ class Login
 
                 if ($this->db->numRows($rez) == 1 && md5($row['mail'] . $row['password']) == $_COOKIE['pass']) {
                     $_SESSION['id'] = $row['id'];
+                    // require_once( get_theme_file_path('/components/CloudPayments/CloudPayments.php') );
+                    // $payment = new CloudPayment;
+                    // $_SESSION['status'] = '$payment->checkPayStatusDB()';
                     $id = $_SESSION['id'];
                     $this->lastAct($id);
                     return true;

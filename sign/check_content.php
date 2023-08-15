@@ -106,9 +106,7 @@
         curl_close($ch);
         $response=json_decode($response, true);
         extract($response);
-        
         $_SESSION['id'] = $response['id'];
-
         if($response && $response!==NULL){
             return 1;
         }else{

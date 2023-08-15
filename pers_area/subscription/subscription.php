@@ -1,7 +1,6 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
     CheckAuth();
-    $payment=new Payment();
     $user_data = $db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     $payment_date =$user_data['payment_date'];
     $payment_days=countDaysBetweenDates(date("Y-m-d H:i:s"), $payment_date);
@@ -34,7 +33,7 @@ $month_theme=$subscription->getCatData($theme_id);
 
 
 <div class="subcscription_container"
-    data-status-payment='<?php echo ($payment->getCheckPayment() ? 'true' : 'false'); ?>'>
+    data-status-payment='<?php echo ($_SESSION['status'] ? 'true' : 'false'); ?>'>
     <!-- <div class="subcscription_calendar">
         <h3 class="subcscription_title">Календарь</h3>
         <svg width="40" height="16" viewBox="0 0 40 16" fill='none' xmlns="http://www.w3.org/2000/svg">
