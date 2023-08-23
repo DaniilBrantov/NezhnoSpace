@@ -109,14 +109,14 @@ class UserValidationErrors
     }
 };
 
-function GetResponseFromDB($condition, $db_func){
-    if($condition){
-        echo json_encode($db_func);
-    };
-};
-    GetResponseFromDB(
-        $_POST['try_free'],
-        $db->getAll("SELECT * FROM main_try_free")
-    );
+// function GetResponseFromDB($condition, $db_func){
+//     if($condition){
+//         echo json_encode($db_func);
+//     };
+// };
+//     GetResponseFromDB(
+//         $_POST['try_free'],
+//         $db->getAll("SELECT * FROM main_try_free")
+//     );
 
 ?>

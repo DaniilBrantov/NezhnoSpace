@@ -1,6 +1,7 @@
 <?php 
     @ob_start();
     session_start();
+    $_SESSION['id'] = 1;
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -40,23 +41,13 @@
                 </a>
             </div>
             <nav class="nav header_nav">
-                <?php if (!$_SESSION['user'] && !$_SESSION['admin']) { 
-                        wp_nav_menu(array(
-                            'theme_location'=> 'mainmenu',
-                            'menu_class'=> 'nav_list'
-                        ));
-                ?>
+                <ul id="menu-mainmenu" class="nav_list"><li id="menu-item-54" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-40 current_page_item menu-item-54"><a href="index" aria-current="page" class="nav_active">Главная</a></li>
+                    <li id="menu-item-792" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-792"><a href="about">О нас</a></li>
+                    <li id="menu-item-790" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-790"><a href="blog">Блог</a></li>
+                </ul>
             </nav>
             <?php
-                    }else{
-                        wp_nav_menu(array(
-                            'theme_location'=> 'mainmenu',
-                            'menu_class'=> 'nav_item'
-                        ));
-                ?>
-            </nav>
-            <?php
-                    };
+                   
             if(!$_SESSION['id']){ ?>
             <a href="auth" class="header_user">
                 <img src="<?php getUrl(); ?>/images/user.svg" alt="user">
