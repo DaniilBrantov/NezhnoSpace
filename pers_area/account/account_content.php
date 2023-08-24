@@ -23,6 +23,7 @@
                 <!-- <div>Мой прогресс:</div> -->
                 <img src="<?php echo get_template_directory_uri(); ?>/images/sapiens.png" />
                 <!-- <div class="account_analytics_not-result-text">Пока не готов результат</div> -->
+                <button class="account_btn-save blue_btn" name="account_btn-survey">Пройти опрос</button>
             </div>
             <form class="account_personal-data">
                 <div class="account_image-wrap">
