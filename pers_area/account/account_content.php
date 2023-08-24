@@ -20,9 +20,9 @@
     <div class="container">
         <div class="account_sections-main">
             <div class="account_analytics-container">
-                <div>Мой прогресс:</div>
+                <!-- <div>Мой прогресс:</div> -->
                 <img src="<?php echo get_template_directory_uri(); ?>/images/sapiens.png" />
-                <div class="account_analytics_not-result-text">Пока не готов результат</div>
+                <!-- <div class="account_analytics_not-result-text">Пока не готов результат</div> -->
             </div>
             <form class="account_personal-data">
                 <div class="account_image-wrap">
