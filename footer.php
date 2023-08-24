@@ -21,9 +21,9 @@
 
             </div>
             <div class="soc_networks">
-                <a href="https://www.instagram.com/nezhno.space/" target="_blank">
+                <!-- <a href="https://www.instagram.com/nezhno.space/" target="_blank">
                     <img src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg" alt="">
-                </a>
+                </a> -->
                 <a href="https://vk.com/nezhno.space" target="_blank">
                     <img src="<?php echo get_template_directory_uri(); ?>/images/vk-icon.svg" alt="">
                 </a>
