@@ -357,6 +357,7 @@ section {
   text-transform: uppercase;
   color: #ffffff;
   cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
 }
 .subscriptions > p {
   width: 70%;
@@ -1244,6 +1245,7 @@ section {
     transition-property: opacity;
     transition-duration: 0.4s;
     transition-delay: 0.2s;
+    font-family: 'Montserrat', sans-serif;
   }
   .subscriptions_item:hover {
     box-shadow: 0 0 20px rgba(141, 154, 206, 0.5);
@@ -1263,6 +1265,7 @@ section {
   .subscriptions_price-month {
     display: block;
   }
+
   .about {
     display: flex;
     align-items: center;
