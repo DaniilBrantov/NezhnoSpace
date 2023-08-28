@@ -1,38 +1,38 @@
 <footer>
     <div class="container">
         <div class="footer" id="footer">
-            <?php
-                wp_nav_menu(array(
-                    'theme_location'=> 'mainmenu',
-                    'menu_class'=> 'footer__menu'
-                ))
+            <div class="footer-content-wrapper"> 
+                <?php
+                    wp_nav_menu(array(
+                        'theme_location'=> 'mainmenu',
+                        'menu_class'=> 'footer__menu'
+                    ))
                 ?>
-            <div class="center-footer">
-                <div class="footer-documents">
-                    <a href="privacy-politic">Политика конфиденциальности</a>
-                    <a href="contract">Договор публичной оферты</a>
+                <div class="center-footer">
+                    <div class="footer-documents">
+                        <a href="privacy-politic">Политика конфиденциальности</a>
+                        <a href="contract">Договор публичной оферты</a>
+                    </div>
+                    <ul class="footer-information">
+                        <li>ИП Ларькина К.Ю.</li>
+                        <li>ОГРНИП 318527500097073</li>
+                        <li>ИНН 525801278469</li>
+                    </ul>
                 </div>
-                <ul>
-                    <li>ИП Ларькина К.Ю.</li>
-                    <li>ОГРНИП 318527500097073</li>
-                    <li>ИНН 525801278469</li>
-                </ul>
-
-
-            </div>
-            <div class="soc_networks">
-                <!-- <a href="https://www.instagram.com/nezhno.space/" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg" alt="">
-                </a> -->
-                <a href="https://vk.com/nezhno.space" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/vk-icon.svg" alt="">
-                </a>
-                <a href="https://t.me/nezhno_space" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/tg-icon.svg" alt="">
-                </a>
-                <a href="mailto:care@nezhno.space" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/Nezhno.svg" alt="">
-                </a>
+                <div class="soc_networks">
+                    <!-- <a href="https://www.instagram.com/nezhno.space/" target="_blank">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg" alt="">
+                    </a> -->
+                    <a href="https://vk.com/nezhno.space" target="_blank">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/vk-icon.svg" alt="">
+                    </a>
+                    <a href="https://t.me/nezhno_space" target="_blank">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/tg-icon.svg" alt="">
+                    </a>
+                    <a href="mailto:care@nezhno.space" target="_blank">
+                        <img src="<?php echo get_template_directory_uri(); ?>/images/Nezhno.svg" alt="">
+                    </a>
+                </div>
             </div>
         </div>
     </div>

@@ -967,6 +967,7 @@ section {
   text-transform: uppercase;
   color: #ffffff;
   cursor: pointer;
+  font-family: 'Montserrat';
 }
 
 .social-list {
@@ -1569,6 +1570,7 @@ section {
     margin-top: 16px;
     display: inline-block;
     padding: 13px 26px;
+    font-family: 'Montserrat';
   }
   .reviews_constitutor-goals {
     margin-top: 0px;
@@ -1714,6 +1716,7 @@ section {
   }
   .trial_link {
     margin-left: 21.5%;
+    font-family: 'Montserrat';
   }
   .subscriptions_list .slick-list {
     width: 920px;
