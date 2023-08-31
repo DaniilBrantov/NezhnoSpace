@@ -84,7 +84,7 @@ footer {
   }
 
   .footer-block {
-    margin-left: 60px;
+    padding-left: 80px;
   }
 
 
@@ -96,7 +96,7 @@ footer {
   .center-footer {
     gap: 20px;
     justify-content: center;
-    margin-left: 60px;
+    padding-left: 80px;
   }
 
   .soc_networks {
@@ -108,7 +108,7 @@ footer {
 @media screen and (max-width: 600px) {
   .footer-content-wrapper {
     max-width: 80%;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     /* justify-content: flex-start; */
   }
 
