@@ -11,15 +11,17 @@
                     ?>
                 </div>
                 <div class="center-footer">
-                    <div class="footer-documents">
-                        <a href="privacy-politic">Политика конфиденциальности</a>
-                        <a href="contract">Договор публичной оферты</a>
+                    <div class="footer-columns">
+                        <div class="footer-documents">
+                            <a href="privacy-politic">Политика конфиденциальности</a>
+                            <a href="contract">Договор публичной оферты</a>
+                        </div>
+                        <ul class="footer-information">
+                            <li>ИП Ларькина К.Ю.</li>
+                            <li>ОГРНИП 318527500097073</li>
+                            <li>ИНН 525801278469</li>
+                        </ul>
                     </div>
-                    <ul class="footer-information">
-                        <li>ИП Ларькина К.Ю.</li>
-                        <li>ОГРНИП 318527500097073</li>
-                        <li>ИНН 525801278469</li>
-                    </ul>
                     <div class="soc_networks">
                         <!-- <a href="https://www.instagram.com/nezhno.space/" target="_blank">
                             <img src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg" alt="">
