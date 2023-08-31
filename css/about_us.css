@@ -449,9 +449,11 @@
         margin: 16px 0 10px;
     }
     .our_team, .our_platform{
-        padding-top: 32px;
+        padding-top: 70px;
     }
 }
+
+
 @media screen and (max-width: 360px) {
     .about_slider .slick-list {
         width: 100%;
