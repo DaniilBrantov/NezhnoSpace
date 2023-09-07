@@ -60,7 +60,7 @@ let this_name = '<?php
         }
           })
         </script>
-        <a href="/">Выйти из опроса</a>
+        <a href="/account">Выйти из опроса</a>
     </div>
 
     <div class='survey_modal-info'>

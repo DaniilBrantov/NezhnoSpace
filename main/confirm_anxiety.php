@@ -3,7 +3,7 @@
         <h2 class="confirm_anxiety-title">Вы выбрали свои тревоги:</h2>
         <p>Это поможет получать более точные и интересные рекомендации</p>
         <a href="registration" class='blue_btn'>сохранить результат</a>
-        <a href="/" class='btn_back'>Выйти из опроса</a>
+        <a href="/account" class='btn_back'>Выйти из опроса</a>
     </div>
     <div class="confirm_anxiety-slider">
         <div class="confirm_anxietyr_sliders">

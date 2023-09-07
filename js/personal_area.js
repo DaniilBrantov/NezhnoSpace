@@ -264,7 +264,7 @@ $("#upload_btn").click(function (e) {
   if (document.querySelector('#payment-off_banner')) {
     if (document.querySelector('.account_payment-off_yes')) {
       document.querySelector('.account_payment-off_yes').addEventListener('click', function () {
-        window.location.href = document.location.protocol + '//' + document.location.host + '/pay?autopay=turn_off';
+        window.location.href = 'https://my.cloudpayments.ru/';
       })
       document.querySelector('.account_payment-off_no').addEventListener('click', function () {
         document.querySelector('.account_payment-off_banner_background').style.display = 'none';
@@ -619,7 +619,7 @@ function generateSurvey(data, surveyContainer, id, nameSurvey) {
       container.classList.add('container-sex');
       questionContainer.appendChild(container);
 
-      ['Женщина', 'Мужчина', 'Не бинарный'].forEach((sex) => {
+      ['Женщина', 'Мужчина'].forEach((sex) => {
         const answerContainer = document.createElement('div');
         answerContainer.classList.add('answer-container');
         container.appendChild(answerContainer);

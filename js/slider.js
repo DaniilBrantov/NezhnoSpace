@@ -321,3 +321,35 @@ $(function () {
 
   $(".subscriptions_list").slick("setPosition");
 });
+
+
+// $(function () {
+//   $(".try_free_slider").slick({
+//     infinite: false,
+//     dots: true,
+//     arrows: true,
+//     centerMode: true,
+//     waitForAnimate: false,
+//     touchThreshold: 25,
+//     centerPadding: "0px",
+//     fade: true,
+//     responsive: [
+//       {
+//         breakpoint: 1200,
+//         settings: {
+//           arrows: false,
+//         },
+//       },
+//       {
+//         breakpoint: 480,
+//         settings: {
+//           arrows: false,
+//           centerMode: true,
+//           centerPadding: "20px",
+//         },
+//       },
+//     ],
+//   });
+
+//   $(".try_free_slider").slick("setPosition");
+// });

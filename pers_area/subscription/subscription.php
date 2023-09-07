@@ -33,7 +33,15 @@ $month_theme=$subscription->getCatData($theme_id);
 
 
 <div class="subcscription_container"
-    data-status-payment='<?php echo ($_SESSION['status'] ? 'true' : 'false'); ?>'>
+    data-status-payment='<?php 
+    if($_SESSION['status'] == "Active"){
+        echo 'true';
+    }elseif($_SESSION['status'] == "Unsubscribed"){
+        echo 'true';
+    }else{
+        echo 'false';
+    }
+    // echo ($_SESSION['status'] == "Active" ? 'true' : 'false'); ?>'>
     <!-- <div class="subcscription_calendar">
         <h3 class="subcscription_title">Календарь</h3>
         <svg width="40" height="16" viewBox="0 0 40 16" fill='none' xmlns="http://www.w3.org/2000/svg">
@@ -170,6 +178,7 @@ $month_theme=$subscription->getCatData($theme_id);
     <section class="month-theme_slider">
         <?php 
       foreach ($month_theme as $month) { 
+        // var_dump($month);
     ?>
         <div id="" class="subcscription_block-slide blockSub-slide month-theme_slide"
             key="<?php echo array_search($month, $month_theme); ?>">

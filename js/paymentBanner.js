@@ -58,7 +58,15 @@
           payList.innerHTML += `<li>${item}</li>`;
         });
       }
-      const paymentButtons = document.querySelectorAll('.pay-banner_option-button');
+
+
+
+      // const paymentButtons = document.querySelectorAll('trial_link');
+
+      // if(!paymentButtons){
+        const paymentButtons = document.querySelectorAll('.pay-banner_option-button');
+      // }
+
       paymentButtons.forEach(button => {
         button.addEventListener('click', (e) => {
           e.preventDefault();
@@ -227,6 +235,7 @@ function handleClick(service_id) {
             }
           },
           error: function(jqxhr, status, errorMsg) {
+            console.log(errorMsg);
             uploadInfoShow(1, 'red', 'При загрузке произошла неизвестная ошибка!');
           },
         });
@@ -530,3 +539,16 @@ var suspendUntil = '2023-06-31T00:00:00Z'; // Замените на желаем
 //   // Устанавливаем интервал повторения платежа каждый месяц (30 дней)
 //   setInterval(makePayment, 30 * 24 * 60 * 60 * 1000);
 // }
+
+
+
+
+
+const paymentButtons = document.querySelectorAll('.pay-banner_option-button');
+      paymentButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const service_id = e.target.closest('#payment_form')?.querySelector('input[name="service_id"]')?.value;
+          handleClick(service_id);
+        });
+      });

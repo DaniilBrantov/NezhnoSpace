@@ -1,4 +1,35 @@
-<!-- <?php
+<?php
+require_once( get_theme_file_path('processing.php') );
+session_start();  
+        if($_GET['autopay']==="turn_off"){
+            if ($db->query("UPDATE users SET payment_method='', status=?s WHERE id=?i AND status=?s", "Unsubscribed", $_SESSION["id"], "Active")) {
+                // echo "Вы отписались от nezhno space! Вам ещё доступны материалы оплаченного месяца";
+                // echo '--Закроется: '.date('d M Y H:i:s',$next_payment_date) ;
+                get_header(); 
+                echo "<section class='account_payment-off_banner_background' style='display: block;'>
+                <div id='payment-off_banner' class='account_payment-off_banner payment-off_banner'>
+                    <button class='pay-banner_btnClose' type='button' onclick='window.location.href=`https://nezhno.space/account`'></button>
+                    <div class='pay-banner_content'>
+                        <h4 class='pay-banner_title'>Вы отписались от подписки Нежно Space!</h4>
+                        <div class='pay-banner_text' style='display: block;'>Вам ещё доступны материалы оплаченного месяца до <span class='pay-banner_text-date'>".date('d M Y H:i:s',$next_payment_date)."</span></div>
+                        <div class='account_payment-off_buttons' style='max-width: 272px;'>
+                            <button class='blue_btn' onclick='window.location.href=`https://nezhno.space/account`'>ок</button>
+                        </div>
+                    </div>
+                </div>
+            </section>";
+            get_footer();
+            }else{
+                echo "Что то пошло не так. Попробовать снова?";
+            }
+        }
+
+
+
+
+
+
+
 // session_start();
 // date_default_timezone_set("Europe/Moscow");
 // require_once( get_theme_file_path('processing.php') );

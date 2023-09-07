@@ -119,7 +119,7 @@ class UserValidationErrors
                 $date=$info_sql->date;
                 if($db->numRows($user_sql)>0){
                     $user_up = $db->query("UPDATE users SET status='$status', pay_choice='$pay_choice', payment_date='$date', created_payment='$date' WHERE mail='$mail'"); 
-                    $error['status'] = 2;
+                    $error['status'] = "Active";
                     $error['info'] = $info_sql;
                     $error['token'] = $token;
                 }else{
@@ -314,6 +314,11 @@ class Subscription{
     public function getCatData($cat_ID){
         if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $cat_ID));
             $res=$this->checkCatData($cat_ID);
+            // $a=0;
+            // while ($a <= count($res)) {
+            //     var_dump($res[$a]['status']);
+            //     $a++;
+            // };
         endif;
         return $res;
         wp_reset_query();
@@ -413,7 +418,7 @@ class Subscription{
             'exception' => get_post_meta($post->ID, 'open_posts_exception', true),
             'tag' => get_the_tag_list('<li>','</li><li>','</li>', $post->ID )
         ];
-        ($res['exception']==='1')? $res['status']=TRUE : $res['status']=FALSE;
+        // ($res['exception']==='1')? $res['status']=TRUE : $res['status']=FALSE;
         return $res;
     }
     // Распределение открытых и закрытых постов
@@ -445,6 +450,11 @@ class Subscription{
         endwhile;
         return $res;
     }
+    // protected function checkCatData($cat_ID){
+    //     while (have_posts()) : the_post();
+    //     endwhile;
+    //     return $res;
+    // }
     // Дата следующего поста
     protected function nextPostDate($close_posts, $cat_ID){
         if($cat_ID===45 || $cat_ID===46){
@@ -481,7 +491,8 @@ class Subscription{
             '12' => 'декабря',
         ];
         $dateParts = explode('.', $date);
-        return $dateParts[0] . ' ' . $months[$dateParts[1]];
+        $result = $dateParts[0] . ' ' . $months[$dateParts[1]];
+        return $result;
         }
     //Дата оплаты
     protected function userPaymentDate(){
@@ -498,11 +509,12 @@ class Subscription{
         if($cat_ID === 45){
             $open_posts=$frequency_discoveries;
         }elseif($cat_ID === 46){
-            $open_posts=999;
+            $open_posts=4;
         }elseif($cat_ID === 47){
             $open_posts=$frequency_discoveries/7;
         }
         $open_posts=ceil($open_posts);
+
         return $open_posts;
     }
     // Массив из открытых постов конкретной категории
@@ -528,6 +540,7 @@ class Subscription{
             while (have_posts()) : the_post();
                 $res[$i] = $this->getPostData(get_the_ID());
                 $res[$i]['status']=false;
+                $res[$i]['next_post_date']=$this->getNextPostDate(1, $cat_ID);
                 $i++;
             endwhile;
             $res = array_slice($res, $count);
@@ -562,9 +575,11 @@ class Subscription{
                         $res[$i]['status']=true;
                     }else{
                         $res[$i]['status']=false;
+                        $res[$i]['next_post_date']=$this->getNextPostDate(1, $cat_ID);
                     }
                 }else{
                     $res[$i]['status']=false;
+                    $res[$i]['next_post_date']=$this->getNextPostDate(1, $cat_ID);
                 };
                 if($res[$i]['exception']==='1'){
                     $res[$i]['status']=TRUE;
@@ -702,9 +717,9 @@ class Payment{
         $db = new SafeMySQL();
         $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
         if($status && !empty($status) && isset($status) && $status !== NULL){
-            if($status==='2'){
+            if($status==='Active'){
                 return TRUE;
-            }elseif($status==='3'){
+            }elseif($status==='Unsubscribed'){
                 $mail = $db->getOne("SELECT mail FROM users WHERE id=?i", $_SESSION['id']);
                 $info_sql = $db->getOne("SELECT info FROM tokens WHERE mail=?s", $mail);
                 $info_sql= json_decode($info_sql);
@@ -769,7 +784,7 @@ class Payment{
     //Проверка срока подписки, заведённый промокодом
     protected function checkSubPromoDate($weeksToAdd = 1) {
         $db = new SafeMySQL();
-        foreach ($db->getAll("SELECT * FROM users WHERE status = ?i", 3) as $user) {
+        foreach ($db->getAll("SELECT * FROM users WHERE status = ?s", 'Unsubscribed') as $user) {
             if (date('Y-m-d', strtotime($user['payment_date'] . " +{$weeksToAdd} weeks")) <= date("Y-m-d H:i:s")) {
                 $db->query("UPDATE users SET status = ?i, payment_date = ?s WHERE mail = ?s", 1, 0, $user['mail']);
                 return true;
@@ -788,7 +803,7 @@ class Payment{
             if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d") >= $promo_data['first_date'] || $promo_data['last_date']==NULL && date("Y-m-d") >= $promo_data['first_date']){
                 if($promo_data['sale'] >= 100){
                     $payment_date = date("Y-m-d H:i:s");
-                    if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE id=?i", 3, $payment_date, $id)){
+                    if($db->query("UPDATE users SET status=?i, payment_date=?s WHERE id=?i", 'Unsubscribed', $payment_date, $id)){
                         return [
                             'status' => true,
                             'promo' => $promo_data['promo'],

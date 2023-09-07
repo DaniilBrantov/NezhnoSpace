@@ -68,7 +68,8 @@ function load_styles(){
 
 	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
 	"page-blog", "404", "documents", "subscription_lesson",
-	"single", "audio", "sign", "account-content","pers_area", "subscription", "paymentBanner", "survey"];
+	"single", "audio", "sign", "account-content","pers_area", "subscription",
+     "paymentBanner", "survey", "try_free"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
@@ -146,7 +147,7 @@ function load_script() /*имя функции произвольное*/
 		);
 		wp_enqueue_script("flickity-js");
 
-	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription","cloudpayments", "paymentBanner"];
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription","cloudpayments", "paymentBanner", "try_free_slider"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
@@ -774,12 +775,26 @@ function compareData()
     $usersData = $db->getCol("SELECT user_alarm FROM users WHERE id = ?s", $_SESSION["id"]);
     $themesData = $db->getCol("SELECT description FROM themes");
     $intersectData = array_intersect($usersData, $themesData);
-    var_dump($_SESSION["id"]);
-    var_dump($intersectData);
+    // var_dump($_SESSION["id"]);
+    // var_dump($intersectData);
     if (count($intersectData) > 0) {
         $theme = reset($intersectData);
         $themeData = $db->getRow("SELECT * FROM themes WHERE description = ?s", $theme);
         return $themeData;
     }
     return false;
+}
+
+function checkStatus() {
+    session_start();
+    $status = $_SESSION['status'];
+    if(isset($status)){
+        if($status == "Active"){
+            echo $status;
+        }else{
+            header('Location: account');
+        }
+    }else{
+        header('Location: account');
+    }
 }

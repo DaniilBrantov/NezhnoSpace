@@ -8,7 +8,8 @@ class Login
     private $db;
 
     public function __construct()
-    {
+    {   
+        require_once( get_theme_file_path('processing.php') );
         $this->db = new SafeMySQL();
     }
 
@@ -30,6 +31,7 @@ class Login
                     setcookie("mail", $row['mail'], time() + 50000);
                     setcookie("pass", md5($row['mail'] . $row['password']), time() + 50000);
                     $_SESSION['id'] = $row['id'];
+                    $_SESSION['status'] = $row['status'];
                     
                     $id = $_SESSION['id'];
                     $this->lastAct($id);
@@ -95,6 +97,7 @@ class Login
 
                 if ($this->db->numRows($rez) == 1 && md5($row['mail'] . $row['password']) == $_COOKIE['pass']) {
                     $_SESSION['id'] = $row['id'];
+                    $_SESSION['status'] = $row['status'];
                     // require_once( get_theme_file_path('/components/CloudPayments/CloudPayments.php') );
                     // $payment = new CloudPayment;
                     // $_SESSION['status'] = '$payment->checkPayStatusDB()';
@@ -159,6 +162,7 @@ class Login
 
         $this->db->query("UPDATE users SET online = 0 WHERE id = '$id'");
         unset($_SESSION['id']);
+        unset($_SESSION['status']);
         setcookie("mail", "", time() - 1, '/');
         setcookie("pass", "", time() - 1, '/');
 

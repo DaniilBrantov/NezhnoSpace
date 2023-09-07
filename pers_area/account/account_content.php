@@ -1,7 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
-    // var_dump($_SESSION['status']) ;
-    // $_SESSION['id'] = 1;
+    session_start();  
+
     CheckAuth();
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
@@ -98,7 +98,7 @@
             </form>
         </div>
 
-        <?php if ($_SESSION['status']) { ?>
+        <?php if ($_SESSION['status'] == "Active") { ?>
         <div class="account_sections-footer">
             <!-- Пока не готовы начать?  -->
             <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
