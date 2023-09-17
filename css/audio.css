@@ -231,6 +231,17 @@ input[type="range"]:active::-ms-thumb {
   display: flex;
 }
 
+.slide_audio .title {
+  display: none;
+}
+.slide_audio .info-icon{
+  width: auto;
+  height: fit-content;
+}
+
+
+
+
 @media screen and (min-width: 960px) {
   .player {
     display: flex;

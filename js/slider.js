@@ -296,7 +296,7 @@ $(function () {
   $(".slider_sliders").slick("setPosition");
 });
 
-$(function () {
+$(function() {
   $(".subscriptions_list").slick({
     infinite: false,
     slidesToShow: 3,
@@ -306,21 +306,20 @@ $(function () {
     variableHeight: true,
     speed: 700,
     touchThreshold: 25,
-    initialSlide: 1,
+    initialSlide: 0,
     centerPadding: "100px",
     responsive: [
       {
         breakpoint: 960,
         settings: {
           slidesToShow: 1,
-          initialSlide: 0,
+          initialSlide: 1,
         },
       },
     ],
   });
-
-  $(".subscriptions_list").slick("setPosition");
 });
+  
 
 
 // $(function () {

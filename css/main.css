@@ -225,6 +225,7 @@ section {
   text-align: center;
   padding-top: 20px;
   margin: 0 16px;
+  margin-bottom: 80px;
 }
 .intro_link-wrap > a {
   position: relative;
@@ -274,7 +275,7 @@ section {
   margin-bottom: 20px;
 }
 .subscriptions_item {
-  min-width: 200px;
+  min-width: 230px;
   display: flex;
   flex-direction: column;
   padding: 120px 16px 16px 16px;
@@ -1418,6 +1419,7 @@ section {
     width: 880px;
     margin: auto;
     margin-bottom: 84px;
+    margin-top: 84px;
   }
   .about__image::before {
     left: auto;
@@ -1540,10 +1542,10 @@ section {
     padding: 0;
   }
   .reviews_constitutor-link {
-    margin: 0 auto;
     display: inline-block;
     padding: 13px 26px;
-    width: auto;
+    margin: 0;
+    width: fit-content;
   }
   .trial {
     margin: 0 2.5%;

@@ -5,7 +5,7 @@ var slider = [
     cat: "Ежедневные Практики",
     title: "Society: Standards and Beauty Culture",
     text: "Quality life = fulfilling life that we deserve and are capable of living. Quality life is a resourceful state in which we are able to take care not only of ourselves, but also of our loved ones.",
-    image: "https://nezhno.space/wp-content/uploads/2023/01/photo_-46-scaled.jpg",
+    image: "https://i0.wp.com/nezhno.space/wp-content/uploads/2023/01/photo_-58-scaled.jpg?w=1706&ssl=1",
 },
     {
     id: "slide2",
@@ -106,6 +106,7 @@ function createSlide(data) {
                 </div>
             </div>
         </div>
+        <audio preload='metadata' class='audio' src='' loop></audio>
         `;
     slideAudio.innerHTML = playerHTML;
     slideAudio.className = "slide_audio";
@@ -117,22 +118,24 @@ function createSlide(data) {
     slide.appendChild(slideButton);
     return slide;
 }
-var sliderContainer = document.querySelector(".try_free_slider");
-slider.forEach(item => {
-    var slide = createSlide(item);
-    sliderContainer.appendChild(slide);
-});
-$(sliderContainer).slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    dots: true,
-    autoplay: false,
-    autoplaySpeed: 3000,
-    responsive: [{
-        breakpoint: 768,
-        settings: {
-            slidesToShow: 1,
-        }
-    }]
-});
+if (document.querySelector(".try_free_slider")) {
+    var sliderContainer = document.querySelector(".try_free_slider");
+    slider.forEach(item => {
+        var slide = createSlide(item);
+        sliderContainer.appendChild(slide);
+    });
+    $(sliderContainer).slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        dots: true,
+        autoplay: false,
+        autoplaySpeed: 3000,
+        responsive: [{
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 1,
+            }
+        }]
+    });
+}

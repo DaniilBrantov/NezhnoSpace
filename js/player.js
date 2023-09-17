@@ -8,7 +8,7 @@
       this.audio = audio;
       
       this.playBtn = audio.querySelector(".player__box-wrap .play");
-      this.seekSlider = audio.querySelector("#progress.progress");
+      this.seekSlider = audio.querySelector("#progress");
     
       this.volumeBtn = audio.querySelector(".volume-box");
       this.volumeRange = document.querySelector(".volume-range");
@@ -59,6 +59,7 @@
       this.setSliderMax();
     }
     rangeProgress() {
+      this.seekSlider = this.audio.querySelector("#progress");
       this.seekSlider.addEventListener("input", (e) => {
         e.preventDefault();
         this.showRangeProgress(e.target);
@@ -147,38 +148,41 @@
       this.nextAudio();
     }
   }
-  
   document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector(".player")) {
-      const audio = document.querySelector('.audio');
+      let audio = document.querySelector('.audio');
+      // const musicList = []; // Assuming musicList is defined elsewhere
+  
       audio.src = `wp-content/themes/my-theme/assets/audio/${musicList[index]}.mp3`;
-
+  
       const player = new AudioPlayer(audio, document.querySelector(".player"));
       player.initPlayer();
   
-      //Subscription Lesson
-      if (document.querySelector('.wp-block-audio')) {
-        audio.src = document.querySelector('.wp-block-audio audio').src;
-        document.querySelector('.wp-block-audio').style.display = 'none!important';
-        document.querySelector('.wp-block-audio').classList.add('hidden');
-        document.querySelector('.trial_audio .title').classList.add('hidden');
-        document.querySelector('.trial_audio').style.marginTop = '40px';
+      // Subscription Lesson
+      const wpBlockAudio = document.querySelector('.wp-block-audio');
+      const wpAudioShortcode = document.querySelector('.wp-audio-shortcode');
+      const trialAudio = document.querySelector('.trial_audio');
   
-      } else if (document.querySelector('.wp-audio-shortcode')) {
-        // audio.src = document.querySelector('.wp-audio-shortcode').querySelector('a').textContent;
-        audio.src = document.querySelector('.wp-audio-shortcode').querySelector('source').src;
-        document.querySelector('.wp-audio-shortcode').style.display = 'none!important';
-        document.querySelector('.wp-audio-shortcode').classList.add('hidden');
+      if (wpBlockAudio) {
+        audio.src = wpBlockAudio.querySelector('audio').src;
+        wpBlockAudio.style.display = 'none';
+        wpBlockAudio.classList.add('hidden');
         document.querySelector('.trial_audio .title').classList.add('hidden');
-        document.querySelector('.trial_audio').style.marginTop = '40px';
+        trialAudio.style.marginTop = '40px';
+      } else if (wpAudioShortcode) {
+        audio.src = wpAudioShortcode.querySelector('source').src;
+        wpAudioShortcode.style.display = 'none';
+        wpAudioShortcode.classList.add('hidden');
+        document.querySelector('.trial_audio .title').classList.add('hidden');
+        trialAudio.style.marginTop = '40px';
       } else {
-        if (document.querySelector('.trial_audio')) {
-          document.querySelector('.trial_audio').style.display = 'none';
+        if (trialAudio) {
+          trialAudio.style.display = 'none';
         }
       }
       // if (!document.location.pathname.includes('subscription_lesson')) {
       //   player.setTitle(index);
       // }
     }
-  });  
+  });
 })();
