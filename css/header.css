@@ -1,5 +1,4 @@
 .header {
-  /* position: fixed; */
   width: 100%;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.95);
@@ -40,6 +39,7 @@
   height: 32px;
   margin-right: 5%;
 }
+
 .header_logo img{
   width: 155px;
 }
