@@ -789,7 +789,7 @@ function checkStatus() {
     session_start();
     $status = $_SESSION['status'];
     if(isset($status)){
-        if($status == "Active"){
+        if($status == "Active" || $status == "Activate"){
             echo $status;
         }else{
             header('Location: account');

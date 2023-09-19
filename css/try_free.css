@@ -69,7 +69,7 @@
 
 /* TryFree New */
 
-body{
+/* body{
     background: #FFF;
     background-image: url(https://nezhno.space/wp-content/themes/my-theme/assets/try_free_bg.svg);
     background-repeat: no-repeat;
@@ -78,7 +78,7 @@ body{
 .container{
     margin:0 auto;
     max-width: 713px;
-}
+} */
 .subs-header{
     padding-top: 147px;
     font-family: 'Ubuntu Condensed', sans-serif;

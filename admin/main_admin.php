@@ -33,7 +33,7 @@ if($subscription->getCheckAdmin()){
     
             foreach ($this->subscriptions as $subscription) {
                 // Проверка статуса
-                if ($subscription['status'] === 'active') {
+                if ($subscription['status'] === 'Active' || $subscription['status'] === 'Activate') {
                     $subscriptionData[] = $subscription;
                 }
             }

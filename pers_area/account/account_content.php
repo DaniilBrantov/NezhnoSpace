@@ -98,7 +98,7 @@
             </form>
         </div>
 
-        <?php if ($_SESSION['status'] == "Active") { ?>
+        <?php if ($_SESSION['status'] == "Active" || $_SESSION['status'] == "Activate") { ?>
         <div class="account_sections-footer">
             <!-- Пока не готовы начать?  -->
             <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>

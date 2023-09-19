@@ -363,6 +363,47 @@ class Subscription{
     public function getCheckAdmin(){
         return $this->checkAdmin();
     }
+    // Получить статус опроса
+    public function getSurveyData(){
+        return $this->surveyData();
+    }
+    // Получить посты для рекомендаций
+    public function filterPosts($cat_ID) {
+        $posts = $this->getFilterPostsByLike($cat_ID);
+        $payment = new Payment();
+        if (empty($posts)) {
+            var_dump("Упражнения скоро откроются...");
+            return [];
+        }
+        
+        if ($payment->getCheckPayment()) {
+            if (!empty($this->getSurveyData())) {
+                $filteredPosts = array_slice($posts, 0, 4);
+            } else {
+                $filteredPosts = array_rand($posts, 4);
+            }
+        } else {
+            if (!empty($this->getSurveyData())) {
+                $filteredPosts = array_slice($posts, 0, 2);
+                foreach ($filteredPosts as &$rec_post) {
+                    $rec_post['status'] = 1;
+                }
+                unset($rec_post); // Очистка ссылки на последний элемент массива
+            } else {
+                $filteredPosts = array_rand($posts, 4);
+            }            
+        }
+    
+        return $filteredPosts;
+    }
+    // Проверка статуса опроса
+    protected function surveyData() {
+        require_once(get_theme_file_path('processing.php'));
+        session_start();
+        $survey_id = 54;
+        $status = (new SafeMySQL())->getOne("SELECT answers FROM survey WHERE users_id = ?i AND survey_id = ?i"  , $_SESSION['id'], $survey_id);
+        if ($status) return $status;
+    }
     // Проверка админки
     protected function checkAdmin() {
         require_once(get_theme_file_path('processing.php'));
@@ -509,7 +550,7 @@ class Subscription{
         if($cat_ID === 45){
             $open_posts=$frequency_discoveries;
         }elseif($cat_ID === 46){
-            $open_posts=4;
+            $open_posts=999;
         }elseif($cat_ID === 47){
             $open_posts=$frequency_discoveries/7;
         }
@@ -593,24 +634,19 @@ class Subscription{
         endwhile;
         return $res[1];
     }
-    // Посты, которые лайкнул пользователь
-    protected function RatedPosts($cat_ID){
+    public function RatedPosts($cat_ID) {
         $db = new SafeMySQL();
         session_start();
-        $user_likes = $db->getAll("SELECT * FROM likes WHERE user_id=?i", $_SESSION['id']);
+        $type = 'like';
+        $user_id = $_SESSION['id'];
+        $user_likes = $db->getCol("SELECT post_id FROM likes WHERE user_id = ?i AND type = ?s"  , $user_id, $type);
         $cat_data = $this->getCatData($cat_ID);
-        $result_key = 0;
-        $result_list=[];
-        foreach($cat_data as $cat_post){
-            foreach($user_likes as $like_data){
-                if($like_data['post_id'] == $cat_post['id']){
-                    $result_list[$result_key] = $cat_post;
-                    $result_key++;
-                }
-            }
+        $result_list = array_filter($cat_data, function($cat_post) use ($user_likes) {
+            return in_array($cat_post['id'], $user_likes);
+        });
+        return $user_likes;
         }
-        return $result_list;
-    }
+    
     // Получить отфильтрованные по лайкам посты 
     public function getFilterPostsByLike($cat_ID){
         return $this->FilterPostsByLike($cat_ID);
@@ -623,14 +659,14 @@ class Subscription{
     protected function FilterPostsByLike($cat_ID){
         $liked_posts = $this->RatedPosts($cat_ID);
         $cat_data = $this->getCatData($cat_ID);
-        foreach($cat_data as $key => $cat_post){
+        foreach($cat_data as $cat_post){
             $post_id=$cat_post['id'];
             foreach($liked_posts as $like_data){
-                if($post_id == $like_data['id']){
-                    unset($cat_data[$key]);
+                // var_dump($post_id);
+                if($post_id !== $like_data){
+                    unset($cat_post[$key]);
                 }
             }
-            
         }
         return $cat_data;
     }
@@ -717,7 +753,7 @@ class Payment{
         $db = new SafeMySQL();
         $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
         if($status && !empty($status) && isset($status) && $status !== NULL){
-            if($status==='Active'){
+            if($status==='Active' || $status==='Activate'){
                 return TRUE;
             }elseif($status==='Unsubscribed'){
                 $mail = $db->getOne("SELECT mail FROM users WHERE id=?i", $_SESSION['id']);

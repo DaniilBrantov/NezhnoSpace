@@ -1,4 +1,11 @@
+<?php
+require_once( get_theme_file_path('processing.php') );
+$subscription = new Subscription();
+$rec_id=46;
+$rec = $subscription->RatedPosts($rec_id);
+var_dump($rec);
 
+?>
 
 
 

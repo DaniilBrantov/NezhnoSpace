@@ -16,7 +16,7 @@ class CloudPayments {
     public function checkPayStatusDB(): bool {
         $today = date('Y-m-d H:i:s');
         $status = $this->db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
-        if ($status === 'Active') {
+        if ($status === 'Active' || $status === 'Activate') {
           return true;
         } else {
           if($update_status = $this->updatePayStatus()){

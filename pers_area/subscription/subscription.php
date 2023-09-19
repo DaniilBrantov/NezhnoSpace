@@ -8,7 +8,6 @@
     $six_month=945;
     $twelve_month=946;
 
-
 $subscription = new Subscription();
 
 $daily_id = 45;
@@ -18,10 +17,11 @@ $theme_id=47;
 $today_practice= $subscription->getTodayPractice($daily_id);
 $daily_practices=$subscription->getCatData($daily_id);
 // $recommendations=$subscription->getCatData($rec_id);
-$recommendations=$subscription->getFilterPostsByLike($rec_id);
-$recommendations = array_slice($recommendations, 0, 6);
+$recommendations=$subscription->filterPosts($rec_id);
+// var_dump($subscription->getFilterPostsByLike($rec_id));
+// $recommendations = array_slice($recommendations, 0, 6);
 //Перемешиваем массив и выводим рандомные посты
-$recommendations = shuffleArray($recommendations);
+// $recommendations = shuffleArray($recommendations);
 $month_theme=$subscription->getCatData($theme_id);
 
 
@@ -34,7 +34,7 @@ $month_theme=$subscription->getCatData($theme_id);
 
 <div class="subcscription_container"
     data-status-payment='<?php 
-    if($_SESSION['status'] == "Active"){
+    if($_SESSION['status'] == "Active" || $_SESSION['status'] == "Activate"){
         echo 'true';
     }elseif($_SESSION['status'] == "Unsubscribed"){
         echo 'true';
@@ -191,7 +191,12 @@ $month_theme=$subscription->getCatData($theme_id);
                 <div class='blockSub_lesson-time'>
                     <?php echo (empty($month["lesson_time"]) ? '' : $month["lesson_time"].' минут');?></div>
                 <div class='blockSub_next-post-date'>
-                    <?php echo (empty($month["next_post_date"]) ? 'скоро' : $month["next_post_date"]);?></div>
+                    <?php 
+                        $nextPostDate = date('Y-m-d', strtotime('+1 day'));
+                        // var_dump($month["next_post_date"]);
+                        echo (empty($month["next_post_date"]) ? $nextPostDate : $month["next_post_date"]);
+                    ?>
+                </div>
                 <div class='blockSub_audio hidden'>
                     <?php echo (empty($month["audio"]) ? '' : 'true');?></div>
             </div>
@@ -285,7 +290,7 @@ $month_theme=$subscription->getCatData($theme_id);
                 <div class='blockSub_lesson-time'>
                     <?php echo (empty($rec["lesson_time"]) ? '' : $rec["lesson_time"].' минут');?></div>
                 <div class='blockSub_next-post-date'>
-                    <?php echo (empty($rec["next_post_date"]) ? 'скоро' : $rec["next_post_date"]);?></div>
+                    <?php //echo (empty($rec["next_post_date"]) ? 'скоро' : $rec["next_post_date"]);?></div>
                 <div class='blockSub_audio hidden'>
                     <?php echo (empty($rec["audio"]) ? '' : 'true');?></div>
             </div>
