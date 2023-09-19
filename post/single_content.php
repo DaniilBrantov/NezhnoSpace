@@ -1,9 +1,24 @@
 <?php 
 global $post;
+$post_id = $post->ID;
 require_once( get_theme_file_path('processing.php') );
 $payment=new Payment();
-$cat_data = get_the_category( $post->ID )[0];
+$cat_data = get_the_category( $post_id )[0];
 $cat_slug=$cat_data->slug;
+$subscription= new Subscription();
+$post_ID = $post_id;
+// var_dump($post_ID);
+
+$liked_post = '';
+foreach ($subscription->filterPosts(46) as $liked_post) {
+    if($post_id === $liked_post['id']){
+        $liked_post = 'select';
+    }
+} 
+
+
+
+
 if( $cat_slug === "blogs"){
 
 ?>
@@ -35,7 +50,7 @@ if( $cat_slug === "blogs"){
 }elseif( $cat_slug==="daily-practices" || $cat_slug==="recommendations" || $cat_slug==="themes"){
     CheckAuth();
 
-    if(!$post->ID){
+    if(!$post_id){
         header('Location: subscription');
     }else{
         $subscription= new Subscription();
@@ -183,11 +198,13 @@ if( $cat_slug === "blogs"){
 </div>
 
 <?php 
-$subscription= new Subscription();
-if($subscription->getFilterCat($post->ID, "recommendations")){ ?>
+
+if($subscription->getFilterCat($post_id, "recommendations")){ ?>
 <div class='single_button-reaction' data-post-id="<?php echo $post->ID; ?>"
     data-user-id="<?php echo $_SESSION['id']; ?>">
-    <button id="like" class="like">
+    <button id="like" class="like <?php
+        echo $liked_post;
+    ?>">
         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M2.0638 12.4897C2.03793 12.0175 2.10861 11.545 2.27151 11.1011C2.43441 10.6571 2.6861 10.251 3.01123 9.90756C3.33636 9.56414 3.72809 9.29055 4.16249 9.10362C4.59689 8.91668 5.06485 8.82031 5.53777 8.82031C6.01068 8.82031 6.47863 8.91668 6.91303 9.10362C7.34743 9.29055 7.73916 9.56414 8.06429 9.90756C8.38942 10.251 8.64113 10.6571 8.80402 11.1011C8.96692 11.545 9.03758 12.0175 9.01172 12.4897V18.3543C9.03758 18.8265 8.96692 19.2991 8.80402 19.7431C8.64113 20.187 8.38942 20.5931 8.06429 20.9366C7.73916 21.28 7.34743 21.5535 6.91303 21.7404C6.47863 21.9274 6.01068 22.0238 5.53777 22.0238C5.06485 22.0238 4.59689 21.9274 4.16249 21.7404C3.72809 21.5535 3.33636 21.28 3.01123 20.9366C2.6861 20.5931 2.43441 20.187 2.27151 19.7431C2.10861 19.2991 2.03793 18.8265 2.0638 18.3543V12.4897Z"
