@@ -74,7 +74,7 @@ if(isset($email) && !empty($email) && isset($user_data) && !empty($user_data)) {
     $admin->setUserData($_POST['email'],$_POST['status'],$_POST['pay_choice'],$_POST['weeks']);
     if ($result = $admin->sendRegistrationLink()) {
         // Выводим данные пользователя
-        var_dump($user_data);
+        // var_dump($user_data);
     } else {
         echo 'Failed to send the registration link.';
     }

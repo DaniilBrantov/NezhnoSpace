@@ -169,12 +169,12 @@ $month_theme=$subscription->getCatData($theme_id);
     </section>
     <?php 
   //};
-?> -->
+    ?> -->
 
 
 
 
-<h3 class="subcscription_title">Темы</h3>
+    <h3 class="subcscription_title">Темы</h3>
     <section class="month-theme_slider">
         <?php 
       foreach ($month_theme as $month) { 
@@ -267,11 +267,6 @@ $month_theme=$subscription->getCatData($theme_id);
     <?php 
   };
 ?>
-</div>
-
-
-
-
 
 
 
@@ -360,7 +355,7 @@ $month_theme=$subscription->getCatData($theme_id);
     <?php 
   };
 ?>
-
+</div>
 
 
 

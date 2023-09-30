@@ -85,8 +85,12 @@
         this.banner.paddingBottom = '5px';
       }
       if (window.screen.height > 800 && window.screen.width < 800) {
-        document.querySelector('.subscription_payment-banner').style.height = '80vh';
+        var subscriptionPayBanner = document.querySelector('.subscription_pay-banner');
+        if (subscriptionPayBanner) {
+            subscriptionPayBanner.style.height = '80vh';
+        }
       }
+    
       if (this.banner.clientHeight <= 700 && window.screen.width < 800) {
         this.banner.style.height = 'max-content';
         document.querySelector('.subscription_payment-banner_background').style.overflowY = 'auto';
@@ -151,12 +155,15 @@ $(".pay-banner_promocode-btn").click(function (e) {
     data: formData,
     success: function (data) {
       if (data.status) {
-        showError('promo', "Промокод применён успешно. Выберите вариант подписки");
-        document.querySelector('.pay-banner_promocode-input.error').style.borderColor = 'green';
-        document.querySelector('.pay-banner_promocode-input.error').style.outline = '1px solid green';
-        document.querySelector('.pay-banner_promocode-input-wrap .text-error_promo').style.color = 'green';
-        hideError('promo');
-        document.querySelectorAll('.post-promocode-payment').forEach((input) => (input.value = promo));
+          showError('promo', "Промокод применён успешно. Выберите вариант подписки");
+          document.querySelector('.pay-banner_promocode-input.error').style.borderColor = 'green';
+          document.querySelector('.pay-banner_promocode-input.error').style.outline = '1px solid green';
+          document.querySelector('.pay-banner_promocode-input-wrap .text-error_promo').style.color = 'green';
+          hideError('promo');
+          document.querySelectorAll('.post-promocode-payment').forEach((input) => (input.value = data.sale));
+          
+          // Сохранение переменной в локальном хранилище
+          localStorage.setItem('promo', data.sale);
       } else {
         for (let key in data) {
           if (key !== 'status') {
@@ -170,15 +177,13 @@ $(".pay-banner_promocode-btn").click(function (e) {
       showError('promo', "Произошла непредвиденная ошибка");
       hideError('promo');
     }
-  }).then((data) => {
-    window.location.href = 'pay_success';
-  });
+  })
 });
 
 
 
 const popupContainer = document.getElementById('popupContainer');
-
+var promo = localStorage.getItem('promo');
 
 function handleClick(service_id) {
   if (popupContainer) {
@@ -210,6 +215,11 @@ function handleClick(service_id) {
         formData.append('service_id', service_id);
         formData.append('email', emailValue);
         formData.append('phone', phoneValue);
+        if (promo !== null && promo !== undefined) {
+          formData.append('promo', promo);
+          console.log(promo);
+        }
+        
         
         $.ajax({
           url: "payment",

@@ -102,8 +102,8 @@ function load_script() /*имя функции произвольное*/
 		"slick_slider", /*любое уникальное имя*/
 		get_template_directory_uri() . "/libs/slick/slick.min.js", 
 		array("my_jquery"), /*Массив названий всех зарегистрированных скриптов, от которых зависит регестрируемый*/
-		null, /*т.е. не добовлять версию скрипта.*/
-		false
+		time(),
+		true
 	);
 	wp_enqueue_script("slick_slider");	/*добавить стиль в очередь*/
 
@@ -147,7 +147,7 @@ function load_script() /*имя функции произвольное*/
 		);
 		wp_enqueue_script("flickity-js");
 
-	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription","cloudpayments", "paymentBanner", "try_free_slider"];
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription","cloudpayments", "paymentBanner", "try_free_slider", "alarmManager", "survey"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(

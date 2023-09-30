@@ -306,9 +306,117 @@ class UserValidationErrors
 
 
 
+// if($_SESSION['id'] == 190){
+    // class Subscription {
+    //     private $db;
+
+    //     public function __construct() {
+    //         $this->db = new SafeMySQL();
+    //     }
+
+    //     public function getCatData($cat_ID) {
+    //         $query_args = array(
+    //             'post_type' => 'post',
+    //             'orderby' => 'date',
+    //             'order' => 'ASC',
+    //             'cat' => $cat_ID,
+    //             'posts_per_page' => -1,  // Получить все посты в категории
+    //         );
+        
+    //         $posts = new WP_Query($query_args);
+    //         return $posts->posts; // Вернуть массив постов
+    //     }
+
+    //     public function filterPosts($cat_ID) {
+    //         $posts = $this->db->queryPostsByCategory($cat_ID);
+    //         $payment = new Payment();
+
+    //         if (empty($posts)) {
+    //             return [];
+    //         }
+
+    //         $surveyData = $this->getSurveyData();
+    //         $count = count($posts);
+    //         $filteredPosts = [];
+
+    //         if ($payment->getCheckPayment()) {
+    //             $countToSelect = !empty($surveyData) ? 4 : 2;
+    //         } else {
+    //             $countToSelect = !empty($surveyData) ? 2 : 4;
+    //         }
+
+    //         if ($count <= $countToSelect) {
+    //             $filteredPosts = $posts;
+    //         } else {
+    //             $randomKeys = array_rand($posts, $countToSelect);
+    //             if (!is_array($randomKeys)) {
+    //                 $randomKeys = [$randomKeys];
+    //             }
+
+    //             foreach ($randomKeys as $key) {
+    //                 $filteredPosts[] = $posts[$key];
+    //             }
+    //         }
+
+    //         return $filteredPosts;
+    //     }
+
+    //     protected function checkCatData($posts, $cat_ID) {
+    //         $count_open_posts = $this->getCountOpenCatPosts($cat_ID);
+    //         $i = 0;
+    //         $close = 1;
+    //         $res = [];
+
+    //         foreach ($posts as $post) {
+    //             $res[$i] = $this->getPostData($post->ID);
+    //             $payment = new Payment();
+
+    //             if ($payment->getCheckPayment()) {
+    //                 if ($i < $count_open_posts) {
+    //                     $res[$i]['status'] = true;
+    //                 } else {
+    //                     $res[$i]['status'] = false;
+    //                     $res[$i]['next_post_date'] = $this->getNextPostDate($close, $cat_ID);
+    //                     $close++;
+    //                 }
+    //             }
+
+    //             if ($res[$i]['exception'] === '1') {
+    //                 $res[$i]['status'] = true;
+    //                 array_unshift($res, $res[$i]);
+    //                 unset($res[$i]['next_post_date']);
+    //                 unset($res[$i]);
+    //             }
+
+    //             $i++;
+    //         }
+
+    //         return $res;
+    //     }
+
+    //     protected function getPostData($id) {
+    //         // Метод для получения данных о посте по его ID
+    //         // Ваша реализация
+    //     }
+
+    //     protected function getCountOpenCatPosts($cat_ID) {
+    //         // Метод для получения количества открытых постов конкретной категории
+    //         // Ваша реализация
+    //     }
+
+    //     protected function getNextPostDate($close_posts, $cat_ID) {
+    //         // Метод для получения даты следующего поста
+    //         // Ваша реализация
+    //     }
+
+    //     protected function getSurveyData() {
+    //         // Метод для получения данных опроса
+    //         // Ваша реализация
+    //     }
 
 
-
+    // }
+// }else{
 class Subscription{
     // Получить данные с каждого поста конкретной категории
     public function getCatData($cat_ID){
@@ -611,7 +719,7 @@ class Subscription{
         while (have_posts()) : the_post();
             $res[$i] = $this->getPostData(get_the_ID());
             if($id === $res[$i]['id']){
-                if($this->getCheckPayment()){
+                if($payment->getCheckPayment()){
                     if($i < $count_open_posts){
                         $res[$i]['status']=true;
                     }else{
@@ -623,7 +731,7 @@ class Subscription{
                     $res[$i]['next_post_date']=$this->getNextPostDate(1, $cat_ID);
                 };
                 if($res[$i]['exception']==='1'){
-                    $res[$i]['status']=TRUE;
+                    $res[$i]['status'] = true;
                     array_unshift($res, $res[$i]);
                     unset($res[$i]);
                 }
@@ -639,13 +747,19 @@ class Subscription{
         session_start();
         $type = 'like';
         $user_id = $_SESSION['id'];
-        $user_likes = $db->getCol("SELECT post_id FROM likes WHERE user_id = ?i AND type = ?s"  , $user_id, $type);
+        $user_likes = $db->getCol("SELECT post_id FROM likes WHERE user_id = ?i AND type = ?s", $user_id, $type);
         $cat_data = $this->getCatData($cat_ID);
-        $result_list = array_filter($cat_data, function($cat_post) use ($user_likes) {
-            return in_array($cat_post['id'], $user_likes);
-        });
-        return $user_likes;
+        if ($cat_data !== null) {
+            $result_list = array_filter($cat_data, function ($cat_post) use ($user_likes) {
+                return in_array($cat_post['id'], $user_likes);
+            });
+    
+            return $result_list;
+        } else {
+            return array();
         }
+    }
+    
     
     // Получить отфильтрованные по лайкам посты 
     public function getFilterPostsByLike($cat_ID){
@@ -680,6 +794,8 @@ class Subscription{
         }
     }
 }
+// }
+
 //Payment
 class Payment{
     // Получить проверку промокода
@@ -874,6 +990,7 @@ class Payment{
         }
     }   
 }
+
 class ChangeRole {
     private $db;
     public function __construct() {
@@ -922,6 +1039,7 @@ class ChangeRole {
         return $result ? true : false;
     }
 }
+
 class NewUserRole {
     private array $user_data; 
     /**
@@ -1052,6 +1170,7 @@ class NewUserRole {
         return $this->user_data;
     }
 }
+
 class addPromo {
     public function add_promo_code($promo, $sale, $first_date, $last_date, $paid_days=null) {
         $db = new SafeMySQL();

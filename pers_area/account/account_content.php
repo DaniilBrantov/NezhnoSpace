@@ -27,7 +27,7 @@
             <div class="account_analytics-container">
                 <div>Мой прогресс:</div>
                 <img src="<?php img('sapiens.png') ?>" />
-                <div class="account_analytics_not-result-text">Пока не готов результат</div>
+                <!-- <div class="account_analytics_not-result-text">Пока не готов результат</div> -->
                 <a href="/survey" class='blue_btn account_analytics_survey-link'>Пройти опрос</a>
             </div>
             <form class="account_personal-data">

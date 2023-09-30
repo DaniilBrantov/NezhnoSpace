@@ -572,104 +572,60 @@
         </div>
     </section>
     <section class="subscriptions" id="subscriptions">
-        <div class="subscriptions_wrap">
-            <h2 id="subscriptions_title" class="subscriptions_title">Мне поможет:</h2>
-            <div class="subscription_cnt">
-                <ul class="subscriptions_list">
-                    <li class="subscriptions_item">
-                        <span class='subscriptions_item-stroke'></span>
-                        <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
-                                с&nbsp;Нежно</p>
-                            <div class="subscriptions_item-info">
-                                <span class="subscriptions_item-duration">1 месяц</span>
-                                <span class="subscriptions_item-price">3000 ₽</span>
-                                <!-- <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> -->
-                                <!-- <span class="subscriptions_price-month">3000 ₽ / мес.</span> -->
-                            </div>
+    <div class="subscriptions_wrap">
+        <h2 id="subscriptions_title" class="subscriptions_title">Мне поможет:</h2>
+        <div class="subscription_cnt">
+            <ul class="subscriptions_list">
+                <?php
+                $subscriptionOptions = [
+                    [
+                        'duration' => '1 месяц',
+                        'price' => '3000 ₽',
+                        'payment_id' => '944',
+                        'service_id' => '1',
+                    ],
+                    [
+                        'duration' => '6 месяцев',
+                        'price' => '15000 ₽',
+                        'payment_id' => '945',
+                        'service_id' => '2',
+                    ],
+                    [
+                        'duration' => '1 год',
+                        'price' => '25000 ₽',
+                        'payment_id' => '946',
+                        'service_id' => '3',
+                    ],
+                ];
+
+                foreach ($subscriptionOptions as $option) :
+                ?>
+                <li class="subscriptions_item">
+                    <span class='subscriptions_item-stroke'></span>
+                    <div class="subscriptions_item-wrap">
+                        <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе с&nbsp;Нежно</p>
+                        <div class="subscriptions_item-info">
+                            <span class="subscriptions_item-duration"><?= $option['duration'] ?></span>
+                            <span class="subscriptions_item-price"><?= $option['price'] ?></span>
                         </div>
-                        <?php 
-                            if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
-
-
-                        ?>
-                        <form id="payment_form" method='post'>
-                            <input type="hidden" value="944" name="payment_id">
-                            <input id="service_id" type="hidden" value="1" name="service_id">
-                            <button class="pay-banner_option-button" name="payment_btn" type="submit">хочу подписку</button>
-                        </form>
-                        <?php        
-                            } else {
-                        ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
-                        <?php        
-                            }
-                        ?>
-
-                    </li>
-                    <li class="subscriptions_item">
-                        <span class='subscriptions_item-stroke'></span>
-                        <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
-                                с&nbsp;Нежно</p>
-                            <div class="subscriptions_item-info">
-                                <span class="subscriptions_item-duration">6 месяцев</span>
-                                <span class="subscriptions_item-price">15000 ₽</span>
-                                <!-- <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> -->
-                                <!-- <span class="subscriptions_price-month">2500 ₽ / мес.</span> -->
-                            </div>
-                        </div>
-                        <?php 
-                            if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
-                        ?>
-                        <form id="payment_form" method='post'>
-                            <input type="hidden" value="${this.optionsPayment[option].value}" name="payment_id">
-                            <input id="service_id" type="hidden" value="2" name="service_id">
-                            <input type="hidden" value="945" name="payment_id">
-                            <button class="pay-banner_option-button" name="payment_btn" type="submit">хочу подписку</button>
-                        </form>
-                        <?php        
-                            } else {
-                        ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
-                        <?php        
-                            }
-                        ?>
-
-                    </li>
-                    <li class="subscriptions_item">
-                        <span class='subscriptions_item-stroke'></span>
-                        <div class="subscriptions_item-wrap">
-                            <p class="subscriptions_item-title">Начни заботиться о&nbsp;себе
-                                с&nbsp;Нежно</p>
-                            <div class="subscriptions_item-info">
-                                <span class="subscriptions_item-duration">1 год</span>
-                                <span class="subscriptions_item-price">25000 ₽</span>
-                                <!-- <span class="subscriptions_item-trial">первые 7 дней за 7 ₽</span> -->
-                                <!-- <span class="subscriptions_price-month">2084 ₽ / мес.</span> -->
-                            </div>
-                        </div>
-                        <?php 
-                            if ($_SESSION['id'] || !$_SESSION['id']==NULL) {
-                        ?>
-                        <form id="payment_form" method='post'>
-                            <input type="hidden" value="946" name="payment_id">
-                            <input id="service_id" type="hidden" value="3" name="service_id">
-                            <button class="pay-banner_option-button" name="payment_btn" type="submit">хочу подписку</button>
-                        </form>
-                        <?php        
-                            } else {
-                        ?>
-                        <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
-                        <?php        
-                            }
-                        ?>
-                    </li>
-                </ul>
-                <p class="ta_center">Пока не готовы начать? Узнайте больше о&#160;подписке Нежно Space</p>
-            </div>
+                    </div>
+                    <?php if ($_SESSION['id'] || !$_SESSION['id'] == NULL) : ?>
+                    <form class="payment_form" method='post'>
+                        <input type="hidden" value="<?= $option['payment_id'] ?>" name="payment_id">
+                        <input type="hidden" value="<?= $option['service_id'] ?>" name="service_id">
+                        <button class="pay-banner_option-button" name="payment_btn" type="submit">хочу подписку</button>
+                    </form>
+                    <?php else : ?>
+                    <a href="confirm-anxiety"><button type='button'>хочу подписку</button></a>
+                    <?php endif; ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+            <p class="ta_center">Пока не готовы начать? Узнайте больше о&#160;подписке Нежно Space</p>
         </div>
+    </div>
     </section>
+
 
     <audio preload='metadata' class='audio' src='' loop></audio>
 </main>
@@ -709,8 +665,8 @@
   </div>
 </div>
 
-<div class="trial_audio">
-                        <div class="player">
+<!-- <div class="trial_audio"> -->
+                        <!-- <div class="player">
                             <div class="player__wrap">
                                 <div class="info">
                                     <span class="info-icon">
@@ -781,7 +737,6 @@
                                     </svg>
                                 </span>
                                 <div class="player_box">
-                                    <!-- input range -->
                                     <div class="progress-container" id="progress-container">
                                         <input type="range" class="progress" id="progress" max="100" value="0">
                                     </div>
@@ -792,4 +747,4 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->

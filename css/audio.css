@@ -25,8 +25,6 @@
 .info {
   cursor: pointer;
   background: transparent;
-
-  position: relative;
 }
 .info-icon {
   display: flex;
@@ -39,16 +37,12 @@
 .info-tultip {
   position: absolute;
   right: 0;
-  left: -80px;
-  top: 40px;
   display: none;
   width: 200px;
   height: 100px;
   padding: 10px;
   border-radius: 10px;
-  background-color: var(--main_3);
-
-  z-index: 10;
+  background-color: antiquewhite;
 }
 .info-tultip.active {
   display: block;
@@ -231,17 +225,6 @@ input[type="range"]:active::-ms-thumb {
   display: flex;
 }
 
-.slide_audio .title {
-  display: none;
-}
-.slide_audio .info-icon{
-  width: auto;
-  height: fit-content;
-}
-
-
-
-
 @media screen and (min-width: 960px) {
   .player {
     display: flex;
@@ -252,7 +235,7 @@ input[type="range"]:active::-ms-thumb {
   .player__wrap {
     flex-direction: row-reverse;
     order: 1;
-    /* width: 20%; */
+    width: 20%;
     justify-content: space-between;
   }
   .volume-box {
@@ -268,11 +251,7 @@ input[type="range"]:active::-ms-thumb {
   }
   .player__box-wrap {
     justify-content: space-between;
-    max-width: 80%;
-    flex-grow: 1;
-  }
-  .info-tultip {
-    left: -130px;
+    width: 80%;
   }
   .pause,
   .play {

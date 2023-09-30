@@ -295,30 +295,32 @@ $(function () {
 
   $(".slider_sliders").slick("setPosition");
 });
-
 $(function() {
   $(".subscriptions_list").slick({
     infinite: false,
     slidesToShow: 3,
+    initialSlide: 3,
     centerMode: true,
     waitForAnimate: false,
     variableWidth: true,
     variableHeight: true,
     speed: 700,
     touchThreshold: 25,
-    initialSlide: 0,
-    centerPadding: "100px",
+    // initialSlide: 0,
+    centerPadding: "0px",
     responsive: [
       {
         breakpoint: 960,
         settings: {
           slidesToShow: 1,
           initialSlide: 1,
+          centerPadding: "100px",
         },
       },
     ],
   });
 });
+  
   
 
 

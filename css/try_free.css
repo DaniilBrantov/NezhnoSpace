@@ -42,6 +42,7 @@
 }
 .slide_audio{
     max-width: 350px;
+    margin: auto;
 }
 .slide_btn{
     background: var(--blue);

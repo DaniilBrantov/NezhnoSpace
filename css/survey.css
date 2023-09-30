@@ -551,17 +551,18 @@
   max-width: 880px;
   width: 100%;
   padding: 64px 32px;
-  
   background: #FFFFFF;
   box-shadow: 0px 6px 20px rgba(17, 17, 17, 0.25);
   border-radius: 32px;
   position: relative;
 }
+.survey_modal-text p{
+  margin: 15px 0;
+}
 .survey_modal_btn-close {
   position: absolute;
   right: 32px;
   top: 32px;
-
   cursor: pointer;
 }
 .question-container_age .answer-container {

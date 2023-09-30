@@ -8,9 +8,18 @@ CheckAuth();
 $id=$_POST['service_id'];
 $email=$_POST['email'];
 $phone=$_POST['phone'];
+$promo=$_POST['promo'];
 $quantity = 1;
 $user_id=$_SESSION['id'];
 $service = $db->getRow("SELECT * FROM services WHERE id=?i", $id);
+$price = (int)$service['price'];
+
+// Promocode
+if ($promo != 0) {
+    $promo_price = $price / 100 * $promo;
+    $price = round($price - $promo_price);
+}
+
 $user = $db->getRow("SELECT * FROM users WHERE id=?i", $user_id);
 $check_errors = new UserValidationErrors();
 $error_email=$check_errors->getEmail($email);
@@ -48,7 +57,7 @@ $data['label'] = $label;
 $data['publicId'] = $id;
 // $data['service_name'] = $label;
 $data['service_name'] = $service['name'];
-$data['price'] = (int)$service['price'];
+$data['price'] = $price;
 $data['email'] = $user['mail'];
 $data['phone'] = $user['telephone'];
 $data['period'] = $service['month_count'];
