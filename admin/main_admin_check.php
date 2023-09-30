@@ -5,16 +5,158 @@
  
  */
 
+// require_once('wp-load.php' );
+// require_once( 'wp-admin/includes/admin.php');
+// $title=$_POST['title'];
+// $excerpt=$_POST['excerpt'];
+// $content=$_POST['content'];
+// $category=$_POST['category'];
+// var_dump($title);
+require_once(get_theme_file_path('processing.php'));
 
-require_once('wp-load.php' );
-require_once( 'wp-admin/includes/admin.php');
+//! Написать функцию чтобы закрылся доступ до 01.06 
+// Проверить работу оплаты
 
-$title=$_POST['title'];
-$excerpt=$_POST['excerpt'];
-$content=$_POST['content'];
-$category=$_POST['category'];
 
-var_dump($title);
+// Создать возможность добавления токена с полями mail,token,info через .csv file
+
+// Создать возможность добавлять поля с полями mail,token,info, а также возможность их удалить и редактировать
+
+// Создать форму html с полями name,surname,mail, 
+// status(реализовать с помощью select, проходя по каждому 
+// элементу и выводить данные из бд)
+
+// класс, который позволяет добавить пользователя в БД. Ещё чтобы была возможность редактировать и удалять каждое поле
+
+
+
+
+
+
+
+// Пример использования класс ChangeRole, 
+// который меняет пользователям со статусом 3 
+// на тот статус, что нужно. Добавление emails 
+// происходит через csv
+
+// $changeRole = new ChangeRole();
+// $result = $changeRole->changeStatusForUsersFromCSV('wp-content/themes/my-theme/pdf_files/change_status.csv', 1);
+// if ($result) {
+//     echo "Статус успешно изменен для выбранных пользователей.";
+// } else {
+//     echo "Не удалось изменить статус для выбранных пользователей.";
+// }
+
+
+
+
+// Создаем объект класса addPromo
+$add_promo = new addPromo();
+
+// Вызываем метод add_promo_code() с нужными параметрами
+$result = $add_promo->add_promo_code($_POST['promo'], $_POST['sale'], $_POST['first_date'], $_POST['last_date'], $_POST['paid_days']);
+
+// Создаем массив с данными пользователя
+$user_data = [
+    'mail' => $_POST['email'],
+    'status' => $_POST['status'],
+    'pay_choice' => $_POST['pay_choice'],
+    'date' => date("Y-m-d H:i:s"),
+    'weeks' => $_POST['weeks'] ?? null,
+];
+
+$email = $_POST['email'];
+
+// Проверяем наличие и заполненность обязательных полей
+if(isset($email) && !empty($email) && isset($user_data) && !empty($user_data)) {
+    $admin = new NewUserRole($user_data);
+    // Отправляем ссылку для регистрации
+    $admin->setUserData($_POST['email'],$_POST['status'],$_POST['pay_choice'],$_POST['weeks']);
+    if ($result = $admin->sendRegistrationLink()) {
+        // Выводим данные пользователя
+        // var_dump($user_data);
+    } else {
+        echo 'Failed to send the registration link.';
+    }
+} else {
+    echo 'Failed to send the registration link.';
+}
+
+// Выводим результат
+var_dump($result);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function sendRegistrationLink($email, $user_data) {
+//     require_once(get_theme_file_path('send_mail.php'));
+//     $registrationPage = 'https://nezhno.space/registration';
+//     $token = generateUniqueToken();
+//     storeToken($email, $token, $user_data);
+
+//     $registrationLink = $registrationPage . '?token=' . urlencode($token);
+//     $subject = 'Registration Link';
+//     $message = 'Please click on the following link to register: ' . $registrationLink;
+//     $result = SendMail($email, $subject, $message, $subject);
+//     return $result;
+// }
+
+// function generateUniqueToken($length = 10) {
+//     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+//     $token = '';
+//     $charactersLength = strlen($characters);
+//     for ($i = 0; $i < $length; $i++) {
+//         $randomIndex = mt_rand(0, $charactersLength - 1);
+//         $token .= $characters[$randomIndex];
+//     }
+//     return $token;
+// }
+
+// function storeToken($email, $token, $user_data) {
+//     $db = new SafeMySQL();
+//     return $db->query("INSERT INTO tokens (mail, token, info) VALUES ('$email', '$token', '$user_data')");
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 // $post_data = array(
 //     'post_title'    => $title,

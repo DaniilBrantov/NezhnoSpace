@@ -1,46 +1,124 @@
 <?php
+session_start();
+require_once( get_theme_file_path('processing.php') );
+$db = new SafeMySQL();
 CheckAuth();
 
-if(checkPayment()){
-    header('Location: subscription');
-    die();
+
+$id=$_POST['service_id'];
+$email=$_POST['email'];
+$phone=$_POST['phone'];
+$promo=$_POST['promo'];
+$quantity = 1;
+$user_id=$_SESSION['id'];
+$service = $db->getRow("SELECT * FROM services WHERE id=?i", $id);
+$price = (int)$service['price'];
+
+// Promocode
+if ($promo != 0) {
+    $promo_price = $price / 100 * $promo;
+    $price = round($price - $promo_price);
 }
 
-if($_POST["payment_btn"] || $_POST["payment_btn"] !== NULL){
-    $service_id=$_POST["payment_id"];
-}elseif($_GET["payment_choice"]){
-    $service_id=$_GET["payment_choice"];
-}else{
-    $service_id=944;
-};
-if(!get_post_meta($service_id, 'month_count', true) || !get_post_meta($service_id, 'price', true)){
-    $service_id=944;
-};
-    $service_number=get_post_meta($service_id, 'month_count', true);
-    $price=get_post_meta($service_id, 'price', true);
-    $description=$mail . ' Купил услугу на ' . $service_number .' месяц(ев)';
-    $mail = $db->getOne("SELECT mail FROM users WHERE id=?i",$_SESSION['id']);
+$user = $db->getRow("SELECT * FROM users WHERE id=?i", $user_id);
+$check_errors = new UserValidationErrors();
+$error_email=$check_errors->getEmail($email);
+$data['status']=true;
 
-//Promocode
-$promo="sale";
-$sale=20;
-$last_date="2023-02-17";
-if($_GET['promo']===$promo){
-    if(date("Y-m-d") < $last_date){
-        $price=$price-($price/100*$sale);
+if(!$check_phone = $check_errors->getTelephone($phone)){
+    if($phone !== $user['telephone']){
+        $db->query("UPDATE users SET telephone='?i' WHERE id='?i'", $phone, $_SESSION['id']);
+        $user['telephone'] = $phone;
     }
+}else{
+    $data['status'] = false;
+    $data['input'] = 'phone';
+    $data['msg'] = $check_phone;
+}
+if(!$error_email){
+    if($email !== $user['mail']){
+        $safe_email = str_replace("'", "\\'", $email);
+        $db->query("UPDATE users SET mail='$safe_email' WHERE id='$_SESSION[id]'");
+        $user['mail'] = $email;
+    }
+}else{
+    $data['status'] = false;
+    $data['input'] = 'email';
+    $data['msg'] = $error_email;
 }
 
 
-    $payment_result=connectionPayment(createPagePayment($price, $description));
-    $payment_url=$payment_result['confirmation']['confirmation_url'];
+// $publicId='pk_3da4553acc29b450d95115b0918f7';
+$apiKey=CLOUD_SECRET_KEY;
+$label = 'Пользователь '. $user_id .' оплатил подписку №'. $id;
+$startDate=date("Y-m-d H:i:s");   
 
-    $_SESSION["payment"]=[
-        "id" => $payment_result["id"],
-        "service_id" => $service_id
-    ];
-    header('Location: ' . $payment_url , true, 301);
-    exit();
+$data['label'] = $label;
+$data['publicId'] = $id;
+// $data['service_name'] = $label;
+$data['service_name'] = $service['name'];
+$data['price'] = $price;
+$data['email'] = $user['mail'];
+$data['phone'] = $user['telephone'];
+$data['period'] = $service['month_count'];
+$data['description'] = $description;
+$data['quantity'] = $quantity;
+$data['apiKey'] = $apiKey;
+$data['startDate'] = $startDate;
+
+
+
+
+echo json_encode ($data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $payment=new Payment();
+// if ($payment->getCheckPayment() || !$_SESSION['id'] || $_SESSION['id']==NULL) {
+//     header('Location: subscription');
+//     die();
+// }
+// $service_data = $payment->getPaymentServiceData();
+// //Promocode
+// if( $_POST['promo'] ){
+//     $promo=$_POST['promo'];
+//     if($payment->getcheckPromocode($promo)['status']){
+//         $price= $service_data['price']-($service_data['price'] / 100 * $payment->getcheckPromocode($promo)['sale']);
+//     }
+// }
+//     $payment_result=$payment->getConnectToPayment($payment->createPagePayment($service_data['price'], $service_data['description']));
+//     $payment_url=$payment_result['confirmation']['confirmation_url'];
+//     $_SESSION["payment"]=[
+//         "id" => $payment_result["id"],
+//         "service_id" => $service_id
+//     ];
+//     header('Location: ' . $payment_url , true, 301);
+//     exit();
 
 
 ?>

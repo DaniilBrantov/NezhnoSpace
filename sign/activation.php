@@ -1,5 +1,5 @@
 <?php get_header(); 
-
+session_start();
 if(!empty($_GET['code']) && isset($_GET['code'])){
     require_once( get_theme_file_path('sign/activation_check.php') );
 }else{

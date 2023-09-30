@@ -18,14 +18,14 @@ require_once( get_theme_file_path('processing.php') );
     }
 
 function update(){
-    $sign = new Sign();
+    $sign = new UserValidationErrors();
     $db = new SafeMySQL();
     if($mail = $db->getOne("SELECT mail FROM users WHERE reset_pass_token=?s",$_POST['pass_token'])){
         $pass=$_POST['pass'];
-        $valid_pass=$sign->ErrPass($pass);
+        $valid_pass=$sign->getPassword($pass);
         if(!$valid_pass){
             if($pass == $_POST['pass_conf']) {
-                $hash=$sign->getHashPass($pass);
+                $hash=password_hash($pass, PASSWORD_DEFAULT);
                 if($db->query("UPDATE users SET password = '$hash' WHERE mail=?s",$mail )){
                     return TRUE;
                 }else{

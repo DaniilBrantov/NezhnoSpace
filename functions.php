@@ -1,7 +1,24 @@
 <?php
-/* scripts and styles */
+function add_cors_headers() {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+}
+add_action('init', 'add_cors_headers');
 
+
+/* scripts and styles */
 /*Регистрация всех стилей*/
+if ( ! defined( 'ABSPATH' ) ) {
+    define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+}
+if ( ! function_exists( 'wp_register_style' ) ) {
+    require_once( ABSPATH . 'wp-includes/functions.wp-styles.php' );
+}
+if ( ! function_exists( 'get_template_directory_uri' ) ) {
+    require_once( ABSPATH . 'wp-includes/theme.php' );
+}
+
 function load_styles(){
 	wp_register_style(
 		"my_style",
@@ -40,16 +57,24 @@ function load_styles(){
 	);
 	wp_enqueue_style("plyr");
 
+	//flickity libs
+	wp_register_style(
+		"flickity",
+		get_template_directory_uri() . "/libs/flickity/flickity.min.css"
+	);
+	wp_enqueue_style("flickity");
+
 
 
 	$css_files = ["header","modal", "main" , "blog", "footer", "about_us", 
-	"page-blog", "404", "documents",
-	"single", "audio", "sign", "account-content","pers_area", "subscription"];
+	"page-blog", "404", "documents", "subscription_lesson",
+	"single", "audio", "sign", "account-content","pers_area", "subscription",
+     "paymentBanner", "survey", "try_free"];
 	
 	for($i=0; $i < count($css_files); $i++){
 		wp_register_style(
 			$css_files[$i],
-			get_template_directory_uri() . "/css/" . $css_files[$i] . ".css?"
+			get_template_directory_uri() . "/assets/css/" . $css_files[$i] . ".css?"
 		);
 		wp_enqueue_style($css_files[$i]);
 	}
@@ -77,8 +102,8 @@ function load_script() /*имя функции произвольное*/
 		"slick_slider", /*любое уникальное имя*/
 		get_template_directory_uri() . "/libs/slick/slick.min.js", 
 		array("my_jquery"), /*Массив названий всех зарегистрированных скриптов, от которых зависит регестрируемый*/
-		null, /*т.е. не добовлять версию скрипта.*/
-		false
+		time(),
+		true
 	);
 	wp_enqueue_script("slick_slider");	/*добавить стиль в очередь*/
 
@@ -112,12 +137,22 @@ function load_script() /*имя функции произвольное*/
 	);
 	wp_enqueue_script("plyr");
 
-	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription"];
+		/* flickity libs */
+		wp_register_script(
+			"flickity-js",
+			get_template_directory_uri() . "/libs/flickity/flickity.pkgd.min.js", 
+			array("my_jquery"),
+			null,
+			false
+		);
+		wp_enqueue_script("flickity-js");
+
+	$js_files=["modal","personal_area", "slider", "functions","menu","sign","theme-text","video-player","player","subscription","cloudpayments", "paymentBanner", "try_free_slider", "alarmManager", "survey"];
 	
 	for($i=0; $i < count($js_files); $i++){
 		wp_register_script(
 			$js_files[$i],
-			get_template_directory_uri() . "/js/" . $js_files[$i] . ".js?" . time(), 
+			get_template_directory_uri() . "/assets/js/" . $js_files[$i] . ".js?" . time(), 
 			array("my_jquery"),
 			null,
 			true
@@ -159,42 +194,34 @@ return $src;
 
 
 
-add_filter( 'manage_users_columns', 'bbloomer_add_new_user_column' );
-function bbloomer_add_new_user_column( $columns ) {
-$columns = [
-'username'=>'Ник',
-'role'=>'Роль',
-'email'=>'Email',
-'age'=>'Возраст',
-'sex'=>'Пол',
-'service'=>'Услуга',
-'telephone'=>'Телефон',
-'date_payment'=>'Дата покупки',
-];
-return $columns;
-}
+// add_filter( 'manage_users_columns', 'bbloomer_add_new_user_column' );
+// function bbloomer_add_new_user_column( $columns ) {
+// $columns = [
+// 'username'=>'Ник',
+// 'role'=>'Роль',
+// 'email'=>'Email',
+// 'age'=>'Возраст',
+// 'sex'=>'Пол',
+// 'service'=>'Услуга',
+// 'telephone'=>'Телефон',
+// 'date_payment'=>'Дата покупки',
+// ];
+// return $columns;
+// }
 
-add_filter( 'manage_users_custom_column', 'bbloomer_add_new_user_column_content', 10, 3 );
-function bbloomer_add_new_user_column_content( $content, $column, $user_id ) {
-$customer = new WC_Customer( $user_id );
+// add_filter( 'manage_users_custom_column', 'bbloomer_add_new_user_column_content', 10, 3 );
+// function bbloomer_add_new_user_column_content( $content, $column, $user_id ) {
+// $customer = new WC_Customer( $user_id );
 
-if ( 'avatar_url' === $column ) {$content = $customer->get_avatar_url();}
-if( 'surname' === $column ){$content = $customer->get_last_name();}
-if( 'name' === $column ){$content = $customer->get_first_name();}
-//if( 'telephone' === $column ){$content = $customer->get_phone();}
-if( 'email' === $column ){$content = $customer->get_email();}
-if( 'username' === $column ){$content = $customer->get_username();}
-if( 'role' === $column ){$content = $customer->get_role();}
-return $content;
-}
-
-
-
-
-
-
-
-
+// if ( 'avatar_url' === $column ) {$content = $customer->get_avatar_url();}
+// if( 'surname' === $column ){$content = $customer->get_last_name();}
+// if( 'name' === $column ){$content = $customer->get_first_name();}
+// //if( 'telephone' === $column ){$content = $customer->get_phone();}
+// if( 'email' === $column ){$content = $customer->get_email();}
+// if( 'username' === $column ){$content = $customer->get_username();}
+// if( 'role' === $column ){$content = $customer->get_role();}
+// return $content;
+// }
 
 
 
@@ -213,12 +240,26 @@ return $content;
 
 /** -------PHP/WP Functions------ **/
 
+//Дефолтное время по МСК
+date_default_timezone_set("Europe/Moscow");
+
+
+
+
 //Проверка авторизации
+
 function CheckAuth(){
 if (!$_SESSION['id'] || $_SESSION['id']==NULL) {
 header('Location: auth');
 }
 };
+
+// Путь к картинке:
+// img('arrow.png');
+function img($img){
+echo get_template_directory_uri()."/assets/images/". $img;
+}
+
 //Путь до папки
 function getUrl(){
 echo get_template_directory_uri();
@@ -239,84 +280,114 @@ return $name;
 
 
 
-//Сегодняшняя ежедневнвя практика
-function TodayPractice($payment_days){
-if(checkPayment()){
-if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
-$daily_practice=CategoryData($payment_days,45);
-$id = $daily_practice[$payment_days]['id'];
 
-if(!empty($id) && isset($id) && $id !== NULL && $payment_days>1){
-$result=subscriptionData($id);
-}else{
-$result=subscriptionData(913);
-}
-}else{
-$result=subscriptionData(913);
-};
-return $result;
-}
-}
+//Сегодняшняя ежедневнвя практика
+// function TodayPractice($payment_days,$payment_date){
+// $arr=CategoryData(ceil(openPosts($payment_date, '', 45)),45);
+// $open_arr=[];
+// $i=0;
+// foreach ($arr as &$value) {
+// if($value['status'] === true){
+// $open_arr[$i]=$value;
+// $i++;
+// }
+// }
+// return(end($open_arr));
+
+
+// if(checkPayment()){
+// if($payment_days !== NULL && isset($payment_days) && !empty($payment_days)){
+// $daily_practice=CategoryData($payment_days,45);
+// $id = $daily_practice[$payment_days]['id'];
+
+// if(!empty($id) && isset($id) && $id !== NULL && $payment_days>1){
+// $result=subscriptionData($id);
+// }else{
+// $result=subscriptionData(913);
+// }
+// }else{
+// $result=subscriptionData(913);
+// };
+// return $result;
+// }
+// }
 
 //Вывод всех записей из конкретной категории
-function CategoryData($open_posts,$category){
+// function CategoryData($open_posts,$category){
 
-if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
-$open_posts=ceil($open_posts);
-$res=[];
-$i=1;
-while (have_posts()) : the_post();
-$res[$i] = subscriptionData(get_the_ID()) ;
-if(checkPayment()){
-if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
-$res[$i]['status']=TRUE;
-}else{$res[$i]['status']=FALSE;}
-};
+// if ( have_posts() ) : query_posts(array( 'orderby'=>'date','order'=>'ASC','cat' => $category));
+// $open_posts=ceil($open_posts);
+// $res=[];
+// $i=1;
+// $close_posts=1;
+// while (have_posts()) : the_post();
+// $res[$i] = subscriptionData(get_the_ID());
+// if(checkPayment()){
+// if($open_posts >= $i || $res[$i]['id']===current($res[1]) || $res[$i]===0){
+// $res[$i]['status']=TRUE;
+// }else{
+// $res[$i]['status']=FALSE;
 
-$i+=1;
-endwhile;
-endif;
-return ($res);
-wp_reset_query();
-};
+// $res[$i]['next_post_date']=getNextPostDate($open_posts,$close_posts,$category);
+// $close_posts++;
+// }
+// };
+
+// if($res[$i]['exception']==='1'){
+// $res[$i]['status']=TRUE;
+// array_unshift($res, $res[$i]);
+// unset($res[$i]);
+// }
+
+// $i+=1;
+// endwhile;
+// endif;
+// return ($res);
+// wp_reset_query();
+// };
 
 
 //Проверка оплаты
-function checkPayment(){
+// function checkPayment(){
 
-$db = new SafeMySQL();
-$status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
+// $db = new SafeMySQL();
+// $status = $db->getOne("SELECT status FROM users WHERE id=?i", $_SESSION['id']);
 
-if($status && !empty($status) && isset($status) && $status !== NULL){
-if($status==='2'){
-return TRUE;
-}else{return FALSE;}
-}else{return FALSE;}
-}
+// if($status && !empty($status) && isset($status) && $status !== NULL){
+// if($status==='2'){
+// return TRUE;
+// }else{return FALSE;}
+// }else{return FALSE;}
+// }
 
 //Данные из конкретной записи
-function subscriptionData($id){
-$post = get_post($id);
+// function subscriptionData($id){
+// $post = get_post($id);
 
-$res=[
-'id' => $post->ID,
-'date' => $post->post_date,
-'excerpt' => $post->post_excerpt,
-'title' => $post->post_title,
-'content' => $post->post_content,
-'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
-'audio' => get_post_meta($post->ID, 'audio', true),
-'lesson_time' => get_post_meta($post->ID, 'lesson_time', true)
-];
-if(checkPayment()){
-$res['link'] = $post->post_name;
-$res['tag'] =get_the_tag_list('<li>#','</li>
-<li>#','</li>', $post->ID );
-}else{
-$res['status']=FALSE;
-}
-return $res;
-}
+// $res=[
+// 'id' => $post->ID,
+// 'date' => $post->post_date,
+// 'excerpt' => $post->post_excerpt,
+// 'title' => $post->post_title,
+// 'content' => $post->post_content,
+// 'image_url' => get_the_post_thumbnail_url( $post->ID, 'full' ),
+// 'audio' => array_shift(get_attached_media( 'audio', $post->ID ))->guid,
+// 'lesson_time' => get_post_meta($post->ID, 'reading_time', true),
+// 'exception' => get_post_meta($post->ID, 'open_posts_exception', true)
+// ];
+// if(checkPayment()){
+// $res['link'] = $post->post_name;
+// $res['tag'] =get_the_tag_list('<li>','</li>
+// <li>','</li>', $post->ID );
+// }else{
+// if($res['exception']==='1'){
+// $res['status']=TRUE;
+// }else{
+// $res['status']=FALSE;
+// }
+// }
+// return $res;
+// }
 
 //Количество дней между датами
 function countDaysBetweenDates($d1, $d2){
@@ -324,12 +395,37 @@ if( $d2!=="0000-00-00 00:00:00" ){
 $d1_ts = strtotime($d1);
 $d2_ts = strtotime($d2);
 $seconds = abs($d1_ts - $d2_ts);
-return floor($seconds / 86400);
+return ceil($seconds / 86400);
 }else{
 return 0;
 }
-
 }
+
+//Дата открытия поста
+// function getNextPostDate($open_posts, $close_posts,$category){
+// if($category===45 || $category===46){
+// $days = 6 - $open_posts-7;
+// if($close_posts){
+// $days=1*$close_posts;
+// }
+// }if($category===47){
+// $days = 6 - $open_posts-7;
+// if($close_posts){
+// $days=$days+7*$close_posts;
+// }
+
+// }
+
+// $next_post_date="+". $days ." day";
+// $next_post_date = strtotime($next_post_date, time());
+// $date = date("d.m.Y",$next_post_date);
+// $date = new DateTime($date);
+// $intlFormatter = new IntlDateFormatter('ru_RU', IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+// $intlFormatter->setPattern('MMMM');
+// $ru_format=date_format($date, 'd'). ' '. $intlFormatter->format($date);
+
+// return($ru_format);
+// }
 
 //Вывод конкретного кол-ва знаков в тексте
 function trimCntChars($txt,$count, $after) {
@@ -360,65 +456,65 @@ return $txt . $after;
 
 
 //Создание платежных данных
-function createPagePayment($price,$description){
-$data = array(
-'amount' => array(
-'value' => $price,
-'currency' => 'RUB',
-),
-'payment_method_data' => array(
-'type' => 'bank_card',
-),
-'capture' => true,
-'confirmation' => array(
-'type' => 'redirect',
-'return_url' => 'https://nezhno.space/pay_success',
-),
-'description' => $description,
-'save_payment_method' => true,
-'metadata' => array(
-'order_id' => 1,
-)
-);
-return $data;
-};
+// function createPagePayment($price,$description){
+// $data = array(
+// 'amount' => array(
+// 'value' => $price,
+// 'currency' => 'RUB',
+// ),
+// 'payment_method_data' => array(
+// 'type' => 'bank_card',
+// ),
+// 'capture' => true,
+// 'confirmation' => array(
+// 'type' => 'redirect',
+// 'return_url' => 'https://nezhno.space/pay_success',
+// ),
+// 'description' => $description,
+// 'save_payment_method' => true,
+// 'metadata' => array(
+// 'order_id' => 1,
+// )
+// );
+// return $data;
+// };
 
 
 //Автоплатёж
-function Autopay($pay_id,$price,$description){
-$data=array(
-'amount' => array(
-'value' => $price,
-'currency' => 'RUB',
-),
-'capture' => true,
-'payment_method_id' => $pay_id,
-'description' => $description,
-);
-return $data;
-};
+// function Autopay($pay_id,$price,$description){
+// $data=array(
+// 'amount' => array(
+// 'value' => $price,
+// 'currency' => 'RUB',
+// ),
+// 'capture' => true,
+// 'payment_method_id' => $pay_id,
+// 'description' => $description,
+// );
+// return $data;
+// };
 
 
 //Подключение к кассе
-function connectionPayment($data){
-$client = new \YooKassa\Client();
-//$set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
-$set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
-$payment = $client->createPayment(
-$data,
-uniqid('', true)
-);
-return $payment;
-};
+// function connectionPayment($data){
+// $client = new \YooKassa\Client();
+// $set_auth=$client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
+// // $set_auth=$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+// $payment = $client->createPayment(
+// $data,
+// uniqid('', true)
+// );
+// return $payment;
+// };
 
 // Получение данных оплаты
-function getPaymentInformation($paymentId){
-$client = new \YooKassa\Client();
+// function getPaymentInformation($paymentId){
+// $client = new \YooKassa\Client();
 // $client->setAuth(YOOKASSA_SHOPID, YOOKASSA_SECRET_KEY);
-$client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
-$payment = $client->getPaymentInfo($paymentId);
-return $payment;
-}
+// // $client->setAuth('975491', 'test_ubpi1LK1auMcV-0o77C9Nn4ikb1h9RbzjaD0_2oFT7I');
+// $payment = $client->getPaymentInfo($paymentId);
+// return $payment;
+// }
 
 //Обновление и проверка параметра пользователя
 function updateData($update_data,$data_validation,$db_column,$err){
@@ -446,93 +542,259 @@ return $errors;
 *
 */
 function vb_reg_new_user() {
-
-// Verify nonce
 if( !isset( $_POST['nonce'] ) || !wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ))
 return( 'Ooops, something went wrong, please try again later.' );
-
-// Post values
 $password = $_POST['pass'];
 $email = $_POST['mail'];
 $name = $_POST['first_name'];
-
 $userdata = array(
 'user_login' => $email,
 'user_pass' => $password,
 'user_email' => $email,
 'first_name' => $name,
 );
-
 $user_id = wp_insert_user( $userdata ) ;
-
-// Return
 if( !is_wp_error($user_id) ) {
-//$user_id = wp_update_user(array('ID' => $user_id, 'description' => $about)); //add description-about
 return '1';
 } else {
 return $user_id->get_error_message();
 }
 die();
-
 }
-
 add_action('wp_ajax_register_user', 'vb_reg_new_user');
 add_action('wp_ajax_nopriv_register_user', 'vb_reg_new_user');
 
 
 //Save Payment
-function SavePayment($paymentId){
-if($paymentId){
-$payment_info=getPaymentInformation($paymentId);
-$id=$_SESSION['id'];
-if($payment_info){
-if($payment_info["status"]==='succeeded'){
-$payment_date=(array)($payment_info["created_at"]);
-$db = new SafeMySQL();
-if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s WHERE
-id=?i", 2,
-$_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"], $payment_date["date"],
-$id)){
-$answer = true;
-}
-}
-}
-}
-return (isset($answer) );
-}
+// function SavePayment($paymentId){
+// if($paymentId){
+// $payment_info=getPaymentInformation($paymentId);
+// $id=$_SESSION['id'];
+// if($payment_info){
+// if($payment_info["status"]==='succeeded'){
+// $payment_date=(array)($payment_info["created_at"]);
+// $db = new SafeMySQL();
+// if($db->query("UPDATE users SET status=?i, pay_choice=?i, payment_method=?s, payment_date=?s, created_payment=?s
+// WHERE
+// id=?i", 2,
+// $_SESSION["payment"]["service_id"], $payment_info['payment_method']['id'], $payment_date["date"],
+// $payment_date["date"],
+// $id)){
+// $answer = true;
+// }
+// }
+// }
+// }
+// return (isset($answer) );
+// }
 
 // Получить данные записи для вывода на страницу. С проверкой оплаты
-function getSubscriptionLesson($get_id, $open_posts){
-$cat = (array)(get_the_category($get_id)[0]);
-$cat_ID=$cat["cat_ID"];
-$category_data=CategoryData($open_posts, $cat_ID);
+// function getSubscriptionLesson($get_id, $open_posts){
+// $cat = (array)(get_the_category($get_id)[0]);
+// $cat_ID=$cat["cat_ID"];
+// $category_data=CategoryData($open_posts, $cat_ID);
 
-foreach($category_data as $el){
-if($el['id'] === $get_id){
-$category_el=$el;
-}
-}
-if($category_el["status"] === true){
-return $category_el;
-}else{
-header('Location: subscription');
-}
-}
+// foreach($category_data as $el){
+// if($el['id'] === $get_id){
+// $category_el=$el;
+// }
+// }
+// if($category_el["status"] === true){
+// return $category_el;
+// }else{
+// header('Location: subscription');
+// }
+// }
 
 //Открытые посты
-function openPosts($get_id, $payment_date){
-$cat = (array)(get_the_category($get_id)[0]);
-$cat_ID=$cat["cat_ID"];
-$today = date("Y-m-d H:i:s");
-$payment_days=countDaysBetweenDates($today, $payment_date);
-if($cat_ID === 45){
-$open_posts=$payment_days;
-}elseif($cat_ID === 46){
-$open_posts=999;
-}elseif($cat_ID === 47){
-$open_posts=$payment_days/7;
+// function openPosts($payment_date, $get_id, $category){
+// $cat = (array)(get_the_category($get_id)[0]);
+// $cat_ID=$cat["cat_ID"];
+// if($category){
+// $cat_ID=$category;
+// }
+// $today = date("Y-m-d H:i:s");
+// $payment_days=countDaysBetweenDates($today, $payment_date);
+// if($cat_ID === 45){
+// $open_posts=$payment_days;
+// }elseif($cat_ID === 46){
+// $open_posts=999;
+// }elseif($cat_ID === 47){
+// $open_posts=$payment_days/7;
+// }
+// return $open_posts;
+// }
 
+
+//Проверка промокода
+// function checkPromocode($promo){
+// $db = new SafeMySQL();
+// $promo_data = $db->getRow("SELECT * FROM promocodes WHERE promo=?s", $promo);
+// if($promo_data){
+// if( $promo === $promo_data['promo'] ){
+// if(date("Y-m-d") <= $promo_data['last_date'] && date("Y-m-d")>= $promo_data['first_date']){
+    // if($promo_data['sale'] >= 100){
+
+    // }
+    // $error['status'] = true;
+    // $error['promo'] = $promo_data['promo'];
+    // $error['sale'] = $promo_data['sale'];
+    // }else{
+    // $error['status'] = false;
+    // $error['msg'] = "Данный промокод не доступен!";
+    // }
+    // }else{
+    // $error['status'] = false;
+    // $error['msg'] = "Неверный промокод!";
+    // }
+    // }else{
+    // $error['status'] = false;
+    // $error['msg'] = "Неверный промокод!";
+    // }
+    // return $error;
+    // }
+
+    //Вывод последнего изображения из поста
+    function LastPostImage($post) {
+    //global $post, $posts;
+    $last_img = '';
+    $output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+        $last_img = end($matches [1]);
+
+        if(empty($last_img)){
+        return false;
+        }
+        return $last_img;
+        }
+
+        // Перемешать массив
+        function shuffleArray($arr) {
+        $result = [];
+
+        while (count($arr)) {
+        $randomIndex = array_rand($arr);
+        $result[] = $arr[$randomIndex];
+        array_splice($arr, $randomIndex, 1);
+        }
+
+        return $result;
+        }
+
+        // Add a User Column to WordPress
+        function add_user_column( $columns ) {
+        $columns['status'] = 'Статус';
+        return $columns;
+        }
+        add_filter( 'manage_users_columns', 'add_user_column' );
+
+        // Edit the User Column in WordPress
+        function edit_user_columns( $value, $column_name, $user_id ) {
+        if ( 'status' == $column_name ) {
+        $user_info = get_userdata($user_id);
+        $mail = $user_info->user_email;
+        require_once( get_theme_file_path('processing.php') );
+        $db = new SafeMySQL();
+        $status = $db->getOne("SELECT status FROM users WHERE mail=?s", $mail);
+        $user_column_value = $status;
+        return $user_column_value;
+        }
+        }
+        add_action( 'manage_users_custom_column', 'edit_user_columns', 10, 3 );
+
+
+        function checkAdmin(){
+        $id=$_SESSION['id'];
+        $db = new SafeMySQL();
+        $status=$db->getOne("SELECT status FROM users WHERE id=?i", $id);
+        if($status === '4'){
+        return TRUE;
+        }else{
+        header('Location: auth');
+        }
+        };
+
+
+
+
+
+        // true);
+        // }
+        // add_action('wp_enqueue_scripts', 'add_cloudpayments_widget_script');
+
+        // Добавление скрипта виджета CloudPayments
+        function add_cloudpayments_widget_script() {
+            wp_enqueue_script('cloudpayments-widget', 'https://widget.cloudpayments.ru/bundles/cloudpayments', array(), '',
+            true);
+        }
+        add_action('wp_enqueue_scripts', 'add_cloudpayments_widget_script');
+
+        // Функция для вывода виджета CloudPayments с автоплатежем
+        function add_cloudpayments_widget($public_key, $description, $amount, $id, $mail) {
+        ob_start();
+        ?>
+        <script>
+        function initCloudPaymentsWidget() {
+            var widget = new cp.CloudPayments();
+            widget.pay('charge', {
+                publicId: '<?php echo $public_key; ?>',
+                description: '<?php echo $description; ?>',
+                amount: '<?php echo $amount; ?>', // Сумма платежа
+                currency: 'RUB',
+                invoiceId: '<?php echo $id; ?>', // Уникальный идентификатор платежа
+                accountId: '<?php echo $mail; ?>',
+                skin: "mini",
+                data: {
+                    myProp: 'myValue' // Можете добавить дополнительные данные платежа
+                }
+            }, {
+                onSuccess: function(options) {
+                    console.log('Успешный платеж');
+                    console.log(options);
+                    // Добавьте здесь код для обработки успешного платежа
+
+                },
+                onFail: function(reason, options) {
+                    console.log('Неуспешный платеж');
+                    console.log(reason, options);
+                    // Добавьте здесь код для обработки неуспешного платежа
+                }
+            });
+        }
+        document.addEventListener("DOMContentLoaded", initCloudPaymentsWidget);
+        </script>
+        <?php
+    $widget_script = ob_get_clean();
+
+    echo $widget_script;
 }
-$open_posts=ceil($open_posts);
-return $open_posts;
+
+
+function compareData()
+{
+    $db = new SafeMySQL();
+    $usersData = $db->getCol("SELECT user_alarm FROM users WHERE id = ?s", $_SESSION["id"]);
+    $themesData = $db->getCol("SELECT description FROM themes");
+    $intersectData = array_intersect($usersData, $themesData);
+    // var_dump($_SESSION["id"]);
+    // var_dump($intersectData);
+    if (count($intersectData) > 0) {
+        $theme = reset($intersectData);
+        $themeData = $db->getRow("SELECT * FROM themes WHERE description = ?s", $theme);
+        return $themeData;
+    }
+    return false;
+}
+
+function checkStatus() {
+    session_start();
+    $status = $_SESSION['status'];
+    if(isset($status)){
+        if($status == "Active" || $status == "Activate"){
+            echo $status;
+        }else{
+            header('Location: account');
+        }
+    }else{
+        header('Location: account');
+    }
 }

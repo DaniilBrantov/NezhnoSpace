@@ -22,16 +22,16 @@
             </div>
             <div class="soc_networks">
                 <a href="https://www.instagram.com/nezhno.space/" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/instagram.svg" alt="">
+                    <img src="<?php img("instagram.svg"); ?>" alt="">
                 </a>
                 <a href="https://vk.com/nezhno.space" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/vk-icon.svg" alt="">
+                    <img src="<?php img('vk-icon.svg') ?>" alt="">
                 </a>
                 <a href="https://t.me/nezhno_space" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/tg-icon.svg" alt="">
+                    <img src="<?php img('tg-icon.svg') ?>" alt="">
                 </a>
                 <a href="mailto:care@nezhno.space" target="_blank">
-                    <img src="<?php echo get_template_directory_uri(); ?>/images/Nezhno.svg" alt="">
+                    <img src="<?php img('Nezhno.svg') ?>" alt="">
                 </a>
             </div>
         </div>
@@ -40,7 +40,6 @@
 <?php wp_footer(); ?>
 
 <script src="https://cdn.plyr.io/3.7.2/plyr.js"></script>
-<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
 AOS.init();
 </script>

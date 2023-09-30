@@ -1,5 +1,7 @@
 <?php
     require_once( get_theme_file_path('processing.php') );
+    session_start();  
+
     CheckAuth();
     $user_data=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
     if(isset($user_data['avatar']) && !empty($user_data['avatar'])){
@@ -15,14 +17,18 @@
         $sex='Пол';
     }
 ?>
+<span class='price_944' data-price='<?php echo (get_post_meta(944, 'price', true))?>' style='display: none'></span>
+<span class='price_945' data-price='<?php echo (get_post_meta(945, 'price', true))?>' style='display: none'></span>
+<span class='price_946' data-price='<?php echo (get_post_meta(946, 'price', true))?>' style='display: none'></span>
 
 <div class="account_section">
     <div class="container">
         <div class="account_sections-main">
             <div class="account_analytics-container">
                 <div>Мой прогресс:</div>
-                <img src="<?php echo get_template_directory_uri(); ?>/images/sapiens.png" />
-                <div class="account_analytics_not-result-text">Пока не готов результат</div>
+                <img src="<?php img('sapiens.png') ?>" />
+                <!-- <div class="account_analytics_not-result-text">Пока не готов результат</div> -->
+                <a href="/survey" class='blue_btn account_analytics_survey-link'>Пройти опрос</a>
             </div>
             <form class="account_personal-data">
                 <div class="account_image-wrap">
@@ -75,7 +81,8 @@
                     required="required" name="account_input-lastName" value="<?php echo $user_data['surname']; ?>" />
                 <span class="text-error text-error_account_input-lastName">text error</span>
                 <input id="account_personal-email" class="account-input-custom" type="email" placeholder="Почта"
-                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" />
+                    required="required" name="account_input-email" value="<?php echo $user_data['mail']; ?>" readonly
+                    disabled />
                 <span class="text-error text-error_account_input-email">text error</span>
                 <input id="account_personal-tel" class="account-input-custom" type="tel" placeholder="Телефон"
                     required="required" name="account_input-tel" value="<?php 
@@ -90,8 +97,74 @@
                 <span id='account-info-block' class='showInfo'>info upload text</span>
             </form>
         </div>
+
+        <?php if ($_SESSION['status'] == "Active" || $_SESSION['status'] == "Activate") { ?>
         <div class="account_sections-footer">
-            Пока не готовы начать? <a>Отменить&nbspподписку Нежно&nbspSpace</a>
+            <!-- Пока не готовы начать?  -->
+            <span class='account_bth_payment-off'>Отменить&nbspподписку Нежно&nbspSpace</span>
         </div>
+        <?php } else { ?>
+        <div id='payment-banner' class='account_payment-banner pay-banner'>
+            <div class='pay-banner_content'>
+                <form class='pay-banner_promocode-wrap'>
+                    <h4 class='pay-banner_promocode-title'>Промокод</h4>
+                    <div class='pay-banner_promocode-input-wrap'>
+                        <input name="promo" class='pay-banner_promocode-input' type="text" placeholder='Промокод'>
+                        <span class="text-error text-error_promo">text error</span>
+                    </div>
+                    <div class='pay-banner_promocode-btn-wrap'>
+                        <button name="promo_btn" class='blue_btn pay-banner_promocode-btn'
+                            type='button'>Использовать</button>
+                    </div>
+                </form>
+                <h4 class='pay-banner_title'>Оформить подписку:</h4>
+                <ul class='pay-banner_options-wrap pay-banner_options-slider'>
+                </ul>
+            </div>
+
+            <!-- <form action="payment.php" method="POST" class='promocode-post'>
+                <input type="text" name="promocode" class='promocode_duble'/>
+                <button type='submit' class='post-promocode-payment'></button>
+            </form> -->
+        </div>
+        <?php  }; ?>
     </div>
 </div>
+
+<section class='account_payment-off_banner_background'>
+    <div id='payment-off_banner' class='account_payment-off_banner payment-off_banner'>
+        <button class='pay-banner_btnClose' type='button'></button>
+        <div class='pay-banner_content'>
+            <h4 class='pay-banner_title'>Вы уверены, что хотите отписаться от подписки Нежно&nbspSpace?</h4>
+            <div class='pay-banner_text'>Вам ещё доступны материалы оплаченного месяца до <span
+                    class='pay-banner_text-date'>05.03.2023</span></div>
+            <div class='account_payment-off_buttons'>
+                <button class='account_payment-off_button account_payment-off_yes'>Да</button>
+                <button class='account_payment-off_button account_payment-off_no'>Нет</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="popupContainer">
+  <div id="popupContent">
+  <form class="authorization_form">
+        <div class="pers_item">
+            <label>Email</label>
+            <input id="email" type="email" name="email" placeholder="Введите email">
+            <span class="text-error text-error_email">text error</span>
+        </div>
+        <div class="pers_item">
+            <label>Номер телефона</label>
+            <input type="tel" id="phone" name="phone" placeholder="Введите номер телефона">
+            <span class="text-error text-error_phone">text error</span>
+        </div>
+        <div class="pers_btn">
+            <button id="mail-phone_btn" name="mail-phone_btn" type="submit" class="blue_btn">Сохранить</button>
+        </div>
+    </form>
+  </div>
+</div>
+
+
+

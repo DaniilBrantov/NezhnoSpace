@@ -72,7 +72,7 @@
                                     <div class="curriculum_btn">
                                         <a href="subscription_lesson?id=' . $var["id"] .'">
                                             <button>
-                                                <img src="'. get_template_directory_uri() .'/images/account_arrow.svg" alt="">
+                                                <img src="'. img('account_arrow.svg') .'" alt="">
                                             </button>
                                         </a>
                                     </div>
@@ -455,7 +455,7 @@
                                 <div class="curriculum_btn curriculum_btn_mobile">
                                     <a href="additional_materials">
                                         <button>
-                                            <img src="'. get_template_directory_uri().'/images/account_arrow.svg" alt="">
+                                            <img src="'. img('account_arrow.svg') .'" alt="">
                                         </button>
                                     </a>
                                 </div>

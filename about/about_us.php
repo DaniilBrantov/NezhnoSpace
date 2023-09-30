@@ -25,26 +25,26 @@
                 </p>
             </div>
             <div class="banner_about_img">
-                <img src="<?php getUrl(); ?>/images/about.jpg" alt="">
+                <img src="<?php img('about-img1.png') ?>" alt="">
             </div>
         </div>
         <test>
             <div class="we_are mt_100">
                 <div class="we_are_item_1">
                     <div class="we_are_img">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/logo_vector.svg" alt="">
+                        <img src="<?php img('logo_vector.svg') ?>" alt="logo" width='50' height='50'>
                     </div>
                     <div class="we_are_txt">
                         <p>
                             Мы работаем через подписку.
-                            У вас будет доступ в кабинет, где находятся
+                            У&nbsp;вас будет доступ в кабинет, где находятся
                             материалы для психологической поддержки
                         </p>
                     </div>
                 </div>
                 <div class="we_are_item_2">
                     <div class="we_are_img">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/logo_vector.svg" alt="">
+                        <img src="<?php img('logo_vector.svg') ?>" alt="logo" width='50' height='50'>
                     </div>
                     <div class="we_are_txt">
                         <p>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="we_are_item_3">
                     <div class="we_are_img">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/logo_vector.svg" alt="">
+                        <img src="<?php img('logo_vector.svg') ?>" alt="logo" width='50' height='50'>
                     </div>
                     <div class="we_are_txt">
                         <p>
@@ -77,8 +77,7 @@
                             что делаем
                         </h3>
                         <p>
-                            Пользователь сам выстраивает свой персональный маршрут терапии.
-                            Мы готовы поддерживать вас в любое время:
+                            Наши алгоритмы помогают клиентам выстраивать свои персональные маршруты. Платформа готова поддержать вас в&nbsp;любое время:
                         </p>
                         <div class="what_are_doing_list">
                             <ul>
@@ -97,7 +96,7 @@
                         </p>
                     </div>
                     <div class="what_are_doing_before what_are_doing_img">
-                        <img src="<?php getUrl(); ?>/images/what_are_we_doing.jpg" alt="">
+                        <img src="<?php img('what_are_we_doing2.jpg') ?>" alt="">
                     </div>
                 </div>
             </div>
@@ -107,7 +106,7 @@
                         как делаем
                     </h3>
                     <div class="what_are_doing_img">
-                        <img src="<?php getUrl(); ?>/images/how_are_we_doing.jpg" alt="">
+                        <img src="<?php img('how_are_we_doing2.png') ?>" alt="">
                     </div>
                     <div class="what_are_doing_txt">
                         <h3 class="how_doing_title">
@@ -132,7 +131,7 @@
                 </div> -->
                 <div class="about_slider mt_100">
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider1.jpg" alt="">
+                        <img src="<?php img('about_slider1.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Стресс связан с увеличением <br>
@@ -142,7 +141,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider2.jpg" alt="">
+                        <img src="<?php img('about_slider2.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Люди, которые сильно ограничивают себя в еде<br>
@@ -152,7 +151,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider3.jpg" alt="">
+                        <img src="<?php img('about_slider3.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Те, кто ограничивает себя в потреблении калорий,<br>
@@ -162,7 +161,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider4.jpg" alt="">
+                        <img src="<?php img('about_slider4.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 38% взрослых переедают от стресса.<br>
@@ -172,7 +171,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider5.jpg" alt="">
+                        <img src="<?php img('about_slider5.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Интуитивное питание формирует<br>
@@ -182,7 +181,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider6.jpg" alt="">
+                        <img src="<?php img('about_slider6.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Осознанное питание снижает<br>
@@ -192,7 +191,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider7.jpg" alt="">
+                        <img src="<?php img('about_slider7.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Гарвард подсчитал, что экономика США<br>
@@ -202,7 +201,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider8.jpg" alt="">
+                        <img src="<?php img('about_slider8.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Оксфорд обнаружил, что онлайн-терапия<br>
@@ -212,7 +211,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider9.jpg" alt="">
+                        <img src="<?php img('about_slider9.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Учёные Оксфорда рассказали, что у приложений психотерапии<br>
@@ -222,7 +221,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider10.jpg" alt="">
+                        <img src="<?php img('about_slider10.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 ВОЗ оценила стоимость потери производительности труда<br>
@@ -232,7 +231,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider11.jpg" alt="">
+                        <img src="<?php img('about_slider11.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Человеку, страдающему от сильной тревоги,<br>
@@ -242,7 +241,7 @@
                         </div>
                     </div>
                     <div class="about_slider_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/about_slider12.jpg" alt="">
+                        <img src="<?php img('about_slider12.jpg') ?>" alt="">
                         <div class="about_slider_txt">
                             <p>
                                 Физическое и моральное истощение увеличивает<br>
@@ -259,8 +258,7 @@
                 </h3>
                 <div class="our_platform_cnt">
                     <div class="our_platform_item">
-                        <img class="our_platform_item_img"
-                            src="<?php echo get_template_directory_uri()  ?>/images/purpose3.png" alt="">
+                        <img class="our_platform_item_img" src="<?php img('purpose3(2).png') ?>" alt="">
                         <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Ментальное здоровье — важная составляющая благополучия и качества жизни.
@@ -268,16 +266,7 @@
                         </div>
                     </div>
                     <div class="our_platform_item">
-                        <img src="<?php echo get_template_directory_uri() ?>/images/purpose4.png" alt="">
-                        <div style="display:none;" class="our_platform_item_txt">
-                            <p class="white_txt bold_txt">
-                                Обеспечиваем гендерное равенство на работе и помогаем стать увереннее женщинам, которые
-                                столкнулись с дискриминацией и РПП на фоне стресса.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="our_platform_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/purpose5.png" alt="">
+                        <img src="<?php img('purpose4(2).png') ?>" alt="">
                         <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Корпоративная подписка Нежно Space — это улучшение условий труда и забота о психике
@@ -286,7 +275,16 @@
                         </div>
                     </div>
                     <div class="our_platform_item">
-                        <img src="<?php echo get_template_directory_uri()  ?>/images/purpose10.png" alt="">
+                        <img src="<?php img('purpose5(2).png') ?>" alt="">
+                        <div style="display:none;" class="our_platform_item_txt">
+                            <p class="white_txt bold_txt">
+                                Обеспечиваем гендерное равенство на работе и помогаем стать увереннее женщинам, которые
+                                столкнулись с дискриминацией и РПП на фоне стресса.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="our_platform_item">
+                        <img src="<?php img('purpose10(2).png') ?>" alt="">
                         <div style="display:none;" class="our_platform_item_txt">
                             <p class="white_txt bold_txt">
                                 Нежно Space - это доступ к психологической поддержке для всех, в том числе для уязвимых
@@ -304,7 +302,7 @@
                 <div class="our_team_cnt ta_center">
                     <div class="our_team_item">
                         <div class="our_team_item_img m_auto">
-                            <img src="<?php echo get_template_directory_uri()  ?>/images/our_team_1.jpg" alt="">
+                            <img src="<?php img('our_team_1.jpg') ?>" alt="">
                         </div>
                         <div class="our_team_item_title">
                             <p>
@@ -319,7 +317,7 @@
                     </div>
                     <div class="our_team_item">
                         <div class="our_team_item_img m_auto">
-                            <img src="<?php echo get_template_directory_uri()  ?>/images/our_team_2.jpg" alt="">
+                            <img src="<?php img('our_team_2.jpg') ?>" alt="">
                         </div>
                         <div class="our_team_item_title">
                             <p>
@@ -334,7 +332,7 @@
                     </div>
                     <div class="our_team_item">
                         <div class="our_team_item_img m_auto">
-                            <img src="<?php echo get_template_directory_uri()  ?>/images/our_team_3.jpg" alt="">
+                            <img src="<?php img('our_team_3.jpg') ?>" alt="">
                         </div>
                         <div class="our_team_item_title">
                             <p>

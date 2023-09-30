@@ -1,10 +1,13 @@
 .account_section {
-  margin-top: 172px;
+  /* margin-top: 172px; */
+}
+.account_section .container {
+  margin-bottom: 20px;
 }
 .account_sections-main {
   width: 100%;
-  margin-top: 82px;
-  margin-bottom: 64px;
+  /* margin-top: 82px; */
+  margin-bottom: 34px;
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -20,6 +23,12 @@
 .account_analytics_not-result-text {
   margin-top: -35px;
   text-align: center;
+}
+.account_analytics_survey-link {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
 }
 .account_personal-data {
   width: 100%;
@@ -99,6 +108,7 @@
   transform: rotate(180deg);
 }
 .account-input-custom {
+  color: var(--black);
   padding: 12px 16px;
   border: 1px solid #421dd8;
   border-radius: 10px;
@@ -169,14 +179,119 @@
 }
 .account_sections-footer {
   width: 100%;
+  margin-top: 20px;
   margin-bottom: 80px;
   text-align: center;
   line-height: 1.2;
 }
-.account_sections-footer a {
+.account_sections-footer .account_bth_payment-off {
   color: #3f3176;
   cursor: pointer;
 }
+
+.account_payment-off_banner_background {
+  background: rgba(102, 102, 102, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+
+  z-index: 900;
+
+  display: none;
+}
+.payment-off_banner {
+  max-width: 1184px;
+  max-height: 891px;
+  width: 90vw;
+  height: max-content;
+  text-align: center;
+  padding: 115px 120px;
+  border: none;
+  box-shadow: 0px 6px 20px rgba(17, 17, 17, 0.25);
+  border-radius: 32px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: #fff;
+
+  z-index: 900;
+}
+.account_payment-off_buttons {
+  margin-top: 31px;
+  max-width: 462px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.account_payment-off_button {
+  padding: 16px 32px;
+  width: 207px;
+  text-align: center;
+  
+  background: #E3E3E3;
+  border: none;
+  border-radius: 15px;
+
+  font-family: 'Montserrat';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+
+  color: #313131;
+
+  cursor: pointer;
+}
+.account_payment-off_button:hover {
+  color: #fff;
+  background-color: #421DD8;
+}
+.pay-banner_text {
+  margin-top: 16px;
+  font-family: 'Montserrat';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+
+  color: #323232;
+
+  display: none;
+}
+.pay-banner_text .pay-banner_text-date {
+  color: #462A81;
+}
+.account_payment-off_buttons .blue_btn {
+  width: 272px;
+}
+#popupContainer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+#popupContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 15px;
+  width: 350px;
+}
+
+
+
+
 @media screen and (max-width: 960px) {
   .account_sections-main {
     margin-top: 40px;
@@ -188,9 +303,29 @@
     order: 2;
   }
   .account_section {
-    margin-top: 85px;
+    /* margin-top: 85px; */
   }
   .account_personal-data {
     max-width: 450px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .payment-off_banner {
+    padding: 50px 30px;
+
+  }
+  .account_payment-off_buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .account_payment-off_button {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .payment-off_banner .pay-banner_title {
+    font-size: 24px;
+  }
+  .account_payment-off_buttons .blue_btn {
+    width: 100%!important;
   }
 }

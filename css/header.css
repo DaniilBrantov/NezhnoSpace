@@ -83,8 +83,27 @@
 .header-btn {
   display: none;
 }
+.header_user,
+.header_logout-mobile {
+  height: max-content;
+  align-self: flex-start;
+  margin: 10px;
+}
+.header_right{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .header_user img{
   width: 24px;
+}
+.header_btn-mobile {
+  display: flex;
+}
+.header_logout-mobile img {
+  width: 24px;
+  margin-left: 10px;
+  display: block;
 }
 .visually-hidden:not(:focus):not(:active) {
   position: absolute;
@@ -138,7 +157,7 @@
   }
   .header_wrap {
     padding: 0;
-    justify-content: flex-start;
+    justify-content: space-evenly;
   }
   .header_btn {
     display: none;
@@ -166,9 +185,14 @@
     margin-bottom: 0;
     width: 91px;
   }
-  .header_user {
+  .header_btn-mobile {
     margin-left: auto;
     margin-right: 4%;
+  }
+  .header_logout-mobile img {
+    display: none;
+    margin-right: 4%;
+    margin-left: 10px;
   }
   .header-btn {
     display: block;

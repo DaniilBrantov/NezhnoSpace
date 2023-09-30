@@ -1,111 +1,124 @@
 const showError = (value, textError) => {
-    document.querySelector(`input[name=${value}]`).classList.add('error');
-    document.querySelector(`.text-error_${value}`).style.opacity = '1';
-    document.querySelector(`.text-error_${value}`).innerText = textError;
-}
+    const inputElement = document.querySelector(`input[name="${value}"]`);
+    const errorTextElement = document.querySelector(`.text-error_${value}`);
+    inputElement.classList.add('error');
+    errorTextElement.textContent = textError;
+    errorTextElement.style.opacity = '1';
+};
 
 const showModalError = () => {
-    document.querySelector('.authorization_window-error').style.display = 'flex';
-    document.querySelector('.authorization_window-error span').innerText = 'При загрузке произошла неизвестная ошибка! Пожалуйста, попробуйте позже.';
+    const errorWindow = document.querySelector('.authorization_window-error');
+    const errorMessage = errorWindow.querySelector('span');
+    const errorButton = errorWindow.querySelector('.authorization_window-error_btn');
 
-    document.querySelector('.authorization_window-error_btn').addEventListener('click', function () {
-        document.querySelector('.authorization_window-error').style.display = 'none';
-    }, false);
-}
+    errorWindow.style.display = 'flex';
+    errorMessage.textContent = 'При загрузке произошла неизвестная ошибка! Пожалуйста, попробуйте позже.';
 
-//Регистрация
+    errorButton.addEventListener('click', () => {
+        errorWindow.style.display = 'none';
+    });
+};
 
-$("#reg_btn").click(function (e) {
+const handleRegistration = () => {
+    document.addEventListener('DOMContentLoaded', () => {
+        const regBtn = document.querySelector("#reg_btn");
+        if (regBtn) {
+            regBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                document.querySelectorAll('input').forEach(input => input.classList.remove("error"));
 
-    //отключает стандартное поведение e(кнопки)
-    e.preventDefault();
-    $(`input`).removeClass("error");
-    //val()- взять инф-цию с данного эл-нта
-    var reg_nonce = $('#vb_new_user_nonce').val();
-    var first_name = $('input[name="first_name"]').val();
-    var mail = $('input[name="mail"]').val();
-    var pass = $('input[name="pass"]').val();
-    var pass_conf = $('input[name="pass_conf"]').val();
-    var approval_check = $('input[name="approval_check"]').val();
+                const regNonce = document.querySelector('#vb_new_user_nonce').value;
+                const firstName = document.querySelector('input[name="first_name"]').value;
+                const mail = document.querySelector('input[name="mail"]').value;
+                const pass = document.querySelector('input[name="pass"]').value;
+                const passConf = document.querySelector('input[name="pass_conf"]').value;
+                const approvalCheck = document.querySelector('input[name="approval_check"]').value;
+                const get = new URLSearchParams(document.location.search);
+                const token = get.get("token");
 
-    var formData = new FormData();
-    formData.append("nonce", reg_nonce);
-    formData.append("first_name", first_name);
-    formData.append("mail", mail);
-    formData.append("pass", pass);
-    formData.append("pass_conf", pass_conf);
-    formData.append("approval_check", approval_check);
+                const formData = new FormData();
+                formData.append("nonce", regNonce);
+                formData.append("first_name", firstName);
+                formData.append("mail", mail);
+                formData.append("pass", pass);
+                formData.append("pass_conf", passConf);
+                formData.append("approval_check", approvalCheck);
+                formData.append("token", token);
 
-    // обьект ajax со св-ми ,как было у формы.
-    $.ajax({
-        url: "check",
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: function (data) {
-            //Успешно зарегистрорвался
-            if (data.status) {
-                window.location.href = 'activation';
-            }
-            //Выводить ошибки
-            else {
-                for (let key in data) {
-                    if (key !== 'status') {
-                        //console.log(key, data[key])
-                        showError(key, data[key]);
+                fetch("check", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status) {
+                            window.location.href = 'subscription';
+                        } else {
+                            for (let key in data) {
+                                if (key !== 'status') {
+                                    showError(key, data[key]);
+                                }
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        showModalError();
+                    });
+            });
+        }
+    });
+};
+
+const handleAuthentication = () => {
+    // const authBtn = document.querySelector("#auth_btn");
+
+    $("#auth_btn").click(function(e) {
+        e.preventDefault();
+        document.querySelectorAll("input").forEach(input => input.classList.remove("error"));
+
+        const mail = document.querySelector('input[name="mail"]').value;
+        const pass = document.querySelector('input[name="pass"]').value;
+        const authBtnValue = document.querySelector('button[name="auth_btn"]').value;
+
+        const formData = new FormData();
+        formData.append("mail", mail);
+        formData.append("pass", pass);
+        formData.append("auth_btn", authBtnValue);
+
+
+        fetch("auth-check", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    window.location.href = 'account';
+                } else {
+                    for (let key in data) {
+                        if (key !== 'status') {
+                            showError(key, data[key]);
+                        }
                     }
                 }
-            }
-        },
-        error: function (jqxhr, status, errorMsg) {
-            showModalError();
-        },
+            })
+            .catch(() => {
+                showModalError();
+            });
     });
-});
+};
 
-//Авторизация
-$("#auth_btn").click(function (e) {
-    //отключает стандартное поведение e(кнопки)
-    e.preventDefault();
-    $("input").removeClass("error");
-    //val()- взять инф-цию с данного эл-нта
-    let mail = $('input[name="mail"]').val();
-    let pass = $('input[name="pass"]').val();
-    let auth_btn = $('input[name="auth_btn"]').val();
+// Регистрация
+handleRegistration();
 
-    let formData = new FormData();
-    formData.append("mail", mail);
-    formData.append("pass", pass);
-    formData.append("auth_btn", auth_btn);
+// Авторизация
+handleAuthentication();
 
-    //обьект ajax со св-ми ,как было у формы.
-    $.ajax({
-        url: "auth-check",
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: function (data) {
-            if (data.status) {
-                window.location.href = 'account';
-            } else {
-                for (let key in data) {
-                    if (key !== 'status') {
-                        showError(key, data[key]);
-                    }
-                }
-            }
-        },
-        error: function (jqxhr, status, errorMsg) {
-            showModalError();
-        },
-    });
-});
+
+
+
+
+
 
 //Подтверждение почты
 $("#activation_btn").click(function (e) {
@@ -225,3 +238,85 @@ $("#set_pass_btn").click(function (e) {
         },
     });
 });
+
+//Валидация пароля
+(() => {
+    if (document.querySelector('.password-validation_progress')) {
+        class PasswordValidation {
+            constructor() {
+                this.lowercaseLetters = false;
+                this.capitalLetters = false;
+                this.numbers = false;
+                this.length = false;
+            }
+            sizeBar() {
+                if (size < 0) {
+                    size = 0;
+                } else if (size > 100) {
+                    size = 100;
+                }
+                if (size > 0 && size <= 25) {
+                    colorProgress.style.background = '#FF1111';
+                } else if (size > 25 && size <= 75) {
+                    colorProgress.style.background = '#FFA011';
+                } else if (size === 100) {
+                    colorProgress.style.background = '#5DFF11';
+                }
+
+                progressBars.style.width = `${size}%`;
+            }
+            changeInput(valid, value) {
+                if (valid) {
+                    if (!this[value]) {
+                        this[value] = true;
+                        size += 25;
+                        this.sizeBar();
+                    }
+                } else {
+                    if (this[value]) {
+                        this[value] = false;
+                        size -= 25;
+                        this.sizeBar();
+                    }
+                }
+
+            }
+        }
+
+        const passwordValidation = new PasswordValidation();
+        const inputPassword = document.querySelector('.pers_item .pers_input input[name="pass"]');
+        const progressBars = document.querySelector('.password-validation_progress');
+        let colorProgress = document.querySelector('.password-validation_progress');
+        let size = Number(progressBars.dataset.size);
+
+        inputPassword.addEventListener('keyup', function () {
+            // Validate lowercase letters
+            let lowerCaseLetters = /[a-z]/g;
+            if (inputPassword.value.match(lowerCaseLetters)) {
+                passwordValidation.changeInput(true, 'lowercaseLetters');
+            } else {
+                passwordValidation.changeInput(false, 'lowercaseLetters');
+            }
+            // Validate capital letters
+            let upperCaseLetters = /[A-Z]/g;
+            if (inputPassword.value.match(upperCaseLetters)) {
+                passwordValidation.changeInput(true, 'capitalLetters');
+            } else {
+                passwordValidation.changeInput(false, 'capitalLetters');
+            }
+            // Validate numbers
+            let numbers = /[0-9]/g;
+            if (inputPassword.value.match(numbers)) {
+                passwordValidation.changeInput(true, 'numbers');
+            } else {
+                passwordValidation.changeInput(false, 'numbers');
+            }
+            // Validate length
+            if (inputPassword.value.length >= 8) {
+                passwordValidation.changeInput(true, 'length');
+            } else {
+                passwordValidation.changeInput(false, 'length');
+            }
+        })
+    }
+})();

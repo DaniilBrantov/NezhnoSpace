@@ -80,19 +80,20 @@
   display: flex;
   align-items: center;
 }
-.daily-practice_progress-bar {
+.progress-bar {
 	background-color: #DDE1F3;
-	border-radius: 5px;
+	border-radius: 16px;
 	/* margin: 15px; */
-  margin-left: 6px;
+  /* margin-left: 6px; */
 	height: 16px;
-	width: 226px;
-	max-width: 100%;
+	/* width: 226px; */
+	width: 100%;
 }
 
-.daily-practice_progress {
+.progress {
 	background: #421DD8;
-	border-radius: 5px;
+  box-shadow: 3px 0px 6px rgba(17, 17, 17, 0.25);
+	border-radius: 16px;
 	height: 16px;
 	width: 0;
 	transition: width 0.5s ease-in;
@@ -171,6 +172,9 @@
   position: relative;
 
   outline: none;/*  убрать при клике */
+}
+.recommendations_slider{
+  margin-bottom: 50px;
 }
 .blockSub-slide_img {
   object-fit: cover;
@@ -310,9 +314,7 @@
   color:  #111111;
 }
 
-.daily_practices_addition,
-.recommendations_addition,
-.month-theme_addition {
+.addition {
   margin-top: 17px;
   background-color: #dde1f3;
 
@@ -327,6 +329,7 @@
 .addition_text {
   width: 100%;
   max-width: 580px;
+  padding-right: 10px;
 }
 .addition_title {
   font-family: 'Montserrat';
@@ -395,12 +398,13 @@
   font-weight: 600;
 }
 .addition_subtitle-materials,
-.addition_description {
-  font-family: 'Montserrat';
-  font-size: 16px;
+.addition_description * {
+  font-family: 'Montserrat'!important;
+  font-size: 16px!important;
+  text-transform: none!important;
   line-height: 1.25;
   
-  color: #111111;
+  color: #111111!important;
 }
 .addition_description {
   margin-top: 5px;
@@ -442,6 +446,33 @@
 
   border-radius: 20px;
 }
+
+.subscriptions-posts {
+  max-width: 1184px;
+  display: grid;
+  grid-template-columns: repeat(1, calc(100%));
+  justify-items: center;
+}
+
+.subscriptions-posts_addition {
+  position: fixed;
+  width: 100vw;
+}
+.subscriptions-posts .subcscription_block-slide {
+  margin-right: 0!important;
+  margin-top: 32px;
+  cursor: pointer;
+}
+
+.subscriptions-posts .subcscription_block-slide:first-child {
+  padding-left: 0!important;
+}
+.tags {
+  margin: 16px 9% 32px;
+}
+.tags_cnt a{
+  color: var(--black);
+}
 @media screen and (min-width: 768px) {
   .addition_image {
     min-width: 420px;
@@ -467,7 +498,26 @@
   .daily-practice_btn-more {
     right: 5%;
   }
+  .subscriptions-posts {
+    margin-left: 3%;
+    margin-right: 5%;
+    grid-template-columns: repeat(3, calc(100%/3));
+    justify-items: left;
+  }
 
+}
+@media (min-width: 1380px) {
+  .subscriptions-posts {
+    margin-left: 6%;
+    margin-right: 11%;
+    grid-template-columns: repeat(4, calc(100%/4));
+  }
+}
+@media (min-width: 1700px) {
+  .subscriptions-posts {
+    max-width: 100vw;
+    grid-template-columns: repeat(5, calc(100%/5));
+  }
 }
 @media screen and (min-width: 1200px) {
   .subcscription_block-slide:first-child,
@@ -496,6 +546,10 @@
   .addition_image {
     flex-shrink: 0;
   }
+  .subscriptions-posts {
+    margin-left: 9%;
+    margin-right: 11%;
+  }
 }
 @media screen and (max-width: 768px) {
   .addition_wrapper {
@@ -505,10 +559,12 @@
     display: none;
   }
 }
-@media screen and (max-width: 450px) {
-  .daily_practices_slider {
-    /* width: 50%; half-width */
-    /* padding-left: 3%; */
-  }
-  
+.promocode-post {
+  display: none;
+}
+
+.blockSub_next-post-date,
+.blockSub_lesson-time,
+.blockSub_audio {
+  display: none!important;
 }

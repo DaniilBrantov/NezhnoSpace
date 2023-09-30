@@ -208,7 +208,6 @@ $(function () {
 
 $(function () {
   $(".reviews_list").slick({
-    arrows: false,
     centerMode: true,
     variableWidth: true,
     speed: 700,
@@ -219,6 +218,7 @@ $(function () {
       {
         breakpoint: 768,
         settings: {
+          arrows: false,
           centerPadding: "180px",
           slidesToShow: 2,
         },
@@ -295,29 +295,62 @@ $(function () {
 
   $(".slider_sliders").slick("setPosition");
 });
-
-$(function () {
+$(function() {
   $(".subscriptions_list").slick({
     infinite: false,
     slidesToShow: 3,
+    initialSlide: 3,
     centerMode: true,
     waitForAnimate: false,
     variableWidth: true,
     variableHeight: true,
     speed: 700,
     touchThreshold: 25,
-    initialSlide: 1,
-    centerPadding: "100px",
+    // initialSlide: 0,
+    centerPadding: "0px",
     responsive: [
       {
         breakpoint: 960,
         settings: {
           slidesToShow: 1,
-          initialSlide: 0,
+          initialSlide: 1,
+          centerPadding: "100px",
         },
       },
     ],
   });
-
-  $(".subscriptions_list").slick("setPosition");
 });
+  
+  
+
+
+// $(function () {
+//   $(".try_free_slider").slick({
+//     infinite: false,
+//     dots: true,
+//     arrows: true,
+//     centerMode: true,
+//     waitForAnimate: false,
+//     touchThreshold: 25,
+//     centerPadding: "0px",
+//     fade: true,
+//     responsive: [
+//       {
+//         breakpoint: 1200,
+//         settings: {
+//           arrows: false,
+//         },
+//       },
+//       {
+//         breakpoint: 480,
+//         settings: {
+//           arrows: false,
+//           centerMode: true,
+//           centerPadding: "20px",
+//         },
+//       },
+//     ],
+//   });
+
+//   $(".try_free_slider").slick("setPosition");
+// });

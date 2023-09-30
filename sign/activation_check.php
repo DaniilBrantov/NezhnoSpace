@@ -29,7 +29,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 
         echo '<div class="authorization">
             <div class="activation_msg">
-                <img style="background: #6AFF8B;" src="'.get_template_directory_uri().'/images/check.svg" alt="Закрыть">
+                <img style="background: #6AFF8B;" src="'.  get_template_directory_uri() .'/assets/images/check.svg" alt="Закрыть">
                 <p>'.$data['msg'].'</p>
                 <a href="account"><button class="blue_btn">Продолжить</button></a> 
             </div>
@@ -42,7 +42,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 
         echo '<div class="authorization">
             <div class="activation_msg">
-                <img style="background: #FF6262;" src="'.get_template_directory_uri().'/images/close.svg" alt="Закрыть">
+                <img style="background: #FF6262;" src="'. img('close.svg').'" alt="Закрыть">
                 <p>'.$data['msg'].'</p>
                 <a href="activation"><button class="blue_btn">Вернуться назад</button></a> 
             </div>
@@ -51,7 +51,7 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
 }else{
     $_POST["activation_btn"]=true;
     if($_POST["activation_btn"]){
-        $row=$db->getAll("SELECT * FROM users WHERE id=?i", $_SESSION['id'])[0];
+        $row=$db->getRow("SELECT * FROM users WHERE id=?i", $_SESSION['id']);
         $hash=$row['activation'];
         $mail=$row['mail'];
         $mail_body='<p style="margin:0;">
@@ -72,7 +72,6 @@ if(!empty($_GET['code']) && isset($_GET['code'])){
             </button> </a>';
         $mail_title="Благодарим вас за регистрацию на платформе NezhnoSpace";
         $mail_subject="Подтверждение электронной почты";
-
         echo json_encode(SendMail('daniil.brantov04@mail.ru', $mail_subject, $mail_body,$mail_title)) ;
     };
 }
