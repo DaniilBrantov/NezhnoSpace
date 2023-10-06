@@ -452,7 +452,8 @@
                                     </span>
                                     <span class="info-tultip">Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                         Deleniti,
-                                        dolor!</span>
+                                        dolor!
+                                    </span>
                                 </div>
                                 <div class="volume-box">
                                     <span id="volume" class="volume active">

@@ -174,7 +174,8 @@ input[type="range"]:active::-ms-thumb {
 }
 
 .current-time,
-.duration-time {
+.duration-time,
+.duration {
   font-size: 12px;
   color: #111111;
 }
@@ -269,6 +270,7 @@ input[type="range"]:active::-ms-thumb {
     margin: 10px 2.5% 20px 0;
   }
   .duration {
+    font-size: 12px;
     margin-bottom: 7px;
   }
   .current-time,

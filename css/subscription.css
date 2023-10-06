@@ -97,9 +97,9 @@
 	width: 0;
 	transition: width 0.5s ease-in;
 }
-.daily-practice_text {
-  /* margin-top: 16px; */
-}
+/* .daily-practice_text {
+  margin-top: 16px;
+} */
 .daily-practice_subtitle {
   /* font-weight: 400; */
   font-size: 25px;
@@ -502,10 +502,10 @@
     display: none;
   }
 }
-@media screen and (max-width: 450px) {
+/* @media screen and (max-width: 450px) {
   .daily_practices_slider {
-    /* width: 50%; half-width */
-    /* padding-left: 3%; */
+    width: 50%; half-width
+    padding-left: 3%;
   }
   
-}
+} */
